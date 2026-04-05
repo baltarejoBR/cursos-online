@@ -121,8 +121,10 @@ export const PRODUCTS = [
     price: 6700, // R$ 67,00
     priceDisplay: 'R$ 67,00',
     type: 'one_time',
+    contentSlug: 'guia-animais-clo2', // conteudo HTML disponivel
     features: [
-      'E-book em PDF de alta qualidade',
+      'Versao HTML interativa online',
+      'PDF para download (em breve)',
       'Protocolos por espécie animal',
       'Tabelas de dosagem por peso',
       'Casos reais documentados',

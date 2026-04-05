@@ -1,63 +1,76 @@
 import { createServerSupabase } from '@/lib/supabase-server';
+import { createAdminSupabase } from '@/lib/supabase-admin';
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+
+// Mapear slugs de conteudo HTML para product_ids
+const CONTENT_PRODUCT_MAP = {
+  'guia-animais-clo2': 'livro-animais',
+};
+
+const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
 export async function GET(request, { params }) {
   const { slug } = params;
   const supabase = createServerSupabase();
 
-  // 1. Verificar se o usuário está logado
+  // 1. Verificar se o usuario esta logado
   const { data: { user }, error: authError } = await supabase.auth.getUser();
 
   if (!user || authError) {
     return NextResponse.json(
-      { error: 'Você precisa estar logado para acessar este conteúdo.' },
+      { error: 'Voce precisa estar logado para acessar este conteudo.' },
       { status: 401 }
     );
   }
 
-  // 2. Verificar se o usuário tem plano premium
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('plan')
-    .eq('id', user.id)
-    .single();
+  // 2. Verificar acesso: admin sempre tem acesso
+  const isAdmin = ADMIN_EMAILS.includes(user.email);
 
-  if (!profile || profile.plan !== 'premium') {
-    return NextResponse.json(
-      { error: 'Este conteúdo é exclusivo para assinantes Premium.' },
-      { status: 403 }
-    );
+  if (!isAdmin) {
+    // Verificar se tem acesso via user_products
+    const productId = CONTENT_PRODUCT_MAP[slug];
+    if (productId) {
+      const supabaseAdmin = createAdminSupabase();
+      const { data: access } = await supabaseAdmin
+        .from('user_products')
+        .select('id')
+        .eq('user_id', user.id)
+        .eq('product_id', productId)
+        .eq('active', true)
+        .single();
+
+      if (!access) {
+        // Fallback: verificar plano premium
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('plan')
+          .eq('id', user.id)
+          .single();
+
+        if (!profile || profile.plan !== 'premium') {
+          return NextResponse.json(
+            { error: 'Voce nao tem acesso a este conteudo.' },
+            { status: 403 }
+          );
+        }
+      }
+    }
   }
 
-  // 3. Verificar se o curso com este slug existe
-  const { data: course } = await supabase
-    .from('courses')
-    .select('id, title, content_slug')
-    .eq('content_slug', slug)
-    .single();
-
-  if (!course) {
-    return NextResponse.json(
-      { error: 'Conteúdo não encontrado.' },
-      { status: 404 }
-    );
-  }
-
-  // 4. Ler o arquivo HTML da pasta protegida
+  // 3. Ler o arquivo HTML
   const filePath = path.join(process.cwd(), 'src', 'content', `${slug}.html`);
 
   if (!fs.existsSync(filePath)) {
     return NextResponse.json(
-      { error: 'Arquivo de conteúdo não encontrado.' },
+      { error: 'Arquivo de conteudo nao encontrado.' },
       { status: 404 }
     );
   }
 
   const htmlContent = fs.readFileSync(filePath, 'utf-8');
 
-  // 5. Retornar o HTML completo
   return new NextResponse(htmlContent, {
     status: 200,
     headers: {
