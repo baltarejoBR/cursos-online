@@ -1,0 +1,273 @@
+import { NextResponse } from 'next/server';
+import { stripe } from '@/lib/stripe';
+import { createAdminSupabase } from '@/lib/supabase-admin';
+
+async function notifyN8N(payload) {
+  const webhookUrl = process.env.N8N_WEBHOOK_URL;
+  if (!webhookUrl) return;
+
+  try {
+    await fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': process.env.N8N_WEBHOOK_SECRET || '',
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.error('Failed to notify n8n:', err.message);
+  }
+}
+
+export async function POST(request) {
+  const body = await request.text();
+  const signature = request.headers.get('stripe-signature');
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+  } catch (err) {
+    console.error('Webhook signature verification failed:', err.message);
+    return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
+  }
+
+  const supabaseAdmin = createAdminSupabase();
+
+  try {
+    switch (event.type) {
+      case 'checkout.session.completed': {
+        const session = event.data.object;
+        const userId = session.metadata.supabase_user_id;
+        const planType = session.metadata.plan_type;
+
+        if (session.mode === 'subscription') {
+          const subscription = await stripe.subscriptions.retrieve(session.subscription);
+
+          // Criar/atualizar assinatura no banco
+          await supabaseAdmin.from('subscriptions').upsert({
+            user_id: userId,
+            stripe_customer_id: session.customer,
+            stripe_subscription_id: subscription.id,
+            plan_type: planType,
+            status: 'active',
+            current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+            current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+          }, {
+            onConflict: 'stripe_subscription_id',
+          });
+
+          // Atualizar perfil para premium
+          await supabaseAdmin
+            .from('profiles')
+            .update({
+              plan: 'premium',
+              stripe_customer_id: session.customer,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', userId);
+
+          // Registrar pagamento
+          await supabaseAdmin.from('payments').insert({
+            user_id: userId,
+            stripe_payment_intent_id: session.payment_intent || `checkout_${session.id}`,
+            amount: session.amount_total,
+            currency: session.currency,
+            status: 'succeeded',
+          });
+
+          // Buscar telegram_username e notificar n8n para adicionar ao grupo
+          const { data: newProfile } = await supabaseAdmin
+            .from('profiles')
+            .select('full_name, telegram_username')
+            .eq('id', userId)
+            .single();
+
+          if (newProfile?.telegram_username) {
+            await notifyN8N({
+              action: 'add',
+              telegram_username: newProfile.telegram_username,
+              user_name: newProfile.full_name,
+              user_email: session.customer_email || '',
+            });
+          }
+        }
+        break;
+      }
+
+      case 'invoice.payment_succeeded': {
+        const invoice = event.data.object;
+        if (invoice.subscription) {
+          const subscription = await stripe.subscriptions.retrieve(invoice.subscription);
+          const customerId = invoice.customer;
+
+          // Buscar user_id pelo stripe_customer_id
+          const { data: profile } = await supabaseAdmin
+            .from('profiles')
+            .select('id')
+            .eq('stripe_customer_id', customerId)
+            .single();
+
+          if (profile) {
+            // Atualizar período da assinatura
+            await supabaseAdmin
+              .from('subscriptions')
+              .update({
+                status: 'active',
+                current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+                current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+                updated_at: new Date().toISOString(),
+              })
+              .eq('stripe_subscription_id', invoice.subscription);
+
+            // Garantir que o perfil está como premium
+            await supabaseAdmin
+              .from('profiles')
+              .update({ plan: 'premium', updated_at: new Date().toISOString() })
+              .eq('id', profile.id);
+
+            // Registrar pagamento
+            await supabaseAdmin.from('payments').insert({
+              user_id: profile.id,
+              stripe_payment_intent_id: invoice.payment_intent,
+              amount: invoice.amount_paid,
+              currency: invoice.currency,
+              status: 'succeeded',
+            });
+          }
+        }
+        break;
+      }
+
+      case 'invoice.payment_failed': {
+        const invoice = event.data.object;
+        const customerId = invoice.customer;
+
+        const { data: profile } = await supabaseAdmin
+          .from('profiles')
+          .select('id')
+          .eq('stripe_customer_id', customerId)
+          .single();
+
+        if (profile) {
+          await supabaseAdmin
+            .from('subscriptions')
+            .update({
+              status: 'past_due',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('stripe_subscription_id', invoice.subscription);
+
+          // Notificar admin sobre falha de pagamento
+          const { data: failedProfile } = await supabaseAdmin
+            .from('profiles')
+            .select('full_name, telegram_username')
+            .eq('id', profile.id)
+            .single();
+
+          await notifyN8N({
+            action: 'notify_admin',
+            telegram_username: failedProfile?.telegram_username || '',
+            user_name: failedProfile?.full_name || '',
+            user_email: invoice.customer_email || '',
+          });
+        }
+        break;
+      }
+
+      case 'customer.subscription.updated': {
+        const subscription = event.data.object;
+        const customerId = subscription.customer;
+
+        const { data: profile } = await supabaseAdmin
+          .from('profiles')
+          .select('id')
+          .eq('stripe_customer_id', customerId)
+          .single();
+
+        if (profile) {
+          const status = subscription.status === 'active' ? 'active'
+            : subscription.status === 'past_due' ? 'past_due'
+            : subscription.status === 'canceled' ? 'canceled'
+            : 'expired';
+
+          await supabaseAdmin
+            .from('subscriptions')
+            .update({
+              status,
+              cancel_at_period_end: subscription.cancel_at_period_end,
+              current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+              updated_at: new Date().toISOString(),
+            })
+            .eq('stripe_subscription_id', subscription.id);
+
+          // Se cancelou, atualizar perfil
+          if (status === 'canceled') {
+            await supabaseAdmin
+              .from('profiles')
+              .update({ plan: 'free', updated_at: new Date().toISOString() })
+              .eq('id', profile.id);
+          }
+        }
+        break;
+      }
+
+      case 'customer.subscription.deleted': {
+        const subscription = event.data.object;
+        const customerId = subscription.customer;
+
+        const { data: profile } = await supabaseAdmin
+          .from('profiles')
+          .select('id')
+          .eq('stripe_customer_id', customerId)
+          .single();
+
+        if (profile) {
+          await supabaseAdmin
+            .from('subscriptions')
+            .update({
+              status: 'canceled',
+              updated_at: new Date().toISOString(),
+            })
+            .eq('stripe_subscription_id', subscription.id);
+
+          // Voltar perfil para free
+          await supabaseAdmin
+            .from('profiles')
+            .update({ plan: 'free', updated_at: new Date().toISOString() })
+            .eq('id', profile.id);
+
+          // Notificar n8n para remover do grupo do Telegram
+          const { data: canceledProfile } = await supabaseAdmin
+            .from('profiles')
+            .select('full_name, telegram_username')
+            .eq('id', profile.id)
+            .single();
+
+          if (canceledProfile?.telegram_username) {
+            await notifyN8N({
+              action: 'remove',
+              telegram_username: canceledProfile.telegram_username,
+              user_name: canceledProfile.full_name,
+              user_email: '',
+            });
+          }
+        }
+        break;
+      }
+    }
+
+    return NextResponse.json({ received: true });
+  } catch (error) {
+    console.error('Webhook processing error:', error);
+    return NextResponse.json(
+      { error: 'Webhook processing failed' },
+      { status: 500 }
+    );
+  }
+}

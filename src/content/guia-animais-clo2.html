@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClO₂: Guia Prático para Animais de Estimação</title>
+<style>
+  :root {
+    --blue-dark: #1a365d;
+    --blue-mid: #2b6cb0;
+    --blue-light: #ebf8ff;
+    --blue-border: #90cdf4;
+    --teal: #2c7a7b;
+    --teal-light: #e6fffa;
+    --green: #276749;
+    --green-light: #f0fff4;
+    --purple: #553c9a;
+    --purple-light: #faf5ff;
+    --orange: #9c4221;
+    --orange-light: #fffaf0;
+    --pink: #97266d;
+    --pink-light: #fff5f7;
+    --gray-text: #4a5568;
+    --gray-light: #f7fafc;
+    --gray-border: #e2e8f0;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-hover: 0 6px 20px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --font-body: 'Georgia', serif;
+    --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    color: #2d3748;
+    background: #f0f4f8;
+    line-height: 1.8;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 50%, #3182ce 100%);
+    color: white;
+    padding: 60px 24px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .site-header .emoji { font-size: 56px; display: block; margin-bottom: 16px; }
+  .site-header h1 {
+    font-family: var(--font-ui);
+    font-size: clamp(24px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .site-header .subtitle {
+    font-family: var(--font-ui);
+    font-size: 15px;
+    opacity: 0.8;
+    position: relative;
+  }
+  .site-header .badge-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    position: relative;
+  }
+  .site-header .badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-family: var(--font-ui);
+    font-size: 13px;
+  }
+
+  /* ── DISCLAIMER BANNER ── */
+  .disclaimer-banner {
+    background: #fff3cd;
+    border-left: 5px solid #f6ad55;
+    padding: 16px 24px;
+    font-family: var(--font-ui);
+    font-size: 14px;
+    color: #744210;
+    text-align: center;
+  }
+
+  /* ── LAYOUT ── */
+  .page-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: white;
+    border-right: 1px solid var(--gray-border);
+    padding: 24px 0;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 transparent;
+  }
+  .sidebar-title {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #a0aec0;
+    padding: 0 20px 12px;
+    border-bottom: 1px solid var(--gray-border);
+    margin-bottom: 8px;
+  }
+  .toc-group { margin-bottom: 4px; }
+  .toc-group-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #718096;
+    padding: 10px 20px 4px;
+  }
+  .toc-group-label .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .toc-group a {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 13px;
+    color: #4a5568;
+    padding: 5px 20px 5px 36px;
+    text-decoration: none;
+    transition: all 0.15s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+  .toc-group a:hover {
+    color: var(--blue-mid);
+    background: var(--blue-light);
+    border-left-color: var(--blue-mid);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main-content { padding: 40px 40px 80px; }
+
+  /* ── LESSON CARDS ── */
+  .section-header {
+    font-family: var(--font-ui);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    margin: 48px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--blue-mid);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header:first-child { margin-top: 0; }
+
+  .lesson-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+    border: 1px solid var(--gray-border);
+  }
+  .lesson-card:hover { box-shadow: var(--shadow-hover); }
+
+  .card-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--gray-border);
+  }
+  .card-number {
+    font-family: var(--font-ui);
+    font-size: 12px;
+    font-weight: 700;
+    background: var(--blue-mid);
+    color: white;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-family: var(--font-ui);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--blue-dark);
+    flex: 1;
+  }
+  .card-category {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .card-body { padding: 20px 24px; }
+  .card-body p { margin-bottom: 12px; color: #4a5568; font-size: 15px; line-height: 1.8; text-align: justify; }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  .card-body .protocol-block {
+    background: var(--gray-light);
+    border-left: 4px solid var(--blue-mid);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-family: var(--font-ui);
+    font-size: 14px;
+  }
+  .card-body .protocol-block strong {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--blue-mid);
+    margin-bottom: 8px;
+  }
+  .card-body .protocol-block p { margin-bottom: 6px; font-size: 14px; }
+
+  .back-top {
+    padding: 12px 24px;
+    background: var(--gray-light);
+    border-top: 1px solid var(--gray-border);
+    text-align: right;
+    font-family: var(--font-ui);
+    font-size: 12px;
+  }
+  .back-top a { color: var(--blue-mid); text-decoration: none; }
+  .back-top a:hover { text-decoration: underline; }
+
+  /* ── CATEGORY COLORS ── */
+  .cat-info .card-number { background: var(--blue-mid); }
+  .cat-info .card-category { background: var(--blue-light); color: var(--blue-dark); }
+  .cat-info .card-body .protocol-block { border-color: var(--blue-mid); }
+
+  .cat-protocol .card-number { background: var(--teal); }
+  .cat-protocol .card-category { background: var(--teal-light); color: var(--teal); }
+  .cat-protocol .card-body .protocol-block { border-color: var(--teal); }
+
+  .cat-birds .card-number { background: #d97706; }
+  .cat-birds .card-category { background: #fffbeb; color: #92400e; }
+  .cat-birds .card-body .protocol-block { border-color: #d97706; }
+
+  .cat-cats .card-number { background: var(--purple); }
+  .cat-cats .card-category { background: var(--purple-light); color: var(--purple); }
+  .cat-cats .card-body .protocol-block { border-color: var(--purple); }
+
+  .cat-fish .card-number { background: #0987a0; }
+  .cat-fish .card-category { background: #e1f9fc; color: #0e7490; }
+  .cat-fish .card-body .protocol-block { border-color: #0987a0; }
+
+  .cat-rodents .card-number { background: var(--green); }
+  .cat-rodents .card-category { background: var(--green-light); color: var(--green); }
+  .cat-rodents .card-body .protocol-block { border-color: var(--green); }
+
+  .cat-dogs .card-number { background: var(--orange); }
+  .cat-dogs .card-category { background: var(--orange-light); color: var(--orange); }
+  .cat-dogs .card-body .protocol-block { border-color: var(--orange); }
+
+  .cat-testimonials .card-number { background: var(--pink); }
+  .cat-testimonials .card-category { background: var(--pink-light); color: var(--pink); }
+  .cat-testimonials .card-body .protocol-block { border-color: var(--pink); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .page-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--gray-border); }
+    .main-content { padding: 24px 16px 60px; }
+  }
+</style>
+</head>
+<body id="top">
+
+<header class="site-header">
+  <span class="emoji">🐾</span>
+  <h1>ClO₂: Guia Prático para Animais de Estimação</h1>
+  <p class="subtitle">Protocolos de dióxido de cloro para uso veterinário · <strong>naturalbiophysics</strong> · 43 lições</p>
+  <div class="badge-row">
+    <span class="badge">🐶 Cães</span>
+    <span class="badge">🐱 Gatos</span>
+    <span class="badge">🐦 Aves</span>
+    <span class="badge">🐹 Roedores</span>
+    <span class="badge">🐟 Peixes</span>
+    <span class="badge">📋 Protocolos Gerais</span>
+  </div>
+</header>
+
+<div class="disclaimer-banner">
+  ⚠️ <strong>Aviso:</strong> As informações aqui contidas têm caráter educativo e não substituem o diagnóstico ou tratamento veterinário. Consulte sempre um profissional qualificado.
+</div>
+
+<div class="page-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-title">📑 Índice</div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#2b6cb0"></span>Informações Importantes</div>
+      <a href="#lesson-1452230">1. Isenção de Responsabilidade</a>
+      <a href="#lesson-1452231">2. Cursos Básico e Avançado</a>
+      <a href="#lesson-2698009">3. DMSO</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#2c7a7b"></span>Protocolos Gerais</div>
+      <a href="#lesson-1452234">4. Afecções Auditivas</a>
+      <a href="#lesson-1452235">5. Alergias e Eczemas</a>
+      <a href="#lesson-1452236">6. Feridas Abertas</a>
+      <a href="#lesson-1452237">7. Protocolo Dermatológico</a>
+      <a href="#lesson-1452238">8. Protocolo de Banhos</a>
+      <a href="#lesson-1452239">9. Higiene Bucal</a>
+      <a href="#lesson-1452240">10. Irrigação Retal</a>
+      <a href="#lesson-1452241">11. Irrigação Vaginal</a>
+      <a href="#lesson-1452242">12. Protocolo Oftalmológico</a>
+      <a href="#lesson-1452243">13. Via Intravenosa / Subcutânea</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#d97706"></span>Aves</div>
+      <a href="#lesson-1452245">14. Administração Oral</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#553c9a"></span>Gatos</div>
+      <a href="#lesson-1452247">15. Administração Oral</a>
+      <a href="#lesson-1452248">16. Estomatite</a>
+      <a href="#lesson-1452249">17. Linfoma Felino</a>
+      <a href="#lesson-1452250">18. Pneumonia Felina</a>
+      <a href="#lesson-1452251">19. Peritonite Infecciosa</a>
+      <a href="#lesson-1452252">20. Parvovirose</a>
+      <a href="#lesson-1452253">21. Toxoplasmose</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#0987a0"></span>Peixes</div>
+      <a href="#lesson-1452255">22. Protocolo Genérico</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#276749"></span>Hamsters e Porquinhos</div>
+      <a href="#lesson-1452257">23. Administração Oral</a>
+      <a href="#lesson-1452258">24. Abscesso</a>
+      <a href="#lesson-1452259">25. Pododermatite</a>
+      <a href="#lesson-1452260">26. Cauda Molhada</a>
+      <a href="#lesson-1452261">27. Constipação</a>
+      <a href="#lesson-1452262">28. Infecção Urinária</a>
+      <a href="#lesson-1452263">29. Resfriado e Pneumonia</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#9c4221"></span>Cães</div>
+      <a href="#lesson-1452265">30. Administração Oral</a>
+      <a href="#lesson-1452267">31. Borreliose</a>
+      <a href="#lesson-1452268">32. Diabetes</a>
+      <a href="#lesson-1452271">33. Leishmaniose</a>
+      <a href="#lesson-1452272">34. Linfoma Maligno</a>
+      <a href="#lesson-1452273">35. Parvovirose</a>
+      <a href="#lesson-1452274">36. Problemas de Pele</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label"><span class="dot" style="background:#97266d"></span>Depoimentos</div>
+      <a href="#lesson-1452348">37. Ataque de Raposa a Galinhas</a>
+      <a href="#lesson-1452349">38. Câncer Ósseo / Osteossarcoma</a>
+      <a href="#lesson-1452350">39. Gato Atropelado / Hemorragia</a>
+      <a href="#lesson-1452351">40. Feridas</a>
+      <a href="#lesson-1452351b">41. Inflamação Testicular</a>
+      <a href="#lesson-1452354">42. Pedras nos Rins / Bexiga</a>
+      <a href="#lesson-1452357">43. Envenenamento / Intoxicação</a>
+      <a href="#lesson-apolo">🐶 Apolo — Caso Especial</a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- ══════════════ INFORMAÇÕES IMPORTANTES ══════════════ -->
+    <h2 class="section-header">🔵 Informações Importantes</h2>
+
+    <!-- 1 -->
+    <div class="lesson-card cat-info" id="lesson-1452230">
+      <div class="card-header">
+        <div class="card-number">1</div>
+        <div class="card-title">Isenção de Responsabilidade</div>
+        <span class="card-category">Informações Importantes</span>
+      </div>
+      <div class="card-body">
+        <p>Os procedimentos aqui descritos têm por objetivo proporcionar informação ao aluno. <strong>Não substituem o diagnóstico, a consulta ou o tratamento veterinário.</strong> Não nos responsabilizamos pelos danos de qualquer tipo que possam resultar do uso dos métodos descritos neste curso. Em particular, não nos responsabilizamos pela melhoria ou deterioração do estado de saúde do seu animal.</p>
+        <p>É possível que qualquer um dos links mencionados neste curso, que eram válidos no momento da publicação, tenha mudado com o tempo ou já não esteja disponível. Tentaremos renová-los na medida do possível.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="lesson-card cat-info" id="lesson-1452231">
+      <div class="card-header">
+        <div class="card-number">2</div>
+        <div class="card-title">Cursos Básico e Avançado sobre Dióxido de Cloro</div>
+        <span class="card-category">Informações Importantes</span>
+      </div>
+      <div class="card-body">
+        <p>Este curso foi preparado com a inestimável ajuda de uma colega veterinária, à qual chamaremos, para protegê-la, <em>"a nossa veterinária favorita"</em>. Como verão em breve, ela também se tornará a sua.</p>
+        <p>Compilamos toda a informação existente sobre o uso de dióxido de cloro em animais, de todas as fontes possíveis, e atualizamos os protocolos com as informações mais recentes, seguindo a nossa experiência e a de outros especialistas. Queremos agradecer a Roger Rabés por partilhar o seu conhecimento sobre a criação de animais e o uso do ClO₂, e também a Fran Lucas pela sua pesquisa com as abelhas e o ClO₂.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="lesson-card cat-info" id="lesson-2698009">
+      <div class="card-header">
+        <div class="card-number">3</div>
+        <div class="card-title">DMSO</div>
+        <span class="card-category">Informações Importantes</span>
+      </div>
+      <div class="card-body">
+        <p>O DMSO (dimetilsulfóxido) é frequentemente utilizado como solvente em diversas aplicações, incluindo a preparação de soluções para uso tópico ou injetável em humanos e animais. Em geral, podem ser utilizadas água destilada ou solução fisiológica para preparar soluções de DMSO, pois são as mais puras e seguras para uso em humanos ou animais. É importante utilizar água estéril para evitar a contaminação bacteriana ou fúngica da solução.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ PROTOCOLOS GERAIS ══════════════ -->
+    <h2 class="section-header">🟢 Protocolos Gerais</h2>
+
+    <!-- 4 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452234">
+      <div class="card-header">
+        <div class="card-number">4</div>
+        <div class="card-title">Afecções Auditivas</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>Ativam-se de 6 a 8 gotas de CD ou MMS em um copo seco, sem adicionar água. Coloca-se imediatamente a zona afetada sobre a abertura do copo, de modo que o gás não escape e sem que o líquido toque a pele. A duração da exposição é normalmente de 3 minutos, não devendo ultrapassar 5 minutos para não causar irritação. O tratamento pode ser repetido quantas vezes forem necessárias, com intervalo de 1 hora entre cada aplicação.</p>
+        <p>Caso o animal tenha orelhas demasiado grandes para serem mantidas dentro do copo, pode-se utilizar o copo dentro de um saco plástico e envolver a orelha com o saco, de modo que o gás chegue ao interior do ouvido.</p>
+        <p>Também pode ser utilizado CDS em spray nos casos em que não seja possível usar o sistema do copo; obtivemos bons resultados com esse método. Em caso de spray, seria necessário aplicá-lo várias vezes ao dia (mínimo 3).</p>
+        <p>Outra opção seria utilizar as gotas oftalmológicas diretamente no ouvido, descritas no apartado "Protocolo Oftalmológico" em "Protocolos Gerais".</p>
+        <div class="protocol-block">
+          <strong>Para que casos funciona?</strong>
+          <p>• Otite</p>
+          <p>• Ácaros</p>
+          <p>• Infecções auditivas</p>
+          <p>• Picadas de insetos</p>
+          <p>• Entre outros...</p>
+        </div>
+        <p>Uma vez ativadas as gotas, estas mudam de cor.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452235">
+      <div class="card-header">
+        <div class="card-number">5</div>
+        <div class="card-title">Alergias, Eczemas ou Erupções Cutâneas</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>Em caso de alergia, será muito importante detectar a causa que a provoca. Se surgir repentinamente, é importante verificar o que mudou na dieta desde que a reação apareceu. Tal como vimos com os humanos, as principais causas costumam ser intestinais, embora também possam ser causadas por certas plantas e/ou produtos químicos como xampus, exposição excessiva ao sol, etc.</p>
+        <p>Em caso de alergia alimentar, pode ser recomendável aplicar tomadas orais além do tratamento externo. O protocolo de enema também tem sido benéfico em muitos casos.</p>
+        <p>Utilizaremos o mesmo protocolo para as diferentes afecções da pele, desde eczemas até feridas. Apenas para deter o sangramento de uma ferida aplicaremos CDS puro.</p>
+        <div class="protocol-block">
+          <strong>Doses</strong>
+          <p>• CDS: Dissolver 1/3 de CDS puro (3000 ppm) em água ou solução fisiológica — equivale a usar 30 ml de CDS + 70 ml de água. Manter sempre na geladeira.</p>
+          <p>• CD/MMS: 20 gotas ativadas em 50 ml de água ou solução fisiológica. Manter sempre na geladeira.</p>
+          <p>• Pode ser aplicado a cada hora dependendo do tipo de afecção; em padrão aplica-se 3 vezes ao dia.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Formas de Aplicação</strong>
+          <p>• Spray: encher um frasco pulverizador com 1/3 de CDS e 2/3 de água ou solução fisiológica e aplicar sobre a zona a tratar.</p>
+          <p>• Gazes húmidas: embeber bem gazes de algodão (ou papel em alternativa) e aplicar diretamente na pele sobre a zona a tratar.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452236">
+      <div class="card-header">
+        <div class="card-number">6</div>
+        <div class="card-title">Feridas Abertas</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>Em caso de uma ferida aberta, o mais importante é desinfetar bem a zona, para o que o dióxido de cloro nos será muito útil. Além disso, ajudará a cicatrizar e a regenerar os tecidos muito mais rapidamente.</p>
+        <p>O melhor costuma ser utilizar CDS para desinfetar e mesmo para deter a hemorragia. Normalmente é suficiente diluir 1/3 de CDS em água ou solução fisiológica, a não ser que se pretenda deter o sangramento de uma hemorragia.</p>
+        <p>Para deter a hemorragia, aplica-se CDS puro (3000 ppm) diretamente, seguido de um pouco de pressão sobre a zona; isto costuma deter o sangramento em poucos segundos. Pode verificar-se isso no apartado "Depoimentos – Feridas".</p>
+        <div class="protocol-block">
+          <strong>Aplicação</strong>
+          <p>• Lavar a zona com a mistura de CDS acima descrita.</p>
+          <p>• Pode ser aplicado em spray, conta-gotas, gazes, etc., diretamente sobre a zona.</p>
+          <p>• É importante não fazer um curativo oclusivo; usar sempre materiais que permitam a transpiração dos tecidos.</p>
+          <p>• Também pode ser utilizado CD ou MMS SEMPRE diluído em água ou solução fisiológica (20 gotas ativadas em 50 ml de água/solução).</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452237">
+      <div class="card-header">
+        <div class="card-number">7</div>
+        <div class="card-title">Protocolo Dermatológico</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>O CDS pode ser administrado por via tópica, sobre a pele em forma de spray ou atomizador, diluído a 50% ou mesmo puro, pois tem pH neutro.</p>
+        <p>O melhor é utilizar um frasco pulverizador, que encheremos com CDS a 3000 ppm. Aplicar o spray diretamente sobre a zona desejada; esta ação pode ser realizada a cada hora, se necessário. Em locais sensíveis, deve-se reduzir a concentração com um pouco de água ou solução fisiológica.</p>
+        <p>Não tendo CDS disponível, utiliza-se CD, diluindo-o SEMPRE, seja com água ou solução fisiológica. Usam-se 20 gotas ativadas (ou seja, 20 gotas de cada substância, deixando-as reagir) e dilui-se a mistura em 50 ml de água. (Para zonas sensíveis, é melhor diluir em pelo menos 100 ml.)</p>
+        <div class="protocol-block">
+          <strong>Para que casos funciona?</strong>
+          <p>• Feridas • Úlceras • Hot spots • Dermatites / eczemas • Sarna • E muito mais...</p>
+        </div>
+        <p>Para que o dióxido de cloro penetre na pele, pode combinar-se com DMSO a 70%, aplicando primeiro DMSO e depois CDS. É muito importante que a pele esteja sempre limpa ao aplicar DMSO, pois caso contrário também penetrarão as toxinas ou a sujidade presentes na pele.</p>
+        <div class="protocol-block">
+          <strong>Precauções de uso do DMSO</strong>
+          <p>• O DMSO só pode ser guardado em recipientes de plástico especiais: LDPE, HDPE ou PP. Também pode ser em vidro e cerâmica.</p>
+          <p>• A zona da pele deve estar completamente limpa, inclusive sem sabões e perfumes. O DMSO tem grande propriedade como agente transportador e fará penetrar tudo o que houver na pele até à corrente sanguínea.</p>
+          <p>• É IMPORTANTE não cobrir com tecidos que tenham corantes até estar completamente seco, pois o próprio corante poderia ser absorvido pela pele.</p>
+          <p>• É preferível não fazer oclusões, ou seja, não usar ligaduras não ventiladas; usar sempre ligaduras e gazes respiráveis.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452238">
+      <div class="card-header">
+        <div class="card-number">8</div>
+        <div class="card-title">Protocolo de Banhos</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>Costuma-se fazer este protocolo na banheira de casa (para os animais que caibam dentro). Para os menores, podem-se usar bacias (cerca de 1 gota ativada por cada 1 ou 2 litros de água). Normalmente diluem-se de 80 a 120 gotas ativadas de CD ou MMS numa banheira de 100 litros, conforme o peso, em água quente (é melhor começar com doses baixas e ir aumentando gradualmente).</p>
+        <p>Mantendo o animal submerso durante cerca de 10 minutos, aproveita-se a permeabilidade da pele para equilibrar os fluidos do interior e exterior do corpo (processo conhecido como osmose). Para isso, utiliza-se água salgada: assim expulsamos o excesso de toxinas e absorvemos o dióxido de cloro. Como toda a pele está em contato com o dióxido de cloro, os efeitos são muito bons para inúmeros casos, pois chega a qualquer parte do organismo onde seja necessário.</p>
+        <p>Como manter os nossos amigos "submersos" na água durante esse tempo não é fácil, propõe-se um sistema de ducha portátil estilo "camping", seja com motor elétrico ou manual. Desta forma, ativa-se o CD ou MMS, dissolve-se num balde de água e pode-se molhar os animais facilmente. Assim não teremos o benefício da osmose, mas será muito útil para casos de grandes alergias, sarna, dermatites e muito mais.</p>
+        <div class="protocol-block">
+          <strong>Aplicação em banheira</strong>
+          <p>• Encher a banheira com água quente e adicionar 2 kg de sal marinho (sem iodo e sem aditivos químicos).</p>
+          <p>• Ativar 1 ou 2 gotas por litro de água e dissolvê-las na banheira (mexer bem).</p>
+          <p>• Molhar bem todo o corpo, inclusive a cabeça.</p>
+          <p>• A duração do banho costuma ser de 10 a 15 minutos.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Aplicação em ducha</strong>
+          <p>• Ativar as gotas num copo e dissolvê-las num balde com água.</p>
+          <p>• Como o animal não ficará submerso, convém aumentar a concentração em relação à banheira: usar de 3 a 6 gotas ativadas por litro de água (em caso necessário pode aumentar-se até 10 gotas ativadas por litro).</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Precauções</strong>
+          <p>• Limpar bem a banheira antes do protocolo, deve estar completamente livre de sabões e produtos químicos.</p>
+          <p>• Não adicionar nada à água, nem sabões nem perfumes.</p>
+          <p>• Manter uma boa ventilação durante o banho para evitar inalar dióxido de cloro em excesso.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452239">
+      <div class="card-header">
+        <div class="card-number">9</div>
+        <div class="card-title">Protocolo de Higiene Bucal</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>Para os problemas dentários, costuma ser benéfico escovar os dentes do animal com uma mistura de CDS entre 5 e 10% diluído em água. Isso ajudará a reequilibrar o pH da boca, evitar a retração das gengivas, tratar aftas, infeções dentárias, etc.</p>
+        <p>5 ou 10% equivalem a 5 a 10 ml para 95 ou 90 ml de água. Não é recomendável ultrapassar 10% de concentração de CDS.</p>
+        <p>Caso seja necessário que penetre nas gengivas (por exemplo, para um abscesso dentário com infeção mais profunda), pode-se adicionar DMSO à mistura: 1 ml para 100 ml de mistura de água + CDS.</p>
+        <p><strong>⚠️ ATENÇÃO!</strong> Se se utilizar DMSO, é muito importante que a escova seja de cerdas naturais, pois o DMSO é capaz de dissolver a maioria dos plásticos e poderia provocar toxicidade. Se for de plástico, deve ser de polipropileno (PP) ou polietileno de alta ou baixa densidade (HDPE/LDPE). O cabo da escova também pode ser de madeira.</p>
+        <div class="protocol-block">
+          <strong>Para que casos funciona?</strong>
+          <p>• Retração das gengivas</p>
+          <p>• Infeções dentárias</p>
+          <p>• Micoses (fungos)</p>
+          <p>• Aftas</p>
+          <p>• Entre outros...</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Aplicação</strong>
+          <p>• Escovar com abundante quantidade da mistura acima descrita. Mergulha-se a escova no recipiente com a mistura e, entre as fibras, ela encherá de líquido. Escova-se os dentes do animal, molhando continuamente a escova.</p>
+          <p>• Outra boa opção (especialmente em cavalos) seria utilizar um irrigador dental com a mistura de água e CDS (5–10%).</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452240">
+      <div class="card-header">
+        <div class="card-number">10</div>
+        <div class="card-title">Protocolo de Irrigação Retal</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>A dose padrão é CDS dissolvido entre 1 e 3%, começando com 10 ml de CDS (a 3000 ppm) por cada litro de água morna. Não tendo CDS disponível, pode-se usar CD/MMS: 10 gotas ativadas (deixando-as reagir antes) por cada litro de água morna.</p>
+        <div class="protocol-block">
+          <strong>Para que casos funciona?</strong>
+          <p>• Problemas intestinais • Eliminação de parasitas • Problemas hepáticos • Problemas renais • Doenças crónicas e autoimunes</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Aplicação</strong>
+          <p>• Encher o irrigador com água morna (a quantidade dependerá do peso e tamanho do animal). É importante usar água tépida, à temperatura corporal.</p>
+          <p>• Colocar o CDS diretamente no irrigador. Em caso de usar CD, fazem-se reagir as gotas e dissolvem-se na água.</p>
+          <p>• Aplicar lubrificante na ponta do irrigador e introduzi-lo no reto.</p>
+          <p>• O ideal seria fazê-lo lentamente com um sistema de enema similar ao humano. Como os animais geralmente não se deixam fazer enemas facilmente, costuma ser melhor usar seringas grandes.</p>
+          <p>• A melhor posição é deitado, mas pode-se fazer sobre as 4 patas sem problemas. Uma vez em posição e com a cânula introduzida (normalmente basta penetrar alguns centímetros), introduz-se o líquido pouco a pouco.</p>
+          <p>• O ideal é tentar manter o líquido no mínimo 3 minutos; mais de 5 minutos normalmente não é necessário.</p>
+          <p>• Como referência para a quantidade de água: de 10 a 20 ml por kg de peso. Por exemplo, para um cão de 20 kg, usaríamos de 250 a 500 ml de água e de 2,5 a 5 ml de CDS (se preparado a 1%).</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452241">
+      <div class="card-header">
+        <div class="card-number">11</div>
+        <div class="card-title">Protocolo de Irrigação Vaginal</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>A dose padrão é 6 ml de CDS (a 3000 ppm) por cada meio litro de água morna.</p>
+        <div class="protocol-block">
+          <strong>Para que casos funciona?</strong>
+          <p>• Problemas vaginais como coceira, ardência, dor, sangramento anormal e/ou corrimento</p>
+          <p>• Vaginite (inflamação da vagina)</p>
+          <p>• Problemas de abortos</p>
+          <p>• Câncer vaginal e câncer da vulva</p>
+          <p>• Doenças crónicas e autoimunes</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Aplicação</strong>
+          <p>• Encher o irrigador com água morna (a quantidade dependerá do peso e tamanho do animal). É importante usar água tépida, à temperatura corporal.</p>
+          <p>• Colocar o CDS diretamente no irrigador.</p>
+          <p>• Aplicar lubrificante na ponta da cânula vaginal e introduzi-la na vagina.</p>
+          <p>• Tentar manter o líquido no mínimo 3 minutos.</p>
+          <p>• Em caso necessário, pode ser aplicado várias vezes ao dia.</p>
+          <p>• Como alternativa (em animais como ovelhas e cabras; em vacas, melhor com 1 litro), podem-se utilizar garrafas de 500 ml PET, introduzindo cuidadosamente o bocal da garrafa e aplicando pressão sobre ela. Ao soltar a pressão, o líquido introduzido será absorvido; manter este vaivém de líquidos durante 2 minutos se possível. Isso ajudará a limpar mais profundamente.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452242">
+      <div class="card-header">
+        <div class="card-number">12</div>
+        <div class="card-title">Protocolo Oftalmológico</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>Para problemas oculares, podem-se usar as mesmas gotas utilizadas no protocolo O (curso básico), que consiste na preparação de gotas para uso oftalmológico (olhos e ouvidos).</p>
+        <p>Podem-se preparar num frasco de vidro pequeno com conta-gotas de polietileno (PE). É melhor preparar em dois frascos distintos — um com CDS e outro com DMSO —, pois assim a mistura não perde concentração ao longo do tempo. Num único frasco, a mistura tem vida útil de 3 dias.</p>
+        <div class="protocol-block">
+          <strong>Preparação dos Frascos</strong>
+          <p><em>Frasco com CDS:</em> 50 ml de solução fisiológica salina + 1–2 ml de CDS</p>
+          <p><em>Frasco com DMSO:</em> 50 ml de solução fisiológica salina + 0,5 ml de DMSO (70%)</p>
+          <p>Aplica-se 1 ou 2 gotas de cada produto a cada hora ou a cada duas horas no olho afetado. Adaptar a quantidade ao tamanho de cada animal.</p>
+          <p>As gotas oftalmológicas de CDS guardam-se na geladeira e têm eficácia de 100% durante pelo menos 2 semanas.</p>
+          <p>A mistura com DMSO não se deteriora com o tempo e continuará sendo útil até acabar o frasco.</p>
+          <p>** A solução salina pode ser substituída por água do mar isotónica.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Para que casos funciona?</strong>
+          <p>• Conjuntivite • Olho seco • Blefarite / Inflamação da pálpebra • Feridas / úlceras • Glaucoma • Sequestro corneal ou necrose corneal (gatos e cavalos) • Queratite infecciosa</p>
+        </div>
+        <p>Estas gotas também podem ser utilizadas na mesma proporção para problemas de ouvido.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="lesson-card cat-protocol" id="lesson-1452243">
+      <div class="card-header">
+        <div class="card-number">13</div>
+        <div class="card-title">Via Intravenosa ou Subcutânea</div>
+        <span class="card-category">Protocolos Gerais</span>
+      </div>
+      <div class="card-body">
+        <p>O CDS na sua forma CDI pode ser administrado por via intravenosa ou subcutânea, sempre diluído em soro de perfusão. <strong>Atenção:</strong> Nem o MMS, nem o CD, nem o clorito sódico podem ser administrados por via tópica ou intravenosa (devido ao seu pH 13, que é corrosivo). Para a sua administração, deve consultar um veterinário ou terapeuta — APENAS ELES podem realizar esta aplicação.</p>
+        <div class="protocol-block">
+          <strong>Protocolo Intravenoso</strong>
+          <p>1. É conveniente realizar o protocolo oral pelo menos uma vez antes de iniciar a via parenteral. Em casos de resgate ou risco de vida, pode ser aplicado desde o início.</p>
+          <p>2. Preparação: Adicionar 1–2 ml de CDS (0,3%) por cada 100 ml de solução salina de NaCl a 0,9%. Também pode ser utilizado soro de Ringer sem lactato.</p>
+          <p>3. A dose padrão para adultos é de 1%: 5 ml de CDS (0,3%) em 500 ml de solução fisiológica a 0,9% por via intravenosa (a quantidade de soro dependerá do peso do animal).</p>
+          <p>4. Medir o pH com um medidor digital calibrado; deve estar entre pH 7,4 e pH 7,8 para evitar complicações como acidose e flebite.</p>
+          <p>5. Se o pH for inferior, tamponar com bicarbonato de sódio líquido para perfusão até obter o pH adequado.</p>
+          <p>6. O ritmo de gotejamento deve ser lento, a cerca de 30 gotas por minuto.</p>
+          <p>7. É aconselhável utilizar diferentes vias em diferentes membros a cada dia.</p>
+          <p>8. A duração padrão é de 3 ou 4 dias consecutivos (uma vez por dia) para casos agudos; em casos graves, preferivelmente 2 ou 3 vezes por semana durante o tempo necessário.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Interações e Precauções</strong>
+          <p>• Não tomar fármacos nem medicamentos na hora anterior e posterior às tomadas orais e/ou intravenosas, para evitar possíveis interações.</p>
+          <p>• PRECAUÇÃO em pacientes em tratamento com Warfarina ou outros anticoagulantes fortes, pois o ClO₂ melhora a fluidez dos glóbulos vermelhos. Monitorar periodicamente o tempo de coagulação.</p>
+          <p>• Não utilizar recipientes de metal, pois estes reagem com o ClO₂ por oxidação. Isso inclui o aço inoxidável.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ AVES ══════════════ -->
+    <h2 class="section-header">🐦 Animais de Estimação › Aves</h2>
+
+    <!-- 14 -->
+    <div class="lesson-card cat-birds" id="lesson-1452245">
+      <div class="card-header">
+        <div class="card-number">14</div>
+        <div class="card-title">Administração Oral</div>
+        <span class="card-category">Aves</span>
+      </div>
+      <div class="card-body">
+        <p>Instruções gerais para aves domésticas: pombas, canários, periquitos, papagaios, etc. As aves, pelo seu sistema digestivo, podem tomar CD/MMS e CDS, embora normalmente seja preferível o CDS.</p>
+        <p>Pode ser aplicado diretamente no bebedouro e, em caso de necessidade, pode-se dar diretamente no bico com uma seringa. A quantidade de água dependerá do peso do animal. É importante não superar as doses descritas para evitar efeitos indesejados.</p>
+        <p>As aves têm uma pequena abertura atrás da língua, por onde entra o ar nos pulmões. Quando as suas bocas enchem de líquido, é fácil que parte da água escoe para as vias respiratórias. Por isso, não se deve dar de uma vez só — é melhor fazê-lo lentamente, gota a gota.</p>
+        <p>Quando estes pequenos se desidratam, precisam de grandes quantidades de líquido para se recuperar durante vários dias. Como referência: um pintainho de andorinhão de 20 gramas moderadamente desidratado precisará de cerca de 5 ml de soro distribuídos em 72 horas — pouco menos de 10% do seu peso corporal por dia. A um pintainho de galinha costuma dar-se: idade em dias × 5,28 ml.</p>
+        <p>As pombas são animais muito sensíveis e devem se habituar lentamente ao dióxido de cloro. Recomenda-se começar com cuidado e habituá-las gradualmente, pois o período de adaptação dessas aves é também um pouco mais longo.</p>
+        <div class="protocol-block">
+          <strong>Doses</strong>
+          <p>• Padrão: 2 ml de CDS ou 2 gotas ativadas/litro de água, a cada 24h, repartido em 2 ou 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS ou 1 gota ativada/litro de água, a cada 24h, repartido em 2 ou 3 tomadas.</p>
+        </div>
+        <p><strong>Importante:</strong> O CDS evapora acima de 11ºC, portanto em verão pode não ser a melhor opção colocá-lo nos bebedouros. A mistura de ClO₂ + água não deve ficar exposta diretamente à luz solar, pois isso desativaria completamente o efeito do dióxido de cloro.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ GATOS ══════════════ -->
+    <h2 class="section-header">🐱 Animais de Estimação › Gatos</h2>
+
+    <!-- 15 -->
+    <div class="lesson-card cat-cats" id="lesson-1452247">
+      <div class="card-header">
+        <div class="card-number">15</div>
+        <div class="card-title">Administração Oral</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>Vamos tratar principalmente dos gatos e das suas particularidades digestivas:</p>
+        <p>Os gatos têm um sistema digestivo capaz de extrair energia de vegetais e carne, embora de forma menos eficiente do que os humanos. Têm um ácido estomacal muito superior ao humano — entre 6 e 7 vezes mais concentrado —, o que lhes permite ativar o clorito sódico diretamente no estômago, sem precisar misturá-lo com o ativador, alterando menos o sabor da água do bebedouro. Assim o bebem facilmente sem praticamente se aperceber.</p>
+        <p>Os gatos podem tomar dióxido de cloro nas suas diferentes formas: CDS, CD e MMS. Inclusive clorito sem ativar, sendo essa uma ótima opção para as tomadas orais.</p>
+        <div class="protocol-block">
+          <strong>ADULTOS — Doses</strong>
+          <p>• Padrão: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS ou 1 gota ativada/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Clorito sem ativar: 10 gotas de clorito sem ativar (25%) por cada litro de água. Renovar diariamente.</p>
+          <p>• O ideal é diluir 1 ml de CDS (ou uma gota ativada) em 30 ml de água e dar 10 ml da mistura em cada tomada, 3 vezes ao dia (por cada 2 kg de peso).</p>
+          <p>• A concentração não deve ultrapassar 5%, ou seja, deve-se adicionar no mínimo 20 ml de água a cada mililitro de CDS. Em caso de CD ou MMS, mínimo de 30 ml de água.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>FILHOTES — Doses</strong>
+          <p>• É preferível dar CDS aos filhotes, pois é absorvido mais facilmente, até atingirem pelo menos 50% do seu peso adulto.</p>
+          <p>• Padrão: 1 ml de CDS/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+        </div>
+        <p>Uma boa opção para os gatos é misturar o CDS com caldo — eles bebem com entusiasmo. Recomenda-se uma concentração máxima de 5%: 1 ml de CDS por cada 20 ml de caldo (preferencialmente 1 ml por cada 30 ml de caldo).</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 16 -->
+    <div class="lesson-card cat-cats" id="lesson-1452248">
+      <div class="card-header">
+        <div class="card-number">16</div>
+        <div class="card-title">Estomatite / Inflamação Bucal</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>A inflamação aguda da boca (estomatite) é causada por vários tipos de microrganismos, mas comumente estão envolvidos alguns dos vírus da coriza felina.</p>
+        <p>Tanto o calicivírus felino como o vírus da rinotraqueíte felina podem causar estomatite, mas o calicivírus é mais comum e divide-se em diferentes tipos que diferem na sua capacidade de causar a doença. Alguns tipos apenas produzem ulceração na boca — as úlceras costumam aparecer na superfície superior e na margem da língua, mas também podem aparecer nas gengivas, no palato e no nariz. Outros tipos de calicivírus podem produzir ulceração juntamente com sinais de doença do trato respiratório superior.</p>
+        <p>O vírus da rinotraqueíte felina (FVRV) produz uma doença mais grave com sinais típicos de doença do trato respiratório superior, frequentemente acompanhados de inflamação. A presença de úlceras na língua é rara. Em ambos os casos, a infeção viral pode predispor a uma infeção bacteriana secundária. Na ausência de medicamentos antivirais disponíveis, o tratamento clássico consiste em antibióticos de amplo espectro para controlar a infeção secundária. Aqui temos a vantagem de que o dióxido de cloro é altamente eficaz contra os vírus.</p>
+        <p>É importante um cuidado atento do animal com uma limpeza frequente das secreções. Podem ser oferecidos ao gato líquidos aromáticos ou alimentos em puré. Se o gato se recusar a comer durante um longo período de tempo, será necessário um tratamento com cuidados intensivos especializados.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• O ideal é diluir 1 ml de CDS (ou uma gota ativada) em 30 ml de água e dar 10 ml da mistura em cada tomada, 3 vezes ao dia (por cada 2 kg de peso).</p>
+          <p>• Os filhotes de gato devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+          <p>• Higiene bucal: em caso de manifestações na boca, pode ser benéfico limpar bem a boca do animal (ver: "Protocolos Gerais / Higiene Bucal").</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 17 -->
+    <div class="lesson-card cat-cats" id="lesson-1452249">
+      <div class="card-header">
+        <div class="card-number">17</div>
+        <div class="card-title">Linfoma Felino</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>Este é um dos tumores mais comuns no mundo felino. Deve-se a uma proliferação anormal de linfócitos — células do sistema imunológico encontradas principalmente nos gânglios linfáticos, mas distribuídas em maior ou menor medida em praticamente todos os tecidos do organismo. Pode manifestar-se de diversas formas: desde desconfortos respiratórios, sintomas cutâneos, gastrointestinais ou de forma inespecífica (apatia, emagrecimento do gato, etc.).</p>
+        <p>A idade de apresentação varia entre jovens e idosos. Os gatos jovens, ao contrário dos mais velhos, são portadores do vírus da leucemia felina num grande número de casos:</p>
+        <p>• Em gatos com menos de dois anos, o tumor costuma encontrar-se no mediastino (timo), dando sintomas respiratórios ou dificuldade para engolir e regurgitações por compressão do espaço pulmonar e esofágico.</p>
+        <p>• Em gatos entre três e cinco anos, o vírus da leucemia felina pode apresentar-se de forma disseminada, com "nódulos" nas mandíbulas, membros... correspondentes a gânglios linfáticos aumentados. Os sintomas costumam incluir anorexia e perda de peso.</p>
+        <p>• Entre os seis e os nove anos de idade, o sistema mais comumente afetado é o trato gastrointestinal em qualquer das suas secções, podendo aparecer massas individuais ou lesões difusas. O apetite pode estar aumentado ou diminuído, e são frequentes a diarreia e os vómitos.</p>
+        <p>• Em gatos geriátricos, a localização é muito variável: sistema nervoso, pele, rins, cavidade nasal (esta última sendo a mais frequente, com secreção nasal sanguinolenta como característica principal).</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Intravenoso: em casos graves, pode-se administrar o ClO₂ por via intravenosa (sempre realizado por um profissional qualificado) seguindo o protocolo em "Protocolos Gerais / Via Intravenosa".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 18 -->
+    <div class="lesson-card cat-cats" id="lesson-1452250">
+      <div class="card-header">
+        <div class="card-number">18</div>
+        <div class="card-title">Pneumonia Felina</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>A pneumonia é uma doença que afeta os pulmões e pode ser muito perigosa — se a inflamação for grave, pode ser mortal e muito dolorosa. Além disso, a pneumonia pode surgir paralelamente a outras doenças e é muito contagiosa.</p>
+        <p>Quando um gato tem pneumonia, o mal-estar e a dor tornam-no sem apetite, podendo recusar-se a comer e beber água, o que aumenta o risco de morte.</p>
+        <p>A pneumonia pode afetar qualquer gato, mas os mais vulneráveis são os gatinhos, os idosos e os gatos de rua. As causas são variadas, mas uma das mais comuns é a infeção bacteriana, especialmente o calicivírus felino. Outras doenças como a leucemia tornam o sistema imunológico muito fraco, predispondo ao desenvolvimento de pneumonia.</p>
+        <div class="protocol-block">
+          <strong>Sintomas típicos</strong>
+          <p>Espirros, tosse, letargia, dificuldade para engolir, febre, pele azulada, sibilos ou roncos ao respirar, respiração rápida e superficial, perda de peso.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• O ideal é diluir 1 ml de CDS (ou uma gota ativada) em 30 ml de água e dar 10 ml da mistura em cada tomada, 3 vezes ao dia.</p>
+          <p>• Os filhotes de gato devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="lesson-card cat-cats" id="lesson-1452251">
+      <div class="card-header">
+        <div class="card-number">19</div>
+        <div class="card-title">Peritonite Infecciosa Felina</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>A peritonite infecciosa felina é causada por um coronavírus felino. Os coronavírus são uma grande família de vírus que, em seres humanos, causam desde o resfriado comum até doenças respiratórias muito mais graves. É muito comum que os gatos se infetem com coronavírus, mas na maioria das vezes os efeitos não são graves. Porém, em raras ocasiões, o vírus muta, causando o que se conhece como peritonite infecciosa felina (PIF). A forma mais comum é a chamada "PIF húmida", caracterizada pelo acúmulo de líquido amarelado na cavidade abdominal e/ou torácica do gato, causando problemas respiratórios evidentes e graves.</p>
+        <p>Os sintomas iniciais da peritonite infecciosa felina são inespecíficos e muito vagos, como letargia ou perda de apetite. Algumas formas da doença também provocam lesões inflamatórias nos olhos ou no sistema nervoso, resultando em problemas de visão e de comportamento, marcha trêmula e tremores. A doença é muito grave e costuma progredir rapidamente, sendo a morte do gato a consequência mais frequente.</p>
+        <p>A via de transmissão do coronavírus é oro-fecal: os gatos infetem-se ao ingerir o vírus pela via oral, ao se limparem ou comerem, e eliminam-no pelas fezes. Estima-se que até 40% dos gatos domésticos estão infetados com o coronavírus. Porém, isso não significa que desenvolverão PIF — apenas quando o vírus muta é que o gato desenvolve a doença. Até à data, não se conhecem as causas da mutação do coronavírus.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Oftalmológico: em caso de manifestações oculares, pode-se aplicar o Protocolo Oftalmológico disponível em "Protocolos Gerais".</p>
+          <p>• Enema: sendo uma afecção que afeta a zona intestinal, será muito benéfico aplicar enemas — o ClO₂ será absorvido diretamente no cólon e distribuído ao redor, ajudando a tratar a infeção e equilibrando o pH da zona. Ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="lesson-card cat-cats" id="lesson-1452252">
+      <div class="card-header">
+        <div class="card-number">20</div>
+        <div class="card-title">Parvovirose</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>O parvovírus é uma doença muito contagiosa que afeta as células reprodutoras, como as que revestem o trato intestinal. Também pode afetar o coração e os glóbulos vermelhos. A doença transmite-se pelo contato oral com fezes infetadas, pois o vírus permanece nelas em grandes quantidades, mesmo várias semanas após a infeção. O vírus também se transmite pelo pelo e patas do gato, bem como por calçado e outros objetos contaminados.</p>
+        <p>Afeta gatos de todas as idades, mas os casos mais graves ocorrem em filhotes. A incubação dura de quatro a cinco dias. Em seguida, produz-se a fase aguda da doença: depressão, vómitos e diarreia. Alguns gatos desenvolvem febre alta (41°C). Os filhotes podem ter o ventre recolhido e dor abdominal. A diarreia contém muco e sangue, e desidratam-se rapidamente. Trata-se de uma afecção muito grave nos filhotes, com uma esperança de vida muito curta (poucos dias).</p>
+        <p>Por se tratar de um vírus, a medicação convencional não costuma ter grandes resultados e o prognóstico é geralmente muito mau. Porém, com CDS obtemos muito bons resultados, garantindo a sobrevivência dos filhotes na maioria dos casos. Em casos muito graves, obtiveram-se excelentes resultados utilizando o protocolo intravenoso além do oral e retal.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Enema: para ajudar a deter as diarreias e recuperar a hidratação, este protocolo é extremamente útil. Ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+          <p>• Intravenoso: em casos graves, pode-se administrar o ClO₂ por via intravenosa (sempre por profissional qualificado). Ver "Protocolos Gerais / Via Intravenosa".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 21 -->
+    <div class="lesson-card cat-cats" id="lesson-1452253">
+      <div class="card-header">
+        <div class="card-number">21</div>
+        <div class="card-title">Toxoplasmose</div>
+        <span class="card-category">Gatos</span>
+      </div>
+      <div class="card-body">
+        <p>O Toxoplasma gondii é um parasita intracelular da família dos coccídios e é uma das doenças parasitárias mais comuns de animais e seres humanos. O hospedeiro definitivo do parasita (os únicos animais em que estes organismos se reproduzem sexualmente) são os felinos (principalmente os gatos domésticos). É de suma importância porque a gama de hospedeiros intermediários que podem ser infetados abrange praticamente todos os animais de sangue quente, incluindo o ser humano.</p>
+        <p>As manifestações clínicas observam-se principalmente em gatos jovens (menores de 2 anos), em parte devido à resposta imunológica pouco desenvolvida nesses gatos. A reativação da infeção em gatos mais velhos pode estar associada a coinfeção com o vírus da leucemia felina ou o vírus da imunodeficiência felina.</p>
+        <p>Os sinais clínicos mais comuns associados à toxoplasmose são: anorexia, perda de peso, letargia, dispneia (devido a pneumonia), sinais oculares (irite, coriorretinite) e febre. Outras formas de apresentação menos frequentes incluem sinais gastrointestinais (vómitos/diarreia), sinais neurológicos, linfadenopatias, icterícia, miosite e abortos.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Enema: em caso de diarreias intensas, sintomas gastrointestinais ou icterícia (indicando afecção do fígado), pode ser benéfico usar este protocolo. Ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ PEIXES ══════════════ -->
+    <h2 class="section-header">🐟 Animais de Estimação › Peixes</h2>
+
+    <!-- 22 -->
+    <div class="lesson-card cat-fish" id="lesson-1452255">
+      <div class="card-header">
+        <div class="card-number">22</div>
+        <div class="card-title">Protocolo Genérico</div>
+        <span class="card-category">Peixes</span>
+      </div>
+      <div class="card-body">
+        <p>Para a maioria dos problemas de saúde dos peixes, basta adicionar 1 ml de CDS para cada 100 litros de água. Se a água estiver turva ou os peixes estiverem fracos ou doentes, pode-se adicionar até 10 ml para cada 100 litros de água.</p>
+        <div class="img-gallery">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/KC7rKsyYosmVK7C53BPks9X1/84e8b247ec6ee55dfee276f0be806ede4ec8aee3362b32c530e11221a57c71a1" alt="Peixes">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/ZHmZGCUrFE8C1HYtpAj3rttk/84e8b247ec6ee55dfee276f0be806ede4ec8aee3362b32c530e11221a57c71a1" alt="Aquário">
+        </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ HAMSTERS ══════════════ -->
+    <h2 class="section-header">🐹 Animais de Estimação › Hamsters e Porquinhos-da-índia</h2>
+
+    <!-- 23 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452257">
+      <div class="card-header">
+        <div class="card-number">23</div>
+        <div class="card-title">Administração Oral</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>Vamos tratar principalmente dos roedores e das suas particularidades digestivas. Os roedores são animais principalmente herbívoros, embora hamsters, ratos e ratinhos tenham componentes onívoros. Todos os grupos têm dentes em crescimento contínuo que devem ser desgastados mediante alimentos duros ou brinquedos adaptados, como madeira ou ossos de sépia. Os hamsters possuem bolsas bucais (bochechas) para armazenar alimentos.</p>
+        <p>Do ponto de vista intestinal, degradam a matéria vegetal ao nível do cego, no intestino grosso, onde existem colónias de microrganismos especializados que fornecem proteínas e vitamina B12. No entanto, o intestino grosso é incapaz de absorver, pelo que se expelida através de uma matéria fecal primária chamada "cecotrofo", que depois ingerem, incorporando essas substâncias ao organismo.</p>
+        <p>Podem ativar o clorito sódico diretamente no estômago, sem precisar de o misturar com o ativador, alterando menos o sabor da água do bebedouro. Os roedores podem tomar dióxido de cloro nas suas diferentes formas: CDS, CD e MMS. Inclusive clorito sem ativar, sendo essa uma ótima opção para as tomadas orais.</p>
+        <div class="protocol-block">
+          <strong>ADULTOS — Doses</strong>
+          <p>• Padrão: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS ou 1 gota ativada/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Clorito sem ativar: 10 gotas de clorito sem ativar (25%) por cada litro de água. Renovar diariamente.</p>
+          <p>• Concentração máxima: 5% — mínimo de 20 ml de água para cada mililitro de CDS. (NUNCA superar 10%)</p>
+        </div>
+        <div class="protocol-block">
+          <strong>FILHOTES — Doses</strong>
+          <p>• É preferível dar CDS aos filhotes até atingirem 50% do seu peso adulto.</p>
+          <p>• Padrão: 1 ml de CDS/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+        </div>
+        <p>Se o animal se recusar a beber a água por causa do odor, pode dar-se ao coelho ou porquinho-da-índia mais alimento seco, como feno, e prescindir do capim. Isso dará sede ao animal e beberá apesar do odor. Caso não beba, pode-se administrar com uma seringa diretamente na boca.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 24 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452258">
+      <div class="card-header">
+        <div class="card-number">24</div>
+        <div class="card-title">Abscesso</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>As particularidades digestivas dos roedores são idênticas às descritas na lição de Administração Oral (lição 23). Os roedores podem ativar o clorito sódico diretamente no estômago e tomar dióxido de cloro nas suas diferentes formas: CDS, CD, MMS ou clorito sem ativar.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Dermatológico: CDS: dissolver 1/3 de CDS puro (3000 ppm) em água ou solução fisiológica (30 ml de CDS + 70 ml de água). Guardar sempre na geladeira. CD/MMS: 15 gotas ativadas em 50 ml de água ou solução fisiológica. Pode ser aplicado a cada hora dependendo do tipo de afecção; em padrão aplica-se 3 vezes ao dia.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 25 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452259">
+      <div class="card-header">
+        <div class="card-number">25</div>
+        <div class="card-title">Pododermatite</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>A pododermatite ou úlcera plantar são infeções bacterianas associadas à má higiene da jaula, causadas normalmente por Staphylococcus aureus, seguido de Streptococcus e Pasteurella como oportunistas, podendo provocar até úlceras. Outros fatores predisponentes são: piso rugoso, obesidade, lacerações nas patas, hipovitaminose C. Recomenda-se retirar as superfícies metálicas e substituí-las por papel. No tratamento das lesões (patas inchadas e sem cor, almofadas partidas), se existir tecido morto, devem-se fazer cuidados diários com aplicação de substâncias adstringentes ou hipertónicas. Se deixada sem tratamento, pode complicar-se com celulite, osteomielite e morte do porquinho-da-índia.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Os filhotes devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+          <p>• Dermatológico: CDS: 30 ml de CDS + 70 ml de água ou solução fisiológica. CD/MMS: 15 gotas ativadas em 50 ml de água ou solução fisiológica. Guardar na geladeira. Aplicar 3 vezes ao dia (ou a cada hora em casos mais graves).</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 26 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452260">
+      <div class="card-header">
+        <div class="card-number">26</div>
+        <div class="card-title">Cauda Molhada</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>A "cauda molhada" num hamster deve-se a uma infeção bacteriana e pode causar diarreia extrema. A sua etiologia não está clara, mas parece que o principal causador é a bactéria Lawsonia intracelularis, também responsável por alterações intestinais graves em suínos, furões e outras espécies domésticas. Outras possíveis causas são: E. coli, Salmonella spp e Clostridium piliforme. Situações de estresse parecem ser fatores predisponentes, especialmente em hamsters jovens.</p>
+        <p>Além da impregnação característica de fezes, outros sintomas que podemos observar são: letargia, anorexia e posição curvada devido à dor intensa. Como complicações frequentes podem aparecer prolapsos ou intussuscepções — ambas muito graves e com necessidade de atuação de urgência.</p>
+        <p>O estresse e uma dieta desequilibrada podem ser duas causas principais. A zona que rodeia o ânus do hamster torna-se pegajosa e húmida, dando a aparência de que tem a cauda molhada. O hamster doente move-se lentamente, estará muito quieto e não vai querer comer. Podem oferecer-se verduras e alimentos liquidificados; a adição de adoçantes naturais como mel pode estimular o apetite. Manter os hamsters num ambiente quente e tranquilo para reduzir o estresse.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Enema: sendo uma afecção que afeta a zona intestinal, será muito benéfico aplicar enemas. Ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 27 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452261">
+      <div class="card-header">
+        <div class="card-number">27</div>
+        <div class="card-title">Constipação</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>A prisão de ventre costuma ser causada pela obstrução intestinal com material de nidificação comercial ou pela insuficiência de água potável, especialmente nas crias. Outras causas são: falta de exercício, má alimentação, gravidez ou distócia. A distócia é uma condição grave em que a fêmea é incapaz de expulsar as crias ao nascer.</p>
+        <p>Em raras ocasiões, existe a possibilidade de a prisão de ventre ser causada pelo parasita Hymenolepis nana (muito similar à ténia) no intestino delgado. Os sintomas são: inchaço do abdómen, descoloração frequente e ânus protuberante.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Enema: sendo uma afecção que afeta a zona intestinal, será muito benéfico aplicar enemas. Ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 28 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452262">
+      <div class="card-header">
+        <div class="card-number">28</div>
+        <div class="card-title">Infecção Urinária</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>Um dos primeiros sinais de infeção do trato urinário num hamster é que começa a beber em excesso, o que por sua vez provoca um aumento da micção. Por vezes haverá sangue na urina e o hamster pode guinchar de dor ao urinar. É muito importante manter a jaula muito limpa para evitar o desenvolvimento do fungo Aspergillus.</p>
+        <p>Por outro lado, a infeção do útero, que só ocorre nas fêmeas, manifesta-se com urina e secreções sanguinolentas e inchaço do abdómen. A infeção uterina pode ser mortal.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Vaginal (fêmeas): preparar 5 ml de solução salina e adicionar de 2 a 5 GOTAS de CDS; tomar 0,5 a 0,7 ml (10 a 14 GOTAS) dessa solução com uma seringa de insulina sem agulha. Segurar o animal com uma mão; com a outra, introduzir suavemente a ponta da seringa na vagina (5–10 mm de profundidade). Expelir e aspirar o líquido três vezes, suavemente.</p>
+          <p>• Enema (machos): ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 29 -->
+    <div class="lesson-card cat-rodents" id="lesson-1452263">
+      <div class="card-header">
+        <div class="card-number">29</div>
+        <div class="card-title">Resfriado e Pneumonia</div>
+        <span class="card-category">Roedores</span>
+      </div>
+      <div class="card-body">
+        <p>Os hamsters são animais excelentes e resistentes, mas os problemas respiratórios são uma questão comum a ter em conta. A pneumonia define-se como qualquer inflamação dos pulmões e, se não tratada, pode ser mortal para o hamster.</p>
+        <p>Como a pneumonia é considerada um conjunto de sintomas mais do que uma doença em si, há uma série de causas possíveis: vírus, bactérias e o microrganismo micoplasma. Em alguns casos, há mais do que uma causa envolvida.</p>
+        <p>Sintomas que podem sugerir pneumonia: espirros, olhos lacrimejantes, secreção nasal, temperatura elevada e letargia. O hamster também pode parecer ter dificuldade em respirar.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Os filhotes devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ CÃES ══════════════ -->
+    <h2 class="section-header">🐶 Animais de Estimação › Cães</h2>
+
+    <!-- 30 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452265">
+      <div class="card-header">
+        <div class="card-number">30</div>
+        <div class="card-title">Administração Oral</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>Particularidades digestivas dos cães: os cães têm um sistema digestivo capaz de extraer energia de vegetais e carne, embora de forma menos eficiente do que os humanos. Têm um ácido estomacal muito superior ao humano — entre 6 e 7 vezes mais concentrado —, o que lhes permite ativar o clorito sódico diretamente no estômago, sem necessidade de o misturar com o ativador, alterando menos o sabor da água do bebedouro.</p>
+        <p>Os cães podem tomar dióxido de cloro nas suas diferentes formas: CDS, CD e MMS. Inclusive clorito sem ativar, sendo essa uma ótima opção para as tomadas orais.</p>
+        <div class="protocol-block">
+          <strong>ADULTOS — Doses</strong>
+          <p>• Padrão: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS ou 1 gota ativada/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Clorito sem ativar: 10 gotas de clorito sem ativar (25%) por cada litro de água. Renovar diariamente.</p>
+          <p>• O ideal é diluir 1 ml de CDS (ou uma gota ativada) em 30 ml de água e dar 10 ml da mistura em cada tomada, 3 vezes ao dia (por cada 2 kg de peso).</p>
+          <p>• Concentração máxima: 5% — mínimo de 20 ml de água por ml de CDS. Em caso de CD ou MMS, mínimo 30 ml de água.</p>
+        </div>
+        <div class="protocol-block">
+          <strong>FILHOTES — Doses</strong>
+          <p>• É preferível dar CDS aos filhotes até atingirem 50% do seu peso adulto.</p>
+          <p>• Padrão: 1 ml de CDS/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+        </div>
+        <p>Para tratamentos individuais, pode dar-se com uma sonda, seringa ou pistola de tratamento veterinário. Uma boa opção para cães e gatos é misturar o CDS com caldo — bebem com entusiasmo. Concentração máxima de 5%: 1 ml de CDS por cada 20 ml de caldo (preferencialmente 1 ml por cada 30 ml de caldo).</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 31 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452267">
+      <div class="card-header">
+        <div class="card-number">31</div>
+        <div class="card-title">Borreliose</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>Consultar a lição 30 (Administração Oral para Cães) para as particularidades digestivas e as formas gerais de administração de dióxido de cloro em cães.</p>
+        <div class="protocol-block">
+          <strong>Doses — Adultos</strong>
+          <p>• Padrão: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Profilaxia: 1 ml de CDS ou 1 gota ativada/4 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Clorito sem ativar: 10 gotas de clorito sem ativar (25%) por cada litro de água. Renovar diariamente.</p>
+        </div>
+        <p><strong>Importante:</strong> O CDS evapora acima de 11ºC, portanto em verão pode não ser a melhor opção colocá-lo nos bebedouros. A mistura de ClO₂ + água não deve ficar exposta diretamente à luz solar.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 32 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452268">
+      <div class="card-header">
+        <div class="card-number">32</div>
+        <div class="card-title">Diabetes</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>A diabetes canina (tal como nos seres humanos) é um distúrbio do sistema endócrino do cão, que não é capaz de produzir insulina nem de a utilizar corretamente. Isso faz com que os níveis de açúcar no sangue do cão sejam demasiado elevados, o que é muito perigoso para a sua saúde. A insulina é uma hormona produzida no pâncreas que permite às células do corpo do animal captar a glicose (açúcar) do sangue e utilizá-la para funcionar.</p>
+        <p>Sem insulina, as células não conseguem detetar a glicose, interpretam que não há glicose e enviam sinais para que o corpo obtenha mais. Este é a origem da diabetes em cães, pessoas e outros animais.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• O ideal é diluir 1 ml de CDS (ou uma gota ativada) em 30 ml de água e dar 10 ml da mistura em cada tomada, 3 vezes ao dia.</p>
+          <p>• Por ser uma afecção crónica, além destas 3 tomadas diárias pode ser muito benéfico adicionar 10 gotas de clorito sem ativar a cada litro de água do bebedouro.</p>
+          <p>• Os filhotes devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+          <p>• Enema: para estes casos costuma ser muito benéfico complementar as tomadas orais com enemas. Ver "Protocolo de Irrigação Retal" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 33 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452271">
+      <div class="card-header">
+        <div class="card-number">33</div>
+        <div class="card-title">Leishmaniose</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>O protozoário Leishmania infantum transmite-se aos cães através da picada de um tipo de mosquito, embora também tenham sido descritas outras vias de possível infeção. Humanos, gatos, furões, lobos... também podem contrair a leishmaniose. Uma vez que o cão é infetado pelo parasita, este vive e reproduz-se nos órgãos internos do animal e, dependendo do seu estado de saúde, da força do seu sistema imunológico e de outros fatores, provocará uma afecção sistémica no organismo e levará a um agravamento progressivo da sua saúde.</p>
+        <p>Se a doença evoluir e não for diagnosticada a tempo, na sua fase mais avançada afetará órgãos como os rins, o baço e o fígado (hemorragias nasais, patologias renais, alargamento do fígado e do baço...) e o animal pode morrer. Portanto, a prevenção e o diagnóstico precoce são de vital importância.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas. Também pode ser muito benéfico adicionar 10 gotas de clorito sem ativar a cada litro de água do bebedouro.</p>
+          <p>• Os filhotes devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+          <p>• Intravenoso: por ser um parasita intracelular, em casos graves pode-se administrar o ClO₂ por via intravenosa (sempre por profissional qualificado). Ver "Protocolos Gerais / Via Intravenosa".</p>
+          <p>• Enema: para casos avançados em que fígado, rins e baço estão afetados, este protocolo é importante. Ver "Protocolo de Irrigação Retal".</p>
+          <p>• Dermatológico: em caso de manifestações cutâneas, ver "Protocolo Dermatológico" em "Protocolos Gerais".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 34 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452272">
+      <div class="card-header">
+        <div class="card-number">34</div>
+        <div class="card-title">Linfoma Maligno</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>O linfoma é uma doença sistêmica e progressiva que se origina em órgãos do sistema linfático (gânglios, baço, medula óssea), como resultado da proliferação incontrolada e maligna de células do sistema linfoide. É uma das neoplasias caninas mais comuns, afetando cães de meia-idade ou mais velhos (5-10 anos).</p>
+        <p>A apresentação mais comum é o linfoma multicêntrico, com gânglios linfáticos aumentados de forma generalizada. A maioria dos cães não apresenta sintomas marcados, mas podem ter anorexia, perda de peso, vômitos, diarreia, ascite, dispneia, febre, etc.</p>
+        <div class="protocol-block">
+          <strong>Pauta de Tratamento</strong>
+          <p>Protocolo oral: 1 ml de CDS ou 1 gota ativada / 2 kg de peso, a cada 24h, dividido em 3 doses. Por ser crônica e potencialmente mortal, adicionar 10 gotas de clorito no bebedouro.</p>
+          <p>Protocolo enema: Para casos avançados afetando fígado, rins e baço.</p>
+          <p>Protocolo intravenoso: Em casos graves (por profissional qualificado).</p>
+        </div>
+        <div class="img-gallery">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/oDXdBsZT6yjbFyS3XqXq87dD/84e8b247ec6ee55dfee276f0be806ede4ec8aee3362b32c530e11221a57c71a1" alt="Linfoma canino">
+        </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 35 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452273">
+      <div class="card-header">
+        <div class="card-number">35</div>
+        <div class="card-title">Parvovirose</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>O parvovírus é uma doença muito contagiosa que afeta as células reprodutoras, como as que revestem o trato intestinal. Também pode afetar o coração e os glóbulos vermelhos. A doença transmite-se por contato oral com fezes infetadas, pois o vírus permanece nelas em grandes quantidades mesmo várias semanas após a infeção. Afeta cães de todas as idades, mas os casos mais graves ocorrem em filhotes. A incubação dura de quatro a cinco dias. Em seguida, produz-se a fase aguda: depressão, vômitos e diarreia. Alguns desenvolvem febre alta (41°C). A diarreia contém muco e sangue, e os animais desidratam-se rapidamente. É uma afecção muito grave com esperança de vida muito curta nos filhotes.</p>
+        <p>Por ser um vírus, a medicação convencional não costuma ter grandes resultados e o prognóstico é muito mau. Porém, com CDS obtemos muito bons resultados, garantindo a sobrevivência dos filhotes na maioria dos casos. Em casos muito graves, o protocolo intravenoso combinado com oral e retal mostrou bons resultados.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas.</p>
+          <p>• Os filhotes devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+          <p>• Enema: para ajudar a deter as diarreias e recuperar a hidratação, este protocolo é extremamente útil. Ver "Protocolo de Irrigação Retal".</p>
+          <p>• Intravenoso: em casos graves, administrar o ClO₂ por via intravenosa (sempre por profissional qualificado). Ver "Protocolos Gerais / Via Intravenosa".</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 36 -->
+    <div class="lesson-card cat-dogs" id="lesson-1452274">
+      <div class="card-header">
+        <div class="card-number">36</div>
+        <div class="card-title">Problemas de Pele: Ácaros, Sarna, Tinha...</div>
+        <span class="card-category">Cães</span>
+      </div>
+      <div class="card-body">
+        <p>A sarna é uma afecção cutânea grave causada por várias espécies de ácaros que vivem no pelo e na pele do cão. Existem dois tipos principais:</p>
+        <p><strong>Sarna demodécica:</strong> causada pelos ácaros Demodex, que costuma afetar cães menores de um ano.</p>
+        <p><strong>Sarna sarcóptica:</strong> causada pelos ácaros Sarcoptes. Provoca coceira intensa e costuma aparecer primeiro nas orelhas do cão.</p>
+        <p>Os sintomas da sarna incluem queda de pelo na face e nas patas, junto com coceira intensa e vermelhidão ao redor das zonas afetadas.</p>
+        <p>O surgimento repentino de coceiras (especialmente na face, patas, peito e barriga) pode indicar uma alergia ambiental ou alimentar. Um exame especializado pode ajudar a diagnosticar se o animal é alérgico a grama, ácaros do pó e pólen. As alergias alimentares devem-se às proteínas consumidas na dieta (carne bovina, ovos, frango e laticínios).</p>
+        <p>A tinha, apesar do nome, não é um verme, mas um fungo muito contagioso para outros animais e para os humanos. Aparece em forma de manchas circulares, com crostas e calvície, geralmente na cabeça, patas e orelhas do cão. É imprescindível combater o fungo imediatamente e evitar que se espalhe.</p>
+        <p>A queda de pelo nos cães pode ter diversas causas: problemas nutricionais, parasitas como os ácaros Demodex, doenças da tiroide ou síndrome de Cushing. Um exame físico e o histórico médico do animal podem fornecer pistas essenciais.</p>
+        <div class="protocol-block">
+          <strong>Protocolo de Tratamento</strong>
+          <p>• Oral: 1 ml de CDS ou 1 gota ativada/2 kg de peso, a cada 24h, repartido em 3 tomadas. O ideal é diluir 1 ml de CDS (ou uma gota ativada) em 30 ml de água e dar 10 ml em cada tomada, 3 vezes ao dia.</p>
+          <p>• Os filhotes devem ser tratados apenas com CDS, até atingirem 50% do seu peso adulto.</p>
+          <p>• Dermatológico: CDS: 30 ml de CDS + 70 ml de água ou solução fisiológica. CD/MMS: 15 gotas ativadas em 50 ml de água ou solução fisiológica. Guardar na geladeira. Aplicar 3 vezes ao dia (ou a cada hora em casos mais graves).</p>
+          <p>• Banhos: ver "Protocolo de Banhos" em "Protocolos Gerais". O protocolo de ducha costuma ser o mais conveniente.</p>
+        </div>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- ══════════════ DEPOIMENTOS ══════════════ -->
+    <h2 class="section-header">💬 Depoimentos</h2>
+
+    <!-- 37 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452348">
+      <div class="card-header">
+        <div class="card-number">37</div>
+        <div class="card-title">Ataque de Raposa a Galinhas</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Pedimos desculpas antecipadas às pessoas sensíveis, pois algumas imagens podem ser perturbadoras.</p>
+        <p>No galinheiro do nosso amigo entrou uma raposa que causou estragos, matando cinco galinhas e ferindo gravemente outras três. Duas das três morreram por causa dos ferimentos, mas o testemunho da terceira é impressionante.</p>
+        <p>Como podem ver, trata-se de um ferimento muito grande que deixou o papo perfurado e exposto. Portanto, a galinha não conseguia alimentar-se bem — segundo o próprio criador, parte da comida e da água caía aos seus pés quando tentava alimentar-se ou beber, nos primeiros dias (ao ter a garganta aberta).</p>
+        <p>Ao cabo de cerca de duas semanas, o papo caiu completamente seco, mas para a surpresa do nosso amigo José, começou a formar-se, pouco a pouco, um novo papo — algo que nos surpreendeu a todos. Passado cerca de um mês, o ferimento estava completamente cicatrizado e a galinha retomou a vida normal, sendo impossível distingui-la à vista das suas companheiras.</p>
+        <p><strong>Ataque de cão:</strong> ao nosso amigo José já tinha acontecido algo parecido no ano anterior: um cão entrou no galinheiro e atacou uma das suas galinhas, deixando-a gravemente ferida. As imagens podem ser perturbadoras.</p>
+        <p>Neste caso, José não tinha a certeza das doses a utilizar e usou doses realmente altas — muito superiores ao recomendado neste curso —, e ainda assim salvou a vida da galinha, que se recuperou completamente. A experiência de José ajuda-nos a deixar claro que as doses descritas no curso são completamente seguras: neste caso ele utilizou uma dose mais de 10 vezes superior ao recomendado, usando 100 gotas ativadas de CD em 100 ml de água.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 38 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452349">
+      <div class="card-header">
+        <div class="card-number">38</div>
+        <div class="card-title">Câncer Ósseo / Osteossarcoma</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Este é o caso de um cão mais velho que se encontra num canil. Tem problemas de agressividade e ninguém quis adotá-lo durante muito tempo.</p>
+        <p>Desde o final de 2020 tinha dificuldades para andar e parecia sofrer dor na pata. Decidiu-se então fazer uma radiografia, cujo resultado mostrou uma imagem compatível com um tumor ósseo. Os veterinários concluíram que tinha um osteossarcoma, um câncer de ossos. Este tipo de câncer costuma ter uma evolução muito rápida, pelo que a esperança de vida do nosso amigo era muito curta. Como não podiam pagar um tratamento convencional, entraram em contato connosco e decidimos começar a dar-lhe clorito sódico no bebedouro e fazer-lhe de vez em quando algumas injeções subcutâneas ao redor da zona afetada.</p>
+        <p>Desde o momento em que começámos, viu-se uma mudança na sua atitude: parecia ter menos dor e estava menos agressivo. Como podem ver nas imagens, não houve agravamento nos últimos 10 meses — algo impensável num tumor deste tipo. Em princípio, a estas alturas não deveria seguir com vida.</p>
+        <p>Somos conscientes de que parece não haver mudança e radiologicamente não há, mas isso em si já é uma vitória, pois os osteossarcomas costumam ter uma evolução muito rápida e neste caso está estagnado há quase um ano inteiro. Além disso, o cão está melhor das suas dores e também melhorou o seu humor.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 39 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452350">
+      <div class="card-header">
+        <div class="card-number">39</div>
+        <div class="card-title">Gato Atropelado / Hemorragia Interna</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Este caso é realmente excecional: trata-se de uma gata de rua que foi atropelada e um rapaz, ao vê-la, recolheu-a e levou-a à clínica da nossa amiga. Fizeram os exames pertinentes e verificaram que havia uma hemorragia interna muito importante, pelo que a sua esperança de vida era muito curta. O dono da clínica decidiu que não podia gastar muito dinheiro a tratar a gatinha, pois ninguém iria pagar por isso. Assim, o tratamento escolhido foi sueroterapia — a aplicação de soro por via intravenosa para compensar a perda de sangue. Perante esta situação, a nossa heroína decidiu colocar CDS no soro da gatinha, na esperança de que isso pudesse ajudá-la a superar o mau momento.</p>
+        <p>A grande surpresa surgiu no dia seguinte, quando decidiram abrir a gatinha em busca da origem da hemorragia: esta tinha sido completamente reabsorvida. Ao procurar de onde poderia vir, encontraram uma cicatriz recente no baço da gatinha — uma linha esbranquiçada perfeitamente visível, que era, ao que parece, a cicatriz da ferida interna que produzia o sangramento. As fotos são impressionantes, pois estamos a ver o baço recém-reparado!</p>
+        <p>Esta é a protagonista depois da sua operação. A recuperação foi tão surpreendente que recebeu alta no dia seguinte, ao verificar-se que comia, bebia normalmente e se movia sem dificuldade.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 40 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452351">
+      <div class="card-header">
+        <div class="card-number">40</div>
+        <div class="card-title">Feridas</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Neste caso, tentaram tudo o que havia disponível na clínica veterinária e não conseguiam deter o sangramento, até que se utilizou dióxido de cloro em alta concentração (neste caso em forma de gel). A hemorragia parou em cerca de 15 a 20 segundos, o que deixou toda a equipa surpresa e maravilhada com tão bom resultado. Puderam coser a orelha e, como podem verificar, o resultado é fantástico: a orelha ficou como nova.</p>
+        <p>Além do bom resultado a deter a hemorragia, com o dióxido de cloro conseguimos regenerar os tecidos mais rapidamente e desinfetar completamente a ferida.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 41 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452351b">
+      <div class="card-header">
+        <div class="card-number">41</div>
+        <div class="card-title">Inflamação Testicular</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Caso de um Yorkshire com inflamação testicular enorme — o escroto roçava no chão, com coloração enegrecida (espécie de calo) e pele endurecida.</p>
+        <p>A mudança com apenas UM DIA de tratamento aplicando gel de CDS foi impressionante. Após uns dias, ao analisar a causa da inflamação, encontrou-se um tumor, pelo que se decidiu castrá-lo para evitar complicações. Atualmente está completamente recuperado.</p>
+        <div class="img-gallery">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/VzoC7seaFJHBvbV3bzf64nL3/4e4a260fbd7ac21b58a350a1b9b2839df3988852d225313173226dcf9866a6d9" alt="Inflamação testicular">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/S16ARyPwSZoZcdYaxwvdwjdx/90a56c988c73356d646e6614947f99d5997df76da903348904b245b6d2ebdcc8" alt="Antes">
+        </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 42 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452354">
+      <div class="card-header">
+        <div class="card-number">42</div>
+        <div class="card-title">Pedras nos Rins / Bexiga</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Caso de um coelhinho com colapso na bexiga — as radiografias mostram um cálculo enorme que ocupava a bexiga inteira, causando grande dor e impossibilidade de urinar. Os rins corriam risco de colapso a qualquer momento. Tinha graves problemas digestivos, íleo paralítico, parou de comer.</p>
+        <p>A veterinária dava-lhe no máximo 15-20% de chances de sobreviver à operação. Decidiram administrar soro + CDS por via intravenosa e injeções subcutâneas ao redor da bexiga, além de doses orais de CDS.</p>
+        <p>No dia seguinte, o coelhinho estava como novo e começou a comer! A recuperação foi incrivelmente rápida — no mesmo dia já comia normalmente e as fezes estavam bem digeridas. Estava muito ativo, inclusive corria!</p>
+        <div class="img-gallery">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/BmvrPY3McT5yLpmRmanancu1/4e4a260fbd7ac21b58a350a1b9b2839df3988852d225313173226dcf9866a6d9" alt="Pedras bexiga">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/DHTVjAphJ21sDQ1V2pLWE8nK/90a56c988c73356d646e6614947f99d5997df76da903348904b245b6d2ebdcc8" alt="Radiografia">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/hyUS34NGikqtkcpVheiJ2Qdf/90a56c988c73356d646e6614947f99d5997df76da903348904b245b6d2ebdcc8" alt="Cirurgia">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/Mapbsja9NRvV1W9SjMfCLWGg/90a56c988c73356d646e6614947f99d5997df76da903348904b245b6d2ebdcc8" alt="Recuperação">
+        </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- 43 -->
+    <div class="lesson-card cat-testimonials" id="lesson-1452357">
+      <div class="card-header">
+        <div class="card-number">43</div>
+        <div class="card-title">Envenenamento / Intoxicação</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Testemunho de um cachorrinho de 4 meses em estado muito grave. Começou com vômitos e diarreias frequentes, completamente desidratado, sem comer nem beber. O veterinário administrou 3 frascos de soro, mas o cão não melhorava. Receitou parafina (por suspeita de envenenamento) e após tomá-la, vomitou com sangue.</p>
+        <p>O cachorro estava completamente curvado pela dor estomacal, continuou sem comer nem beber durante vários dias. A radiografia mostrava grande inflamação no estômago. Os testes de parvovírus, cinomose e coronavírus foram negativos.</p>
+        <p>No mesmo dia, a veterinária administrou soro com CDS por via intravenosa. Na operação no dia seguinte, encontraram parede estomacal muito inflamada e úlceras internas. Aplicou-se a mistura do protocolo intravenoso diretamente na parede estomacal e interior do estômago.</p>
+        <p>Nessa mesma tarde, começou a tolerar doses orais de CDS (20 ml) e realizou-se um enema com CDS. <strong>Nessa mesma tarde começou a comer e beber!</strong> No dia seguinte (após 5 dias sem comer), comeu e bebeu por vontade própria, recuperou a energia e estava brincalhão.</p>
+        <div class="img-gallery">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/V8NKFRn9YENdRNot49Hy9ShL/4e4a260fbd7ac21b58a350a1b9b2839df3988852d225313173226dcf9866a6d9" alt="Envenenamento">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/wENkYf7qLb1EQSDgVwBdXNKJ/90a56c988c73356d646e6614947f99d5997df76da903348904b245b6d2ebdcc8" alt="Vômito com sangue">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/fdHETxG5GyvufegUQs6abnNo/84e8b247ec6ee55dfee276f0be806ede4ec8aee3362b32c530e11221a57c71a1" alt="Diarreia">
+          <img src="https://elopage-storage-production.s3.eu-central-1.amazonaws.com/variants/AjziW1XszgHLZTxeEpnynSa2/4e4a260fbd7ac21b58a350a1b9b2839df3988852d225313173226dcf9866a6d9" alt="Apolo recuperado">
+        </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+    <!-- APOLO (bônus) -->
+    <div class="lesson-card cat-testimonials" id="lesson-apolo">
+      <div class="card-header">
+        <div class="card-number">🐶</div>
+        <div class="card-title">Apolo — Filhote com Gastroenterite Grave (Caso Especial)</div>
+        <span class="card-category">Depoimento</span>
+      </div>
+      <div class="card-body">
+        <p>Trata-se de um filhote de cachorro de 4 meses que começou no dia 6/11 com vômitos e diarreias muito frequentes. Estava completamente desidratado e não bebia nem comia. Levou-se ao veterinário explicando o ocorrido, e ele, ao ver o estado de desidratação do pequeno, aplicou 3 bolsas de soro. Porém, o cão não melhorava. Receitou parafina, por precaução. Após tomá-la, voltou a vomitar — com sangue no vômito, algo que normalmente não é um bom sinal. Após os vômitos, o cão ficou ainda pior e curvado pela dor estomacal; continuou sem comer nem beber durante vários dias.</p>
+        <p>Nesse momento, a dona entrou em contato com a nossa veterinária favorita. Na radiografia podia-se ver uma grande inflamação no estômago; os testes de parvovirose, cinomose e coronavírus foram negativos. Nesse mesmo dia, a veterinária instalou um acesso venoso com soro e CDS para ajudá-lo a recuperar a hidratação e reforçar o sistema imunológico.</p>
+        <p>No dia seguinte, realizou-se uma cirurgia para verificar o estado dos órgãos internos. No interior do estômago evidenciou-se uma parede estomacal muito inflamada e úlceras internas. A veterinária favorita aplicou a mistura do protocolo intravenoso diretamente na parede estomacal e no interior do estômago. À tarde, tomou soro, protetor gástrico, eletrólitos e metoclopramida. Foram feitas tomadas orais de 20 ml de CDS e um enema com CDS — e nessa mesma tarde começou a comer e beber.</p>
+        <p>No dia seguinte (11/11/21), comeu e bebeu por vontade própria — após 5 dias sem fazê-lo. Recuperou a energia, estava brincalhão e com vontade de voltar para casa. O nosso amigo <strong>Apolo</strong> se recuperou completamente.</p>
+      </div>
+      <div class="back-top"><a href="#top">↑ Voltar ao Índice</a></div>
+    </div>
+
+  </main>
+</div>
+
+<footer style="background:#1a365d;color:#a0aec0;text-align:center;padding:28px 20px;font-family:-apple-system,sans-serif;font-size:13px;">
+  <p style="margin-bottom:6px;color:white;font-size:15px;font-weight:600;">ClO₂: Guia Prático para Animais de Estimação</p>
+  <p>Baseado no curso original em espanhol de <strong style="color:#90cdf4;">naturalbiophysics</strong> · 43 lições</p>
+  <p style="margin-top:10px;font-size:12px;">⚠️ Este material é apenas educativo e não substitui a consulta veterinária profissional.</p>
+</footer>
+
+</body>
+</html>
