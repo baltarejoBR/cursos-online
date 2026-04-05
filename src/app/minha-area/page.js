@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
+import { PRODUCTS } from '@/lib/products';
 
 export default function MinhaAreaPage() {
   const supabase = createClient();
@@ -12,7 +13,7 @@ export default function MinhaAreaPage() {
 
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [enrollments, setEnrollments] = useState([]);
+  const [myProducts, setMyProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingTelegram, setEditingTelegram] = useState(false);
   const [telegramInput, setTelegramInput] = useState('');
@@ -41,16 +42,20 @@ export default function MinhaAreaPage() {
 
     setProfile(profileData);
 
-    // Buscar matrículas com dados do curso
-    const { data: enrollmentData } = await supabase
-      .from('enrollments')
-      .select(`
-        *,
-        courses:course_id (*)
-      `)
-      .eq('user_id', currentUser.id);
+    // Buscar produtos com acesso ativo
+    const { data: userProducts } = await supabase
+      .from('user_products')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .eq('active', true);
 
-    setEnrollments(enrollmentData || []);
+    // Mapear com dados do catalogo
+    const productsWithInfo = (userProducts || []).map(up => {
+      const product = PRODUCTS.find(p => p.id === up.product_id);
+      return { ...up, product };
+    }).filter(up => up.product);
+
+    setMyProducts(productsWithInfo);
     setTelegramInput(profileData?.telegram_username || '');
     setLoading(false);
   }
@@ -78,17 +83,18 @@ export default function MinhaAreaPage() {
     );
   }
 
+  const cursos = myProducts.filter(p => p.product.category === 'cursos');
+  const livros = myProducts.filter(p => p.product.category === 'livros');
+  const servicos = myProducts.filter(p => p.product.category === 'servicos');
+
   return (
     <>
       <Header />
       <div className="container dashboard">
-        <h1>Olá, {profile?.full_name || 'Aluno'}! 👋</h1>
-        <p className="subtitle">
-          Plano atual: <span className={`badge ${profile?.plan === 'premium' ? 'badge-premium' : 'badge-free'}`}>
-            {profile?.plan === 'premium' ? 'Premium' : 'Gratuito'}
-          </span>
-        </p>
+        <h1>Ola, {profile?.full_name || 'Aluno'}!</h1>
+        <p className="subtitle">Seus produtos e acessos</p>
 
+        {/* Telegram */}
         <div style={{
           background: 'var(--bg-card)',
           border: '1px solid var(--border)',
@@ -136,7 +142,7 @@ export default function MinhaAreaPage() {
           ) : (
             <>
               <span style={{ color: profile?.telegram_username ? 'var(--text)' : 'var(--text-muted)' }}>
-                {profile?.telegram_username ? `@${profile.telegram_username}` : 'Não informado'}
+                {profile?.telegram_username ? `@${profile.telegram_username}` : 'Nao informado'}
               </span>
               <button
                 onClick={() => setEditingTelegram(true)}
@@ -152,39 +158,28 @@ export default function MinhaAreaPage() {
               >
                 Editar
               </button>
-              {!profile?.telegram_username && (
-                <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem', width: '100%' }}>
-                  Informe seu Telegram para acessar o grupo exclusivo de membros premium.
-                </small>
-              )}
             </>
           )}
         </div>
 
+        {/* Stats */}
         <div className="stats-grid">
           <div className="stat-card">
-            <div className="number">{enrollments.length}</div>
-            <div className="label">Cursos Matriculados</div>
+            <div className="number">{myProducts.length}</div>
+            <div className="label">Produtos Ativos</div>
           </div>
           <div className="stat-card">
-            <div className="number">
-              {enrollments.filter(e => e.completed_at).length}
-            </div>
-            <div className="label">Cursos Concluídos</div>
+            <div className="number">{cursos.length}</div>
+            <div className="label">Cursos</div>
           </div>
           <div className="stat-card">
-            <div className="number">
-              {profile?.plan === 'premium' ? '∞' : enrollments.length}
-            </div>
-            <div className="label">
-              {profile?.plan === 'premium' ? 'Acesso Total' : 'Cursos Disponíveis'}
-            </div>
+            <div className="number">{livros.length}</div>
+            <div className="label">Livros</div>
           </div>
         </div>
 
-        <h2 style={{ marginBottom: '20px' }}>Meus Cursos</h2>
-
-        {enrollments.length === 0 ? (
+        {/* Meus Produtos */}
+        {myProducts.length === 0 ? (
           <div style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border)',
@@ -193,69 +188,123 @@ export default function MinhaAreaPage() {
             textAlign: 'center',
           }}>
             <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '1.1rem' }}>
-              Você ainda não está matriculado em nenhum curso.
+              Voce ainda nao tem acesso a nenhum produto.
             </p>
-            <Link href="/" className="btn btn-primary">
-              Explorar Cursos
+            <Link href="/planos" className="btn btn-primary">
+              Ver Produtos
             </Link>
           </div>
         ) : (
-          <div className="courses-grid">
-            {enrollments.map(enrollment => (
-              <Link
-                key={enrollment.id}
-                href={`/cursos/${enrollment.courses.id}`}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <div className="course-card">
-                  <div
-                    className="course-thumb"
-                    style={enrollment.courses.is_free
-                      ? {}
-                      : { background: 'linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)' }
-                    }
-                  >
-                    {enrollment.courses.is_free ? '📚' : '⭐'}
-                  </div>
-                  <div className="course-body">
-                    <h3>{enrollment.courses.title}</h3>
-                    <p>{enrollment.courses.description}</p>
-                    <div className="course-meta">
-                      <span className={`badge ${enrollment.courses.is_free ? 'badge-free' : 'badge-premium'}`}>
-                        {enrollment.courses.is_free ? 'Gratuito' : 'Premium'}
-                      </span>
-                      <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                        {enrollment.completed_at ? '✅ Concluído' : '📖 Em andamento'}
-                      </span>
-                    </div>
-                  </div>
+          <>
+            {/* Cursos */}
+            {cursos.length > 0 && (
+              <>
+                <h2 style={{ marginBottom: '20px' }}>🎓 Meus Cursos</h2>
+                <div className="courses-grid" style={{ marginBottom: '40px' }}>
+                  {cursos.map(item => (
+                    <Link
+                      key={item.id}
+                      href={`/produto/${item.product.slug}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <div className="course-card">
+                        <div className="course-thumb" style={{ background: item.product.gradient }}>
+                          🎓
+                        </div>
+                        <div className="course-body">
+                          <h3>{item.product.title}</h3>
+                          <p>{item.product.subtitle}</p>
+                          <div className="course-meta">
+                            <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
+                              Acesso Ativo
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
-              </Link>
-            ))}
-          </div>
+              </>
+            )}
+
+            {/* Livros */}
+            {livros.length > 0 && (
+              <>
+                <h2 style={{ marginBottom: '20px' }}>📚 Meus Livros</h2>
+                <div className="courses-grid" style={{ marginBottom: '40px' }}>
+                  {livros.map(item => (
+                    <Link
+                      key={item.id}
+                      href={`/produto/${item.product.slug}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                      <div className="course-card">
+                        <div className="course-thumb" style={{ background: item.product.gradient }}>
+                          📚
+                        </div>
+                        <div className="course-body">
+                          <h3>{item.product.title}</h3>
+                          <p>{item.product.subtitle}</p>
+                          <div className="course-meta">
+                            <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
+                              Acesso Ativo
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Servicos */}
+            {servicos.length > 0 && (
+              <>
+                <h2 style={{ marginBottom: '20px' }}>💼 Servicos</h2>
+                <div className="courses-grid" style={{ marginBottom: '40px' }}>
+                  {servicos.map(item => (
+                    <div key={item.id} className="course-card">
+                      <div className="course-thumb" style={{ background: item.product.gradient }}>
+                        💼
+                      </div>
+                      <div className="course-body">
+                        <h3>{item.product.title}</h3>
+                        <p>{item.product.subtitle}</p>
+                        <div className="course-meta">
+                          <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
+                            Acesso Ativo
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
         )}
 
-        {profile?.plan !== 'premium' && (
-          <div style={{
-            background: 'linear-gradient(135deg, #1e1b4b 0%, var(--bg-card) 100%)',
-            border: '1px solid var(--primary)',
-            borderRadius: '16px',
-            padding: '40px',
-            textAlign: 'center',
-            marginTop: '48px',
-          }}>
-            <h2 style={{ marginBottom: '12px' }}>🚀 Faça Upgrade para Premium</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
-              Acesse todos os cursos, incluindo conteúdo exclusivo, sem limitações.
-            </p>
-            <Link href="/planos" className="btn btn-primary">Quero ser Premium</Link>
-          </div>
-        )}
+        {/* CTA para ver mais produtos */}
+        <div style={{
+          background: 'linear-gradient(135deg, #1e1b4b 0%, var(--bg-card) 100%)',
+          border: '1px solid var(--primary)',
+          borderRadius: '16px',
+          padding: '40px',
+          textAlign: 'center',
+          marginTop: '48px',
+        }}>
+          <h2 style={{ marginBottom: '12px' }}>Quer mais conteudo?</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
+            Confira todos os nossos cursos, livros e servicos disponiveis.
+          </p>
+          <Link href="/planos" className="btn btn-primary">Ver Todos os Produtos</Link>
+        </div>
       </div>
 
       <footer className="footer">
         <div className="container">
-          <p>© 2026 CursosOnline. Todos os direitos reservados.</p>
+          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>
