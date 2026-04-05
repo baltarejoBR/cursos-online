@@ -1,26 +1,95 @@
 import { NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
+import { getStripe } from '@/lib/stripe';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 
-async function notifyN8N(payload) {
-  const webhookUrl = process.env.N8N_WEBHOOK_URL;
-  if (!webhookUrl) return;
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_GROUP_ID = process.env.TELEGRAM_GROUP_ID;
+const TELEGRAM_ADMIN_CHAT_ID = process.env.TELEGRAM_ADMIN_CHAT_ID;
 
+async function telegramAPI(method, params) {
+  if (!TELEGRAM_BOT_TOKEN) return null;
   try {
-    await fetch(webhookUrl, {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/${method}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Webhook-Secret': process.env.N8N_WEBHOOK_SECRET || '',
-      },
-      body: JSON.stringify(payload),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(params),
     });
+    const data = await res.json();
+    if (!data.ok) console.error(`Telegram ${method} error:`, data.description);
+    return data;
   } catch (err) {
-    console.error('Failed to notify n8n:', err.message);
+    console.error(`Telegram ${method} failed:`, err.message);
+    return null;
   }
 }
 
+async function addMemberToTelegramGroup(telegramUsername, userName) {
+  // Gerar link de convite único (válido para 1 pessoa, expira em 24h)
+  const invite = await telegramAPI('createChatInviteLink', {
+    chat_id: TELEGRAM_GROUP_ID,
+    member_limit: 1,
+    expire_date: Math.floor(Date.now() / 1000) + 86400,
+    name: `Convite para ${userName}`,
+  });
+
+  if (!invite?.result?.invite_link) return;
+
+  // Enviar link por DM para o usuário
+  const chatResult = await telegramAPI('getChat', { chat_id: `@${telegramUsername}` });
+  if (chatResult?.result?.id) {
+    await telegramAPI('sendMessage', {
+      chat_id: chatResult.result.id,
+      text: `Olá ${userName}! 🎉\n\nSeu pagamento foi confirmado! Acesse o grupo exclusivo TEAmor pelo link abaixo:\n\n${invite.result.invite_link}\n\n⚠️ Este link é válido por 24 horas e funciona apenas uma vez.`,
+    });
+  }
+
+  // Notificar admin
+  if (TELEGRAM_ADMIN_CHAT_ID) {
+    await telegramAPI('sendMessage', {
+      chat_id: TELEGRAM_ADMIN_CHAT_ID,
+      text: `✅ Novo membro premium!\n\nNome: ${userName}\nTelegram: @${telegramUsername}\nLink de convite enviado.`,
+    });
+  }
+}
+
+async function removeMemberFromTelegramGroup(telegramUsername, userName) {
+  const chatResult = await telegramAPI('getChat', { chat_id: `@${telegramUsername}` });
+  if (!chatResult?.result?.id) return;
+
+  const telegramUserId = chatResult.result.id;
+
+  // Banir (remove do grupo)
+  await telegramAPI('banChatMember', {
+    chat_id: TELEGRAM_GROUP_ID,
+    user_id: telegramUserId,
+  });
+
+  // Desbanir para permitir re-entrada futura
+  await telegramAPI('unbanChatMember', {
+    chat_id: TELEGRAM_GROUP_ID,
+    user_id: telegramUserId,
+    only_if_banned: true,
+  });
+
+  // Notificar admin
+  if (TELEGRAM_ADMIN_CHAT_ID) {
+    await telegramAPI('sendMessage', {
+      chat_id: TELEGRAM_ADMIN_CHAT_ID,
+      text: `🚫 Membro removido do grupo\n\nNome: ${userName}\nTelegram: @${telegramUsername}\nMotivo: Assinatura cancelada`,
+    });
+  }
+}
+
+async function notifyAdminPaymentFailed(telegramUsername, userName, userEmail) {
+  if (!TELEGRAM_ADMIN_CHAT_ID) return;
+  await telegramAPI('sendMessage', {
+    chat_id: TELEGRAM_ADMIN_CHAT_ID,
+    text: `⚠️ Falha no pagamento!\n\nNome: ${userName}\nEmail: ${userEmail}\nTelegram: ${telegramUsername ? `@${telegramUsername}` : 'Não informado'}\n\nA assinatura está em atraso.`,
+  });
+}
+
 export async function POST(request) {
+  const stripe = getStripe();
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
 
@@ -92,12 +161,7 @@ export async function POST(request) {
             .single();
 
           if (newProfile?.telegram_username) {
-            await notifyN8N({
-              action: 'add',
-              telegram_username: newProfile.telegram_username,
-              user_name: newProfile.full_name,
-              user_email: session.customer_email || '',
-            });
+            await addMemberToTelegramGroup(newProfile.telegram_username, newProfile.full_name);
           }
         } else if (session.mode === 'payment' && productId) {
           // Pagamento unico - criar enrollment para o produto especifico
@@ -201,12 +265,11 @@ export async function POST(request) {
             .eq('id', profile.id)
             .single();
 
-          await notifyN8N({
-            action: 'notify_admin',
-            telegram_username: failedProfile?.telegram_username || '',
-            user_name: failedProfile?.full_name || '',
-            user_email: invoice.customer_email || '',
-          });
+          await notifyAdminPaymentFailed(
+            failedProfile?.telegram_username,
+            failedProfile?.full_name || '',
+            invoice.customer_email || ''
+          );
         }
         break;
       }
@@ -273,7 +336,7 @@ export async function POST(request) {
             .update({ plan: 'free', updated_at: new Date().toISOString() })
             .eq('id', profile.id);
 
-          // Notificar n8n para remover do grupo do Telegram
+          // Remover do grupo do Telegram
           const { data: canceledProfile } = await supabaseAdmin
             .from('profiles')
             .select('full_name, telegram_username')
@@ -281,12 +344,7 @@ export async function POST(request) {
             .single();
 
           if (canceledProfile?.telegram_username) {
-            await notifyN8N({
-              action: 'remove',
-              telegram_username: canceledProfile.telegram_username,
-              user_name: canceledProfile.full_name,
-              user_email: '',
-            });
+            await removeMemberFromTelegramGroup(canceledProfile.telegram_username, canceledProfile.full_name);
           }
         }
         break;

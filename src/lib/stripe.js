@@ -1,10 +1,10 @@
 import Stripe from 'stripe';
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2023-10-16',
-  timeout: 10000,
-  maxNetworkRetries: 2,
-});
+export function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY, {
+    apiVersion: '2023-10-16',
+  });
+}
 
 // Preços dos planos (em centavos)
 export const PLANS = {
