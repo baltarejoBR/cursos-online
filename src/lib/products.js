@@ -166,7 +166,7 @@ export const PRODUCTS = [
     subtitle: 'Produtos para sua saúde',
     description: 'Visite nossa loja online com diversos produtos selecionados para sua saúde e bem-estar. Entrega para todo o Brasil.',
     type: 'external',
-    externalUrl: '#', // Substituir pela URL real da loja
+    externalUrl: 'http://www.clo2br.com.br',
     features: [
       'Produtos selecionados',
       'Entrega para todo o Brasil',

@@ -15,6 +15,9 @@ export default function AdminPage() {
   const [userAccesses, setUserAccesses] = useState([]);
   const [grantLoading, setGrantLoading] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState('');
+  const [uploadResult, setUploadResult] = useState(null);
 
   useEffect(() => {
     loadData();
@@ -104,6 +107,67 @@ export default function AdminPage() {
     return accesses.filter(a => a.user_id === userId && a.active).length;
   }
 
+  async function handleVideoUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadProgress('Criando upload no Mux...');
+    setUploadResult(null);
+
+    try {
+      // 1. Pedir URL de upload ao nosso backend
+      const res = await fetch('/api/mux/upload', { method: 'POST' });
+      if (!res.ok) throw new Error('Erro ao criar upload');
+      const { uploadId, uploadUrl } = await res.json();
+
+      // 2. Enviar o video direto para o Mux
+      setUploadProgress(`Enviando ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB)...`);
+
+      const uploadRes = await fetch(uploadUrl, {
+        method: 'PUT',
+        body: file,
+        headers: { 'Content-Type': 'video/*' },
+      });
+
+      if (!uploadRes.ok) throw new Error('Erro ao enviar video');
+
+      // 3. Aguardar processamento
+      setUploadProgress('Video enviado! Aguardando processamento...');
+
+      let attempts = 0;
+      const maxAttempts = 60;
+      let result = null;
+
+      while (attempts < maxAttempts) {
+        await new Promise(r => setTimeout(r, 3000));
+        const statusRes = await fetch(`/api/mux/status/${uploadId}`);
+        const statusData = await statusRes.json();
+
+        if (statusData.status === 'ready' && statusData.playbackId) {
+          result = statusData;
+          break;
+        }
+
+        if (statusData.status === 'errored') {
+          throw new Error('Erro no processamento do video');
+        }
+
+        attempts++;
+        setUploadProgress(`Processando... (${attempts * 3}s)`);
+      }
+
+      if (!result) throw new Error('Timeout no processamento');
+
+      setUploadResult(result);
+      setUploadProgress('Video pronto!');
+    } catch (err) {
+      setUploadProgress(`Erro: ${err.message}`);
+    } finally {
+      setUploading(false);
+    }
+  }
+
   function getProductName(productId) {
     const product = PRODUCTS.find(p => p.id === productId);
     return product ? product.title : productId;
@@ -185,6 +249,7 @@ export default function AdminPage() {
             { id: 'access', label: 'Gerenciar Acessos' },
             { id: 'subscriptions', label: 'Assinaturas' },
             { id: 'payments', label: 'Pagamentos' },
+            { id: 'videos', label: 'Videos (Mux)' },
           ].map(t => (
             <button
               key={t.id}
@@ -562,6 +627,115 @@ export default function AdminPage() {
           </div>
         )}
       </div>
+
+        {/* === ABA: VIDEOS (MUX) === */}
+        {tab === 'videos' && (
+          <div>
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              borderRadius: '12px',
+              padding: '32px',
+              marginBottom: '24px',
+            }}>
+              <h3 style={{ marginBottom: '8px' }}>Upload de Video</h3>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.9rem' }}>
+                Envie um video e receba o Playback ID para usar nas aulas. O video sera protegido com playback assinado.
+              </p>
+
+              <input
+                type="file"
+                accept="video/*"
+                onChange={handleVideoUpload}
+                disabled={uploading}
+                style={{
+                  display: 'block',
+                  marginBottom: '16px',
+                  padding: '12px',
+                  background: 'var(--bg-input)',
+                  border: '1px solid var(--border)',
+                  borderRadius: '8px',
+                  color: 'var(--text)',
+                  width: '100%',
+                  cursor: uploading ? 'not-allowed' : 'pointer',
+                }}
+              />
+
+              {uploadProgress && (
+                <div style={{
+                  padding: '12px 16px',
+                  background: uploading ? 'rgba(99, 102, 241, 0.1)' : uploadResult ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                  border: `1px solid ${uploading ? 'rgba(99, 102, 241, 0.3)' : uploadResult ? 'rgba(34, 197, 94, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`,
+                  borderRadius: '8px',
+                  marginBottom: '16px',
+                  fontSize: '0.9rem',
+                }}>
+                  {uploading && '⏳ '}{uploadProgress}
+                </div>
+              )}
+
+              {uploadResult && (
+                <div style={{
+                  background: 'var(--bg-input)',
+                  border: '2px solid var(--success)',
+                  borderRadius: '12px',
+                  padding: '20px',
+                }}>
+                  <h4 style={{ color: 'var(--success)', marginBottom: '12px' }}>Video pronto!</h4>
+                  <div style={{ display: 'grid', gap: '8px', fontSize: '0.9rem' }}>
+                    <div>
+                      <strong>Playback ID (use no campo video_url da aula):</strong>
+                      <div style={{
+                        background: 'var(--bg)',
+                        padding: '10px 14px',
+                        borderRadius: '8px',
+                        fontFamily: 'monospace',
+                        marginTop: '4px',
+                        wordBreak: 'break-all',
+                        border: '1px solid var(--border)',
+                        userSelect: 'all',
+                        cursor: 'text',
+                      }}>
+                        {uploadResult.playbackId}
+                      </div>
+                    </div>
+                    <div>
+                      <strong>Asset ID:</strong>{' '}
+                      <span style={{ fontFamily: 'monospace', color: 'var(--text-muted)' }}>{uploadResult.assetId}</span>
+                    </div>
+                    {uploadResult.duration && (
+                      <div>
+                        <strong>Duracao:</strong>{' '}
+                        <span style={{ color: 'var(--text-muted)' }}>
+                          {Math.floor(uploadResult.duration / 60)}min {Math.floor(uploadResult.duration % 60)}s
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '16px' }}>
+                    Copie o Playback ID acima e cole no campo <code>video_url</code> da aula no Supabase para que o player funcione.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div style={{
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border)',
+              borderRadius: '12px',
+              padding: '24px',
+            }}>
+              <h3 style={{ marginBottom: '12px' }}>Como usar</h3>
+              <ol style={{ paddingLeft: '20px', color: 'var(--text-muted)', lineHeight: '2', fontSize: '0.9rem' }}>
+                <li>Faca o upload do video acima</li>
+                <li>Copie o <strong>Playback ID</strong> gerado</li>
+                <li>No Supabase, abra a tabela <strong>lessons</strong></li>
+                <li>Cole o Playback ID no campo <strong>video_url</strong> da aula desejada</li>
+                <li>O player aparecera automaticamente na pagina do curso</li>
+              </ol>
+            </div>
+          </div>
+        )}
 
       <footer className="footer">
         <div className="container">

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import MuxVideoPlayer from '@/components/MuxVideoPlayer';
 import { createClient } from '@/lib/supabase-browser';
 
 export default function CourseDetailPage() {
@@ -320,14 +321,13 @@ export default function CourseDetailPage() {
           }}>
             <h2 style={{ marginBottom: '16px' }}>{selectedLesson.title}</h2>
             {selectedLesson.video_url && (
-              <div style={{
-                background: 'var(--bg-input)',
-                borderRadius: '8px',
-                padding: '40px',
-                textAlign: 'center',
-                marginBottom: '20px',
-              }}>
-                🎬 Player de Vídeo: {selectedLesson.video_url}
+              <div style={{ marginBottom: '20px' }}>
+                <MuxVideoPlayer
+                  playbackId={selectedLesson.video_url}
+                  courseId={id}
+                  lessonId={selectedLesson.id}
+                  title={selectedLesson.title}
+                />
               </div>
             )}
             <div style={{ lineHeight: '1.8', color: 'var(--text-muted)' }}>

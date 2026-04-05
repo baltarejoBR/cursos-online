@@ -154,7 +154,14 @@ export async function POST(request) {
 
     return NextResponse.json({ error: 'Produto ou plano invalido' }, { status: 400 });
   } catch (error) {
-    console.error('Checkout error:', error.message);
+    console.error('Checkout error:', {
+      message: error.message,
+      stack: error.stack,
+      user: user?.id,
+      productId,
+      planType,
+      body
+    });
     return NextResponse.json(
       { error: 'Erro ao criar sessao de pagamento', detail: error.message },
       { status: 500 }

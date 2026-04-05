@@ -158,6 +158,16 @@ export default function MinhaAreaPage() {
               >
                 Editar
               </button>
+              {!profile?.telegram_username && (
+                <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem', width: '100%' }}>
+                  Informe seu Telegram para acessar o grupo exclusivo TEAmor.
+                  Depois, inicie uma conversa com{' '}
+                  <a href="https://t.me/teamoradmbot" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)' }}>
+                    @teamoradmbot
+                  </a>{' '}
+                  para receber o link de convite.
+                </small>
+              )}
             </>
           )}
         </div>

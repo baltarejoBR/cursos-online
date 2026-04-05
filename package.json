@@ -8,11 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mux/mux-node": "^12.8.1",
+    "@mux/mux-player-react": "^3.11.7",
+    "@supabase/ssr": "^0.5.0",
+    "@supabase/supabase-js": "^2.45.0",
     "next": "^14.2.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
-    "@supabase/supabase-js": "^2.45.0",
-    "@supabase/ssr": "^0.5.0",
     "stripe": "^14.0.0"
   }
 }
