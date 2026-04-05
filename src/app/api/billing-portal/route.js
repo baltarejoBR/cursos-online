@@ -3,8 +3,9 @@ import { getStripe } from '@/lib/stripe';
 import { createServerSupabase } from '@/lib/supabase-server';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 
-export async function POST() {
+export async function POST(request) {
   try {
+    const origin = new URL(request.url).origin;
     const supabase = createServerSupabase();
 
     const { data: { user } } = await supabase.auth.getUser();
@@ -26,7 +27,7 @@ export async function POST() {
     const stripe = getStripe();
     const session = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
-      return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/minha-area`,
+      return_url: `${origin}/minha-area`,
     });
 
     return NextResponse.json({ url: session.url });

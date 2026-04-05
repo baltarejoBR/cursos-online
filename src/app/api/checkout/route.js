@@ -10,6 +10,7 @@ export async function POST(request) {
     const { planType, productId } = body;
 
     const stripe = getStripe();
+    const origin = new URL(request.url).origin;
 
     // Verificar autenticação
     const supabase = createServerSupabase();
@@ -77,8 +78,8 @@ export async function POST(request) {
             product_id: product.id,
             product_type: 'subscription',
           },
-          success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/produto/${product.slug}`,
+          success_url: `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${origin}/produto/${product.slug}`,
           allow_promotion_codes: true,
         });
 
@@ -108,8 +109,8 @@ export async function POST(request) {
           product_id: product.id,
           product_type: 'one_time',
         },
-        success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/produto/${product.slug}`,
+        success_url: `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/produto/${product.slug}`,
         allow_promotion_codes: true,
       });
 
@@ -144,8 +145,8 @@ export async function POST(request) {
           supabase_user_id: user.id,
           plan_type: planType,
         },
-        success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/planos`,
+        success_url: `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${origin}/planos`,
         allow_promotion_codes: true,
       });
 
