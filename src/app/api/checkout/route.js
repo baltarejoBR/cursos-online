@@ -9,12 +9,17 @@ export async function POST(request) {
     const body = await request.json();
     const { planType, productId } = body;
 
+    const stripeKey = process.env.STRIPE_SECRET_KEY;
+    console.log('[checkout] key:', stripeKey ? stripeKey.substring(0, 12) + '...' : 'MISSING');
+
     // Verificar autenticação
     const supabase = createServerSupabase();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Voce precisa estar logado' }, { status: 401 });
     }
+
+    console.log('[checkout] user:', user.id, '| product:', productId);
 
     const supabaseAdmin = createAdminSupabase();
 
@@ -24,6 +29,8 @@ export async function POST(request) {
       .select('stripe_customer_id, full_name')
       .eq('id', user.id)
       .single();
+
+    console.log('[checkout] profile:', profile ? 'found' : 'not found', '| customer:', profile?.stripe_customer_id || 'none');
 
     let customerId = profile?.stripe_customer_id;
 
