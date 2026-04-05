@@ -1,37 +1,17 @@
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { stripe, PLANS } from '@/lib/stripe';
+import { createServerSupabase } from '@/lib/supabase-server';
 import { createAdminSupabase } from '@/lib/supabase-admin';
-import { getProductBySlug, PRODUCTS } from '@/lib/products';
+import { PRODUCTS } from '@/lib/products';
 
 export async function POST(request) {
   try {
     const body = await request.json();
     const { planType, productId } = body;
-    console.log('[checkout] step 1 - body:', JSON.stringify({ planType, productId }));
 
     // Verificar autenticação
-    const cookieStore = cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      {
-        cookies: {
-          get(name) { return cookieStore.get(name)?.value; },
-          set(name, value, options) {
-            try { cookieStore.set({ name, value, ...options }); } catch (e) { /* ignore in read context */ }
-          },
-          remove(name, options) {
-            try { cookieStore.set({ name, value: '', ...options }); } catch (e) { /* ignore in read context */ }
-          },
-        },
-      }
-    );
-
-    console.log('[checkout] step 2 - supabase client created');
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    console.log('[checkout] step 3 - auth:', user?.id || 'no user', authError?.message || 'ok');
+    const supabase = createServerSupabase();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Voce precisa estar logado' }, { status: 401 });
     }
@@ -39,12 +19,11 @@ export async function POST(request) {
     const supabaseAdmin = createAdminSupabase();
 
     // Buscar ou criar customer no Stripe
-    const { data: profile, error: profileError } = await supabaseAdmin
+    const { data: profile } = await supabaseAdmin
       .from('profiles')
       .select('stripe_customer_id, full_name')
       .eq('id', user.id)
       .single();
-    console.log('[checkout] step 4 - profile:', profile?.stripe_customer_id || 'no customer', profileError?.message || 'ok');
 
     let customerId = profile?.stripe_customer_id;
 
@@ -173,7 +152,7 @@ export async function POST(request) {
 
     return NextResponse.json({ error: 'Produto ou plano invalido' }, { status: 400 });
   } catch (error) {
-    console.error('Checkout error:', error.type, error.message, error.stack);
+    console.error('Checkout error:', error.message);
     return NextResponse.json(
       { error: 'Erro ao criar sessao de pagamento', detail: error.message },
       { status: 500 }
