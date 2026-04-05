@@ -9,6 +9,7 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const { planType, productId } = body;
+    console.log('[checkout] step 1 - body:', JSON.stringify({ planType, productId }));
 
     // Verificar autenticação
     const cookieStore = cookies();
@@ -18,13 +19,19 @@ export async function POST(request) {
       {
         cookies: {
           get(name) { return cookieStore.get(name)?.value; },
-          set(name, value, options) { cookieStore.set({ name, value, ...options }); },
-          remove(name, options) { cookieStore.set({ name, value: '', ...options }); },
+          set(name, value, options) {
+            try { cookieStore.set({ name, value, ...options }); } catch (e) { /* ignore in read context */ }
+          },
+          remove(name, options) {
+            try { cookieStore.set({ name, value: '', ...options }); } catch (e) { /* ignore in read context */ }
+          },
         },
       }
     );
 
-    const { data: { user } } = await supabase.auth.getUser();
+    console.log('[checkout] step 2 - supabase client created');
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    console.log('[checkout] step 3 - auth:', user?.id || 'no user', authError?.message || 'ok');
     if (!user) {
       return NextResponse.json({ error: 'Voce precisa estar logado' }, { status: 401 });
     }
@@ -32,11 +39,12 @@ export async function POST(request) {
     const supabaseAdmin = createAdminSupabase();
 
     // Buscar ou criar customer no Stripe
-    const { data: profile } = await supabaseAdmin
+    const { data: profile, error: profileError } = await supabaseAdmin
       .from('profiles')
       .select('stripe_customer_id, full_name')
       .eq('id', user.id)
       .single();
+    console.log('[checkout] step 4 - profile:', profile?.stripe_customer_id || 'no customer', profileError?.message || 'ok');
 
     let customerId = profile?.stripe_customer_id;
 
