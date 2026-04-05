@@ -205,14 +205,24 @@ export default function ProductPage() {
                     </button>
                   )}
 
-                  {/* Placeholder para PDF futuro */}
-                  <button
-                    className="btn btn-outline btn-full"
-                    disabled
-                    style={{ fontSize: '0.95rem', padding: '12px 24px', marginBottom: '16px', opacity: 0.5 }}
-                  >
-                    📥 Baixar PDF (em breve)
-                  </button>
+                  {/* Botao de download do PDF */}
+                  {product.downloadId ? (
+                    <a
+                      href={`/api/download/${product.downloadId}`}
+                      className="btn btn-outline btn-full"
+                      style={{ fontSize: '0.95rem', padding: '12px 24px', marginBottom: '16px', textDecoration: 'none' }}
+                    >
+                      📥 Baixar PDF
+                    </a>
+                  ) : (
+                    <button
+                      className="btn btn-outline btn-full"
+                      disabled
+                      style={{ fontSize: '0.95rem', padding: '12px 24px', marginBottom: '16px', opacity: 0.5 }}
+                    >
+                      📥 Baixar PDF (em breve)
+                    </button>
+                  )}
 
                   {contentError && (
                     <p style={{ color: '#ef4444', textAlign: 'center', fontSize: '0.9rem', marginTop: '8px' }}>
