@@ -45,6 +45,18 @@ export async function POST(request) {
         const session = event.data.object;
         const userId = session.metadata.supabase_user_id;
         const planType = session.metadata.plan_type;
+        const productId = session.metadata.product_id;
+        const productType = session.metadata.product_type;
+
+        // Registrar pagamento (vale para todos os modos)
+        await supabaseAdmin.from('payments').insert({
+          user_id: userId,
+          stripe_payment_intent_id: session.payment_intent || `checkout_${session.id}`,
+          amount: session.amount_total,
+          currency: session.currency,
+          status: 'succeeded',
+          metadata: { product_id: productId, product_type: productType, plan_type: planType },
+        });
 
         if (session.mode === 'subscription') {
           const subscription = await stripe.subscriptions.retrieve(session.subscription);
@@ -54,7 +66,7 @@ export async function POST(request) {
             user_id: userId,
             stripe_customer_id: session.customer,
             stripe_subscription_id: subscription.id,
-            plan_type: planType,
+            plan_type: planType || productId,
             status: 'active',
             current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
             current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
@@ -72,15 +84,6 @@ export async function POST(request) {
             })
             .eq('id', userId);
 
-          // Registrar pagamento
-          await supabaseAdmin.from('payments').insert({
-            user_id: userId,
-            stripe_payment_intent_id: session.payment_intent || `checkout_${session.id}`,
-            amount: session.amount_total,
-            currency: session.currency,
-            status: 'succeeded',
-          });
-
           // Buscar telegram_username e notificar n8n para adicionar ao grupo
           const { data: newProfile } = await supabaseAdmin
             .from('profiles')
@@ -96,6 +99,34 @@ export async function POST(request) {
               user_email: session.customer_email || '',
             });
           }
+        } else if (session.mode === 'payment' && productId) {
+          // Pagamento unico - criar enrollment para o produto especifico
+          // Buscar curso correspondente ao product_id
+          const { data: course } = await supabaseAdmin
+            .from('courses')
+            .select('id')
+            .eq('slug', productId)
+            .single();
+
+          if (course) {
+            await supabaseAdmin.from('enrollments').upsert({
+              user_id: userId,
+              course_id: course.id,
+              status: 'active',
+              purchased_at: new Date().toISOString(),
+            }, {
+              onConflict: 'user_id,course_id',
+            });
+          }
+
+          // Atualizar stripe_customer_id no perfil
+          await supabaseAdmin
+            .from('profiles')
+            .update({
+              stripe_customer_id: session.customer,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', userId);
         }
         break;
       }
