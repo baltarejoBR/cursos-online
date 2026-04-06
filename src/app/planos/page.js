@@ -84,7 +84,7 @@ export default function PlanosPage() {
                       src={product.image}
                       alt={product.title}
                       fill
-                      style={{ objectFit: 'cover' }}
+                      style={{ objectFit: 'contain' }}
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   ) : (

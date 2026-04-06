@@ -228,7 +228,7 @@ export default function MinhaAreaPage() {
                               src={item.product.image}
                               alt={item.product.title}
                               fill
-                              style={{ objectFit: 'cover' }}
+                              style={{ objectFit: 'contain' }}
                               sizes="(max-width: 768px) 100vw, 33vw"
                             />
                           ) : (

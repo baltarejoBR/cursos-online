@@ -158,7 +158,8 @@ export default function ProductPage() {
             <div style={{
               background: product.gradient,
               borderRadius: '16px',
-              height: '280px',
+              aspectRatio: '1 / 1',
+              maxHeight: '400px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -172,7 +173,7 @@ export default function ProductPage() {
                   src={product.image}
                   alt={product.title}
                   fill
-                  style={{ objectFit: 'cover' }}
+                  style={{ objectFit: 'contain' }}
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
                 />
