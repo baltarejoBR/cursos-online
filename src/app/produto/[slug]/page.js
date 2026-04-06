@@ -328,46 +328,6 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Iframe com conteudo HTML */}
-        {showContent && product.contentSlug && (
-          <div style={{
-            marginTop: '40px',
-            border: '2px solid var(--primary)',
-            borderRadius: '12px',
-            overflow: 'hidden',
-            background: 'white',
-          }}>
-            <div style={{
-              background: 'var(--primary)',
-              color: 'white',
-              padding: '12px 20px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-              <span style={{ fontWeight: 600 }}>📖 {product.title}</span>
-              <button
-                onClick={() => setShowContent(false)}
-                style={{
-                  background: 'rgba(255,255,255,0.2)',
-                  border: 'none',
-                  color: 'white',
-                  padding: '6px 16px',
-                  borderRadius: '6px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                }}
-              >
-                Fechar
-              </button>
-            </div>
-            <iframe
-              src={`/api/conteudo/${product.contentSlug}`}
-              style={{ width: '100%', height: '80vh', border: 'none' }}
-              title={product.title}
-            />
-          </div>
-        )}
       </div>
 
       <footer className="footer">
@@ -375,6 +335,50 @@ export default function ProductPage() {
           <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
+
+      {/* Conteudo HTML em tela cheia */}
+      {showContent && product.contentSlug && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          background: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <div style={{
+            background: 'var(--primary)',
+            color: 'white',
+            padding: '12px 20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexShrink: 0,
+          }}>
+            <button
+              onClick={() => setShowContent(false)}
+              style={{
+                background: 'rgba(255,255,255,0.2)',
+                border: 'none',
+                color: 'white',
+                padding: '8px 20px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '0.95rem',
+                fontWeight: '600',
+              }}
+            >
+              ← Voltar
+            </button>
+            <span style={{ fontWeight: 600 }}>{product.title}</span>
+          </div>
+          <iframe
+            src={`/api/conteudo/${product.contentSlug}`}
+            style={{ flex: 1, width: '100%', border: 'none' }}
+            title={product.title}
+          />
+        </div>
+      )}
     </>
   );
 }
