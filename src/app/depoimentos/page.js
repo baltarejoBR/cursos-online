@@ -3,9 +3,96 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Header from '@/components/Header';
-import { CATEGORIAS_DEPOIMENTOS, getDepoimentosByCategory } from '@/lib/depoimentos';
+import { CATEGORIAS_DEPOIMENTOS, DEPOIMENTOS, getDepoimentosByCategory } from '@/lib/depoimentos';
 
-const ITEMS_PER_PAGE = 24;
+const ITEMS_PER_PAGE = 12;
+
+function ImageGrid({ images, onImageClick }) {
+  return (
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+      gap: '16px',
+    }}>
+      {images.map((src, i) => (
+        <div
+          key={src}
+          onClick={() => onImageClick(src)}
+          style={{
+            position: 'relative',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            aspectRatio: '1',
+            transition: 'transform 0.2s, box-shadow 0.2s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'translateY(-4px)';
+            e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={src}
+            alt={`Depoimento ${i + 1}`}
+            loading="lazy"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CategorySection({ catKey, cat, images, onImageClick }) {
+  const [expanded, setExpanded] = useState(false);
+  const preview = expanded ? images : images.slice(0, 6);
+  const hasMore = images.length > 6;
+
+  return (
+    <section style={{ marginBottom: '48px' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        marginBottom: '20px',
+        paddingBottom: '12px',
+        borderBottom: '2px solid var(--border-light)',
+      }}>
+        <span style={{ fontSize: '1.5rem' }}>{cat.icon}</span>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 600 }}>{cat.name}</h2>
+        <span style={{
+          background: 'rgba(26, 107, 170, 0.1)',
+          color: 'var(--primary)',
+          padding: '2px 12px',
+          borderRadius: '20px',
+          fontSize: '0.8rem',
+          fontWeight: 600,
+        }}>
+          {images.length}
+        </span>
+      </div>
+      <ImageGrid images={preview} onImageClick={onImageClick} />
+      {hasMore && (
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="btn btn-outline btn-sm"
+            style={{ fontSize: '0.9rem' }}
+          >
+            {expanded ? 'Mostrar menos' : `Ver todos (${images.length})`}
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
 
 export default function DepoimentosPage() {
   const [activeFilter, setActiveFilter] = useState('todos');
@@ -96,51 +183,28 @@ export default function DepoimentosPage() {
 
       {/* Grid de imagens */}
       <main className="container" style={{ padding: '40px 20px' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-          gap: '16px',
-        }}>
-          {visibleImages.map((src, i) => (
-            <div
-              key={src}
-              onClick={() => setLightbox(src)}
-              style={{
-                position: 'relative',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                aspectRatio: '1',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={src}
-                alt={`Depoimento ${i + 1}`}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                }}
+        {activeFilter === 'todos' ? (
+          // Vista por seções separadas
+          Object.entries(DEPOIMENTOS).map(([catKey, catImages]) => {
+            const cat = CATEGORIAS_DEPOIMENTOS[catKey];
+            if (!cat || catImages.length === 0) return null;
+            return (
+              <CategorySection
+                key={catKey}
+                catKey={catKey}
+                cat={cat}
+                images={catImages}
+                onImageClick={setLightbox}
               />
-            </div>
-          ))}
-        </div>
+            );
+          })
+        ) : (
+          // Vista filtrada por categoria
+          <ImageGrid images={visibleImages} onImageClick={setLightbox} />
+        )}
 
-        {/* Carregar mais */}
-        {hasMore && (
+        {/* Carregar mais (só na vista filtrada) */}
+        {activeFilter !== 'todos' && hasMore && (
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
             <button
               onClick={() => setVisibleCount(prev => prev + ITEMS_PER_PAGE)}
@@ -149,12 +213,6 @@ export default function DepoimentosPage() {
             >
               Carregar mais ({images.length - visibleCount} restantes)
             </button>
-          </div>
-        )}
-
-        {visibleImages.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-            <p style={{ color: 'var(--text-muted)' }}>Nenhum depoimento nesta categoria ainda.</p>
           </div>
         )}
       </main>
