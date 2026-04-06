@@ -20,7 +20,7 @@ export const PRODUCTS = [
     priceDisplay: 'R$ 297,00',
     type: 'one_time', // one_time, subscription, external
     badge: 'Mais Vendido',
-    badgeColor: '#c9942e',
+    badgeColor: '#2e8b57',
     features: [
       'Acesso vitalício ao conteúdo',
       'Módulos para humanos e animais',
@@ -29,7 +29,7 @@ export const PRODUCTS = [
       'Grupo exclusivo de alunos',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #5a8a3c 0%, #7ab356 100%)',
+    gradient: 'linear-gradient(135deg, #1a6baa 0%, #3a9ad9 100%)',
   },
   {
     id: 'curso-cds-humanos',
@@ -67,7 +67,7 @@ export const PRODUCTS = [
       'Casos reais e depoimentos',
       'Suporte por email',
     ],
-    gradient: 'linear-gradient(135deg, #7ab356 0%, #4a7332 100%)',
+    gradient: 'linear-gradient(135deg, #3a9ad9 0%, #0d3b66 100%)',
   },
   {
     id: 'curso-teamor-telegram',
@@ -88,7 +88,7 @@ export const PRODUCTS = [
       'Comunidade ativa de praticantes',
       'Material exclusivo para membros',
     ],
-    gradient: 'linear-gradient(135deg, #c9942e 0%, #d4a94e 100%)',
+    gradient: 'linear-gradient(135deg, #2e8b57 0%, #4db87a 100%)',
   },
 
   // === LIVROS ===
@@ -109,7 +109,7 @@ export const PRODUCTS = [
       'Tabelas de dosagem práticas',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #b8860b 0%, #c9942e 100%)',
+    gradient: 'linear-gradient(135deg, #1e6e3e 0%, #2e8b57 100%)',
   },
   {
     id: 'livro-animais',
@@ -131,7 +131,7 @@ export const PRODUCTS = [
       'Casos reais documentados',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #8b7355 0%, #a68b5b 100%)',
+    gradient: 'linear-gradient(135deg, #4a6a8a 0%, #6b8fad 100%)',
   },
 
   // === SERVIÇOS ===
@@ -147,7 +147,7 @@ export const PRODUCTS = [
     priceNote: '/sessão',
     type: 'one_time',
     badge: 'Personalizado',
-    badgeColor: '#8b7355',
+    badgeColor: '#4a6a8a',
     features: [
       'Sessão de 1h por videochamada',
       'Protocolo personalizado',
@@ -155,7 +155,7 @@ export const PRODUCTS = [
       'Material de apoio exclusivo',
       'Gravação da sessão',
     ],
-    gradient: 'linear-gradient(135deg, #a68b5b 0%, #8b7355 100%)',
+    gradient: 'linear-gradient(135deg, #6b8fad 0%, #4a6a8a 100%)',
   },
 
   // === LOJA ===
@@ -174,7 +174,7 @@ export const PRODUCTS = [
       'Compra segura',
       'Suporte ao cliente',
     ],
-    gradient: 'linear-gradient(135deg, #5a8a3c 0%, #c9942e 100%)',
+    gradient: 'linear-gradient(135deg, #1a6baa 0%, #2e8b57 100%)',
   },
 ];
 
