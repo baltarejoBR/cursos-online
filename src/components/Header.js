@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getImageUrl } from '@/lib/storage';
 import { createClient } from '@/lib/supabase-browser';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
@@ -33,7 +34,7 @@ export default function Header() {
     <header className="header">
       <div className="header-inner">
         <Link href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Image src="/images/logo-metodo-corpo-limpo.png" alt="Método Corpo Limpo" width={40} height={40} />
+          <Image src={getImageUrl('logos/logo-metodo-corpo-limpo.png')} alt="Método Corpo Limpo" width={40} height={40} />
           <span>Método Corpo Limpo</span>
         </Link>
         <button
@@ -47,7 +48,10 @@ export default function Header() {
           <Link href="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
           <Link href="/o-que-e-cds" onClick={() => setMenuOpen(false)}>O que e CDS?</Link>
           <Link href="/depoimentos" onClick={() => setMenuOpen(false)}>Depoimentos</Link>
-          <Link href="/planos" onClick={() => setMenuOpen(false)}>Produtos</Link>
+          <Link href="/planos?cat=cursos" onClick={() => setMenuOpen(false)}>🎓 Cursos</Link>
+          <Link href="/planos?cat=livros" onClick={() => setMenuOpen(false)}>📚 Livros</Link>
+          <Link href="/produto/mentoria" onClick={() => setMenuOpen(false)}>📞 Consultoria</Link>
+          <Link href="/planos?cat=loja" onClick={() => setMenuOpen(false)}>🛒 Loja</Link>
           {user ? (
             <>
               <Link href="/minha-area" onClick={() => setMenuOpen(false)}>Minha Área</Link>

@@ -100,6 +100,28 @@ export default function ProductPage() {
     );
   }
 
+  if (product.type === 'download') {
+    if (typeof window !== 'undefined' && product.downloadPath) {
+      window.location.href = product.downloadPath;
+    }
+    return (
+      <>
+        <Header />
+        <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
+          <h1>{product.title}</h1>
+          <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>Seu download vai comecar automaticamente...</p>
+          <a href={product.downloadPath} download className="btn btn-primary" style={{ marginTop: '20px', textDecoration: 'none' }}>
+            📥 Baixar novamente
+          </a>
+          <br />
+          <Link href="/" className="btn btn-outline" style={{ marginTop: '12px' }}>
+            Voltar para Home
+          </Link>
+        </div>
+      </>
+    );
+  }
+
   if (product.type === 'external') {
     if (typeof window !== 'undefined' && product.externalUrl && product.externalUrl !== '#') {
       window.location.href = product.externalUrl;
@@ -109,7 +131,7 @@ export default function ProductPage() {
         <Header />
         <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
           <h1>{product.title}</h1>
-          <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>Redirecionando para a loja...</p>
+          <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>Redirecionando...</p>
           <Link href="/" className="btn btn-outline" style={{ marginTop: '20px' }}>
             Voltar para Home
           </Link>
@@ -117,6 +139,8 @@ export default function ProductPage() {
       </>
     );
   }
+
+  const isWhatsapp = product.type === 'whatsapp';
 
   const category = CATEGORIES[product.category];
 
@@ -265,32 +289,46 @@ export default function ProductPage() {
 
                   <div style={{ marginBottom: '24px' }}>
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
-                      {product.type === 'subscription' ? 'Assinatura Mensal' : 'Pagamento Unico'}
+                      {product.type === 'subscription' ? 'Assinatura Mensal' :
+                       isWhatsapp ? 'Agende pelo WhatsApp' : 'Pagamento Unico'}
                     </span>
                   </div>
 
-                  <button
-                    onClick={handleCheckout}
-                    className="btn btn-primary btn-full"
-                    disabled={loading}
-                    style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px' }}
-                  >
-                    {loading ? 'Processando...' :
-                     product.type === 'subscription' ? 'Assinar Agora' : 'Comprar Agora'}
-                  </button>
+                  {isWhatsapp ? (
+                    <>
+                      <a
+                        href={product.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary btn-full"
+                        style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px', textDecoration: 'none', background: '#25D366', textAlign: 'center', display: 'block' }}
+                      >
+                        📲 Agendar pelo WhatsApp
+                      </a>
+                      <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                        Voce sera direcionado para o WhatsApp de Gabriel Baltarejo para agendar sua consultoria.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={handleCheckout}
+                        className="btn btn-primary btn-full"
+                        disabled={loading}
+                        style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px' }}
+                      >
+                        {loading ? 'Processando...' :
+                         product.type === 'subscription' ? 'Assinar Agora' : 'Comprar Agora'}
+                      </button>
 
-                  {product.id === 'consultoria' && (
-                    <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '12px' }}>
-                      Apos o pagamento, voce sera redirecionado para agendar no Calendly
-                    </p>
-                  )}
-
-                  {!user && (
-                    <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                      Voce precisa estar logado para comprar.{' '}
-                      <Link href="/login">Entrar</Link> ou{' '}
-                      <Link href="/cadastro">Cadastrar</Link>
-                    </p>
+                      {!user && (
+                        <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                          Voce precisa estar logado para comprar.{' '}
+                          <Link href="/login">Entrar</Link> ou{' '}
+                          <Link href="/cadastro">Cadastrar</Link>
+                        </p>
+                      )}
+                    </>
                   )}
                 </>
               )}
@@ -311,7 +349,7 @@ export default function ProductPage() {
                 </ul>
               </div>
 
-              {!hasAccess && (
+              {!hasAccess && !isWhatsapp && (
                 <div style={{
                   marginTop: '24px',
                   padding: '16px',

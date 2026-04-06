@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
@@ -9,7 +10,23 @@ import { PRODUCTS, CATEGORIES } from '@/lib/products';
 const categoryOrder = ['cursos', 'livros', 'servicos', 'comunidade', 'loja', 'gratuitos'];
 
 export default function PlanosPage() {
+  return (
+    <Suspense>
+      <PlanosContent />
+    </Suspense>
+  );
+}
+
+function PlanosContent() {
+  const searchParams = useSearchParams();
+  const catParam = searchParams.get('cat');
   const [activeFilter, setActiveFilter] = useState('todos');
+
+  useEffect(() => {
+    if (catParam && (catParam === 'todos' || CATEGORIES[catParam])) {
+      setActiveFilter(catParam);
+    }
+  }, [catParam]);
 
   const filtered = activeFilter === 'todos'
     ? PRODUCTS.filter(p => !p.hidden)
@@ -57,9 +74,12 @@ export default function PlanosPage() {
           {filtered.map(product => (
             <Link
               key={product.id}
-              href={product.type === 'external' ? (product.externalUrl || '#') : `/produto/${product.slug}`}
+              href={product.type === 'external' ? (product.externalUrl || '#') :
+                    product.type === 'download' ? (product.downloadPath || '#') :
+                    `/produto/${product.slug}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
               {...(product.type === 'external' ? { target: '_blank', rel: 'noopener' } : {})}
+              {...(product.type === 'download' ? { download: true } : {})}
             >
               <div className="course-card">
                 <div className="course-thumb" style={{ background: product.gradient, position: 'relative', overflow: 'hidden' }}>
@@ -112,10 +132,13 @@ export default function PlanosPage() {
                         )}
                       </span>
                     ) : (
-                      <span style={{ fontWeight: '600', color: 'var(--primary)' }}>Ver Loja</span>
+                      <span style={{ fontWeight: '600', color: 'var(--primary)' }}>
+                        {product.type === 'download' ? '📥 Download Grátis' : 'Ver Loja'}
+                      </span>
                     )}
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
                       {product.type === 'subscription' ? 'Assinatura' :
+                       product.type === 'download' ? 'Grátis' :
                        product.type === 'external' ? 'Acesso' : 'Unico'}
                     </span>
                   </div>

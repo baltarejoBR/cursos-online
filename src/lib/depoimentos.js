@@ -1,7 +1,7 @@
 export const CATEGORIAS_DEPOIMENTOS = {
   todos: { name: 'Todos', icon: '📋' },
   geral: { name: 'Geral', icon: '💬' },
-  cancer: { name: 'Cancer', icon: '🎗' },
+  cancer: { name: 'Câncer', icon: '🎗️' },
   pele: { name: 'Pele', icon: '🩹' },
   circulacao: { name: 'Circulacao', icon: '❤' },
   recuperacao: { name: 'Recuperacao', icon: '💪' },
@@ -10,16 +10,18 @@ export const CATEGORIAS_DEPOIMENTOS = {
 
 const COUNTS = {
   geral: 131,
-  cancer: 42,
+  cancer: 6,
   pele: 23,
   circulacao: 9,
   recuperacao: 7,
   animais: 23,
 };
 
+import { getImageUrl } from './storage';
+
 function generatePaths(category, prefix, count) {
   return Array.from({ length: count }, (_, i) =>
-    `/depoimentos/${category}/${prefix}-${String(i + 1).padStart(3, '0')}.jpg`
+    getImageUrl(`depoimentos/${category}/${prefix}-${String(i + 1).padStart(3, '0')}.jpg`)
   );
 }
 

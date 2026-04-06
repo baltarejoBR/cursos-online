@@ -2,11 +2,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
+import { getImageUrl } from '@/lib/storage';
 
 export default function Home() {
-  const categoryOrder = ['cursos', 'livros', 'servicos', 'comunidade', 'loja', 'gratuitos'];
-
-  // Produtos em destaque
   const destaqueCurso = PRODUCTS.find(p => p.id === 'curso-cds-completo');
   const destaqueLivro = PRODUCTS.find(p => p.id === 'livro-completo');
 
@@ -65,30 +63,29 @@ export default function Home() {
               marginBottom: '32px',
               maxWidth: '500px',
             }}>
-              Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
-              Cursos, livros e mentoria com Gabriel Baltarejo.
+              Aprenda tudo sobre Terapias Bio-oxidativas com cursos, livros e mentoria personalizada com Gabriel Baltarejo.
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              <Link href="/planos" className="btn btn-primary" style={{
+              <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-primary" style={{
                 fontSize: '1.1rem',
                 padding: '14px 32px',
-                background: '#1a6baa',
+                background: '#2e8b57',
               }}>
-                Ver Produtos
-              </Link>
-              <Link href="#sobre" className="btn btn-outline" style={{
+                📥 Guia Gratis para Iniciantes
+              </a>
+              <Link href="#qual-produto" className="btn btn-outline" style={{
                 fontSize: '1.1rem',
                 padding: '14px 32px',
                 color: 'white',
                 borderColor: 'rgba(255,255,255,0.3)',
               }}>
-                Quem sou eu
+                Qual produto escolher?
               </Link>
             </div>
           </div>
           <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '450px', margin: '0 auto' }}>
             <Image
-              src="/images/hero-gabriel.jpeg"
+              src={getImageUrl('gabriel/hero-gabriel.jpeg')}
               alt="Gabriel Baltarejo"
               width={450}
               height={550}
@@ -125,8 +122,8 @@ export default function Home() {
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Alunos</div>
           </div>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>{PRODUCTS.length}</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Produtos</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>4.9/5</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Avaliacao dos alunos</div>
           </div>
           <div>
             <a href="https://www.instagram.com/gabrielbaltarejo" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -135,14 +132,52 @@ export default function Home() {
             </a>
           </div>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>4.9/5</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Avaliacao dos alunos</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>50+</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Paises</div>
           </div>
         </div>
       </section>
 
-      {/* BENEFICIOS */}
+      {/* GUIA GRATIS */}
       <section style={{
+        background: 'linear-gradient(135deg, #1a6baa 0%, #2e8b57 100%)',
+        padding: '60px 20px',
+        color: 'white',
+        textAlign: 'center',
+      }}>
+        <div className="container" style={{ maxWidth: '700px' }}>
+          <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📖</div>
+          <h2 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>
+            Novo por aqui? Comece pelo Guia Gratuito!
+          </h2>
+          <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '24px' }}>
+            Baixe o Guia Basico para Iniciantes e aprenda os fundamentos das Terapias Bio-oxidativas.
+            Material completo e gratuito para voce dar o primeiro passo.
+          </p>
+          <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn" style={{
+            fontSize: '1.1rem',
+            padding: '14px 32px',
+            background: 'white',
+            color: '#1a6baa',
+            fontWeight: '700',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            display: 'inline-block',
+          }}>
+            📥 Baixar Guia Gratis (PDF)
+          </a>
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '12px' }}>
+            Tem duvidas? Acesse o{' '}
+            <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'underline' }}>
+              Forum CDS
+            </a>
+            {' '}e tire todas as suas duvidas com a comunidade.
+          </p>
+        </div>
+      </section>
+
+      {/* QUAL PRODUTO IDEAL PRA VOCE? */}
+      <section id="qual-produto" style={{
         background: 'linear-gradient(135deg, #ffffff 0%, #f0f6fa 100%)',
         padding: '80px 20px',
       }}>
@@ -150,48 +185,157 @@ export default function Home() {
           <h2 style={{
             textAlign: 'center',
             fontSize: '2.2rem',
-            marginBottom: '60px',
+            marginBottom: '16px',
             color: 'var(--text)',
           }}>
-            Por que escolher o Metodo Corpo Limpo?
+            Qual produto ideal pra voce?
           </h2>
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '48px', maxWidth: '600px', margin: '0 auto 48px' }}>
+            Muita gente tem duvida sobre por onde comecar. Veja qual opcao se encaixa melhor no seu momento:
+          </p>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '40px',
-            maxWidth: '1000px',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '24px',
+            maxWidth: '1100px',
             margin: '0 auto',
           }}>
-            {[
-              { icon: '🌿', title: '100% Natural', desc: 'Metodo baseado em principios naturais de saude e bem-estar, sem quimicos agressivos.' },
-              { icon: '🧠', title: 'Baseado em Ciencia', desc: 'Conhecimento fundamentado em estudos cientificos e experiencia pratica comprovada.' },
-              { icon: '💚', title: 'Resultados Reais', desc: 'Milhares de pessoas ja transformaram sua saude seguindo nossos metodos naturais.' },
-            ].map(b => (
-              <div key={b.title} style={{
-                textAlign: 'center',
-                padding: '30px 20px',
-                background: 'var(--bg-card)',
+            {/* Iniciante */}
+            <div style={{
+              background: 'var(--bg-card)',
+              borderRadius: '20px',
+              padding: '32px 24px',
+              border: '2px solid #2e8b57',
+              position: 'relative',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            }}>
+              <span style={{
+                position: 'absolute',
+                top: '-12px',
+                left: '24px',
+                background: '#2e8b57',
+                color: 'white',
+                padding: '4px 16px',
                 borderRadius: '20px',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
-                border: '1px solid var(--border)',
-              }}>
-                <div style={{ fontSize: '3rem', marginBottom: '20px' }}>{b.icon}</div>
-                <h3 style={{ fontSize: '1.3rem', marginBottom: '15px' }}>{b.title}</h3>
-                <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>{b.desc}</p>
+                fontSize: '0.8rem',
+                fontWeight: '700',
+              }}>Iniciante</span>
+              <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>🌱</div>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Nunca ouvi falar de CDS&quot;</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
+                Comece pelo guia gratuito para entender o basico. Depois, o livro traz tudo de forma detalhada.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <a href="/downloads/guia-basico-iniciantes.pdf" download style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: '#2e8b57', fontWeight: '600', textDecoration: 'none',
+                }}>
+                  ✓ 1. Baixe o Guia Gratis (PDF)
+                </a>
+                <Link href="/produto/livro-completo" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: '#2e8b57', fontWeight: '600', textDecoration: 'none',
+                }}>
+                  ✓ 2. Livro Protocolos de A a Z - R$ 97
+                </Link>
+                <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem',
+                }}>
+                  💬 Tire duvidas no Forum CDS
+                </a>
               </div>
-            ))}
+            </div>
+
+            {/* Intermediario */}
+            <div style={{
+              background: 'var(--bg-card)',
+              borderRadius: '20px',
+              padding: '32px 24px',
+              border: '2px solid #1a6baa',
+              position: 'relative',
+              boxShadow: '0 8px 30px rgba(26,107,170,0.15)',
+              transform: 'scale(1.03)',
+            }}>
+              <span style={{
+                position: 'absolute',
+                top: '-12px',
+                left: '24px',
+                background: '#1a6baa',
+                color: 'white',
+                padding: '4px 16px',
+                borderRadius: '20px',
+                fontSize: '0.8rem',
+                fontWeight: '700',
+              }}>Mais Popular</span>
+              <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>🎓</div>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Quero aprender de verdade&quot;</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
+                O curso completo e a melhor opcao. Inclui acesso a comunidade exclusiva com grupos especializados.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <Link href="/produto/curso-cds-completo" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: '#1a6baa', fontWeight: '600', textDecoration: 'none',
+                }}>
+                  ⭐ Curso Completo + Comunidade - R$ 297
+                </Link>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem', paddingLeft: '24px' }}>
+                  Inclui grupos: Enema CDS, CDS Hotmart, CDS Mama
+                </span>
+                <Link href="/depoimentos" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem',
+                }}>
+                  📸 Veja depoimentos de alunos
+                </Link>
+              </div>
+            </div>
+
+            {/* Avancado */}
+            <div style={{
+              background: 'var(--bg-card)',
+              borderRadius: '20px',
+              padding: '32px 24px',
+              border: '2px solid #6b8fad',
+              position: 'relative',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
+            }}>
+              <span style={{
+                position: 'absolute',
+                top: '-12px',
+                left: '24px',
+                background: '#6b8fad',
+                color: 'white',
+                padding: '4px 16px',
+                borderRadius: '20px',
+                fontSize: '0.8rem',
+                fontWeight: '700',
+              }}>Personalizado</span>
+              <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>💡</div>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Preciso de ajuda especifica&quot;</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
+                Consultoria individual por Zoom com Gabriel Baltarejo. Analiso seu caso e monto protocolos personalizados.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <Link href="/produto/mentoria" style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  color: '#6b8fad', fontWeight: '600', textDecoration: 'none',
+                }}>
+                  ✓ Consultoria Individual - R$ 620
+                </Link>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem', paddingLeft: '24px' }}>
+                  Zoom ate 1h30 + acompanhamento WhatsApp por 30 dias
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* PRODUTOS EM DESTAQUE */}
+      {/* PRODUTO DESTAQUE: CURSO */}
       <section style={{ padding: '80px 20px', background: 'var(--bg)' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '48px' }}>
-            Produtos em Destaque
-          </h2>
-
-          {/* Curso */}
           {destaqueCurso && (
             <div style={{
               display: 'grid',
@@ -225,14 +369,14 @@ export default function Home() {
                   {destaqueCurso.description}
                 </p>
                 <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
-                  {destaqueCurso.features.slice(0, 4).map(f => (
+                  {destaqueCurso.features.map(f => (
                     <li key={f} style={{ padding: '6px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ color: 'var(--primary)' }}>✓</span> {f}
                     </li>
                   ))}
                 </ul>
                 <Link href={`/produto/${destaqueCurso.slug}`} className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px' }}>
-                  Saiba mais - {destaqueCurso.priceDisplay}
+                  Quero o Curso - {destaqueCurso.priceDisplay}
                 </Link>
               </div>
             </div>
@@ -263,14 +407,14 @@ export default function Home() {
                   {destaqueLivro.description}
                 </p>
                 <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
-                  {destaqueLivro.features.slice(0, 4).map(f => (
+                  {destaqueLivro.features.map(f => (
                     <li key={f} style={{ padding: '6px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
                       <span style={{ color: 'var(--warning)' }}>✓</span> {f}
                     </li>
                   ))}
                 </ul>
                 <Link href={`/produto/${destaqueLivro.slug}`} className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px', background: 'var(--warning)' }}>
-                  Saiba mais - {destaqueLivro.priceDisplay}
+                  Quero o Livro - {destaqueLivro.priceDisplay}
                 </Link>
               </div>
               <div style={{ textAlign: 'center' }}>
@@ -288,102 +432,86 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TODOS OS PRODUTOS POR CATEGORIA */}
-      <main className="container" id="produtos">
-        {categoryOrder.map(catKey => {
-          const category = CATEGORIES[catKey];
-          const products = PRODUCTS.filter(p => p.category === catKey && !p.hidden);
-          if (products.length === 0) return null;
-
-          return (
-            <section key={catKey} id={catKey}>
-              <h2 className="section-title">
-                {category.icon} {category.name}
-              </h2>
-              <p style={{ color: 'var(--text-muted)', marginTop: '-24px', marginBottom: '32px', textAlign: 'center' }}>
-                {category.description}
-              </p>
-              <div className="courses-grid">
-                {products.map(product => (
-                  <Link
-                    key={product.id}
-                    href={product.type === 'external' ? (product.externalUrl || '#') : `/produto/${product.slug}`}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                    {...(product.type === 'external' ? { target: '_blank', rel: 'noopener' } : {})}
-                  >
-                    <div className="course-card">
-                      <div className="course-thumb" style={{
-                        background: product.gradient,
-                        position: 'relative',
-                        overflow: 'hidden',
-                      }}>
-                        {product.badge && (
-                          <span style={{
-                            position: 'absolute',
-                            top: '12px',
-                            right: '12px',
-                            background: product.badgeColor || 'var(--primary)',
-                            color: 'white',
-                            padding: '4px 12px',
-                            borderRadius: '20px',
-                            fontSize: '0.75rem',
-                            fontWeight: '700',
-                            zIndex: 2,
-                          }}>
-                            {product.badge}
-                          </span>
-                        )}
-                        {product.image ? (
-                          <Image
-                            src={product.image}
-                            alt={product.title}
-                            fill
-                            style={{ objectFit: 'contain' }}
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                          />
-                        ) : (
-                          <span style={{ fontSize: '2.5rem' }}>
-                            {CATEGORIES[product.category]?.icon || '📦'}
-                          </span>
-                        )}
-                      </div>
-                      <div className="course-body">
-                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
-                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                            {CATEGORIES[product.category]?.icon} {CATEGORIES[product.category]?.name}
-                          </span>
-                        </div>
-                        <h3>{product.title}</h3>
-                        <p>{product.subtitle}</p>
-                        <div className="course-meta">
-                          {product.priceDisplay ? (
-                            <span style={{ fontWeight: '700', color: 'var(--success)' }}>
-                              {product.priceDisplay}
-                              {product.priceNote && (
-                                <span style={{ fontWeight: '400', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                                  {product.priceNote}
-                                </span>
-                              )}
-                            </span>
-                          ) : (
-                            <span style={{ fontWeight: '600', color: 'var(--primary)' }}>
-                              {product.type === 'external' ? 'Acesso' : 'Ver Loja'}
-                            </span>
-                          )}
-                          <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
-                            {product.type === 'subscription' ? 'Assinatura' :
-                             product.type === 'external' ? 'Acesso' : 'Unico'}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+      {/* COMUNIDADE */}
+      <section style={{
+        background: 'linear-gradient(135deg, #0d3b66 0%, #1a6baa 100%)',
+        padding: '80px 20px',
+        color: 'white',
+      }}>
+        <div className="container" style={{ maxWidth: '900px', textAlign: 'center' }}>
+          <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>
+            Ao comprar o curso, voce entra na Comunidade
+          </h2>
+          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.1rem', marginBottom: '40px', maxWidth: '650px', margin: '0 auto 40px' }}>
+            Alem do conteudo completo, quem compra o curso tem acesso exclusivo a grupos especializados
+            onde voce troca experiencias e tira duvidas com outros alunos:
+          </p>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '20px',
+            marginBottom: '40px',
+          }}>
+            {[
+              { name: 'Enema CDS', icon: '💊', desc: 'Protocolos de enema e aplicacoes' },
+              { name: 'CDS Hotmart', icon: '🎓', desc: 'Conteudo exclusivo de alunos' },
+              { name: 'CDS Mama', icon: '👩', desc: 'Grupo de mulheres e maes' },
+              { name: 'Comunidade Geral', icon: '👥', desc: 'Troca de experiencias e suporte' },
+            ].map(g => (
+              <div key={g.name} style={{
+                background: 'rgba(255,255,255,0.1)',
+                borderRadius: '16px',
+                padding: '24px 16px',
+                border: '1px solid rgba(255,255,255,0.15)',
+              }}>
+                <div style={{ fontSize: '2rem', marginBottom: '8px' }}>{g.icon}</div>
+                <h4 style={{ marginBottom: '6px' }}>{g.name}</h4>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem' }}>{g.desc}</p>
               </div>
-            </section>
-          );
-        })}
-      </main>
+            ))}
+          </div>
+          <Link href="/produto/curso-cds-completo" className="btn" style={{
+            fontSize: '1.1rem',
+            padding: '14px 32px',
+            background: 'white',
+            color: '#1a6baa',
+            fontWeight: '700',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            display: 'inline-block',
+          }}>
+            Quero o Curso + Comunidade
+          </Link>
+        </div>
+      </section>
+
+      {/* FORUM */}
+      <section style={{
+        background: 'var(--bg-card)',
+        padding: '60px 20px',
+        textAlign: 'center',
+        borderTop: '1px solid var(--border)',
+        borderBottom: '1px solid var(--border)',
+      }}>
+        <div className="container" style={{ maxWidth: '700px' }}>
+          <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>💬</div>
+          <h2 style={{ fontSize: '1.6rem', marginBottom: '12px' }}>
+            Tem duvidas? Acesse o Forum CDS
+          </h2>
+          <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '24px' }}>
+            O Forum CDS e uma comunidade aberta onde voce pode tirar duvidas, ler artigos,
+            compartilhar experiencias e aprender com outras pessoas que ja praticam Terapias Bio-oxidativas.
+            Acesso gratuito para todos.
+          </p>
+          <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{
+            fontSize: '1rem',
+            padding: '12px 28px',
+            background: '#675614',
+          }}>
+            Acessar o Forum CDS
+          </a>
+        </div>
+      </section>
 
       {/* SOBRE / AUTORIDADE */}
       <section id="sobre" style={{
@@ -401,7 +529,7 @@ export default function Home() {
         }} className="sobre-grid">
           <div style={{ position: 'relative', width: '100%', height: '420px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
             <Image
-              src="/images/gabriel-profissional.jpeg"
+              src={getImageUrl('gabriel/gabriel-profissional.jpeg')}
               alt="Gabriel Baltarejo"
               fill
               style={{ objectFit: 'cover' }}
@@ -430,67 +558,26 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            {/* Redes Sociais */}
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <a
-                href="https://www.instagram.com/gabrielbaltarejo"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '50px',
-                  padding: '8px 20px',
-                  color: 'white',
-                  fontSize: '0.9rem',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                }}
-              >
+              <a href="https://www.instagram.com/gabrielbaltarejo" target="_blank" rel="noopener noreferrer" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '50px', padding: '8px 20px', color: 'white', fontSize: '0.9rem', textDecoration: 'none',
+              }}>
                 📸 @gabrielbaltarejo
               </a>
-              <a
-                href="https://t.me/+YFVp36x1zKhmM2Ix"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '50px',
-                  padding: '8px 20px',
-                  color: 'white',
-                  fontSize: '0.9rem',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                }}
-              >
+              <a href="https://t.me/+YFVp36x1zKhmM2Ix" target="_blank" rel="noopener noreferrer" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '50px', padding: '8px 20px', color: 'white', fontSize: '0.9rem', textDecoration: 'none',
+              }}>
                 📱 Telegram
               </a>
-              <a
-                href="https://linktr.ee/metodocorpolimpo"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  background: 'rgba(255,255,255,0.1)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  borderRadius: '50px',
-                  padding: '8px 20px',
-                  color: 'white',
-                  fontSize: '0.9rem',
-                  textDecoration: 'none',
-                  transition: 'all 0.2s',
-                }}
-              >
+              <a href="https://linktr.ee/metodocorpolimpo" target="_blank" rel="noopener noreferrer" style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.2)',
+                borderRadius: '50px', padding: '8px 20px', color: 'white', fontSize: '0.9rem', textDecoration: 'none',
+              }}>
                 🔗 Linktree
               </a>
             </div>
@@ -498,7 +585,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA FINAL */}
       <section style={{
         background: 'linear-gradient(135deg, #2d3a25 0%, #1a2915 100%)',
         padding: '80px 20px',
@@ -508,7 +595,7 @@ export default function Home() {
         <div className="container">
           <div style={{ position: 'relative', width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', border: '4px solid rgba(122, 179, 86, 0.5)', margin: '0 auto 24px' }}>
             <Image
-              src="/images/avatar-baltarejo.jpeg"
+              src={getImageUrl('gabriel/avatar-baltarejo.jpeg')}
               alt="Gabriel Baltarejo"
               fill
               style={{ objectFit: 'cover' }}
@@ -519,11 +606,14 @@ export default function Home() {
             Comece sua Jornada Hoje
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 32px', fontSize: '1.1rem' }}>
-            Escolha o produto ideal para voce e comece a aprender sobre Terapias Bio-oxidativas agora mesmo.
+            Nao sabe por onde comecar? Baixe o guia gratuito. Ja conhece o CDS? Vá direto para o curso completo.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/planos" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#1a6baa' }}>
-              Ver Todos os Produtos
+            <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+              📥 Guia Gratis
+            </a>
+            <Link href="/produto/curso-cds-completo" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#1a6baa' }}>
+              Quero o Curso Completo
             </Link>
             <Link href="/produto/mentoria" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
               Agendar Mentoria
@@ -541,15 +631,15 @@ export default function Home() {
             <a href="https://t.me/+YFVp36x1zKhmM2Ix" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               Telegram
             </a>
-            <a href="https://linktr.ee/metodocorpolimpo" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-              Linktree
+            <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Forum CDS
             </a>
             <a href="https://www.clo2br.com.br/cds" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               Loja CLO2BR
             </a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
-            <Image src="/images/logo-metodo-corpo-limpo.png" alt="Logo" width={30} height={30} />
+            <Image src={getImageUrl('logos/logo-metodo-corpo-limpo.png')} alt="Logo" width={30} height={30} />
             <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
           </div>
         </div>
