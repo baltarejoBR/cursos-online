@@ -145,7 +145,6 @@ export const PRODUCTS = [
     price: 49700, // R$ 497,00
     priceDisplay: 'R$ 497,00',
     priceNote: '/sessão',
-    paymentMethod: 'pix',
     type: 'one_time',
     badge: 'Personalizado',
     badgeColor: '#8b7355',

@@ -257,11 +257,10 @@ export default function ProductPage() {
                     style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px' }}
                   >
                     {loading ? 'Processando...' :
-                     product.paymentMethod === 'pix' ? 'Pagar via Pix' :
                      product.type === 'subscription' ? 'Assinar Agora' : 'Comprar Agora'}
                   </button>
 
-                  {product.paymentMethod === 'pix' && (
+                  {product.id === 'consultoria' && (
                     <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '12px' }}>
                       Apos o pagamento, voce sera redirecionado para agendar no Calendly
                     </p>
@@ -302,7 +301,7 @@ export default function ProductPage() {
                   textAlign: 'center',
                 }}>
                   <p style={{ color: 'var(--success)', fontSize: '0.85rem', fontWeight: '600' }}>
-                    {product.paymentMethod === 'pix' ? 'Pagamento seguro via Pix' : 'Pagamento seguro via Stripe'}
+                    Pagamento seguro via Stripe
                   </p>
                 </div>
               )}
