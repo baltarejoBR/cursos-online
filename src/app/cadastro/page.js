@@ -138,7 +138,7 @@ export default function CadastroPage() {
               onChange={(e) => setTelegramUsername(e.target.value)}
             />
             <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-              Necessario para acesso ao grupo exclusivo TEAmor no Telegram.
+              Informe seu Telegram para participar do grupo da comunidade.
             </small>
           </div>
 

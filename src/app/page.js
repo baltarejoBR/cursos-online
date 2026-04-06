@@ -290,7 +290,7 @@ export default function Home() {
       <main className="container" id="produtos">
         {categoryOrder.map(catKey => {
           const category = CATEGORIES[catKey];
-          const products = PRODUCTS.filter(p => p.category === catKey);
+          const products = PRODUCTS.filter(p => p.category === catKey && !p.hidden);
           if (products.length === 0) return null;
 
           return (

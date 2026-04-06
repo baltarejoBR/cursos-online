@@ -80,18 +80,19 @@ export const PRODUCTS = [
     category: 'cursos',
     title: 'Curso TEAMOR no Telegram',
     subtitle: 'Grupo exclusivo no Telegram',
-    description: 'Participe do grupo exclusivo TEAMOR no Telegram com conteúdo ao vivo, tira-dúvidas em tempo real e comunidade ativa de praticantes.',
+    description: 'Curso completo em áudio no Telegram com aulas detalhadas sobre Terapias Bio-oxidativas. Assinatura mensal ou anual.',
     image: '/images/logo-corpo-limpo-linktree.png',
     price: 9700, // R$ 97,00
     priceDisplay: 'R$ 97,00',
     priceNote: '/mês',
     type: 'subscription',
     interval: 'month',
+    hidden: true,
     features: [
-      'Acesso ao grupo TEAMOR no Telegram',
-      'Conteúdo ao vivo toda semana',
-      'Tira-dúvidas em tempo real',
-      'Comunidade ativa de praticantes',
+      'Aulas completas em áudio no Telegram',
+      'Conteúdo detalhado sobre CDS',
+      'Assinatura mensal ou anual',
+      'Acesso ao acervo de aulas',
       'Material exclusivo para membros',
     ],
     gradient: 'linear-gradient(135deg, #2e8b57 0%, #4db87a 100%)',
@@ -267,7 +268,11 @@ export const PRODUCTS = [
 ];
 
 export function getProductsByCategory(category) {
-  return PRODUCTS.filter(p => p.category === category);
+  return PRODUCTS.filter(p => p.category === category && !p.hidden);
+}
+
+export function getVisibleProducts() {
+  return PRODUCTS.filter(p => !p.hidden);
 }
 
 export function getProductBySlug(slug) {

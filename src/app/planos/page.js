@@ -12,8 +12,8 @@ export default function PlanosPage() {
   const [activeFilter, setActiveFilter] = useState('todos');
 
   const filtered = activeFilter === 'todos'
-    ? PRODUCTS
-    : PRODUCTS.filter(p => p.category === activeFilter);
+    ? PRODUCTS.filter(p => !p.hidden)
+    : PRODUCTS.filter(p => p.category === activeFilter && !p.hidden);
 
   return (
     <>

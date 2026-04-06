@@ -31,7 +31,7 @@ function SucessoContent() {
       <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🎉</div>
       <h1 style={{ marginBottom: '12px' }}>Pagamento Confirmado!</h1>
       <p className="subtitle" style={{ marginBottom: '24px' }}>
-        Sua compra foi confirmada com sucesso. Aproveite todo o conteudo exclusivo do TEAmor!
+        Sua compra foi confirmada com sucesso. Aproveite todo o conteudo exclusivo!
       </p>
 
       <div style={{
@@ -75,43 +75,7 @@ function SucessoContent() {
             Agendar no Calendly
           </a>
         </div>
-      ) : (
-        <div style={{
-          background: 'rgba(0, 136, 204, 0.1)',
-          border: '1px solid #0088cc',
-          borderRadius: '8px',
-          padding: '16px',
-          marginBottom: '24px',
-          textAlign: 'left',
-        }}>
-          <p style={{ fontWeight: '600', marginBottom: '8px' }}>
-            📱 Acesse o grupo exclusivo TEAmor no Telegram
-          </p>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
-            Para receber seu link de convite automaticamente, inicie uma conversa com nosso bot:
-          </p>
-          <a
-            href="https://t.me/teamoradmbot"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'inline-block',
-              background: '#0088cc',
-              color: '#fff',
-              padding: '8px 20px',
-              borderRadius: '8px',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: '0.9rem',
-            }}
-          >
-            Abrir @teamoradmbot no Telegram
-          </a>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '8px' }}>
-            Clique em "Iniciar" no bot e voce recebera o link do grupo TEAmor.
-          </p>
-        </div>
-      )}
+      ) : null}
 
       <Link href="/minha-area" className="btn btn-primary btn-full">
         Ir para Minha Area
