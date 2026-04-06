@@ -7,31 +7,24 @@ import { PRODUCTS } from '@/lib/products';
 
 export default function ComunidadePage() {
   const supabase = createClient();
-  const [hasAccess, setHasAccess] = useState(false);
+  const [userProducts, setUserProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const comunidade = PRODUCTS.filter(p => p.category === 'comunidade');
-
   useEffect(() => {
-    async function checkAccess() {
+    async function loadAccess() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) { setLoading(false); return; }
 
-      const { data: userProducts } = await supabase
+      const { data } = await supabase
         .from('user_products')
         .select('product_id')
         .eq('user_id', user.id)
         .eq('active', true);
 
-      const hasCommunity = (userProducts || []).some(up => {
-        const product = PRODUCTS.find(p => p.id === up.product_id);
-        return product && product.category === 'comunidade';
-      });
-
-      setHasAccess(hasCommunity);
+      setUserProducts((data || []).map(up => up.product_id));
       setLoading(false);
     }
-    checkAccess();
+    loadAccess();
   }, []);
 
   if (loading) {
@@ -42,131 +35,238 @@ export default function ComunidadePage() {
     );
   }
 
-  if (!hasAccess) {
-    return (
-      <div className="dashboard">
-        <h1>Comunidade</h1>
-        <p className="subtitle">Conecte-se com outros praticantes</p>
+  const hasCurso = userProducts.some(id => {
+    const p = PRODUCTS.find(pr => pr.id === id);
+    return p && p.category === 'cursos';
+  });
 
-        <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border)',
-          borderRadius: '16px',
-          padding: '48px 32px',
-          textAlign: 'center',
-          marginTop: '32px',
-        }}>
-          <span style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>🔒</span>
-          <h2 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>Acesso Exclusivo</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
-            A comunidade exclusiva esta disponivel para alunos dos cursos e assinantes.
-            Adquira um curso para desbloquear o acesso.
-          </p>
-          <Link href="/planos" className="btn btn-primary">Ver Cursos e Planos</Link>
-        </div>
-
-        {/* Mostrar o que existe na comunidade */}
-        <div style={{ marginTop: '40px' }}>
-          <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', color: 'var(--text-muted)' }}>O que voce tera acesso:</h2>
-          <div style={{ display: 'grid', gap: '16px' }}>
-            {comunidade.map(item => (
-              <div key={item.id} style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border)',
-                borderRadius: '12px',
-                padding: '20px',
-                opacity: 0.7,
-              }}>
-                <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>{item.title}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const telegramGratis = PRODUCTS.find(p => p.id === 'grupo-telegram');
 
   return (
     <div className="dashboard">
       <h1>Comunidade</h1>
       <p className="subtitle">Conecte-se com outros praticantes de Terapias Bio-oxidativas</p>
 
-      <div style={{
-        display: 'grid',
-        gap: '20px',
-        marginTop: '32px',
-      }}>
-        {comunidade.map(item => (
-          <a
-            key={item.id}
-            href={item.externalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ textDecoration: 'none', color: 'inherit' }}
+      <div style={{ display: 'grid', gap: '24px', marginTop: '32px' }}>
+
+        {/* 1. Grupo Telegram Gratis */}
+        <a
+          href={telegramGratis?.externalUrl || 'https://t.me/+YFVp36x1zKhmM2Ix'}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: '16px',
+            padding: '28px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            transition: 'all 0.2s',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.borderColor = 'var(--primary)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
           >
             <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid var(--border)',
+              width: '60px',
+              height: '60px',
               borderRadius: '16px',
-              padding: '32px',
+              background: 'linear-gradient(135deg, #0088cc, #00aced)',
               display: 'flex',
               alignItems: 'center',
-              gap: '24px',
-              transition: 'all 0.2s',
-              cursor: 'pointer',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--primary)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'var(--border)';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-            >
-              <div style={{
-                width: '64px',
-                height: '64px',
-                borderRadius: '16px',
-                background: item.gradient,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.8rem',
-                flexShrink: 0,
-              }}>
-                {item.id === 'grupo-telegram' ? '📱' : '💬'}
-              </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: '1.2rem', marginBottom: '6px' }}>{item.title}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '12px' }}>{item.description}</p>
-                <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {item.features.map((f, i) => (
-                    <li key={i} style={{
-                      background: 'var(--bg)',
-                      padding: '4px 12px',
-                      borderRadius: '20px',
-                      fontSize: '0.8rem',
-                      color: 'var(--text-muted)',
-                    }}>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div style={{
-                color: 'var(--primary)',
-                fontSize: '1.5rem',
-                flexShrink: 0,
-              }}>
-                ↗
-              </div>
+              justifyContent: 'center',
+              fontSize: '1.6rem',
+              flexShrink: 0,
+            }}>
+              📱
             </div>
-          </a>
-        ))}
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                <h3 style={{ fontSize: '1.15rem' }}>Grupo Telegram - Corpo Limpo</h3>
+                <span className="badge badge-free">Gratis</span>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                Comunidade aberta no Telegram. Troque experiencias, tire duvidas e fique por dentro das novidades.
+              </p>
+            </div>
+            <div style={{ color: 'var(--primary)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
+          </div>
+        </a>
+
+        {/* 2. Grupo WhatsApp Pago - Exclusivo alunos */}
+        <div style={{
+          background: 'var(--bg-card)',
+          border: hasCurso ? '1px solid var(--success)' : '1px solid var(--border)',
+          borderRadius: '16px',
+          padding: '28px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+          position: 'relative',
+        }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, #25D366, #128C7E)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.6rem',
+            flexShrink: 0,
+          }}>
+            💬
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
+              <h3 style={{ fontSize: '1.15rem' }}>Grupo WhatsApp Exclusivo</h3>
+              <span className="badge badge-premium">Alunos</span>
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
+              Grupo exclusivo no WhatsApp para alunos dos cursos. Suporte direto, protocolos em tempo real e troca entre praticantes.
+            </p>
+            {hasCurso ? (
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                color: 'var(--success)',
+                fontSize: '0.9rem',
+                fontWeight: 600,
+              }}>
+                ✓ Voce tem acesso — link em breve
+              </span>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                  🔒 Disponivel para alunos dos cursos
+                </span>
+                <Link href="/planos" className="btn btn-primary btn-sm">Ver Cursos</Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 3. Bot Tira-Duvidas CDS */}
+        <div style={{
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          padding: '28px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+        }}>
+          <div style={{
+            width: '60px',
+            height: '60px',
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, #6b9e4a, #2e8b57)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.6rem',
+            flexShrink: 0,
+          }}>
+            🤖
+          </div>
+          <div style={{ flex: 1 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
+              <h3 style={{ fontSize: '1.15rem' }}>Bot Tira-Duvidas CDS</h3>
+              <span className="badge" style={{
+                background: 'rgba(26, 107, 170, 0.12)',
+                color: 'var(--primary)',
+              }}>Em breve</span>
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
+              Bot inteligente no WhatsApp que responde suas duvidas sobre CDS, protocolos e dosagens 24h por dia.
+            </p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              <span style={{
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                color: 'var(--primary-dark)',
+              }}>
+                R$ 39,00
+                <span style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--text-muted)' }}>/mes</span>
+              </span>
+              <span style={{
+                color: 'var(--text-muted)',
+                fontSize: '0.85rem',
+                fontStyle: 'italic',
+              }}>
+                Disponivel em breve — assinatura mensal
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Forum */}
+        <a
+          href="https://www.forumcds.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none', color: 'inherit' }}
+        >
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: '16px',
+            padding: '28px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            transition: 'all 0.2s',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.borderColor = 'var(--primary)';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.borderColor = 'var(--border)';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+          >
+            <div style={{
+              width: '60px',
+              height: '60px',
+              borderRadius: '16px',
+              background: 'linear-gradient(135deg, #675614, #9a8220)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '1.6rem',
+              flexShrink: 0,
+            }}>
+              💬
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                <h3 style={{ fontSize: '1.15rem' }}>Forum CDS</h3>
+                <span className="badge badge-free">Gratis</span>
+              </div>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+                Forum online sobre CDS e Saude Integrativa. Artigos, discussoes e conteudo da comunidade.
+              </p>
+            </div>
+            <div style={{ color: 'var(--primary)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
+          </div>
+        </a>
+
       </div>
     </div>
   );
