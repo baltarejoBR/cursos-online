@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { createAdminSupabase } from '@/lib/supabase-admin';
+import { PRODUCTS } from '@/lib/products';
+import { sendPurchaseConfirmationEmail, sendAccessGrantedEmail } from '@/lib/brevo';
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_GROUP_ID = process.env.TELEGRAM_GROUP_ID;
@@ -223,6 +225,23 @@ export async function POST(request) {
             })
             .eq('id', userId);
         }
+
+        // Enviar emails de confirmacao
+        const { data: buyerProfile } = await supabaseAdmin
+          .from('profiles')
+          .select('full_name')
+          .eq('id', userId)
+          .single();
+
+        const product = PRODUCTS.find(p => p.id === productId);
+        const buyerEmail = session.customer_details?.email || session.customer_email;
+        const buyerName = buyerProfile?.full_name || session.customer_details?.name || '';
+
+        if (buyerEmail && product) {
+          await sendPurchaseConfirmationEmail(buyerEmail, buyerName, product.title, product.priceDisplay);
+          await sendAccessGrantedEmail(buyerEmail, buyerName, product.title);
+        }
+
         break;
       }
 

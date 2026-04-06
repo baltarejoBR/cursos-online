@@ -1,0 +1,144 @@
+const BREVO_API_KEY = process.env.BREVO_API_KEY;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.metodocorpolimpo.com.br';
+
+async function sendEmail({ to, toName, subject, html }) {
+  if (!BREVO_API_KEY) {
+    console.warn('BREVO_API_KEY not set, skipping email');
+    return null;
+  }
+
+  try {
+    const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'api-key': BREVO_API_KEY,
+      },
+      body: JSON.stringify({
+        sender: { name: 'Método Corpo Limpo', email: 'contato@metodocorpolimpo.com.br' },
+        to: [{ email: to, name: toName || '' }],
+        subject,
+        htmlContent: html,
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Brevo error:', err);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error('Brevo send failed:', err.message);
+    return null;
+  }
+}
+
+function emailLayout(content) {
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"></head>
+    <body style="margin:0;padding:0;background:#f0f6fa;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+      <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+        <div style="text-align:center;margin-bottom:32px;">
+          <h1 style="color:#1a6baa;font-size:1.5rem;margin:0;">Método Corpo Limpo</h1>
+        </div>
+        <div style="background:white;border-radius:16px;padding:40px;border:1px solid #c5d8e8;">
+          ${content}
+        </div>
+        <div style="text-align:center;margin-top:24px;color:#4a6a8a;font-size:0.85rem;">
+          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
+          <p><a href="${SITE_URL}" style="color:#1a6baa;">metodocorpolimpo.com.br</a></p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
+
+export async function sendWelcomeEmail(email, name) {
+  return sendEmail({
+    to: email,
+    toName: name,
+    subject: 'Bem-vindo ao Método Corpo Limpo!',
+    html: emailLayout(`
+      <h2 style="color:#0d2137;margin:0 0 16px;">Bem-vindo, ${name || 'Aluno'}!</h2>
+      <p style="color:#4a6a8a;line-height:1.7;margin:0 0 16px;">
+        Sua conta no <strong>Método Corpo Limpo</strong> foi criada com sucesso.
+        Agora você pode explorar nossos cursos, livros e conteúdos sobre Terapias Bio-oxidativas.
+      </p>
+      <p style="color:#4a6a8a;line-height:1.7;margin:0 0 24px;">
+        Acesse sua área de aluno para começar:
+      </p>
+      <div style="text-align:center;margin:24px 0;">
+        <a href="${SITE_URL}/minha-area" style="background:#1a6baa;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:600;display:inline-block;">
+          Acessar Minha Área
+        </a>
+      </div>
+      <p style="color:#4a6a8a;line-height:1.7;margin:16px 0 0;font-size:0.9rem;">
+        Participe também do nosso grupo no Telegram:
+        <a href="https://t.me/+YFVp36x1zKhmM2Ix" style="color:#1a6baa;">Entrar no grupo</a>
+      </p>
+    `),
+  });
+}
+
+export async function sendPurchaseConfirmationEmail(email, name, productTitle, priceDisplay) {
+  return sendEmail({
+    to: email,
+    toName: name,
+    subject: `Pagamento confirmado - ${productTitle}`,
+    html: emailLayout(`
+      <h2 style="color:#0d2137;margin:0 0 16px;">Pagamento Confirmado!</h2>
+      <div style="background:rgba(46,139,87,0.1);border:1px solid #2e8b57;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px;">
+        <p style="color:#2e8b57;font-weight:700;margin:0;font-size:1.1rem;">✓ Compra realizada com sucesso</p>
+      </div>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
+        <tr>
+          <td style="padding:8px 0;color:#4a6a8a;border-bottom:1px solid #dde9f2;">Produto:</td>
+          <td style="padding:8px 0;color:#0d2137;font-weight:600;border-bottom:1px solid #dde9f2;text-align:right;">${productTitle}</td>
+        </tr>
+        ${priceDisplay ? `
+        <tr>
+          <td style="padding:8px 0;color:#4a6a8a;">Valor:</td>
+          <td style="padding:8px 0;color:#2e8b57;font-weight:700;text-align:right;">${priceDisplay}</td>
+        </tr>
+        ` : ''}
+      </table>
+      <p style="color:#4a6a8a;line-height:1.7;margin:0 0 24px;">
+        Olá ${name || 'Aluno'}, seu acesso ao produto já está liberado na plataforma.
+      </p>
+      <div style="text-align:center;">
+        <a href="${SITE_URL}/minha-area" style="background:#1a6baa;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:600;display:inline-block;">
+          Acessar Meu Conteúdo
+        </a>
+      </div>
+    `),
+  });
+}
+
+export async function sendAccessGrantedEmail(email, name, productTitle) {
+  return sendEmail({
+    to: email,
+    toName: name,
+    subject: `Acesso liberado - ${productTitle}`,
+    html: emailLayout(`
+      <h2 style="color:#0d2137;margin:0 0 16px;">Seu acesso foi liberado!</h2>
+      <div style="background:rgba(46,139,87,0.1);border:1px solid #2e8b57;border-radius:12px;padding:16px;text-align:center;margin-bottom:24px;">
+        <p style="color:#2e8b57;font-weight:700;margin:0;font-size:1.1rem;">✓ ${productTitle}</p>
+      </div>
+      <p style="color:#4a6a8a;line-height:1.7;margin:0 0 24px;">
+        Olá ${name || 'Aluno'}, seu acesso ao <strong>${productTitle}</strong> está ativo.
+        Acesse a plataforma para aproveitar todo o conteúdo.
+      </p>
+      <div style="text-align:center;">
+        <a href="${SITE_URL}/minha-area" style="background:#1a6baa;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:600;display:inline-block;">
+          Acessar Agora
+        </a>
+      </div>
+    `),
+  });
+}

@@ -52,6 +52,13 @@ export default function CadastroPage() {
         .eq('id', data.user.id);
     }
 
+    // Enviar email de boas-vindas
+    fetch('/api/welcome-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, name: fullName }),
+    }).catch(() => {});
+
     setSuccess(true);
     setLoading(false);
   };
