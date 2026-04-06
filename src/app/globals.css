@@ -160,6 +160,18 @@ a:hover {
   text-decoration: none;
 }
 
+/* Menu toggle (hamburger) */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text);
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -504,6 +516,48 @@ a:hover {
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+    margin-top: 12px;
+  }
+
+  .nav.nav-open {
+    display: flex;
+  }
+
+  .nav a,
+  .nav button {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 1rem;
+    width: 100%;
+    text-align: left;
+  }
+
+  .nav a:last-child,
+  .nav button:last-child {
+    border-bottom: none;
+  }
+
+  .nav .btn-primary {
+    text-align: center;
+    margin-top: 8px;
+    border-bottom: none;
+  }
+
   .hero {
     padding: 80px 20px 60px;
   }
@@ -544,16 +598,6 @@ a:hover {
   .hero .btn {
     padding: 14px 28px;
     font-size: 1rem;
-  }
-
-  .header-inner {
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-  }
-
-  .nav {
-    justify-content: center;
   }
 }
 
@@ -886,7 +930,6 @@ a:hover {
   .hero h1 { font-size: 2rem; }
   .hero p { font-size: 1rem; }
   .courses-grid { grid-template-columns: 1fr; }
-  .header-inner { flex-direction: column; gap: 12px; }
   .product-grid { grid-template-columns: 1fr; }
   .hero-grid { grid-template-columns: 1fr !important; text-align: center; gap: 30px !important; }
   .hero-grid h1 { font-size: 2.2rem !important; }

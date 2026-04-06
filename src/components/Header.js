@@ -9,6 +9,7 @@ const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
 export default function Header() {
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const supabase = createClient();
 
   useEffect(() => {
@@ -35,24 +36,31 @@ export default function Header() {
           <Image src="/images/logo-metodo-corpo-limpo.png" alt="Método Corpo Limpo" width={40} height={40} />
           <span>Método Corpo Limpo</span>
         </Link>
-        <nav className="nav">
-          <Link href="/">Inicio</Link>
-          <Link href="/o-que-e-cds">O que e CDS?</Link>
-          <Link href="/planos">Produtos</Link>
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
+        >
+          {menuOpen ? '✕' : '☰'}
+        </button>
+        <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
+          <Link href="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
+          <Link href="/o-que-e-cds" onClick={() => setMenuOpen(false)}>O que e CDS?</Link>
+          <Link href="/planos" onClick={() => setMenuOpen(false)}>Produtos</Link>
           {user ? (
             <>
-              <Link href="/minha-area">Minha Área</Link>
+              <Link href="/minha-area" onClick={() => setMenuOpen(false)}>Minha Área</Link>
               {ADMIN_EMAILS.includes(user.email) && (
-                <Link href="/admin">Admin</Link>
+                <Link href="/admin" onClick={() => setMenuOpen(false)}>Admin</Link>
               )}
-              <button onClick={handleLogout} className="btn btn-outline btn-sm">
+              <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="btn btn-outline btn-sm">
                 Sair
               </button>
             </>
           ) : (
             <>
-              <Link href="/login">Entrar</Link>
-              <Link href="/cadastro" className="btn btn-primary btn-sm">
+              <Link href="/login" onClick={() => setMenuOpen(false)}>Entrar</Link>
+              <Link href="/cadastro" onClick={() => setMenuOpen(false)} className="btn btn-primary btn-sm">
                 Cadastrar
               </Link>
             </>
