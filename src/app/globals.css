@@ -347,7 +347,7 @@ a:hover {
 }
 
 .course-thumb {
-  height: 180px;
+  aspect-ratio: 3 / 4;
   background: linear-gradient(135deg, #0d3b66 0%, #1a6baa 50%, #2e8b57 100%);
   display: flex;
   align-items: center;
@@ -497,8 +497,8 @@ a:hover {
 /* Course Grid */
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
   padding: 60px 0;
 }
 
