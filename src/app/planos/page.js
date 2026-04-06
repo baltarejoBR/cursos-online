@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
 
-const categoryOrder = ['cursos', 'livros', 'servicos', 'loja'];
+const categoryOrder = ['cursos', 'livros', 'servicos', 'comunidade', 'loja', 'gratuitos'];
 
 export default function PlanosPage() {
   const [activeFilter, setActiveFilter] = useState('todos');
@@ -22,8 +23,8 @@ export default function PlanosPage() {
         <div className="container">
           <h1>Nossos Produtos</h1>
           <p>
-            Cursos, livros, consultoria e produtos sobre CDS e saude natural.
-            Escolha o que melhor se encaixa para voce.
+            Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
+            Cursos, livros, mentoria e comunidade.
           </p>
         </div>
       </section>
@@ -61,7 +62,7 @@ export default function PlanosPage() {
               {...(product.type === 'external' ? { target: '_blank', rel: 'noopener' } : {})}
             >
               <div className="course-card">
-                <div className="course-thumb" style={{ background: product.gradient, position: 'relative' }}>
+                <div className="course-thumb" style={{ background: product.gradient, position: 'relative', overflow: 'hidden' }}>
                   {product.badge && (
                     <span style={{
                       position: 'absolute',
@@ -73,15 +74,24 @@ export default function PlanosPage() {
                       borderRadius: '20px',
                       fontSize: '0.75rem',
                       fontWeight: '700',
+                      zIndex: 2,
                     }}>
                       {product.badge}
                     </span>
                   )}
-                  <span style={{ fontSize: '2.5rem' }}>
-                    {product.category === 'cursos' ? '🎓' :
-                     product.category === 'livros' ? '📚' :
-                     product.category === 'servicos' ? '💼' : '🛒'}
-                  </span>
+                  {product.image ? (
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  ) : (
+                    <span style={{ fontSize: '2.5rem' }}>
+                      {CATEGORIES[product.category]?.icon || '📦'}
+                    </span>
+                  )}
                 </div>
                 <div className="course-body">
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
@@ -106,7 +116,7 @@ export default function PlanosPage() {
                     )}
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
                       {product.type === 'subscription' ? 'Assinatura' :
-                       product.type === 'external' ? 'Loja' : 'Unico'}
+                       product.type === 'external' ? 'Acesso' : 'Unico'}
                     </span>
                   </div>
                 </div>

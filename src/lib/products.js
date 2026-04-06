@@ -1,10 +1,12 @@
 // Catálogo de produtos do Método Corpo Limpo
 
 export const CATEGORIES = {
-  cursos: { name: 'Cursos', icon: '🎓', description: 'Aprenda tudo sobre CDS e saúde natural' },
+  cursos: { name: 'Cursos', icon: '🎓', description: 'Aprenda tudo sobre Terapias Bio-oxidativas' },
   livros: { name: 'Livros', icon: '📚', description: 'Material completo para estudo' },
   servicos: { name: 'Serviços', icon: '💼', description: 'Atendimento personalizado' },
+  comunidade: { name: 'Comunidade', icon: '👥', description: 'Grupos e fóruns de apoio' },
   loja: { name: 'Loja', icon: '🛒', description: 'Produtos para sua saúde' },
+  gratuitos: { name: 'Gratuitos', icon: '🎁', description: 'Conteúdo gratuito para começar' },
 };
 
 export const PRODUCTS = [
@@ -13,20 +15,21 @@ export const PRODUCTS = [
     id: 'curso-cds-completo',
     slug: 'curso-cds-completo',
     category: 'cursos',
-    title: 'Curso CDS Completo',
-    subtitle: 'O curso mais completo sobre CDS',
-    description: 'Aprenda tudo sobre o Dióxido de Cloro desde o básico até aplicações avançadas. Inclui módulos para humanos e animais, protocolos, preparação e muito mais.',
+    title: 'Curso Completo + Comunidade Exclusiva',
+    subtitle: 'Curso Detox Bio-oxidativo completo',
+    description: 'Aprenda tudo sobre Terapias Bio-oxidativas desde o básico até aplicações avançadas. Inclui acesso à comunidade exclusiva de alunos, protocolos detalhados, preparação e muito mais.',
+    image: '/images/capa-curso-detox.png',
     price: 29700, // R$ 297,00
     priceDisplay: 'R$ 297,00',
-    type: 'one_time', // one_time, subscription, external
+    type: 'one_time',
+    hotmartUrl: 'https://pay.hotmart.com/X100011388O?checkoutMode=10',
     badge: 'Mais Vendido',
     badgeColor: '#2e8b57',
     features: [
       'Acesso vitalício ao conteúdo',
-      'Módulos para humanos e animais',
-      'Protocolos detalhados',
+      'Comunidade exclusiva de alunos',
+      'Protocolos Bio-oxidativos detalhados',
       'Certificado de conclusão',
-      'Grupo exclusivo de alunos',
       'Atualizações gratuitas',
     ],
     gradient: 'linear-gradient(135deg, #1a6baa 0%, #3a9ad9 100%)',
@@ -38,6 +41,7 @@ export const PRODUCTS = [
     title: 'Curso CDS Humanos',
     subtitle: 'CDS focado em saúde humana',
     description: 'Curso focado em protocolos e aplicações do CDS para saúde humana. Ideal para quem quer começar com foco em cuidados pessoais e familiares.',
+    image: '/images/capa-curso-detox.png',
     price: 19700, // R$ 197,00
     priceDisplay: 'R$ 197,00',
     type: 'one_time',
@@ -57,6 +61,7 @@ export const PRODUCTS = [
     title: 'Curso CDS para Animais',
     subtitle: 'Cuide da saúde dos seus pets',
     description: 'Aprenda como utilizar o CDS de forma segura em animais domésticos e de fazenda. Protocolos específicos por espécie e tamanho.',
+    image: '/images/capa-curso.png',
     price: 19700, // R$ 197,00
     priceDisplay: 'R$ 197,00',
     type: 'one_time',
@@ -76,6 +81,7 @@ export const PRODUCTS = [
     title: 'Curso TEAMOR no Telegram',
     subtitle: 'Grupo exclusivo no Telegram',
     description: 'Participe do grupo exclusivo TEAMOR no Telegram com conteúdo ao vivo, tira-dúvidas em tempo real e comunidade ativa de praticantes.',
+    image: '/images/logo-corpo-limpo-linktree.png',
     price: 9700, // R$ 97,00
     priceDisplay: 'R$ 97,00',
     priceNote: '/mês',
@@ -96,16 +102,18 @@ export const PRODUCTS = [
     id: 'livro-completo',
     slug: 'livro-completo',
     category: 'livros',
-    title: 'Livro Completo CDS',
-    subtitle: 'O guia definitivo sobre CDS',
-    description: 'Livro digital completo com tudo sobre CDS: história, ciência, preparação, protocolos para humanos e animais, e muito mais.',
+    title: 'Ebook Completo + Protocolos Biooxidativos de A a Z',
+    subtitle: 'Transforme sua Saúde',
+    description: 'Livro digital completo com tudo sobre protocolos bio-oxidativos: história, ciência, preparação, protocolos para humanos e animais, e muito mais.',
+    image: '/images/capa-livro-protocolos.png',
     price: 9700, // R$ 97,00
     priceDisplay: 'R$ 97,00',
     type: 'one_time',
+    hotmartUrl: 'https://pay.hotmart.com/N101740813Q?checkoutMode=10',
     features: [
       'E-book em PDF de alta qualidade',
+      'Protocolos Biooxidativos de A a Z',
       'Conteúdo completo e atualizado',
-      'Protocolos para humanos e animais',
       'Tabelas de dosagem práticas',
       'Atualizações gratuitas',
     ],
@@ -118,11 +126,12 @@ export const PRODUCTS = [
     title: 'Livro CDS para Animais',
     subtitle: 'Guia especializado para pets',
     description: 'Livro digital focado em aplicações do CDS para animais. Protocolos por espécie, dosagens detalhadas e casos reais.',
+    image: '/images/capa-livro.png',
     price: 6700, // R$ 67,00
     priceDisplay: 'R$ 67,00',
     type: 'one_time',
-    contentSlug: 'guia-animais-clo2', // conteudo HTML disponivel
-    downloadId: 'livro-animais', // PDF disponivel para download
+    contentSlug: 'guia-animais-clo2',
+    downloadId: 'livro-animais',
     features: [
       'Versao HTML interativa online',
       'PDF para download',
@@ -136,26 +145,66 @@ export const PRODUCTS = [
 
   // === SERVIÇOS ===
   {
-    id: 'consultoria',
-    slug: 'consultoria',
+    id: 'mentoria',
+    slug: 'mentoria',
     category: 'servicos',
-    title: 'Consultoria Individual',
-    subtitle: 'Atendimento personalizado',
-    description: 'Consultoria individual por videochamada para tirar todas as suas dúvidas sobre CDS. Atendimento personalizado com protocolo sob medida. Após o pagamento via Pix, você agenda o melhor horário pelo Calendly.',
+    title: 'Agende sua Mentoria',
+    subtitle: 'Atendimento personalizado com Baltarejo',
+    description: 'Mentoria individual para tirar todas as suas dúvidas sobre Terapias Bio-oxidativas. Atendimento personalizado com protocolo sob medida.',
+    image: '/images/mentoria-baltarejo.jpeg',
     price: 49700, // R$ 497,00
     priceDisplay: 'R$ 497,00',
     priceNote: '/sessão',
-    type: 'one_time',
+    type: 'external',
+    externalUrl: 'https://wa.me/75998546139?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20a%20mentoria',
     badge: 'Personalizado',
     badgeColor: '#4a6a8a',
     features: [
-      'Sessão de 1h por videochamada',
+      'Sessão individual por videochamada',
       'Protocolo personalizado',
       'Acompanhamento por 7 dias',
       'Material de apoio exclusivo',
-      'Gravação da sessão',
+      'Agendamento via WhatsApp',
     ],
     gradient: 'linear-gradient(135deg, #6b8fad 0%, #4a6a8a 100%)',
+  },
+
+  // === COMUNIDADE ===
+  {
+    id: 'grupo-telegram',
+    slug: 'grupo-telegram',
+    category: 'comunidade',
+    title: 'Grupo Telegram - Corpo Limpo',
+    subtitle: 'Comunidade gratuita no Telegram',
+    description: 'Participe do grupo Corpo Limpo no Telegram. Troque experiências, tire dúvidas e fique por dentro das novidades sobre Terapias Bio-oxidativas.',
+    image: '/images/logo-corpo-limpo-linktree.png',
+    type: 'external',
+    externalUrl: 'https://t.me/+YFVp36x1zKhmM2Ix',
+    features: [
+      'Comunidade ativa',
+      'Troca de experiências',
+      'Novidades em primeira mão',
+      'Acesso gratuito',
+    ],
+    gradient: 'linear-gradient(135deg, #0088cc 0%, #00aced 100%)',
+  },
+  {
+    id: 'forum-cds',
+    slug: 'forum-cds',
+    category: 'comunidade',
+    title: 'Fórum / Comunidade',
+    subtitle: 'Fórum CDS e Saúde Integrativa',
+    description: 'Acesse o fórum online sobre CDS e Saúde Integrativa. Artigos, discussões e conteúdo compartilhado pela comunidade.',
+    image: '/images/logo-forum-cds.png',
+    type: 'external',
+    externalUrl: 'https://www.forumcds.com/',
+    features: [
+      'Artigos e discussões',
+      'Comunidade de praticantes',
+      'Conteúdo atualizado',
+      'Acesso gratuito',
+    ],
+    gradient: 'linear-gradient(135deg, #675614 0%, #9a8220 100%)',
   },
 
   // === LOJA ===
@@ -163,11 +212,12 @@ export const PRODUCTS = [
     id: 'loja-produtos',
     slug: 'loja-produtos',
     category: 'loja',
-    title: 'Loja de Produtos',
-    subtitle: 'Produtos para sua saúde',
-    description: 'Visite nossa loja online com diversos produtos selecionados para sua saúde e bem-estar. Entrega para todo o Brasil.',
+    title: 'Comprar Produtos',
+    subtitle: 'Loja CLO2BR - Produtos para sua saúde',
+    description: 'Visite a loja CLO2BR com produtos selecionados para Terapias Bio-oxidativas. Entrega para todo o Brasil.',
+    image: '/images/logo-clo2br.png',
     type: 'external',
-    externalUrl: 'http://www.clo2br.com.br',
+    externalUrl: 'https://www.clo2br.com.br/cds',
     features: [
       'Produtos selecionados',
       'Entrega para todo o Brasil',
@@ -175,6 +225,44 @@ export const PRODUCTS = [
       'Suporte ao cliente',
     ],
     gradient: 'linear-gradient(135deg, #1a6baa 0%, #2e8b57 100%)',
+  },
+
+  // === GRATUITOS ===
+  {
+    id: 'guia-protocolo-k',
+    slug: 'guia-protocolo-k',
+    category: 'gratuitos',
+    title: 'Guia Grátis Protocolo K',
+    subtitle: 'Download gratuito',
+    description: 'Baixe gratuitamente o Guia do Protocolo K. Material introdutório para quem quer conhecer as Terapias Bio-oxidativas.',
+    image: '/images/guia-protocolo-k.png',
+    type: 'external',
+    externalUrl: 'https://drive.google.com/file/d/1Vvbce1NJWunQQpF6ShcH4vsCsorPnqEX/view?usp=sharing',
+    badge: 'Grátis',
+    badgeColor: '#2e8b57',
+    features: [
+      'Download gratuito em PDF',
+      'Introdução ao Protocolo K',
+      'Material de referência rápida',
+    ],
+    gradient: 'linear-gradient(135deg, #2e8b57 0%, #4db87a 100%)',
+  },
+  {
+    id: 'abaixo-assinado',
+    slug: 'abaixo-assinado',
+    category: 'gratuitos',
+    title: 'Abaixo Assinado',
+    subtitle: 'Apoie a causa',
+    description: 'Assine a petição em apoio às Terapias Bio-oxidativas. Sua assinatura faz a diferença.',
+    image: '/images/brinde-parque.jpeg',
+    type: 'external',
+    externalUrl: 'https://c.org/KMRyJpRp7H',
+    features: [
+      'Apoie a causa',
+      'Assinatura online rápida',
+      'Gratuito',
+    ],
+    gradient: 'linear-gradient(135deg, #d4a017 0%, #e8b830 100%)',
   },
 ];
 

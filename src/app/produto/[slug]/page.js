@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import { getProductBySlug, CATEGORIES } from '@/lib/products';
@@ -40,6 +41,12 @@ export default function ProductPage() {
   }, []);
 
   async function handleCheckout() {
+    // Se tem URL do Hotmart, redireciona direto
+    if (product.hotmartUrl) {
+      window.location.href = product.hotmartUrl;
+      return;
+    }
+
     if (!user) {
       router.push('/cadastro');
       return;
@@ -151,16 +158,27 @@ export default function ProductPage() {
             <div style={{
               background: product.gradient,
               borderRadius: '16px',
-              height: '220px',
+              height: '280px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '4rem',
               marginBottom: '32px',
+              position: 'relative',
+              overflow: 'hidden',
             }}>
-              {product.category === 'cursos' ? '🎓' :
-               product.category === 'livros' ? '📚' :
-               product.category === 'servicos' ? '💼' : '🛒'}
+              {product.image ? (
+                <Image
+                  src={product.image}
+                  alt={product.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                <span>{CATEGORIES[product.category]?.icon || '📦'}</span>
+              )}
             </div>
 
             <p style={{ fontSize: '1rem', lineHeight: '1.8', color: 'var(--text-muted)' }}>
