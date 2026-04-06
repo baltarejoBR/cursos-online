@@ -197,13 +197,14 @@ export default function Home() {
               gap: '40px',
               alignItems: 'center',
             }} className="destaque-grid">
-              <div style={{ textAlign: 'center', position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.15)' }}>
+              <div style={{ textAlign: 'center' }}>
                 <Image
                   src={destaqueCurso.image}
                   alt={destaqueCurso.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  width={500}
+                  height={500}
+                  style={{ width: '100%', maxWidth: '420px', height: 'auto', borderRadius: '16px', boxShadow: '0 12px 40px rgba(0,0,0,0.15)' }}
+                  sizes="(max-width: 768px) 100vw, 420px"
                 />
               </div>
               <div>
@@ -270,13 +271,14 @@ export default function Home() {
                   Saiba mais - {destaqueLivro.priceDisplay}
                 </Link>
               </div>
-              <div style={{ textAlign: 'center', position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.15)' }}>
+              <div style={{ textAlign: 'center' }}>
                 <Image
                   src={destaqueLivro.image}
                   alt={destaqueLivro.title}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  width={500}
+                  height={500}
+                  style={{ width: '100%', maxWidth: '420px', height: 'auto', borderRadius: '16px', boxShadow: '0 12px 40px rgba(0,0,0,0.15)' }}
+                  sizes="(max-width: 768px) 100vw, 420px"
                 />
               </div>
             </div>
