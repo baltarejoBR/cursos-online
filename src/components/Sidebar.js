@@ -77,10 +77,9 @@ export default function Sidebar({ userCategories = [] }) {
             return (
               <Link
                 key={item.id}
-                href="/planos"
-                className="sidebar-item sidebar-item-locked"
+                href={item.href}
+                className={`sidebar-item sidebar-item-locked ${active ? 'sidebar-item-active' : ''}`}
                 onClick={() => setMobileOpen(false)}
-                title="Adquira acesso"
               >
                 <span className="sidebar-icon">{item.icon}</span>
                 <span className="sidebar-label">{item.label}</span>

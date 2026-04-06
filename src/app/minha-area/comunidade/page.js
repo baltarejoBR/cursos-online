@@ -1,9 +1,91 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { createClient } from '@/lib/supabase-browser';
 import { PRODUCTS } from '@/lib/products';
 
 export default function ComunidadePage() {
+  const supabase = createClient();
+  const [hasAccess, setHasAccess] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const comunidade = PRODUCTS.filter(p => p.category === 'comunidade');
+
+  useEffect(() => {
+    async function checkAccess() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setLoading(false); return; }
+
+      const { data: userProducts } = await supabase
+        .from('user_products')
+        .select('product_id')
+        .eq('user_id', user.id)
+        .eq('active', true);
+
+      const hasCommunity = (userProducts || []).some(up => {
+        const product = PRODUCTS.find(p => p.id === up.product_id);
+        return product && product.category === 'comunidade';
+      });
+
+      setHasAccess(hasCommunity);
+      setLoading(false);
+    }
+    checkAccess();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="dashboard">
+        <p style={{ color: 'var(--text-muted)' }}>Carregando...</p>
+      </div>
+    );
+  }
+
+  if (!hasAccess) {
+    return (
+      <div className="dashboard">
+        <h1>Comunidade</h1>
+        <p className="subtitle">Conecte-se com outros praticantes</p>
+
+        <div style={{
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          padding: '48px 32px',
+          textAlign: 'center',
+          marginTop: '32px',
+        }}>
+          <span style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>🔒</span>
+          <h2 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>Acesso Exclusivo</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
+            A comunidade exclusiva esta disponivel para alunos dos cursos e assinantes.
+            Adquira um curso para desbloquear o acesso.
+          </p>
+          <Link href="/planos" className="btn btn-primary">Ver Cursos e Planos</Link>
+        </div>
+
+        {/* Mostrar o que existe na comunidade */}
+        <div style={{ marginTop: '40px' }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '16px', color: 'var(--text-muted)' }}>O que voce tera acesso:</h2>
+          <div style={{ display: 'grid', gap: '16px' }}>
+            {comunidade.map(item => (
+              <div key={item.id} style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border)',
+                borderRadius: '12px',
+                padding: '20px',
+                opacity: 0.7,
+              }}>
+                <h3 style={{ fontSize: '1rem', marginBottom: '8px' }}>{item.title}</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">

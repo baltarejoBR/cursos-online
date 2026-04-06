@@ -1,9 +1,109 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { createClient } from '@/lib/supabase-browser';
 import { PRODUCTS } from '@/lib/products';
 
 export default function MentoriaPage() {
+  const supabase = createClient();
+  const [hasAccess, setHasAccess] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const mentoria = PRODUCTS.find(p => p.id === 'mentoria');
+
+  useEffect(() => {
+    async function checkAccess() {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setLoading(false); return; }
+
+      const { data: userProducts } = await supabase
+        .from('user_products')
+        .select('product_id')
+        .eq('user_id', user.id)
+        .eq('active', true);
+
+      const hasMentoria = (userProducts || []).some(up => {
+        const product = PRODUCTS.find(p => p.id === up.product_id);
+        return product && product.category === 'servicos';
+      });
+
+      setHasAccess(hasMentoria);
+      setLoading(false);
+    }
+    checkAccess();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="dashboard">
+        <p style={{ color: 'var(--text-muted)' }}>Carregando...</p>
+      </div>
+    );
+  }
+
+  if (!hasAccess) {
+    return (
+      <div className="dashboard">
+        <h1>Mentoria</h1>
+        <p className="subtitle">Atendimento personalizado com Baltarejo</p>
+
+        <div style={{
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          padding: '48px 32px',
+          textAlign: 'center',
+          marginTop: '32px',
+        }}>
+          <span style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>🔒</span>
+          <h2 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>Acesso Exclusivo</h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
+            A mentoria esta disponivel para quem adquiriu o pacote de atendimento personalizado.
+          </p>
+          <Link href="/planos" className="btn btn-primary">Ver Planos</Link>
+        </div>
+
+        {/* Mostrar o que inclui */}
+        <div style={{
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          borderRadius: '16px',
+          padding: '32px',
+          marginTop: '24px',
+        }}>
+          <h2 style={{ fontSize: '1.2rem', marginBottom: '16px' }}>O que inclui a mentoria:</h2>
+          {mentoria?.features && (
+            <ul style={{ listStyle: 'none', display: 'grid', gap: '10px' }}>
+              {mentoria.features.map((f, i) => (
+                <li key={i} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  color: 'var(--text-muted)',
+                  fontSize: '0.95rem',
+                }}>
+                  <span style={{ color: 'var(--success)', fontSize: '1.1rem' }}>✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          )}
+          <p style={{
+            marginTop: '20px',
+            fontSize: '1.3rem',
+            fontWeight: 700,
+            color: 'var(--primary-dark)',
+          }}>
+            {mentoria?.priceDisplay || 'R$ 497,00'}
+            <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-muted)' }}>
+              {mentoria?.priceNote || '/sessao'}
+            </span>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">
@@ -64,32 +164,15 @@ export default function MentoriaPage() {
               </ul>
             )}
 
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '16px',
-              flexWrap: 'wrap',
-            }}>
-              <span style={{
-                fontSize: '1.5rem',
-                fontWeight: 700,
-                color: 'var(--primary-dark)',
-              }}>
-                {mentoria?.priceDisplay || 'R$ 497,00'}
-                <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-muted)' }}>
-                  {mentoria?.priceNote || '/sessao'}
-                </span>
-              </span>
-              <a
-                href={mentoria?.externalUrl || 'https://wa.me/75998546139'}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary"
-                style={{ textDecoration: 'none' }}
-              >
-                Agendar via WhatsApp
-              </a>
-            </div>
+            <a
+              href={mentoria?.externalUrl || 'https://wa.me/75998546139'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+              style={{ textDecoration: 'none' }}
+            >
+              Agendar via WhatsApp
+            </a>
           </div>
         </div>
       </div>
