@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import GoogleAuthButton from '@/components/GoogleAuthButton';
 
@@ -57,9 +58,11 @@ export default function CadastroPage() {
 
   if (success) {
     return (
+      <>
+      <Header />
       <div className="form-page">
         <div className="form-card" style={{ textAlign: 'center' }}>
-          <h1>✅ Cadastro realizado!</h1>
+          <h1>Cadastro realizado!</h1>
           <p className="subtitle">
             Enviamos um link de confirmação para <strong>{email}</strong>.
             Verifique sua caixa de entrada (e spam) para ativar sua conta.
@@ -69,10 +72,13 @@ export default function CadastroPage() {
           </Link>
         </div>
       </div>
+      </>
     );
   }
 
   return (
+    <>
+    <Header />
     <div className="form-page">
       <div className="form-card">
         <h1>Criar Conta</h1>
@@ -146,5 +152,6 @@ export default function CadastroPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

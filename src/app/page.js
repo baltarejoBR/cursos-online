@@ -1,15 +1,14 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Header from '@/components/Header';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
 
 export default function Home() {
-  const categoryOrder = ['cursos', 'livros', 'servicos', 'loja'];
+  const categoryOrder = ['cursos', 'livros', 'servicos', 'comunidade', 'loja', 'gratuitos'];
 
-  const productImages = {
-    'curso-cds-completo': '/images/capa-curso.png',
-    'livro-completo': '/images/capa-livro.png',
-    'consultoria': '/images/gabriel-terno.jpeg',
-  };
+  // Produtos em destaque
+  const destaqueCurso = PRODUCTS.find(p => p.id === 'curso-cds-completo');
+  const destaqueLivro = PRODUCTS.find(p => p.id === 'livro-completo');
 
   return (
     <>
@@ -66,16 +65,16 @@ export default function Home() {
               marginBottom: '32px',
               maxWidth: '500px',
             }}>
-              Cursos, livros e consultoria sobre CDS e saude natural.
-              Aprenda protocolos biooxidativos de A a Z com Gabriel Baltarejo.
+              Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
+              Cursos, livros e mentoria com Gabriel Baltarejo.
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              <Link href="#cursos" className="btn btn-primary" style={{
+              <Link href="/planos" className="btn btn-primary" style={{
                 fontSize: '1.1rem',
                 padding: '14px 32px',
                 background: '#1a6baa',
               }}>
-                Conhecer Cursos
+                Ver Produtos
               </Link>
               <Link href="#sobre" className="btn btn-outline" style={{
                 fontSize: '1.1rem',
@@ -87,16 +86,19 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div style={{ textAlign: 'center' }}>
-            <img
+          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '450px', margin: '0 auto' }}>
+            <Image
               src="/images/hero-gabriel.jpeg"
               alt="Gabriel Baltarejo"
+              width={450}
+              height={550}
               style={{
                 width: '100%',
-                maxWidth: '450px',
+                height: 'auto',
                 borderRadius: '20px',
                 boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
               }}
+              priority
             />
           </div>
         </div>
@@ -123,8 +125,8 @@ export default function Home() {
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Alunos</div>
           </div>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>7</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Cursos e Livros</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>{PRODUCTS.length}</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Produtos</div>
           </div>
           <div>
             <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+50</div>
@@ -180,7 +182,109 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRODUTOS POR CATEGORIA */}
+      {/* PRODUTOS EM DESTAQUE */}
+      <section style={{ padding: '80px 20px', background: 'var(--bg)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '48px' }}>
+            Produtos em Destaque
+          </h2>
+
+          {/* Curso */}
+          {destaqueCurso && (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '40px',
+              alignItems: 'center',
+            }} className="destaque-grid">
+              <div style={{ textAlign: 'center', position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.15)' }}>
+                <Image
+                  src={destaqueCurso.image}
+                  alt={destaqueCurso.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+              <div>
+                <span style={{
+                  display: 'inline-block',
+                  background: 'rgba(90, 138, 60, 0.12)',
+                  color: 'var(--primary)',
+                  padding: '4px 16px',
+                  borderRadius: '20px',
+                  fontSize: '0.85rem',
+                  fontWeight: '600',
+                  marginBottom: '16px',
+                }}>Mais Vendido</span>
+                <h3 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>{destaqueCurso.title}</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '20px' }}>
+                  {destaqueCurso.description}
+                </p>
+                <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
+                  {destaqueCurso.features.slice(0, 4).map(f => (
+                    <li key={f} style={{ padding: '6px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: 'var(--primary)' }}>✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link href={`/produto/${destaqueCurso.slug}`} className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px' }}>
+                  Saiba mais - {destaqueCurso.priceDisplay}
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* Livro */}
+          {destaqueLivro && (
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '40px',
+              alignItems: 'center',
+              marginTop: '80px',
+            }} className="destaque-grid">
+              <div>
+                <span style={{
+                  display: 'inline-block',
+                  background: 'rgba(201, 148, 46, 0.15)',
+                  color: 'var(--warning)',
+                  padding: '4px 16px',
+                  borderRadius: '20px',
+                  fontSize: '0.85rem',
+                  fontWeight: '600',
+                  marginBottom: '16px',
+                }}>Livro Digital</span>
+                <h3 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>{destaqueLivro.title}</h3>
+                <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '20px' }}>
+                  {destaqueLivro.description}
+                </p>
+                <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
+                  {destaqueLivro.features.slice(0, 4).map(f => (
+                    <li key={f} style={{ padding: '6px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: 'var(--warning)' }}>✓</span> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Link href={`/produto/${destaqueLivro.slug}`} className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px', background: 'var(--warning)' }}>
+                  Saiba mais - {destaqueLivro.priceDisplay}
+                </Link>
+              </div>
+              <div style={{ textAlign: 'center', position: 'relative', height: '350px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.15)' }}>
+                <Image
+                  src={destaqueLivro.image}
+                  alt={destaqueLivro.title}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* TODOS OS PRODUTOS POR CATEGORIA */}
       <main className="container" id="produtos">
         {categoryOrder.map(catKey => {
           const category = CATEGORIES[catKey];
@@ -192,7 +296,7 @@ export default function Home() {
               <h2 className="section-title">
                 {category.icon} {category.name}
               </h2>
-              <p style={{ color: 'var(--text-muted)', marginTop: '-24px', marginBottom: '32px' }}>
+              <p style={{ color: 'var(--text-muted)', marginTop: '-24px', marginBottom: '32px', textAlign: 'center' }}>
                 {category.description}
               </p>
               <div className="courses-grid">
@@ -205,11 +309,9 @@ export default function Home() {
                   >
                     <div className="course-card">
                       <div className="course-thumb" style={{
-                        background: productImages[product.id]
-                          ? `url(${productImages[product.id]}) center/cover no-repeat`
-                          : product.gradient,
+                        background: product.gradient,
                         position: 'relative',
-                        height: '200px',
+                        overflow: 'hidden',
                       }}>
                         {product.badge && (
                           <span style={{
@@ -222,17 +324,31 @@ export default function Home() {
                             borderRadius: '20px',
                             fontSize: '0.75rem',
                             fontWeight: '700',
+                            zIndex: 2,
                           }}>
                             {product.badge}
                           </span>
                         )}
-                        {!productImages[product.id] && (
+                        {product.image ? (
+                          <Image
+                            src={product.image}
+                            alt={product.title}
+                            fill
+                            style={{ objectFit: 'cover' }}
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        ) : (
                           <span style={{ fontSize: '2.5rem' }}>
-                            {catKey === 'cursos' ? '🎓' : catKey === 'livros' ? '📚' : catKey === 'servicos' ? '💼' : '🛒'}
+                            {CATEGORIES[product.category]?.icon || '📦'}
                           </span>
                         )}
                       </div>
                       <div className="course-body">
+                        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '8px' }}>
+                          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                            {CATEGORIES[product.category]?.icon} {CATEGORIES[product.category]?.name}
+                          </span>
+                        </div>
                         <h3>{product.title}</h3>
                         <p>{product.subtitle}</p>
                         <div className="course-meta">
@@ -246,11 +362,13 @@ export default function Home() {
                               )}
                             </span>
                           ) : (
-                            <span className="badge badge-free">Ver Loja</span>
+                            <span style={{ fontWeight: '600', color: 'var(--primary)' }}>
+                              {product.type === 'external' ? 'Acesso' : 'Ver Loja'}
+                            </span>
                           )}
                           <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
                             {product.type === 'subscription' ? 'Assinatura' :
-                             product.type === 'external' ? 'Loja Externa' : 'Compra Unica'}
+                             product.type === 'external' ? 'Acesso' : 'Unico'}
                           </span>
                         </div>
                       </div>
@@ -277,15 +395,13 @@ export default function Home() {
           gap: '60px',
           alignItems: 'center',
         }} className="sobre-grid">
-          <div>
-            <img
+          <div style={{ position: 'relative', width: '100%', height: '420px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
+            <Image
               src="/images/gabriel-profissional.jpeg"
               alt="Gabriel Baltarejo"
-              style={{
-                width: '100%',
-                borderRadius: '16px',
-                boxShadow: '0 12px 40px rgba(0,0,0,0.3)',
-              }}
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="350px"
             />
           </div>
           <div>
@@ -293,7 +409,7 @@ export default function Home() {
               Quem e <span style={{ color: '#7ab356' }}>Gabriel Baltarejo</span>?
             </h2>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-              Pesquisador e educador sobre CDS e saude integrativa, Gabriel Baltarejo
+              Pesquisador e educador sobre Terapias Bio-oxidativas, Gabriel Baltarejo
               e o criador do Metodo Corpo Limpo e autor do livro &quot;Transforme sua Saude -
               Protocolos Biooxidativos de A a Z&quot;.
             </p>
@@ -314,113 +430,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PRODUTOS EM DESTAQUE */}
-      <section style={{
-        padding: '80px 20px',
-        background: 'var(--bg)',
-      }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '48px' }}>
-            Produtos em Destaque
-          </h2>
-
-          {/* Curso */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '40px',
-            alignItems: 'center',
-          }} className="destaque-grid">
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/images/capa-curso.png"
-                alt="Curso Detox Biooxidativo"
-                style={{
-                  width: '280px',
-                  borderRadius: '16px',
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
-                }}
-              />
-            </div>
-            <div>
-              <span style={{
-                display: 'inline-block',
-                background: 'rgba(90, 138, 60, 0.12)',
-                color: 'var(--primary)',
-                padding: '4px 16px',
-                borderRadius: '20px',
-                fontSize: '0.85rem',
-                fontWeight: '600',
-                marginBottom: '16px',
-              }}>Mais Vendido</span>
-              <h3 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>Curso Detox Biooxidativo</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '20px' }}>
-                O metodo natural para limpeza e regeneracao do corpo. Aprenda tudo sobre
-                CDS desde o basico ate aplicacoes avancadas com protocolos detalhados.
-              </p>
-              <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
-                {['Acesso vitalicio', 'Protocolos para humanos e animais', 'Grupo exclusivo de alunos', 'Atualizacoes gratuitas'].map(f => (
-                  <li key={f} style={{ padding: '6px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ color: 'var(--primary)' }}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/produto/curso-cds-completo" className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px' }}>
-                Saiba mais - R$ 297,00
-              </Link>
-            </div>
-          </div>
-
-          {/* Livro */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '40px',
-            alignItems: 'center',
-            marginTop: '80px',
-          }} className="destaque-grid">
-            <div>
-              <span style={{
-                display: 'inline-block',
-                background: 'rgba(201, 148, 46, 0.15)',
-                color: 'var(--warning)',
-                padding: '4px 16px',
-                borderRadius: '20px',
-                fontSize: '0.85rem',
-                fontWeight: '600',
-                marginBottom: '16px',
-              }}>Livro Digital</span>
-              <h3 style={{ fontSize: '1.8rem', marginBottom: '12px' }}>Transforme sua Saude</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '20px' }}>
-                Protocolos Biooxidativos de A a Z. O guia definitivo sobre CDS com tudo
-                que voce precisa saber: historia, ciencia, preparacao e protocolos completos.
-              </p>
-              <ul style={{ listStyle: 'none', marginBottom: '24px' }}>
-                {['E-book em PDF de alta qualidade', 'Protocolos para humanos e animais', 'Tabelas de dosagem praticas', 'Atualizacoes gratuitas'].map(f => (
-                  <li key={f} style={{ padding: '6px 0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ color: 'var(--warning)' }}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/produto/livro-completo" className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px', background: 'var(--warning)' }}>
-                Saiba mais - R$ 97,00
-              </Link>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <img
-                src="/images/capa-livro.png"
-                alt="Livro Transforme sua Saude"
-                style={{
-                  width: '280px',
-                  borderRadius: '16px',
-                  boxShadow: '0 12px 40px rgba(0,0,0,0.15)',
-                }}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section style={{
         background: 'linear-gradient(135deg, #2d3a25 0%, #1a2915 100%)',
@@ -429,30 +438,27 @@ export default function Home() {
         color: 'white',
       }}>
         <div className="container">
-          <img
-            src="/images/gabriel-com-cds.jpeg"
-            alt="Gabriel Baltarejo com CDS"
-            style={{
-              width: '120px',
-              height: '120px',
-              borderRadius: '50%',
-              objectFit: 'cover',
-              border: '4px solid rgba(122, 179, 86, 0.5)',
-              marginBottom: '24px',
-            }}
-          />
+          <div style={{ position: 'relative', width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', border: '4px solid rgba(122, 179, 86, 0.5)', margin: '0 auto 24px' }}>
+            <Image
+              src="/images/avatar-baltarejo.jpeg"
+              alt="Gabriel Baltarejo"
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="120px"
+            />
+          </div>
           <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>
             Comece sua Jornada Hoje
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 32px', fontSize: '1.1rem' }}>
-            Escolha o produto ideal para voce e comece a aprender sobre CDS e saude natural agora mesmo.
+            Escolha o produto ideal para voce e comece a aprender sobre Terapias Bio-oxidativas agora mesmo.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/planos" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#1a6baa' }}>
               Ver Todos os Produtos
             </Link>
-            <Link href="/produto/consultoria" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-              Agendar Consultoria
+            <Link href="/produto/mentoria" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+              Agendar Mentoria
             </Link>
           </div>
         </div>
@@ -460,7 +466,7 @@ export default function Home() {
 
       <footer className="footer">
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
-          <img src="/images/logo-metodo-corpo-limpo.png" alt="Logo" style={{ height: '30px' }} />
+          <Image src="/images/logo-metodo-corpo-limpo.png" alt="Logo" width={30} height={30} />
           <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>

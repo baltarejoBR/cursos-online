@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import GoogleAuthButton from '@/components/GoogleAuthButton';
 
@@ -39,6 +40,8 @@ export default function LoginPage() {
   };
 
   return (
+    <>
+    <Header />
     <div className="form-page">
       <div className="form-card">
         <h1>Entrar</h1>
@@ -85,5 +88,6 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }

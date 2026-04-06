@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
-import { PRODUCTS } from '@/lib/products';
+import { PRODUCTS, CATEGORIES } from '@/lib/products';
 
 export default function MinhaAreaPage() {
   const supabase = createClient();
@@ -206,20 +207,35 @@ export default function MinhaAreaPage() {
           </div>
         ) : (
           <>
-            {/* Cursos */}
-            {cursos.length > 0 && (
-              <>
-                <h2 style={{ marginBottom: '20px' }}>🎓 Meus Cursos</h2>
+            {[
+              { items: cursos, label: 'Meus Cursos' },
+              { items: livros, label: 'Meus Livros' },
+              { items: servicos, label: 'Servicos' },
+            ].map(({ items, label }) => items.length > 0 && (
+              <div key={label}>
+                <h2 style={{ marginBottom: '20px' }}>{CATEGORIES[items[0].product.category]?.icon} {label}</h2>
                 <div className="courses-grid" style={{ marginBottom: '40px' }}>
-                  {cursos.map(item => (
+                  {items.map(item => (
                     <Link
                       key={item.id}
                       href={`/produto/${item.product.slug}`}
                       style={{ textDecoration: 'none', color: 'inherit' }}
                     >
                       <div className="course-card">
-                        <div className="course-thumb" style={{ background: item.product.gradient }}>
-                          🎓
+                        <div className="course-thumb" style={{ background: item.product.gradient, position: 'relative', overflow: 'hidden' }}>
+                          {item.product.image ? (
+                            <Image
+                              src={item.product.image}
+                              alt={item.product.title}
+                              fill
+                              style={{ objectFit: 'cover' }}
+                              sizes="(max-width: 768px) 100vw, 33vw"
+                            />
+                          ) : (
+                            <span style={{ fontSize: '2.5rem' }}>
+                              {CATEGORIES[item.product.category]?.icon || '📦'}
+                            </span>
+                          )}
                         </div>
                         <div className="course-body">
                           <h3>{item.product.title}</h3>
@@ -234,64 +250,8 @@ export default function MinhaAreaPage() {
                     </Link>
                   ))}
                 </div>
-              </>
-            )}
-
-            {/* Livros */}
-            {livros.length > 0 && (
-              <>
-                <h2 style={{ marginBottom: '20px' }}>📚 Meus Livros</h2>
-                <div className="courses-grid" style={{ marginBottom: '40px' }}>
-                  {livros.map(item => (
-                    <Link
-                      key={item.id}
-                      href={`/produto/${item.product.slug}`}
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <div className="course-card">
-                        <div className="course-thumb" style={{ background: item.product.gradient }}>
-                          📚
-                        </div>
-                        <div className="course-body">
-                          <h3>{item.product.title}</h3>
-                          <p>{item.product.subtitle}</p>
-                          <div className="course-meta">
-                            <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
-                              Acesso Ativo
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-
-            {/* Servicos */}
-            {servicos.length > 0 && (
-              <>
-                <h2 style={{ marginBottom: '20px' }}>💼 Servicos</h2>
-                <div className="courses-grid" style={{ marginBottom: '40px' }}>
-                  {servicos.map(item => (
-                    <div key={item.id} className="course-card">
-                      <div className="course-thumb" style={{ background: item.product.gradient }}>
-                        💼
-                      </div>
-                      <div className="course-body">
-                        <h3>{item.product.title}</h3>
-                        <p>{item.product.subtitle}</p>
-                        <div className="course-meta">
-                          <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
-                            Acesso Ativo
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </>
-            )}
+              </div>
+            ))}
           </>
         )}
 

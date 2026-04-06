@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase-browser';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
@@ -30,8 +31,9 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-inner">
-        <Link href="/" className="logo">
-          🌿 Metodo Corpo Limpo
+        <Link href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Image src="/images/logo-metodo-corpo-limpo.png" alt="Método Corpo Limpo" width={40} height={40} />
+          <span>Método Corpo Limpo</span>
         </Link>
         <nav className="nav">
           <Link href="/">Inicio</Link>
