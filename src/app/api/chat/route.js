@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const SYSTEM_PROMPT = `Voce e o assistente virtual do Metodo Corpo Limpo, uma plataforma sobre CDS (Chlorine Dioxide Solution / Dioxido de Cloro).
@@ -25,7 +25,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Mensagem e obrigatoria' }, { status: 400 });
     }
 
-    if (!process.env.ANTHROPIC_API_KEY) {
+    if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json({ error: 'API key nao configurada' }, { status: 500 });
     }
 
@@ -34,14 +34,14 @@ export async function POST(request) {
     // Buscar entries relevantes na base de conhecimento
     const { data: kbResults } = await supabaseAdmin.rpc('search_knowledge_base', {
       search_query: message,
-      min_similarity: 0.15, // threshold mais baixo para pegar mais contexto
+      min_similarity: 0.15,
       max_results: 10,
       filter_category: null,
     });
 
-    // Fallback: busca por ILIKE se RPC falhar ou retornar vazio
     let contextEntries = kbResults || [];
 
+    // Fallback: busca por ILIKE se RPC retornar vazio
     if (contextEntries.length === 0) {
       const { data: fallbackResults } = await supabaseAdmin
         .from('knowledge_base')
@@ -53,7 +53,7 @@ export async function POST(request) {
       contextEntries = fallbackResults || [];
     }
 
-    // Se nao encontrou NADA relevante, buscar todas aprovadas como contexto geral
+    // Se nao encontrou nada, buscar todas aprovadas como contexto geral
     if (contextEntries.length === 0) {
       const { data: allEntries } = await supabaseAdmin
         .from('knowledge_base')
@@ -64,14 +64,14 @@ export async function POST(request) {
       contextEntries = allEntries || [];
     }
 
-    // Montar o contexto da base de conhecimento
+    // Montar contexto da base de conhecimento
     const kbContext = contextEntries
       .map(e => `[${e.category}] Pergunta: ${e.question}\nResposta: ${e.answer}`)
       .join('\n\n---\n\n');
 
     const hasRelevantContext = kbResults && kbResults.length > 0;
 
-    // Montar historico de conversa (limitar a ultimas 10 mensagens)
+    // Montar historico (ultimas 10 mensagens)
     const conversationHistory = (history || []).slice(-10).map(msg => ({
       role: msg.role === 'bot' ? 'assistant' : 'user',
       content: msg.text,
@@ -83,14 +83,19 @@ export async function POST(request) {
       content: message,
     });
 
-    const response = await anthropic.messages.create({
-      model: 'claude-haiku-4-5-20251001',
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
       max_tokens: 800,
-      system: `${SYSTEM_PROMPT}\n\n--- BASE DE CONHECIMENTO ---\n\n${kbContext}\n\n--- FIM DA BASE ---`,
-      messages: conversationHistory,
+      messages: [
+        {
+          role: 'system',
+          content: `${SYSTEM_PROMPT}\n\n--- BASE DE CONHECIMENTO ---\n\n${kbContext}\n\n--- FIM DA BASE ---`,
+        },
+        ...conversationHistory,
+      ],
     });
 
-    const botResponse = response.content[0].text;
+    const botResponse = response.choices[0].message.content;
 
     // Verificar se a IA indicou que nao tem a informacao -> registrar pergunta
     const noInfoPhrases = ['nao tenho essa informacao', 'vou registrar sua pergunta', 'ainda nao tenho'];
@@ -98,7 +103,6 @@ export async function POST(request) {
       noInfoPhrases.some(phrase => botResponse.toLowerCase().includes(phrase));
 
     if (needsRegistration) {
-      // Verificar se ja existe pergunta pending similar
       const { data: existing } = await supabaseAdmin
         .from('knowledge_base')
         .select('id')
@@ -107,7 +111,6 @@ export async function POST(request) {
         .limit(1);
 
       if (!existing || existing.length === 0) {
-        // Registrar pergunta pendente
         const { data: newEntry } = await supabaseAdmin
           .from('knowledge_base')
           .insert({
