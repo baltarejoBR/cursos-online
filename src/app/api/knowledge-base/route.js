@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createServerSupabase } from '@/lib/supabase-server';
 import { createAdminSupabase } from '@/lib/supabase-admin';
+import { generateEmbedding } from '@/lib/embeddings';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
@@ -191,6 +192,15 @@ export async function POST(request) {
       if (entryStatus === 'approved') updateData.approved_at = new Date().toISOString();
     }
 
+    // Gerar embedding se aprovado e tem resposta
+    if ((entryStatus === 'approved' || updateData.answer) && (answer || question)) {
+      try {
+        const textForEmbedding = `${question || ''}\n${answer || ''}`;
+        const embedding = await generateEmbedding(textForEmbedding);
+        updateData.embedding = JSON.stringify(embedding);
+      } catch {}
+    }
+
     const { data, error } = await supabaseAdmin
       .from('knowledge_base')
       .update(updateData)
@@ -210,6 +220,14 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Campo "question" e obrigatorio' }, { status: 400 });
   }
 
+  // Gerar embedding se ja tem resposta
+  let embedding = null;
+  if (answer) {
+    try {
+      embedding = JSON.stringify(await generateEmbedding(`${question}\n${answer}`));
+    } catch {}
+  }
+
   const { data, error } = await supabaseAdmin
     .from('knowledge_base')
     .insert({
@@ -220,6 +238,7 @@ export async function POST(request) {
       status: answer ? 'approved' : 'pending',
       asked_by: 'admin',
       approved_at: answer ? new Date().toISOString() : null,
+      embedding,
     })
     .select()
     .single();

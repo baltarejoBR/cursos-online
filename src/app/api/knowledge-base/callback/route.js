@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createAdminSupabase } from '@/lib/supabase-admin';
+import { generateEmbedding } from '@/lib/embeddings';
 
 // POST - Callback do n8n com resposta do Gabriel
 export async function POST(request) {
@@ -42,6 +43,23 @@ export async function POST(request) {
     answer: status === 'approved' ? answer : null,
     approved_at: status === 'approved' ? new Date().toISOString() : null,
   };
+
+  // Gerar embedding quando aprovado
+  if (status === 'approved' && answer) {
+    // Buscar a pergunta original para combinar com a resposta
+    const { data: entry } = await supabaseAdmin
+      .from('knowledge_base')
+      .select('question')
+      .eq('id', entry_id)
+      .single();
+
+    if (entry) {
+      try {
+        const embedding = await generateEmbedding(`${entry.question}\n${answer}`);
+        updateData.embedding = JSON.stringify(embedding);
+      } catch {}
+    }
+  }
 
   const { data, error } = await supabaseAdmin
     .from('knowledge_base')

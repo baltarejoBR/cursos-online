@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { createAdminSupabase } from '@/lib/supabase-admin';
+import { generateEmbedding } from '@/lib/embeddings';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -31,36 +32,37 @@ export async function POST(request) {
 
     const supabaseAdmin = createAdminSupabase();
 
-    // Buscar entries relevantes na base de conhecimento
-    const { data: kbResults } = await supabaseAdmin.rpc('search_knowledge_base', {
-      search_query: message,
-      min_similarity: 0.15,
-      max_results: 10,
-      filter_category: null,
+    // 1. Gerar embedding da pergunta do usuario
+    const queryEmbedding = await generateEmbedding(message);
+
+    // 2. Busca semantica com pgvector
+    const { data: semanticResults } = await supabaseAdmin.rpc('search_knowledge_base_semantic', {
+      query_embedding: JSON.stringify(queryEmbedding),
+      match_threshold: 0.3,
+      match_count: 8,
     });
 
-    let contextEntries = kbResults || [];
+    let contextEntries = semanticResults || [];
+    const hasRelevantContext = contextEntries.length > 0;
 
-    // Fallback: busca por ILIKE se RPC retornar vazio
+    // 3. Fallback: busca por texto se semantica nao retornar nada
     if (contextEntries.length === 0) {
-      const { data: fallbackResults } = await supabaseAdmin
-        .from('knowledge_base')
-        .select('question, answer, category')
-        .eq('status', 'approved')
-        .or(`question.ilike.%${message.split(' ').slice(0, 3).join('%')}%`)
-        .limit(10);
-
-      contextEntries = fallbackResults || [];
+      const { data: textResults } = await supabaseAdmin.rpc('search_knowledge_base', {
+        search_query: message,
+        min_similarity: 0.15,
+        max_results: 8,
+        filter_category: null,
+      });
+      contextEntries = textResults || [];
     }
 
-    // Se nao encontrou nada, buscar todas aprovadas como contexto geral
+    // 4. Ultimo fallback: todas as entries aprovadas
     if (contextEntries.length === 0) {
       const { data: allEntries } = await supabaseAdmin
         .from('knowledge_base')
         .select('question, answer, category')
         .eq('status', 'approved')
         .limit(30);
-
       contextEntries = allEntries || [];
     }
 
@@ -68,8 +70,6 @@ export async function POST(request) {
     const kbContext = contextEntries
       .map(e => `[${e.category}] Pergunta: ${e.question}\nResposta: ${e.answer}`)
       .join('\n\n---\n\n');
-
-    const hasRelevantContext = kbResults && kbResults.length > 0;
 
     // Montar historico (ultimas 10 mensagens)
     const conversationHistory = (history || []).slice(-10).map(msg => ({
