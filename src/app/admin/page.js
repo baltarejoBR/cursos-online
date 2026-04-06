@@ -19,6 +19,19 @@ export default function AdminPage() {
   const [uploadProgress, setUploadProgress] = useState('');
   const [uploadResult, setUploadResult] = useState(null);
 
+  // Knowledge Base states
+  const [kbEntries, setKbEntries] = useState([]);
+  const [kbLoading, setKbLoading] = useState(false);
+  const [kbFilter, setKbFilter] = useState('all'); // all, pending, approved, rejected
+  const [kbCategoryFilter, setKbCategoryFilter] = useState('');
+  const [kbSearch, setKbSearch] = useState('');
+  const [kbEditingId, setKbEditingId] = useState(null);
+  const [kbEditAnswer, setKbEditAnswer] = useState('');
+  const [kbNewQuestion, setKbNewQuestion] = useState('');
+  const [kbNewAnswer, setKbNewAnswer] = useState('');
+  const [kbNewCategory, setKbNewCategory] = useState('geral');
+  const [kbShowAdd, setKbShowAdd] = useState(false);
+
   useEffect(() => {
     loadData();
   }, []);
@@ -168,6 +181,67 @@ export default function AdminPage() {
     }
   }
 
+  // === Knowledge Base functions ===
+  async function loadKbEntries() {
+    setKbLoading(true);
+    try {
+      const res = await fetch('/api/knowledge-base?status=all');
+      if (res.ok) {
+        const data = await res.json();
+        setKbEntries(data.entries || []);
+      }
+    } catch {}
+    setKbLoading(false);
+  }
+
+  async function kbUpdateEntry(id, updates) {
+    const res = await fetch('/api/knowledge-base', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, ...updates }),
+    });
+    if (res.ok) {
+      await loadKbEntries();
+      setKbEditingId(null);
+      setKbEditAnswer('');
+    }
+  }
+
+  async function kbAddEntry() {
+    if (!kbNewQuestion.trim()) return;
+    const res = await fetch('/api/knowledge-base', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        question: kbNewQuestion,
+        answer: kbNewAnswer || null,
+        category: kbNewCategory,
+      }),
+    });
+    if (res.ok) {
+      setKbNewQuestion('');
+      setKbNewAnswer('');
+      setKbNewCategory('geral');
+      setKbShowAdd(false);
+      await loadKbEntries();
+    }
+  }
+
+  async function kbDeleteEntry(id) {
+    if (!confirm('Tem certeza que deseja excluir esta entrada?')) return;
+    const res = await fetch(`/api/knowledge-base?id=${id}`, { method: 'DELETE' });
+    if (res.ok) await loadKbEntries();
+  }
+
+  const KB_CATEGORIES = ['geral', 'protocolo', 'dosagem', 'preparo', 'seguranca', 'animais'];
+
+  const filteredKbEntries = kbEntries.filter(e => {
+    if (kbFilter !== 'all' && e.status !== kbFilter) return false;
+    if (kbCategoryFilter && e.category !== kbCategoryFilter) return false;
+    if (kbSearch && !e.question.toLowerCase().includes(kbSearch.toLowerCase())) return false;
+    return true;
+  });
+
   function getProductName(productId) {
     const product = PRODUCTS.find(p => p.id === productId);
     return product ? product.title : productId;
@@ -250,10 +324,11 @@ export default function AdminPage() {
             { id: 'subscriptions', label: 'Assinaturas' },
             { id: 'payments', label: 'Pagamentos' },
             { id: 'videos', label: 'Videos (Mux)' },
+            { id: 'knowledge-base', label: 'Base de Conhecimento' },
           ].map(t => (
             <button
               key={t.id}
-              onClick={() => { setTab(t.id); setSelectedUser(null); }}
+              onClick={() => { setTab(t.id); setSelectedUser(null); if (t.id === 'knowledge-base' && kbEntries.length === 0) loadKbEntries(); }}
               className={`btn ${tab === t.id ? 'btn-primary' : 'btn-outline'} btn-sm`}
             >
               {t.label}
@@ -734,6 +809,271 @@ export default function AdminPage() {
                 <li>O player aparecera automaticamente na pagina do curso</li>
               </ol>
             </div>
+          </div>
+        )}
+
+        {/* === ABA: BASE DE CONHECIMENTO === */}
+        {tab === 'knowledge-base' && (
+          <div>
+            {/* Header + botao adicionar */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', flexWrap: 'wrap', gap: '12px' }}>
+              <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                  {filteredKbEntries.length} entrada(s)
+                  {kbEntries.filter(e => e.status === 'pending').length > 0 && (
+                    <span style={{ color: 'var(--warning)', fontWeight: '600', marginLeft: '8px' }}>
+                      ({kbEntries.filter(e => e.status === 'pending').length} pendente(s))
+                    </span>
+                  )}
+                </span>
+                <button onClick={loadKbEntries} className="btn btn-outline btn-sm" disabled={kbLoading}>
+                  {kbLoading ? '...' : 'Atualizar'}
+                </button>
+              </div>
+              <button onClick={() => setKbShowAdd(!kbShowAdd)} className="btn btn-primary btn-sm">
+                {kbShowAdd ? 'Cancelar' : '+ Nova Entrada'}
+              </button>
+            </div>
+
+            {/* Formulario adicionar */}
+            {kbShowAdd && (
+              <div style={{
+                background: 'var(--bg-card)',
+                border: '1px solid var(--primary)',
+                borderRadius: '12px',
+                padding: '20px',
+                marginBottom: '20px',
+              }}>
+                <h4 style={{ marginBottom: '12px' }}>Nova Entrada</h4>
+                <input
+                  type="text"
+                  placeholder="Pergunta / Situacao..."
+                  value={kbNewQuestion}
+                  onChange={e => setKbNewQuestion(e.target.value)}
+                  style={{
+                    width: '100%', padding: '10px 14px', borderRadius: '8px',
+                    border: '1px solid var(--border)', background: 'var(--bg)',
+                    color: 'var(--text)', fontSize: '0.9rem', marginBottom: '10px',
+                  }}
+                />
+                <textarea
+                  placeholder="Resposta (deixe vazio para status pendente)..."
+                  value={kbNewAnswer}
+                  onChange={e => setKbNewAnswer(e.target.value)}
+                  rows={4}
+                  style={{
+                    width: '100%', padding: '10px 14px', borderRadius: '8px',
+                    border: '1px solid var(--border)', background: 'var(--bg)',
+                    color: 'var(--text)', fontSize: '0.9rem', marginBottom: '10px',
+                    resize: 'vertical',
+                  }}
+                />
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <select
+                    value={kbNewCategory}
+                    onChange={e => setKbNewCategory(e.target.value)}
+                    style={{
+                      padding: '8px 12px', borderRadius: '8px',
+                      border: '1px solid var(--border)', background: 'var(--bg)',
+                      color: 'var(--text)', fontSize: '0.85rem',
+                    }}
+                  >
+                    {KB_CATEGORIES.map(c => (
+                      <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                    ))}
+                  </select>
+                  <button onClick={kbAddEntry} className="btn btn-primary btn-sm">
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Filtros */}
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
+              <input
+                type="text"
+                placeholder="Buscar pergunta..."
+                value={kbSearch}
+                onChange={e => setKbSearch(e.target.value)}
+                style={{
+                  padding: '8px 12px', borderRadius: '8px', flex: '1', minWidth: '200px',
+                  border: '1px solid var(--border)', background: 'var(--bg)',
+                  color: 'var(--text)', fontSize: '0.85rem',
+                }}
+              />
+              <select
+                value={kbFilter}
+                onChange={e => setKbFilter(e.target.value)}
+                style={{
+                  padding: '8px 12px', borderRadius: '8px',
+                  border: '1px solid var(--border)', background: 'var(--bg)',
+                  color: 'var(--text)', fontSize: '0.85rem',
+                }}
+              >
+                <option value="all">Todos os status</option>
+                <option value="pending">Pendentes</option>
+                <option value="approved">Aprovados</option>
+                <option value="rejected">Rejeitados</option>
+              </select>
+              <select
+                value={kbCategoryFilter}
+                onChange={e => setKbCategoryFilter(e.target.value)}
+                style={{
+                  padding: '8px 12px', borderRadius: '8px',
+                  border: '1px solid var(--border)', background: 'var(--bg)',
+                  color: 'var(--text)', fontSize: '0.85rem',
+                }}
+              >
+                <option value="">Todas categorias</option>
+                {KB_CATEGORIES.map(c => (
+                  <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Lista de entries */}
+            {kbLoading ? (
+              <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '40px' }}>
+                Carregando...
+              </p>
+            ) : filteredKbEntries.length === 0 ? (
+              <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '40px' }}>
+                Nenhuma entrada encontrada.
+              </p>
+            ) : (
+              <div style={{ display: 'grid', gap: '12px' }}>
+                {filteredKbEntries.map(entry => (
+                  <div
+                    key={entry.id}
+                    style={{
+                      background: 'var(--bg-card)',
+                      border: `1px solid ${entry.status === 'pending' ? 'var(--warning)' : entry.status === 'approved' ? 'var(--border)' : 'rgba(239, 68, 68, 0.3)'}`,
+                      borderRadius: '12px',
+                      padding: '16px 20px',
+                    }}
+                  >
+                    {/* Header da entry */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px', gap: '12px' }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontWeight: '600', marginBottom: '4px' }}>{entry.question}</div>
+                        <div style={{ display: 'flex', gap: '8px', fontSize: '0.75rem' }}>
+                          <span style={{
+                            padding: '2px 8px', borderRadius: '4px',
+                            background: entry.status === 'pending' ? 'rgba(245, 158, 11, 0.15)' :
+                              entry.status === 'approved' ? 'rgba(34, 197, 94, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                            color: entry.status === 'pending' ? 'var(--warning)' :
+                              entry.status === 'approved' ? 'var(--success)' : '#ef4444',
+                            fontWeight: '600',
+                          }}>
+                            {entry.status === 'pending' ? 'Pendente' : entry.status === 'approved' ? 'Aprovado' : 'Rejeitado'}
+                          </span>
+                          <span style={{
+                            padding: '2px 8px', borderRadius: '4px',
+                            background: 'rgba(99, 102, 241, 0.1)', color: 'var(--primary)',
+                          }}>
+                            {entry.category}
+                          </span>
+                          <span style={{ color: 'var(--text-muted)' }}>
+                            {entry.asked_by} - {new Date(entry.created_at).toLocaleDateString('pt-BR')}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => kbDeleteEntry(entry.id)}
+                        style={{
+                          background: 'none', border: 'none', color: '#ef4444',
+                          cursor: 'pointer', fontSize: '1.1rem', padding: '4px',
+                        }}
+                        title="Excluir"
+                      >
+                        x
+                      </button>
+                    </div>
+
+                    {/* Resposta */}
+                    {entry.answer && kbEditingId !== entry.id && (
+                      <div style={{
+                        background: 'var(--bg)', borderRadius: '8px', padding: '12px',
+                        fontSize: '0.9rem', color: 'var(--text-muted)', marginTop: '8px',
+                        whiteSpace: 'pre-wrap',
+                      }}>
+                        {entry.answer}
+                      </div>
+                    )}
+
+                    {/* Editor de resposta (para pendentes ou edicao) */}
+                    {kbEditingId === entry.id && (
+                      <div style={{ marginTop: '8px' }}>
+                        <textarea
+                          value={kbEditAnswer}
+                          onChange={e => setKbEditAnswer(e.target.value)}
+                          rows={4}
+                          placeholder="Digite a resposta..."
+                          style={{
+                            width: '100%', padding: '10px 14px', borderRadius: '8px',
+                            border: '1px solid var(--border)', background: 'var(--bg)',
+                            color: 'var(--text)', fontSize: '0.9rem', marginBottom: '8px',
+                            resize: 'vertical',
+                          }}
+                        />
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button
+                            onClick={() => kbUpdateEntry(entry.id, { answer: kbEditAnswer, status: 'approved' })}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Aprovar
+                          </button>
+                          <button
+                            onClick={() => kbUpdateEntry(entry.id, { status: 'rejected' })}
+                            className="btn btn-sm"
+                            style={{ background: 'rgba(239, 68, 68, 0.15)', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)' }}
+                          >
+                            Rejeitar
+                          </button>
+                          <button
+                            onClick={() => { setKbEditingId(null); setKbEditAnswer(''); }}
+                            className="btn btn-outline btn-sm"
+                          >
+                            Cancelar
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Botoes de acao */}
+                    {kbEditingId !== entry.id && (
+                      <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
+                        {entry.status === 'pending' && (
+                          <button
+                            onClick={() => { setKbEditingId(entry.id); setKbEditAnswer(entry.answer || ''); }}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Responder
+                          </button>
+                        )}
+                        {entry.status === 'approved' && (
+                          <button
+                            onClick={() => { setKbEditingId(entry.id); setKbEditAnswer(entry.answer || ''); }}
+                            className="btn btn-outline btn-sm"
+                          >
+                            Editar
+                          </button>
+                        )}
+                        {entry.status === 'rejected' && (
+                          <button
+                            onClick={() => { setKbEditingId(entry.id); setKbEditAnswer(''); }}
+                            className="btn btn-outline btn-sm"
+                          >
+                            Reabrir
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         )}
 
