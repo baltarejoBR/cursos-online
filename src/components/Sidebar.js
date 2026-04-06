@@ -15,8 +15,8 @@ const MENU_ITEMS = [
   { id: 'protocolos', label: 'Protocolos', icon: '🧪', href: '/minha-area/protocolos', requiresCategory: ['cursos', 'livros'] },
   { id: 'cursos', label: 'Meus Cursos', icon: '🎓', href: '/minha-area#cursos', requiresCategory: ['cursos'] },
   { id: 'livros', label: 'Meus Livros', icon: '📚', href: '/minha-area#livros', requiresCategory: ['livros'] },
-  { id: 'comunidade', label: 'Comunidade', icon: '👥', href: '/minha-area#comunidade', requiresCategory: ['comunidade'] },
-  { id: 'mentoria', label: 'Mentoria', icon: '💼', href: '/minha-area#mentoria', requiresCategory: ['servicos'] },
+  { id: 'comunidade', label: 'Comunidade', icon: '👥', href: '/minha-area/comunidade', requiresCategory: ['comunidade'] },
+  { id: 'mentoria', label: 'Mentoria', icon: '💼', href: '/minha-area/mentoria', requiresCategory: ['servicos'] },
 ];
 
 export default function Sidebar({ userCategories = [] }) {
