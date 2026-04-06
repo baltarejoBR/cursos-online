@@ -87,10 +87,6 @@ export async function POST(request) {
       }
 
       // Produto com pagamento unico
-      const paymentMethods = product.paymentMethod === 'pix'
-        ? ['pix']
-        : ['card', 'pix'];
-
       const successUrl = product.id === 'consultoria'
         ? `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}&calendly=1`
         : `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`;
@@ -98,7 +94,7 @@ export async function POST(request) {
       const session = await stripe.checkout.sessions.create({
         customer: customerId,
         mode: 'payment',
-        payment_method_types: paymentMethods,
+        payment_method_types: ['card'],
         line_items: [
           {
             price_data: {
@@ -163,14 +159,7 @@ export async function POST(request) {
 
     return NextResponse.json({ error: 'Produto ou plano invalido' }, { status: 400 });
   } catch (error) {
-    console.error('Checkout error:', {
-      message: error.message,
-      stack: error.stack,
-      user: user?.id,
-      productId,
-      planType,
-      body
-    });
+    console.error('Checkout error:', error.message);
     return NextResponse.json(
       { error: 'Erro ao criar sessao de pagamento', detail: error.message },
       { status: 500 }
