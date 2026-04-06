@@ -106,7 +106,7 @@ export default function Home() {
 
       {/* CTA */}
       <section style={{
-        background: 'linear-gradient(135deg, #1e1b4b 0%, var(--bg) 100%)',
+        background: 'linear-gradient(135deg, #d4e8c2 0%, #faf6f0 50%, #f0e6d0 100%)',
         padding: '80px 20px',
         textAlign: 'center',
       }}>

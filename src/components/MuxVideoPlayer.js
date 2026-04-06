@@ -95,7 +95,7 @@ export default function MuxVideoPlayer({ playbackId, courseId, lessonId, title }
         borderRadius: '8px',
         aspectRatio: '16/9',
       }}
-      accentColor="#6366f1"
+      accentColor="#5a8a3c"
       streamType="on-demand"
     />
   );

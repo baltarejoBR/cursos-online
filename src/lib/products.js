@@ -20,7 +20,7 @@ export const PRODUCTS = [
     priceDisplay: 'R$ 297,00',
     type: 'one_time', // one_time, subscription, external
     badge: 'Mais Vendido',
-    badgeColor: '#f59e0b',
+    badgeColor: '#c9942e',
     features: [
       'Acesso vitalício ao conteúdo',
       'Módulos para humanos e animais',
@@ -29,7 +29,7 @@ export const PRODUCTS = [
       'Grupo exclusivo de alunos',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+    gradient: 'linear-gradient(135deg, #5a8a3c 0%, #7ab356 100%)',
   },
   {
     id: 'curso-cds-humanos',
@@ -48,7 +48,7 @@ export const PRODUCTS = [
       'Suporte por email',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
+    gradient: 'linear-gradient(135deg, #6b9e4a 0%, #8bb96e 100%)',
   },
   {
     id: 'curso-cds-animais',
@@ -67,7 +67,7 @@ export const PRODUCTS = [
       'Casos reais e depoimentos',
       'Suporte por email',
     ],
-    gradient: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
+    gradient: 'linear-gradient(135deg, #7ab356 0%, #4a7332 100%)',
   },
   {
     id: 'curso-teamor-telegram',
@@ -88,7 +88,7 @@ export const PRODUCTS = [
       'Comunidade ativa de praticantes',
       'Material exclusivo para membros',
     ],
-    gradient: 'linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%)',
+    gradient: 'linear-gradient(135deg, #c9942e 0%, #d4a94e 100%)',
   },
 
   // === LIVROS ===
@@ -109,7 +109,7 @@ export const PRODUCTS = [
       'Tabelas de dosagem práticas',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)',
+    gradient: 'linear-gradient(135deg, #b8860b 0%, #c9942e 100%)',
   },
   {
     id: 'livro-animais',
@@ -131,7 +131,7 @@ export const PRODUCTS = [
       'Casos reais documentados',
       'Atualizações gratuitas',
     ],
-    gradient: 'linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)',
+    gradient: 'linear-gradient(135deg, #8b7355 0%, #a68b5b 100%)',
   },
 
   // === SERVIÇOS ===
@@ -147,7 +147,7 @@ export const PRODUCTS = [
     priceNote: '/sessão',
     type: 'one_time',
     badge: 'Personalizado',
-    badgeColor: '#8b5cf6',
+    badgeColor: '#8b7355',
     features: [
       'Sessão de 1h por videochamada',
       'Protocolo personalizado',
@@ -155,7 +155,7 @@ export const PRODUCTS = [
       'Material de apoio exclusivo',
       'Gravação da sessão',
     ],
-    gradient: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
+    gradient: 'linear-gradient(135deg, #a68b5b 0%, #8b7355 100%)',
   },
 
   // === LOJA ===
@@ -174,7 +174,7 @@ export const PRODUCTS = [
       'Compra segura',
       'Suporte ao cliente',
     ],
-    gradient: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+    gradient: 'linear-gradient(135deg, #5a8a3c 0%, #c9942e 100%)',
   },
 ];
 

@@ -5,16 +5,16 @@
 }
 
 :root {
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --bg: #0f172a;
-  --bg-card: #1e293b;
-  --bg-input: #334155;
-  --text: #f8fafc;
-  --text-muted: #94a3b8;
-  --success: #22c55e;
-  --warning: #f59e0b;
-  --border: #334155;
+  --primary: #5a8a3c;
+  --primary-dark: #4a7332;
+  --bg: #faf6f0;
+  --bg-card: #ffffff;
+  --bg-input: #f0ebe3;
+  --text: #3d2e1f;
+  --text-muted: #8b7355;
+  --success: #5a8a3c;
+  --warning: #c9942e;
+  --border: #e0d5c5;
 }
 
 body {
@@ -134,13 +134,13 @@ a:hover {
 .hero {
   text-align: center;
   padding: 80px 20px;
-  background: linear-gradient(135deg, var(--bg) 0%, #1e1b4b 100%);
+  background: linear-gradient(135deg, #faf6f0 0%, #e8dece 50%, #d4e8c2 100%);
 }
 
 .hero h1 {
   font-size: 3rem;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, var(--text), var(--primary));
+  background: linear-gradient(135deg, #3d2e1f, #5a8a3c);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -177,12 +177,12 @@ a:hover {
 
 .course-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 30px rgba(61, 46, 31, 0.12);
 }
 
 .course-thumb {
   height: 160px;
-  background: linear-gradient(135deg, var(--primary) 0%, #a855f7 100%);
+  background: linear-gradient(135deg, #5a8a3c 0%, #c9942e 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,12 +219,12 @@ a:hover {
 }
 
 .badge-free {
-  background: rgba(34, 197, 94, 0.15);
+  background: rgba(90, 138, 60, 0.12);
   color: var(--success);
 }
 
 .badge-premium {
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(201, 148, 46, 0.15);
   color: var(--warning);
 }
 
@@ -292,8 +292,8 @@ a:hover {
 }
 
 .error-msg {
-  background: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
+  background: rgba(185, 60, 60, 0.1);
+  color: #b93c3c;
   padding: 12px;
   border-radius: 8px;
   margin-bottom: 16px;

@@ -297,7 +297,7 @@ export default function MinhaAreaPage() {
 
         {/* CTA para ver mais produtos */}
         <div style={{
-          background: 'linear-gradient(135deg, #1e1b4b 0%, var(--bg-card) 100%)',
+          background: 'linear-gradient(135deg, #d4e8c2 0%, var(--bg-card) 100%)',
           border: '1px solid var(--primary)',
           borderRadius: '16px',
           padding: '40px',

@@ -31,7 +31,7 @@ export default function Header() {
     <header className="header">
       <div className="header-inner">
         <Link href="/" className="logo">
-          🎓 CursosOnline
+          🌿 Metodo Corpo Limpo
         </Link>
         <nav className="nav">
           <Link href="/">Inicio</Link>
