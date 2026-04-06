@@ -46,7 +46,7 @@ export default function Home() {
               marginBottom: '20px',
               color: '#a8d88a',
             }}>
-              +5.000 alunos transformando sua saude
+              +300 alunos transformando sua saude
             </div>
             <h1 style={{
               fontSize: '3.2rem',
@@ -121,7 +121,7 @@ export default function Home() {
           textAlign: 'center',
         }}>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+5.000</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+300</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Alunos</div>
           </div>
           <div>
@@ -129,8 +129,10 @@ export default function Home() {
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Produtos</div>
           </div>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+50</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Paises alcancados</div>
+            <a href="https://www.instagram.com/gabrielbaltarejo" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>📸</div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>@gabrielbaltarejo</div>
+            </a>
           </div>
           <div>
             <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>4.9/5</div>
@@ -420,13 +422,77 @@ export default function Home() {
               pratico e acessivel sobre protocolos biooxidativos, ajudando pessoas a transformar
               sua saude de forma natural e consciente.
             </p>
-            <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-              {['Autor best-seller', '+5.000 alunos', 'Entrevistou Andreas Kalcker'].map(item => (
+            <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginBottom: '24px' }}>
+              {['Autor best-seller', '+300 alunos', 'Entrevistou Andreas Kalcker'].map(item => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ color: '#7ab356', fontSize: '1.2rem' }}>✓</span>
                   <span style={{ color: 'rgba(255,255,255,0.7)' }}>{item}</span>
                 </div>
               ))}
+            </div>
+
+            {/* Redes Sociais */}
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <a
+                href="https://www.instagram.com/gabrielbaltarejo"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  color: 'white',
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                }}
+              >
+                📸 @gabrielbaltarejo
+              </a>
+              <a
+                href="https://t.me/+YFVp36x1zKhmM2Ix"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  color: 'white',
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                }}
+              >
+                📱 Telegram
+              </a>
+              <a
+                href="https://linktr.ee/metodocorpolimpo"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(255,255,255,0.1)',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                  borderRadius: '50px',
+                  padding: '8px 20px',
+                  color: 'white',
+                  fontSize: '0.9rem',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                }}
+              >
+                🔗 Linktree
+              </a>
             </div>
           </div>
         </div>
@@ -467,9 +533,25 @@ export default function Home() {
       </section>
 
       <footer className="footer">
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
-          <Image src="/images/logo-metodo-corpo-limpo.png" alt="Logo" width={30} height={30} />
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '16px' }}>
+            <a href="https://www.instagram.com/gabrielbaltarejo" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Instagram
+            </a>
+            <a href="https://t.me/+YFVp36x1zKhmM2Ix" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Telegram
+            </a>
+            <a href="https://linktr.ee/metodocorpolimpo" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Linktree
+            </a>
+            <a href="https://www.clo2br.com.br/cds" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              Loja CLO2BR
+            </a>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
+            <Image src="/images/logo-metodo-corpo-limpo.png" alt="Logo" width={30} height={30} />
+            <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+          </div>
         </div>
       </footer>
     </>
