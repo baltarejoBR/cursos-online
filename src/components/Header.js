@@ -37,6 +37,7 @@ export default function Header() {
         </Link>
         <nav className="nav">
           <Link href="/">Inicio</Link>
+          <Link href="/o-que-e-cds">O que e CDS?</Link>
           <Link href="/planos">Produtos</Link>
           {user ? (
             <>

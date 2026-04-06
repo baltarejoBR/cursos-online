@@ -3,14 +3,11 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
 
 export default function MinhaAreaPage() {
   const supabase = createClient();
-  const router = useRouter();
 
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
@@ -26,15 +23,10 @@ export default function MinhaAreaPage() {
 
   async function loadDashboard() {
     const { data: { user: currentUser } } = await supabase.auth.getUser();
-
-    if (!currentUser) {
-      router.push('/login');
-      return;
-    }
+    if (!currentUser) return;
 
     setUser(currentUser);
 
-    // Buscar perfil
     const { data: profileData } = await supabase
       .from('profiles')
       .select('*')
@@ -43,14 +35,12 @@ export default function MinhaAreaPage() {
 
     setProfile(profileData);
 
-    // Buscar produtos com acesso ativo
     const { data: userProducts } = await supabase
       .from('user_products')
       .select('*')
       .eq('user_id', currentUser.id)
       .eq('active', true);
 
-    // Mapear com dados do catalogo
     const productsWithInfo = (userProducts || []).map(up => {
       const product = PRODUCTS.find(p => p.id === up.product_id);
       return { ...up, product };
@@ -75,12 +65,9 @@ export default function MinhaAreaPage() {
 
   if (loading) {
     return (
-      <>
-        <Header />
-        <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
-          <p style={{ color: 'var(--text-muted)' }}>Carregando...</p>
-        </div>
-      </>
+      <div className="dashboard">
+        <p style={{ color: 'var(--text-muted)' }}>Carregando...</p>
+      </div>
     );
   }
 
@@ -89,194 +76,185 @@ export default function MinhaAreaPage() {
   const servicos = myProducts.filter(p => p.product.category === 'servicos');
 
   return (
-    <>
-      <Header />
-      <div className="container dashboard">
-        <h1>Ola, {profile?.full_name || 'Aluno'}!</h1>
-        <p className="subtitle">Seus produtos e acessos</p>
+    <div className="dashboard">
+      <h1>Ola, {profile?.full_name || 'Aluno'}!</h1>
+      <p className="subtitle">Seus produtos e acessos</p>
 
-        {/* Telegram */}
+      {/* Telegram */}
+      <div style={{
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border)',
+        borderRadius: '12px',
+        padding: '20px',
+        marginBottom: '32px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        flexWrap: 'wrap',
+      }}>
+        <span style={{ fontSize: '1.2rem' }}>📱</span>
+        <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>Telegram:</span>
+        {editingTelegram ? (
+          <>
+            <input
+              type="text"
+              placeholder="@seuusuario"
+              value={telegramInput}
+              onChange={(e) => setTelegramInput(e.target.value)}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '8px',
+                border: '1px solid var(--border)',
+                background: 'var(--bg)',
+                color: 'var(--text)',
+                fontSize: '0.9rem',
+              }}
+            />
+            <button
+              onClick={saveTelegram}
+              disabled={savingTelegram}
+              className="btn btn-primary"
+              style={{ padding: '6px 16px', fontSize: '0.85rem' }}
+            >
+              {savingTelegram ? 'Salvando...' : 'Salvar'}
+            </button>
+            <button
+              onClick={() => { setEditingTelegram(false); setTelegramInput(profile?.telegram_username || ''); }}
+              style={{ padding: '6px 12px', fontSize: '0.85rem', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
+            >
+              Cancelar
+            </button>
+          </>
+        ) : (
+          <>
+            <span style={{ color: profile?.telegram_username ? 'var(--text)' : 'var(--text-muted)' }}>
+              {profile?.telegram_username ? `@${profile.telegram_username}` : 'Nao informado'}
+            </span>
+            <button
+              onClick={() => setEditingTelegram(true)}
+              style={{
+                padding: '4px 12px',
+                fontSize: '0.8rem',
+                background: 'var(--bg)',
+                border: '1px solid var(--border)',
+                borderRadius: '6px',
+                color: 'var(--primary)',
+                cursor: 'pointer',
+              }}
+            >
+              Editar
+            </button>
+            {!profile?.telegram_username && (
+              <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem', width: '100%' }}>
+                Informe seu Telegram para acessar o grupo exclusivo TEAmor.
+                Depois, inicie uma conversa com{' '}
+                <a href="https://t.me/teamoradmbot" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)' }}>
+                  @teamoradmbot
+                </a>{' '}
+                para receber o link de convite.
+              </small>
+            )}
+          </>
+        )}
+      </div>
+
+      {/* Stats */}
+      <div className="stats-grid">
+        <div className="stat-card">
+          <div className="number">{myProducts.length}</div>
+          <div className="label">Produtos Ativos</div>
+        </div>
+        <div className="stat-card">
+          <div className="number">{cursos.length}</div>
+          <div className="label">Cursos</div>
+        </div>
+        <div className="stat-card">
+          <div className="number">{livros.length}</div>
+          <div className="label">Livros</div>
+        </div>
+      </div>
+
+      {/* Meus Produtos */}
+      {myProducts.length === 0 ? (
         <div style={{
           background: 'var(--bg-card)',
           border: '1px solid var(--border)',
           borderRadius: '12px',
-          padding: '20px',
-          marginBottom: '32px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '12px',
-          flexWrap: 'wrap',
+          padding: '48px',
+          textAlign: 'center',
         }}>
-          <span style={{ fontSize: '1.2rem' }}>📱</span>
-          <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>Telegram:</span>
-          {editingTelegram ? (
-            <>
-              <input
-                type="text"
-                placeholder="@seuusuario"
-                value={telegramInput}
-                onChange={(e) => setTelegramInput(e.target.value)}
-                style={{
-                  padding: '6px 12px',
-                  borderRadius: '8px',
-                  border: '1px solid var(--border)',
-                  background: 'var(--bg)',
-                  color: 'var(--text)',
-                  fontSize: '0.9rem',
-                }}
-              />
-              <button
-                onClick={saveTelegram}
-                disabled={savingTelegram}
-                className="btn btn-primary"
-                style={{ padding: '6px 16px', fontSize: '0.85rem' }}
-              >
-                {savingTelegram ? 'Salvando...' : 'Salvar'}
-              </button>
-              <button
-                onClick={() => { setEditingTelegram(false); setTelegramInput(profile?.telegram_username || ''); }}
-                style={{ padding: '6px 12px', fontSize: '0.85rem', background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
-              >
-                Cancelar
-              </button>
-            </>
-          ) : (
-            <>
-              <span style={{ color: profile?.telegram_username ? 'var(--text)' : 'var(--text-muted)' }}>
-                {profile?.telegram_username ? `@${profile.telegram_username}` : 'Nao informado'}
-              </span>
-              <button
-                onClick={() => setEditingTelegram(true)}
-                style={{
-                  padding: '4px 12px',
-                  fontSize: '0.8rem',
-                  background: 'var(--bg)',
-                  border: '1px solid var(--border)',
-                  borderRadius: '6px',
-                  color: 'var(--primary)',
-                  cursor: 'pointer',
-                }}
-              >
-                Editar
-              </button>
-              {!profile?.telegram_username && (
-                <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem', width: '100%' }}>
-                  Informe seu Telegram para acessar o grupo exclusivo TEAmor.
-                  Depois, inicie uma conversa com{' '}
-                  <a href="https://t.me/teamoradmbot" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)' }}>
-                    @teamoradmbot
-                  </a>{' '}
-                  para receber o link de convite.
-                </small>
-              )}
-            </>
-          )}
+          <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '1.1rem' }}>
+            Voce ainda nao tem acesso a nenhum produto.
+          </p>
+          <Link href="/planos" className="btn btn-primary">
+            Ver Produtos
+          </Link>
         </div>
-
-        {/* Stats */}
-        <div className="stats-grid">
-          <div className="stat-card">
-            <div className="number">{myProducts.length}</div>
-            <div className="label">Produtos Ativos</div>
-          </div>
-          <div className="stat-card">
-            <div className="number">{cursos.length}</div>
-            <div className="label">Cursos</div>
-          </div>
-          <div className="stat-card">
-            <div className="number">{livros.length}</div>
-            <div className="label">Livros</div>
-          </div>
-        </div>
-
-        {/* Meus Produtos */}
-        {myProducts.length === 0 ? (
-          <div style={{
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-            borderRadius: '12px',
-            padding: '48px',
-            textAlign: 'center',
-          }}>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '1.1rem' }}>
-              Voce ainda nao tem acesso a nenhum produto.
-            </p>
-            <Link href="/planos" className="btn btn-primary">
-              Ver Produtos
-            </Link>
-          </div>
-        ) : (
-          <>
-            {[
-              { items: cursos, label: 'Meus Cursos' },
-              { items: livros, label: 'Meus Livros' },
-              { items: servicos, label: 'Servicos' },
-            ].map(({ items, label }) => items.length > 0 && (
-              <div key={label}>
-                <h2 style={{ marginBottom: '20px' }}>{CATEGORIES[items[0].product.category]?.icon} {label}</h2>
-                <div className="courses-grid" style={{ marginBottom: '40px' }}>
-                  {items.map(item => (
-                    <Link
-                      key={item.id}
-                      href={`/produto/${item.product.slug}`}
-                      style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                      <div className="course-card">
-                        <div className="course-thumb" style={{ background: item.product.gradient, position: 'relative', overflow: 'hidden' }}>
-                          {item.product.image ? (
-                            <Image
-                              src={item.product.image}
-                              alt={item.product.title}
-                              fill
-                              style={{ objectFit: 'contain' }}
-                              sizes="(max-width: 768px) 100vw, 33vw"
-                            />
-                          ) : (
-                            <span style={{ fontSize: '2.5rem' }}>
-                              {CATEGORIES[item.product.category]?.icon || '📦'}
-                            </span>
-                          )}
-                        </div>
-                        <div className="course-body">
-                          <h3>{item.product.title}</h3>
-                          <p>{item.product.subtitle}</p>
-                          <div className="course-meta">
-                            <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
-                              Acesso Ativo
-                            </span>
-                          </div>
+      ) : (
+        <>
+          {[
+            { items: cursos, label: 'Meus Cursos' },
+            { items: livros, label: 'Meus Livros' },
+            { items: servicos, label: 'Servicos' },
+          ].map(({ items, label }) => items.length > 0 && (
+            <div key={label}>
+              <h2 style={{ marginBottom: '20px' }}>{CATEGORIES[items[0].product.category]?.icon} {label}</h2>
+              <div className="courses-grid" style={{ marginBottom: '40px' }}>
+                {items.map(item => (
+                  <Link
+                    key={item.id}
+                    href={`/produto/${item.product.slug}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <div className="course-card">
+                      <div className="course-thumb" style={{ background: item.product.gradient, position: 'relative', overflow: 'hidden' }}>
+                        {item.product.image ? (
+                          <Image
+                            src={item.product.image}
+                            alt={item.product.title}
+                            fill
+                            style={{ objectFit: 'contain' }}
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                        ) : (
+                          <span style={{ fontSize: '2.5rem' }}>
+                            {CATEGORIES[item.product.category]?.icon || '📦'}
+                          </span>
+                        )}
+                      </div>
+                      <div className="course-body">
+                        <h3>{item.product.title}</h3>
+                        <p>{item.product.subtitle}</p>
+                        <div className="course-meta">
+                          <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
+                            Acesso Ativo
+                          </span>
                         </div>
                       </div>
-                    </Link>
-                  ))}
-                </div>
+                    </div>
+                  </Link>
+                ))}
               </div>
-            ))}
-          </>
-        )}
+            </div>
+          ))}
+        </>
+      )}
 
-        {/* CTA para ver mais produtos */}
-        <div style={{
-          background: 'linear-gradient(135deg, #d4e8c2 0%, var(--bg-card) 100%)',
-          border: '1px solid var(--primary)',
-          borderRadius: '16px',
-          padding: '40px',
-          textAlign: 'center',
-          marginTop: '48px',
-        }}>
-          <h2 style={{ marginBottom: '12px' }}>Quer mais conteudo?</h2>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
-            Confira todos os nossos cursos, livros e servicos disponiveis.
-          </p>
-          <Link href="/planos" className="btn btn-primary">Ver Todos os Produtos</Link>
-        </div>
+      {/* CTA para ver mais produtos */}
+      <div style={{
+        background: 'linear-gradient(135deg, #d4e8c2 0%, var(--bg-card) 100%)',
+        border: '1px solid var(--primary)',
+        borderRadius: '16px',
+        padding: '40px',
+        textAlign: 'center',
+        marginTop: '48px',
+      }}>
+        <h2 style={{ marginBottom: '12px' }}>Quer mais conteudo?</h2>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
+          Confira todos os nossos cursos, livros e servicos disponiveis.
+        </p>
+        <Link href="/planos" className="btn btn-primary">Ver Todos os Produtos</Link>
       </div>
-
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
-        </div>
-      </footer>
-    </>
+    </div>
   );
 }
