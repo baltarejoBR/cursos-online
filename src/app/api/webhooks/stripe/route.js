@@ -124,7 +124,6 @@ export async function POST(request) {
           amount: session.amount_total,
           currency: session.currency,
           status: 'succeeded',
-          metadata: { product_id: productId, product_type: productType, plan_type: planType },
         });
 
         if (session.mode === 'subscription') {
@@ -142,6 +141,32 @@ export async function POST(request) {
           }, {
             onConflict: 'stripe_subscription_id',
           });
+
+          // Dar acesso ao produto
+          if (productId) {
+            // Verificar se ja existe acesso
+            const { data: existingAccess } = await supabaseAdmin
+              .from('user_products')
+              .select('id')
+              .eq('user_id', userId)
+              .eq('product_id', productId)
+              .single();
+
+            if (existingAccess) {
+              await supabaseAdmin
+                .from('user_products')
+                .update({ active: true, granted_by: 'stripe', granted_at: new Date().toISOString() })
+                .eq('id', existingAccess.id);
+            } else {
+              await supabaseAdmin.from('user_products').insert({
+                user_id: userId,
+                product_id: productId,
+                active: true,
+                granted_by: 'stripe',
+                granted_at: new Date().toISOString(),
+              });
+            }
+          }
 
           // Atualizar perfil para premium
           await supabaseAdmin
@@ -164,8 +189,17 @@ export async function POST(request) {
             await addMemberToTelegramGroup(newProfile.telegram_username, newProfile.full_name);
           }
         } else if (session.mode === 'payment' && productId) {
-          // Pagamento unico - criar enrollment para o produto especifico
-          // Buscar curso correspondente ao product_id
+          // Pagamento unico - dar acesso ao produto
+          await supabaseAdmin.from('user_products').upsert({
+            user_id: userId,
+            product_id: productId,
+            active: true,
+            purchased_at: new Date().toISOString(),
+          }, {
+            onConflict: 'user_id,product_id',
+          });
+
+          // Tambem criar enrollment se existir curso correspondente
           const { data: course } = await supabaseAdmin
             .from('courses')
             .select('id')
@@ -173,13 +207,10 @@ export async function POST(request) {
             .single();
 
           if (course) {
-            await supabaseAdmin.from('enrollments').upsert({
+            await supabaseAdmin.from('enrollments').insert({
               user_id: userId,
               course_id: course.id,
-              status: 'active',
-              purchased_at: new Date().toISOString(),
-            }, {
-              onConflict: 'user_id,course_id',
+              enrolled_at: new Date().toISOString(),
             });
           }
 
