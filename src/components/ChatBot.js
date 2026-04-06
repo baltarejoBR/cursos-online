@@ -30,49 +30,38 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/knowledge-base?q=${encodeURIComponent(question)}`);
+      // Enviar historico para a API do chat com IA
+      const chatHistory = messages.filter(m => m.role === 'user' || m.role === 'bot');
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: question,
+          history: chatHistory,
+        }),
+      });
+
       const data = await res.json();
 
-      if (data.found && data.entries && data.entries.length > 0) {
-        // Mostrar a melhor resposta
-        const best = data.entries[0];
+      if (data.response) {
         setMessages(prev => [...prev, {
           role: 'bot',
-          text: best.answer,
-          category: best.category,
+          text: data.response,
         }]);
-
-        // Se houver mais resultados relacionados, mencionar
-        if (data.entries.length > 1) {
-          setMessages(prev => [...prev, {
-            role: 'bot',
-            text: `Encontrei mais ${data.entries.length - 1} resultado(s) relacionado(s). Quer que eu mostre?`,
-            extras: data.entries.slice(1),
-          }]);
-        }
       } else {
         setMessages(prev => [...prev, {
           role: 'bot',
-          text: 'Ainda nao tenho uma resposta para essa pergunta, mas ja registrei ela! O Gabriel vai responder em breve e a resposta ficara disponivel aqui. Enquanto isso, tente perguntar de outra forma ou explore outros temas.',
+          text: 'Desculpe, nao consegui processar sua pergunta. Tente novamente.',
         }]);
       }
     } catch {
       setMessages(prev => [...prev, {
         role: 'bot',
-        text: 'Desculpe, ocorreu um erro ao buscar a resposta. Tente novamente em instantes.',
+        text: 'Desculpe, ocorreu um erro. Tente novamente em instantes.',
       }]);
     }
 
     setLoading(false);
-  }
-
-  function showExtras(extras) {
-    const newMessages = extras.map(entry => ({
-      role: 'bot',
-      text: `**${entry.question}**\n\n${entry.answer}`,
-      category: entry.category,
-    }));
-    setMessages(prev => [...prev.filter(m => !m.extras), ...newMessages]);
   }
 
   return (
@@ -178,37 +167,7 @@ export default function ChatBot() {
                   border: msg.role === 'bot' ? '1px solid var(--border, #2a2a4a)' : 'none',
                 }}>
                   {msg.text}
-                  {msg.category && (
-                    <span style={{
-                      display: 'inline-block',
-                      marginTop: '6px',
-                      padding: '2px 8px',
-                      borderRadius: '4px',
-                      background: 'rgba(99, 102, 241, 0.15)',
-                      color: 'var(--primary, #6366f1)',
-                      fontSize: '0.7rem',
-                    }}>
-                      {msg.category}
-                    </span>
-                  )}
                 </div>
-                {msg.extras && (
-                  <button
-                    onClick={() => showExtras(msg.extras)}
-                    style={{
-                      marginTop: '6px',
-                      padding: '6px 12px',
-                      borderRadius: '8px',
-                      background: 'rgba(99, 102, 241, 0.1)',
-                      color: 'var(--primary, #6366f1)',
-                      border: '1px solid rgba(99, 102, 241, 0.3)',
-                      cursor: 'pointer',
-                      fontSize: '0.8rem',
-                    }}
-                  >
-                    Mostrar mais {msg.extras.length} resultado(s)
-                  </button>
-                )}
               </div>
             ))}
             {loading && (
