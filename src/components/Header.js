@@ -46,6 +46,7 @@ export default function Header() {
         <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
           <Link href="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
           <Link href="/o-que-e-cds" onClick={() => setMenuOpen(false)}>O que e CDS?</Link>
+          <Link href="/depoimentos" onClick={() => setMenuOpen(false)}>Depoimentos</Link>
           <Link href="/planos" onClick={() => setMenuOpen(false)}>Produtos</Link>
           {user ? (
             <>
