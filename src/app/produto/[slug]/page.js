@@ -257,8 +257,15 @@ export default function ProductPage() {
                     style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px' }}
                   >
                     {loading ? 'Processando...' :
+                     product.paymentMethod === 'pix' ? 'Pagar via Pix' :
                      product.type === 'subscription' ? 'Assinar Agora' : 'Comprar Agora'}
                   </button>
+
+                  {product.paymentMethod === 'pix' && (
+                    <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '12px' }}>
+                      Apos o pagamento, voce sera redirecionado para agendar no Calendly
+                    </p>
+                  )}
 
                   {!user && (
                     <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
@@ -290,12 +297,12 @@ export default function ProductPage() {
                 <div style={{
                   marginTop: '24px',
                   padding: '16px',
-                  background: 'rgba(34, 197, 94, 0.1)',
+                  background: 'rgba(90, 138, 60, 0.1)',
                   borderRadius: '8px',
                   textAlign: 'center',
                 }}>
                   <p style={{ color: 'var(--success)', fontSize: '0.85rem', fontWeight: '600' }}>
-                    Pagamento seguro via Stripe
+                    {product.paymentMethod === 'pix' ? 'Pagamento seguro via Pix' : 'Pagamento seguro via Stripe'}
                   </p>
                 </div>
               )}

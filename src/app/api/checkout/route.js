@@ -87,10 +87,18 @@ export async function POST(request) {
       }
 
       // Produto com pagamento unico
+      const paymentMethods = product.paymentMethod === 'pix'
+        ? ['pix']
+        : ['card', 'pix'];
+
+      const successUrl = product.id === 'consultoria'
+        ? `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}&calendly=1`
+        : `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`;
+
       const session = await stripe.checkout.sessions.create({
         customer: customerId,
         mode: 'payment',
-        payment_method_types: ['card'],
+        payment_method_types: paymentMethods,
         line_items: [
           {
             price_data: {
@@ -109,7 +117,7 @@ export async function POST(request) {
           product_id: product.id,
           product_type: 'one_time',
         },
-        success_url: `${origin}/pagamento/sucesso?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: successUrl,
         cancel_url: `${origin}/produto/${product.slug}`,
         allow_promotion_codes: true,
       });

@@ -141,10 +141,11 @@ export const PRODUCTS = [
     category: 'servicos',
     title: 'Consultoria Individual',
     subtitle: 'Atendimento personalizado',
-    description: 'Consultoria individual por videochamada para tirar todas as suas dúvidas sobre CDS. Atendimento personalizado com protocolo sob medida.',
-    price: 19700, // R$ 197,00
-    priceDisplay: 'R$ 197,00',
+    description: 'Consultoria individual por videochamada para tirar todas as suas dúvidas sobre CDS. Atendimento personalizado com protocolo sob medida. Após o pagamento via Pix, você agenda o melhor horário pelo Calendly.',
+    price: 49700, // R$ 497,00
+    priceDisplay: 'R$ 497,00',
     priceNote: '/sessão',
+    paymentMethod: 'pix',
     type: 'one_time',
     badge: 'Personalizado',
     badgeColor: '#8b7355',
