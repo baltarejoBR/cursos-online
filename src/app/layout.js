@@ -1,4 +1,5 @@
 import './globals.css';
+import ChatBot from '@/components/ChatBot';
 
 export const metadata = {
   title: 'Método Corpo Limpo',
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <ChatBot />
         <script
           dangerouslySetInnerHTML={{
             __html: `
