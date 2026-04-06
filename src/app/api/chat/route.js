@@ -43,7 +43,9 @@ export async function POST(request) {
     });
 
     let contextEntries = semanticResults || [];
-    const hasRelevantContext = contextEntries.length > 0;
+    // Considerar relevante apenas se o melhor resultado tiver similaridade >= 0.5
+    const bestScore = contextEntries.length > 0 ? (contextEntries[0].similarity || 0) : 0;
+    const hasRelevantContext = bestScore >= 0.5;
 
     // 3. Fallback: busca por texto se semantica nao retornar nada
     if (contextEntries.length === 0) {
@@ -97,10 +99,16 @@ export async function POST(request) {
 
     const botResponse = response.choices[0].message.content;
 
-    // Verificar se a IA indicou que nao tem a informacao -> registrar pergunta
-    const noInfoPhrases = ['nao tenho essa informacao', 'vou registrar sua pergunta', 'ainda nao tenho'];
-    const needsRegistration = !hasRelevantContext &&
-      noInfoPhrases.some(phrase => botResponse.toLowerCase().includes(phrase));
+    // Registrar pergunta se nao teve contexto relevante na base
+    // OU se o GPT indicou que nao sabe
+    const noInfoPhrases = [
+      'nao tenho essa informacao', 'vou registrar', 'ainda nao tenho',
+      'nao possuo essa informacao', 'nao encontrei', 'nao sei responder',
+      'nao tenho informacao', 'base de conhecimento nao', 'nao consta',
+      'gabriel responda', 'fora do escopo',
+    ];
+    const gptSaidNoInfo = noInfoPhrases.some(phrase => botResponse.toLowerCase().includes(phrase));
+    const needsRegistration = !hasRelevantContext || gptSaidNoInfo;
 
     if (needsRegistration) {
       const { data: existing } = await supabaseAdmin
