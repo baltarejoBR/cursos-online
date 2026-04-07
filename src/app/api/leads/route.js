@@ -2,21 +2,14 @@ import { NextResponse } from 'next/server';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 import { sendLeadCouponEmail, createOrUpdateBrevoContact, BREVO_LIST_IDS } from '@/lib/brevo';
 
-function generateCouponCode() {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  let code = '';
-  for (let i = 0; i < 6; i++) {
-    code += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return `DIOXI-${code}`;
-}
+const CUPOM_FIXO = 'SEGUIDOR';
 
 export async function POST(req) {
   try {
     const { email, name, source } = await req.json();
 
     if (!email || !email.includes('@')) {
-      return NextResponse.json({ error: 'Email invalido' }, { status: 400 });
+      return NextResponse.json({ error: 'Email inválido' }, { status: 400 });
     }
 
     const supabase = createAdminSupabase();
@@ -30,30 +23,16 @@ export async function POST(req) {
 
     if (existing) {
       return NextResponse.json({
-        coupon_code: existing.coupon_code,
-        message: 'Voce ja tem um cupom! Use ele na loja.',
+        coupon_code: CUPOM_FIXO,
+        message: 'Você já tem um cupom! Use ele na loja.',
       });
-    }
-
-    // Generate unique coupon
-    let coupon_code = generateCouponCode();
-    let attempts = 0;
-    while (attempts < 5) {
-      const { data: dup } = await supabase
-        .from('leads')
-        .select('id')
-        .eq('coupon_code', coupon_code)
-        .single();
-      if (!dup) break;
-      coupon_code = generateCouponCode();
-      attempts++;
     }
 
     // Insert lead
     const { error } = await supabase.from('leads').insert({
       email: email.toLowerCase().trim(),
       name: name || null,
-      coupon_code,
+      coupon_code: CUPOM_FIXO,
       source: source || 'popup',
     });
 
@@ -63,7 +42,7 @@ export async function POST(req) {
     }
 
     // Send email with coupon (non-blocking)
-    sendLeadCouponEmail(email, name, coupon_code).catch(err =>
+    sendLeadCouponEmail(email, name, CUPOM_FIXO).catch(err =>
       console.error('Lead email failed:', err.message)
     );
 
@@ -74,14 +53,14 @@ export async function POST(req) {
         FIRSTNAME: name || '',
         FONTE: source || 'popup',
         DATA_CADASTRO: new Date().toISOString().split('T')[0],
-        CUPOM_USADO: coupon_code,
+        CUPOM_USADO: CUPOM_FIXO,
         COMPROU: 'false',
       },
       listIds: [BREVO_LIST_IDS.SITE_LEADS, BREVO_LIST_IDS.NEWSLETTER],
     }).catch(err => console.error('Brevo lead contact error:', err.message));
 
     return NextResponse.json({
-      coupon_code,
+      coupon_code: CUPOM_FIXO,
       message: 'Cupom gerado com sucesso!',
     });
   } catch (err) {

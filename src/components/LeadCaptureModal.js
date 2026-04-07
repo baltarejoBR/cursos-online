@@ -117,7 +117,7 @@ export default function LeadCaptureModal() {
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🎁</div>
               <h2 style={{ fontSize: '1.5rem', color: '#0d2137', marginBottom: '8px' }}>
-                Ganhe 10% de Desconto!
+                Ganhe 5% de Desconto!
               </h2>
               <p style={{ color: '#4a6a8a', fontSize: '0.95rem', lineHeight: 1.6 }}>
                 Cadastre seu email e receba um cupom exclusivo para sua primeira compra na loja Dioxi.
@@ -203,7 +203,7 @@ export default function LeadCaptureModal() {
               Seu cupom está pronto!
             </h2>
             <p style={{ color: '#4a6a8a', marginBottom: '20px' }}>
-              Use o código abaixo na loja para ganhar 10% de desconto:
+              Use o código abaixo na loja para ganhar 5% de desconto:
             </p>
 
             <div
