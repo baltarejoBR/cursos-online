@@ -261,7 +261,7 @@ export default async function Home() {
               margin: '24px auto 0',
               lineHeight: '1.6',
             }}>
-              Descoberto por Jim Humble, estudado pelo biofísico Andreas Kalcker desde 2006 e legalizado na Bolívia pela Dra. Patricia Callisperis junto à COMUSAV — o CDS tem décadas de uso seguro documentado.
+              Descoberto por <a href="https://jimhumble.co/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Jim Humble</a>, estudado pelo biofísico <a href="https://andreaskalcker.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>Andreas Kalcker</a> desde 2006 e legalizado na Bolívia pela Dra. Patricia Callisperis junto à <a href="https://comusav.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary)', textDecoration: 'underline' }}>COMUSAV</a> — o CDS tem décadas de uso seguro documentado. <a href="/o-que-e-cds" style={{ color: 'var(--primary)', fontWeight: '600' }}>Ver referências científicas →</a>
             </p>
           </div>
         </div>
@@ -619,7 +619,7 @@ export default async function Home() {
               },
               {
                 mito: 'Não existe evidência de que funciona',
-                verdade: 'Jim Humble descobriu o CDS nos anos 90. Desde 2006, o biofísico Andreas Kalcker estuda e documenta seus efeitos. Médicos como Patricia Callisperis foram responsáveis pela legalização do CDS na Bolívia junto à COMUSAV. São décadas de uso, estudos e uma comunidade global ativa.',
+                verdade: <><a href="https://jimhumble.co/" target="_blank" rel="noopener noreferrer" style={{ color: '#c9a84c', textDecoration: 'underline' }}>Jim Humble</a> descobriu o CDS nos anos 90. Desde 2006, o biofísico <a href="https://andreaskalcker.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#c9a84c', textDecoration: 'underline' }}>Andreas Kalcker</a> estuda e documenta seus efeitos. Médicos como Patricia Callisperis foram responsáveis pela <a href="https://www.lexivox.org/norms/BO-L-N1351.html" target="_blank" rel="noopener noreferrer" style={{ color: '#c9a84c', textDecoration: 'underline' }}>legalização do CDS na Bolívia</a> junto à <a href="https://comusav.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#c9a84c', textDecoration: 'underline' }}>COMUSAV</a>. São décadas de uso, estudos e uma comunidade global ativa.</>,
               },
               {
                 mito: 'É arriscado comprar e usar por conta própria',
@@ -627,7 +627,7 @@ export default async function Home() {
               },
               {
                 mito: 'Se fosse bom, os médicos recomendariam',
-                verdade: 'Muitos médicos já recomendam e utilizam o CDS. A Dra. Patricia Callisperis liderou a legalização na Bolívia, e a COMUSAV reúne milhares de profissionais de saúde em todo o mundo que utilizam o Dióxido de Cloro em seus protocolos.',
+                verdade: <>Muitos médicos já recomendam e utilizam o CDS. A Dra. Patricia Callisperis liderou a <a href="https://www.lexivox.org/norms/BO-L-N1351.html" target="_blank" rel="noopener noreferrer" style={{ color: '#c9a84c', textDecoration: 'underline' }}>legalização na Bolívia</a>, e a <a href="https://comusav.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#c9a84c', textDecoration: 'underline' }}>COMUSAV</a> reúne milhares de profissionais de saúde em todo o mundo que utilizam o Dióxido de Cloro em seus protocolos.</>,
               },
             ].map(item => (
               <div key={item.mito} style={{
