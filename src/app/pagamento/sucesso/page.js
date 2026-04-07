@@ -31,7 +31,7 @@ function SucessoContent() {
       <div style={{ fontSize: '4rem', marginBottom: '16px' }}>🎉</div>
       <h1 style={{ marginBottom: '12px' }}>Pagamento Confirmado!</h1>
       <p className="subtitle" style={{ marginBottom: '24px' }}>
-        Sua compra foi confirmada com sucesso. Aproveite todo o conteudo exclusivo!
+        Sua compra foi confirmada com sucesso. Aproveite todo o conteúdo exclusivo!
       </p>
 
       <div style={{
@@ -42,7 +42,7 @@ function SucessoContent() {
         marginBottom: '24px',
       }}>
         <p style={{ color: 'var(--success)', fontWeight: '600' }}>
-          ✅ Seu acesso esta ativo
+          ✅ Seu acesso está ativo
         </p>
       </div>
 
@@ -59,7 +59,7 @@ function SucessoContent() {
             📅 Agora agende sua consultoria
           </p>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
-            Escolha o melhor dia e horario para sua sessao:
+            Escolha o melhor dia e horário para sua sessão:
           </p>
           <a
             href="https://calendly.com/baltarejo/consultoria"
@@ -78,7 +78,7 @@ function SucessoContent() {
       ) : null}
 
       <Link href="/minha-area" className="btn btn-gold btn-full">
-        Ir para Minha Area
+        Ir para Minha Área
       </Link>
 
       <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '16px' }}>

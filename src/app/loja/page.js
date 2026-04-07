@@ -5,8 +5,8 @@ import { getAllStoreProducts } from '@/lib/store-products';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Loja Dioxi - Comprar SDC/CDS - Metodo Corpo Limpo',
-  description: 'Compre SDC (Solucao de Dioxido de Cloro), DMSO, kits e acessorios na loja oficial. Produtos de alta qualidade com entrega para todo o Brasil.',
+  title: 'Loja Dioxi - Comprar SDC/CDS - Método Corpo Limpo',
+  description: 'Compre SDC (Solução de Dióxido de Cloro), DMSO, kits e acessórios na loja oficial. Produtos de alta qualidade com entrega para todo o Brasil.',
 };
 
 export default async function LojaPage() {
@@ -56,7 +56,7 @@ export default async function LojaPage() {
             lineHeight: 1.7,
           }}>
             Produtos de alta qualidade para Terapias Bio-oxidativas.
-            SDC = CDS = Dioxi — e tudo a mesma coisa!
+            SDC = CDS = Dioxi — é tudo a mesma coisa!
           </p>
         </div>
       </section>
@@ -88,7 +88,7 @@ export default async function LojaPage() {
           <div style={{ color: 'var(--border)', fontSize: '1.5rem', alignSelf: 'center' }}>=</div>
           <div>
             <div style={{ fontWeight: '800', color: 'var(--success)', fontSize: '1.1rem' }}>SDC</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Solucao de Dioxido de Cloro</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Solução de Dióxido de Cloro</div>
           </div>
         </div>
       </section>
@@ -102,7 +102,7 @@ export default async function LojaPage() {
 
       <footer className="footer">
         <div className="container" style={{ textAlign: 'center' }}>
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>

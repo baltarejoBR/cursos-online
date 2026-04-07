@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 const MENU_ITEMS = [
   // Sempre visíveis
-  { id: 'inicio', label: 'Inicio', icon: '🏠', href: '/minha-area', free: true },
+  { id: 'inicio', label: 'Início', icon: '🏠', href: '/minha-area', free: true },
   { id: 'iniciantes', label: 'Para Iniciantes', icon: '📖', href: '/minha-area/iniciantes', free: true },
-  { id: 'pdfs', label: 'PDFs Gratis', icon: '📄', href: '/minha-area/pdfs-gratis', free: true },
+  { id: 'pdfs', label: 'PDFs Grátis', icon: '📄', href: '/minha-area/pdfs-gratis', free: true },
   // Separador
   { id: 'separator', type: 'separator' },
   // Condicionais

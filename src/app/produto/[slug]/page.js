@@ -79,10 +79,10 @@ export default function ProductPage() {
         setShowContent(true);
       } else {
         const data = await res.json();
-        setContentError(data.error || 'Erro ao acessar conteudo.');
+        setContentError(data.error || 'Erro ao acessar conteúdo.');
       }
     } catch {
-      setContentError('Erro de conexao. Tente novamente.');
+      setContentError('Erro de conexão. Tente novamente.');
     }
   }
 
@@ -91,7 +91,7 @@ export default function ProductPage() {
       <>
         <Header />
         <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
-          <h1>Produto nao encontrado</h1>
+          <h1>Produto não encontrado</h1>
           <Link href="/" className="btn btn-gold" style={{ marginTop: '20px' }}>
             Voltar para Home
           </Link>
@@ -109,7 +109,7 @@ export default function ProductPage() {
         <Header />
         <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
           <h1>{product.title}</h1>
-          <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>Seu download vai comecar automaticamente...</p>
+          <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>Seu download vai começar automaticamente...</p>
           <a href={product.downloadPath} download className="btn btn-gold" style={{ marginTop: '20px', textDecoration: 'none' }}>
             📥 Baixar novamente
           </a>
@@ -233,7 +233,7 @@ export default function ProductPage() {
                     marginBottom: '24px',
                   }}>
                     <p style={{ color: 'var(--success)', fontWeight: '700', fontSize: '1.1rem' }}>
-                      ✓ Voce tem acesso a este produto
+                      ✓ Você tem acesso a este produto
                     </p>
                   </div>
 
@@ -244,7 +244,7 @@ export default function ProductPage() {
                       className="btn btn-gold btn-full"
                       style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '12px' }}
                     >
-                      {showContent ? '📖 Conteudo aberto abaixo' : '📖 Ler Versao Online (HTML)'}
+                      {showContent ? '📖 Conteúdo aberto abaixo' : '📖 Ler Versão Online (HTML)'}
                     </button>
                   )}
 
@@ -290,7 +290,7 @@ export default function ProductPage() {
                   <div style={{ marginBottom: '24px' }}>
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
                       {product.type === 'subscription' ? 'Assinatura Mensal' :
-                       isWhatsapp ? 'Agende pelo WhatsApp' : 'Pagamento Unico'}
+                       isWhatsapp ? 'Agende pelo WhatsApp' : 'Pagamento Único'}
                     </span>
                   </div>
 
@@ -306,7 +306,7 @@ export default function ProductPage() {
                         📲 Agendar pelo WhatsApp
                       </a>
                       <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                        Voce sera direcionado para o WhatsApp de Gabriel Baltarejo para agendar sua consultoria.
+                        Você será direcionado para o WhatsApp de Gabriel Baltarejo para agendar sua consultoria.
                       </p>
                     </>
                   ) : (
@@ -323,7 +323,7 @@ export default function ProductPage() {
 
                       {!user && (
                         <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                          Voce precisa estar logado para comprar.{' '}
+                          Você precisa estar logado para comprar.{' '}
                           <Link href="/login">Entrar</Link> ou{' '}
                           <Link href="/cadastro">Cadastrar</Link>
                         </p>
@@ -334,7 +334,7 @@ export default function ProductPage() {
               )}
 
               <div style={{ marginTop: '32px' }}>
-                <h3 style={{ fontSize: '1rem', marginBottom: '16px' }}>O que esta incluso:</h3>
+                <h3 style={{ fontSize: '1rem', marginBottom: '16px' }}>O que está incluso:</h3>
                 <ul style={{ listStyle: 'none' }}>
                   {product.features?.map((feature, i) => (
                     <li key={i} style={{
@@ -370,7 +370,7 @@ export default function ProductPage() {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
 

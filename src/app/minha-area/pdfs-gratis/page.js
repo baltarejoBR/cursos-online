@@ -7,8 +7,8 @@ export default function PDFsGratisPage() {
 
   return (
     <div className="dashboard">
-      <h1>PDFs Gratis</h1>
-      <p className="subtitle">Material gratuito para voce comecar seus estudos</p>
+      <h1>PDFs Grátis</h1>
+      <p className="subtitle">Material gratuito para você começar seus estudos</p>
 
       <div style={{
         display: 'grid',

@@ -3,16 +3,16 @@ import Header from '@/components/Header';
 import { getPublishedPosts } from '@/lib/blog';
 
 export const metadata = {
-  title: 'Universidade Dioxi - Estudos e Artigos - Metodo Corpo Limpo',
-  description: 'Acesse estudos cientificos, protocolos e artigos educativos sobre Dioxido de Cloro (CDS/SDC/Dioxi) e Terapias Bio-oxidativas.',
+  title: 'Universidade Dioxi - Estudos e Artigos - Método Corpo Limpo',
+  description: 'Acesse estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro (CDS/SDC/Dioxi) e Terapias Bio-oxidativas.',
 };
 
 const CATEGORIES = [
   { value: null, label: 'Todos' },
-  { value: 'estudos', label: 'Estudos Cientificos' },
+  { value: 'estudos', label: 'Estudos Científicos' },
   { value: 'protocolos', label: 'Protocolos' },
   { value: 'iniciantes', label: 'Para Iniciantes' },
-  { value: 'ciencia', label: 'Ciencia' },
+  { value: 'ciencia', label: 'Ciência' },
 ];
 
 export default async function UniversidadePage({ searchParams }) {
@@ -47,8 +47,8 @@ export default async function UniversidadePage({ searchParams }) {
             margin: '0 auto',
             lineHeight: 1.7,
           }}>
-            Estudos cientificos, protocolos e artigos educativos sobre Dioxido de Cloro
-            e Terapias Bio-oxidativas. Conhecimento acessivel para todos.
+            Estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro
+            e Terapias Bio-oxidativas. Conhecimento acessível para todos.
           </p>
         </div>
       </section>
@@ -107,11 +107,11 @@ export default async function UniversidadePage({ searchParams }) {
                 Em breve!
               </h2>
               <p style={{ maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
-                Estamos preparando artigos e estudos cientificos sobre Dioxido de Cloro e Terapias Bio-oxidativas.
+                Estamos preparando artigos e estudos científicos sobre Dióxido de Cloro e Terapias Bio-oxidativas.
                 Volte em breve para conferir!
               </p>
               <Link href="/" className="btn btn-gold" style={{ marginTop: '24px', display: 'inline-block' }}>
-                Voltar para o Inicio
+                Voltar para o Início
               </Link>
             </div>
           ) : (
@@ -210,7 +210,7 @@ export default async function UniversidadePage({ searchParams }) {
 
       <footer className="footer">
         <div className="container" style={{ textAlign: 'center' }}>
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>

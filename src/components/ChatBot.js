@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'bot', text: 'Ola! Sou o assistente do Metodo Corpo Limpo. Tire suas duvidas sobre CDS, protocolos, dosagens e muito mais!' },
+    { role: 'bot', text: 'Olá! Sou o assistente do Método Corpo Limpo. Tire suas dúvidas sobre CDS, protocolos, dosagens e muito mais!' },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export default function ChatBot() {
     setLoading(true);
 
     try {
-      // Enviar historico para a API do chat com IA
+      // Enviar histórico para a API do chat com IA
       const chatHistory = messages.filter(m => m.role === 'user' || m.role === 'bot');
       const res = await fetch('/api/chat', {
         method: 'POST',
@@ -51,7 +51,7 @@ export default function ChatBot() {
       } else {
         setMessages(prev => [...prev, {
           role: 'bot',
-          text: 'Desculpe, nao consegui processar sua pergunta. Tente novamente.',
+          text: 'Desculpe, não consegui processar sua pergunta. Tente novamente.',
         }]);
       }
     } catch {
@@ -135,8 +135,8 @@ export default function ChatBot() {
               ?
             </div>
             <div>
-              <div style={{ fontWeight: '700', fontSize: '0.95rem' }}>Tira-Duvidas CDS</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>Respostas instantaneas</div>
+              <div style={{ fontWeight: '700', fontSize: '0.95rem' }}>Tira-Dúvidas CDS</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8 }}>Respostas instantâneas</div>
             </div>
           </div>
 
@@ -198,7 +198,7 @@ export default function ChatBot() {
               type="text"
               value={input}
               onChange={e => setInput(e.target.value)}
-              placeholder="Digite sua duvida sobre CDS..."
+              placeholder="Digite sua dúvida sobre CDS..."
               disabled={loading}
               style={{
                 flex: 1,

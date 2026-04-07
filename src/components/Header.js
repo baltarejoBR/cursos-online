@@ -54,8 +54,8 @@ export default function Header() {
           {menuOpen ? '✕' : '☰'}
         </button>
         <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
-          <Link href="/" className={navLinkClass('/')} onClick={() => setMenuOpen(false)}>Inicio</Link>
-          <Link href="/o-que-e-cds" className={navLinkClass('/o-que-e-cds')} onClick={() => setMenuOpen(false)}>O que e Dioxi?</Link>
+          <Link href="/" className={navLinkClass('/')} onClick={() => setMenuOpen(false)}>Início</Link>
+          <Link href="/o-que-e-cds" className={navLinkClass('/o-que-e-cds')} onClick={() => setMenuOpen(false)}>O que é Dioxi?</Link>
           <Link href="/loja" className={navLinkClass('/loja')} onClick={() => setMenuOpen(false)}>Comprar SDC</Link>
           <Link href="/universidade" className={navLinkClass('/universidade')} onClick={() => setMenuOpen(false)}>Universidade</Link>
           <Link href="/planos" className={navLinkClass('/planos')} onClick={() => setMenuOpen(false)}>Cursos</Link>
@@ -63,7 +63,7 @@ export default function Header() {
           <Link href="/depoimentos" className={navLinkClass('/depoimentos')} onClick={() => setMenuOpen(false)}>Depoimentos</Link>
           {user ? (
             <>
-              <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={() => setMenuOpen(false)}>Minha Area</Link>
+              <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={() => setMenuOpen(false)}>Minha Área</Link>
               {ADMIN_EMAILS.includes(user.email) && (
                 <Link href="/admin" className={navLinkClass('/admin')} onClick={() => setMenuOpen(false)}>Admin</Link>
               )}

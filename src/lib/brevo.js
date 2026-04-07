@@ -1,6 +1,16 @@
 const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.metodocorpolimpo.com.br';
 
+// Brevo list IDs (created via API)
+export const BREVO_LIST_IDS = {
+  SITE_CADASTRO: 20,
+  SITE_LEADS: 15,
+  HOTMART: 16,
+  FORUM_CDS: 17,
+  MANYCHAT: 18,
+  NEWSLETTER: 19,
+};
+
 async function sendEmail({ to, toName, subject, html }) {
   if (!BREVO_API_KEY) {
     console.warn('BREVO_API_KEY not set, skipping email');
@@ -168,4 +178,97 @@ export async function sendAccessGrantedEmail(email, name, productTitle) {
       </div>
     `),
   });
+}
+
+// ============================================
+// Contact Management (Brevo API v3)
+// ============================================
+
+export async function createOrUpdateBrevoContact({ email, attributes = {}, listIds = [] }) {
+  if (!BREVO_API_KEY) {
+    console.warn('BREVO_API_KEY not set, skipping contact creation');
+    return null;
+  }
+
+  try {
+    const res = await fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'api-key': BREVO_API_KEY,
+      },
+      body: JSON.stringify({
+        email: email.toLowerCase().trim(),
+        attributes,
+        listIds,
+        updateEnabled: true,
+      }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Brevo contact error:', err);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error('Brevo contact creation failed:', err.message);
+    return null;
+  }
+}
+
+export async function addContactToList(email, listId) {
+  if (!BREVO_API_KEY) return null;
+
+  try {
+    const res = await fetch(`https://api.brevo.com/v3/contacts/lists/${listId}/contacts/add`, {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'api-key': BREVO_API_KEY,
+      },
+      body: JSON.stringify({ emails: [email.toLowerCase().trim()] }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Brevo add to list error:', err);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error('Brevo add to list failed:', err.message);
+    return null;
+  }
+}
+
+export async function removeContactFromList(email, listId) {
+  if (!BREVO_API_KEY) return null;
+
+  try {
+    const res = await fetch(`https://api.brevo.com/v3/contacts/lists/${listId}/contacts/remove`, {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json',
+        'api-key': BREVO_API_KEY,
+      },
+      body: JSON.stringify({ emails: [email.toLowerCase().trim()] }),
+    });
+
+    if (!res.ok) {
+      const err = await res.text();
+      console.error('Brevo remove from list error:', err);
+      return null;
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error('Brevo remove from list failed:', err.message);
+    return null;
+  }
 }

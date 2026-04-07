@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createAdminSupabase } from '@/lib/supabase-admin';
-import { sendLeadCouponEmail } from '@/lib/brevo';
+import { sendLeadCouponEmail, createOrUpdateBrevoContact, BREVO_LIST_IDS } from '@/lib/brevo';
 
 function generateCouponCode() {
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
@@ -66,6 +66,19 @@ export async function POST(req) {
     sendLeadCouponEmail(email, name, coupon_code).catch(err =>
       console.error('Lead email failed:', err.message)
     );
+
+    // Create/update Brevo contact for lead segmentation
+    createOrUpdateBrevoContact({
+      email: email.toLowerCase().trim(),
+      attributes: {
+        FIRSTNAME: name || '',
+        FONTE: source || 'popup',
+        DATA_CADASTRO: new Date().toISOString().split('T')[0],
+        CUPOM_USADO: coupon_code,
+        COMPROU: 'false',
+      },
+      listIds: [BREVO_LIST_IDS.SITE_LEADS, BREVO_LIST_IDS.NEWSLETTER],
+    }).catch(err => console.error('Brevo lead contact error:', err.message));
 
     return NextResponse.json({
       coupon_code,

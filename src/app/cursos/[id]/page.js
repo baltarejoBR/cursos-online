@@ -106,10 +106,10 @@ export default function CourseDetailPage() {
         setShowHtmlContent(true);
       } else {
         const data = await res.json();
-        setHtmlError(data.error || 'Erro ao acessar conteudo.');
+        setHtmlError(data.error || 'Erro ao acessar conteúdo.');
       }
     } catch (err) {
-      setHtmlError('Erro de conexao. Tente novamente.');
+      setHtmlError('Erro de conexão. Tente novamente.');
     }
   }
 
@@ -208,7 +208,7 @@ export default function CourseDetailPage() {
                   className="btn btn-gold"
                   style={{ fontSize: '1.1rem', padding: '14px 32px' }}
                 >
-                  {showHtmlContent ? '📖 Conteudo aberto abaixo' : '📖 Acessar Conteudo Completo'}
+                  {showHtmlContent ? '📖 Conteúdo aberto abaixo' : '📖 Acessar Conteúdo Completo'}
                 </button>
               ) : !user ? (
                 <div style={{ display: 'flex', gap: '12px' }}>
@@ -218,7 +218,7 @@ export default function CourseDetailPage() {
               ) : (
                 <div style={{ background: 'var(--bg-card)', padding: '24px', borderRadius: '12px', border: '1px solid var(--border)' }}>
                   <p style={{ marginBottom: '12px' }}>
-                    Este conteudo e exclusivo para assinantes <strong>Premium</strong>.
+                    Este conteúdo é exclusivo para assinantes <strong>Premium</strong>.
                   </p>
                   <button className="btn btn-gold">Fazer Upgrade para Premium</button>
                 </div>

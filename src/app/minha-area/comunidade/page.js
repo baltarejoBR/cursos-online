@@ -94,10 +94,10 @@ export default function ComunidadePage() {
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
                 <h3 style={{ fontSize: '1.15rem' }}>Grupo Telegram - Corpo Limpo</h3>
-                <span className="badge badge-free">Gratis</span>
+                <span className="badge badge-free">Grátis</span>
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                Comunidade aberta no Telegram. Troque experiencias, tire duvidas e fique por dentro das novidades.
+                Comunidade aberta no Telegram. Troque experiências, tire dúvidas e fique por dentro das novidades.
               </p>
             </div>
             <div style={{ color: 'var(--gold)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
@@ -145,12 +145,12 @@ export default function ComunidadePage() {
                 fontSize: '0.9rem',
                 fontWeight: 600,
               }}>
-                ✓ Voce tem acesso — link em breve
+                ✓ Você tem acesso — link em breve
               </span>
             ) : (
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                  🔒 Disponivel para alunos dos cursos
+                  🔒 Disponível para alunos dos cursos
                 </span>
                 <Link href="/planos" className="btn btn-gold btn-sm">Ver Cursos</Link>
               </div>
@@ -183,14 +183,14 @@ export default function ComunidadePage() {
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
-              <h3 style={{ fontSize: '1.15rem' }}>Bot Tira-Duvidas CDS</h3>
+              <h3 style={{ fontSize: '1.15rem' }}>Bot Tira-Dúvidas CDS</h3>
               <span className="badge" style={{
                 background: 'rgba(201, 168, 76, 0.12)',
                 color: 'var(--gold)',
               }}>Em breve</span>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
-              Bot inteligente no WhatsApp que responde suas duvidas sobre CDS, protocolos e dosagens 24h por dia.
+              Bot inteligente no WhatsApp que responde suas dúvidas sobre CDS, protocolos e dosagens 24h por dia.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
               <span style={{
@@ -199,14 +199,14 @@ export default function ComunidadePage() {
                 color: 'var(--gold)',
               }}>
                 R$ 39,00
-                <span style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--text-muted)' }}>/mes</span>
+                <span style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--text-muted)' }}>/mês</span>
               </span>
               <span style={{
                 color: 'var(--text-muted)',
                 fontSize: '0.85rem',
                 fontStyle: 'italic',
               }}>
-                Disponivel em breve — assinatura mensal
+                Disponível em breve — assinatura mensal
               </span>
             </div>
           </div>
@@ -256,11 +256,11 @@ export default function ComunidadePage() {
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                <h3 style={{ fontSize: '1.15rem' }}>Forum CDS</h3>
-                <span className="badge badge-free">Gratis</span>
+                <h3 style={{ fontSize: '1.15rem' }}>Fórum CDS</h3>
+                <span className="badge badge-free">Grátis</span>
               </div>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-                Forum online sobre CDS e Saude Integrativa. Artigos, discussoes e conteudo da comunidade.
+                Fórum online sobre CDS e Saúde Integrativa. Artigos, discussões e conteúdo da comunidade.
               </p>
             </div>
             <div style={{ color: 'var(--gold)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>

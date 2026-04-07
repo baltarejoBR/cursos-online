@@ -132,7 +132,7 @@ export default function DepoimentosPage() {
             Depoimentos
           </h1>
           <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.75)', maxWidth: '600px', margin: '0 auto' }}>
-            +300 pessoas ja transformaram sua saude com o Metodo Corpo Limpo.
+            +300 pessoas já transformaram sua saúde com o Método Corpo Limpo.
             Veja os resultados reais dos nossos alunos.
           </p>
         </div>
@@ -271,7 +271,7 @@ export default function DepoimentosPage() {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>

@@ -56,7 +56,7 @@ export default function ProtocolosPage() {
           <span style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>🔒</span>
           <h1 style={{ fontSize: '1.5rem', marginBottom: '12px' }}>Acesso Restrito</h1>
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
-            Os protocolos estao disponiveis para quem adquiriu um curso ou livro.
+            Os protocolos estão disponíveis para quem adquiriu um curso ou livro.
           </p>
           <Link href="/planos" className="btn btn-gold">Ver Cursos e Livros</Link>
         </div>
@@ -75,10 +75,10 @@ export default function ProtocolosPage() {
         marginTop: '32px',
       }}>
         {[
-          { name: 'Protocolo C', desc: 'Protocolo basico para iniciantes. Ideal para comecar com seguranca.', level: 'Iniciante' },
-          { name: 'Protocolo D', desc: 'Protocolo de desintoxicacao. Uso diario com dosagem progressiva.', level: 'Intermediario' },
-          { name: 'Protocolo K', desc: 'Protocolo intensivo. Para casos que exigem maior concentracao.', level: 'Avancado' },
-          { name: 'Protocolo F', desc: 'Protocolo frequente. Aplicacoes em intervalos curtos ao longo do dia.', level: 'Intermediario' },
+          { name: 'Protocolo C', desc: 'Protocolo básico para iniciantes. Ideal para começar com segurança.', level: 'Iniciante' },
+          { name: 'Protocolo D', desc: 'Protocolo de desintoxicação. Uso diário com dosagem progressiva.', level: 'Intermediário' },
+          { name: 'Protocolo K', desc: 'Protocolo intensivo. Para casos que exigem maior concentração.', level: 'Avançado' },
+          { name: 'Protocolo F', desc: 'Protocolo frequente. Aplicações em intervalos curtos ao longo do dia.', level: 'Intermediário' },
         ].map((protocolo, i) => (
           <div key={i} style={{
             background: 'var(--bg-card)',
@@ -90,9 +90,9 @@ export default function ProtocolosPage() {
               <h3 style={{ fontSize: '1.1rem' }}>🧪 {protocolo.name}</h3>
               <span className="badge" style={{
                 background: protocolo.level === 'Iniciante' ? 'rgba(46,139,87,0.12)' :
-                  protocolo.level === 'Avancado' ? 'rgba(212,160,23,0.15)' : 'rgba(201,168,76,0.12)',
+                  protocolo.level === 'Avançado' ? 'rgba(212,160,23,0.15)' : 'rgba(201,168,76,0.12)',
                 color: protocolo.level === 'Iniciante' ? 'var(--success)' :
-                  protocolo.level === 'Avancado' ? 'var(--warning)' : 'var(--gold)',
+                  protocolo.level === 'Avançado' ? 'var(--warning)' : 'var(--gold)',
               }}>
                 {protocolo.level}
               </span>
@@ -109,7 +109,7 @@ export default function ProtocolosPage() {
         textAlign: 'center',
         fontStyle: 'italic',
       }}>
-        Mais protocolos serao adicionados em breve. Consulte seu curso para instrucoes detalhadas de cada protocolo.
+        Mais protocolos serão adicionados em breve. Consulte seu curso para instruções detalhadas de cada protocolo.
       </p>
     </div>
   );

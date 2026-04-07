@@ -6,7 +6,7 @@ export default function IniciantesPage() {
   return (
     <div className="dashboard">
       <h1>Para Iniciantes</h1>
-      <p className="subtitle">Tudo que voce precisa saber para comecar</p>
+      <p className="subtitle">Tudo que você precisa saber para começar</p>
 
       <div style={{
         display: 'grid',
@@ -20,14 +20,14 @@ export default function IniciantesPage() {
           borderRadius: '16px',
           padding: '32px',
         }}>
-          <h2 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>📖 O que e CDS?</h2>
+          <h2 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>📖 O que é CDS?</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '20px', lineHeight: 1.7 }}>
-            O CDS (Chlorine Dioxide Solution) e uma solucao aquosa de dioxido de cloro utilizada em
-            Terapias Bio-oxidativas. Se voce esta comecando agora, recomendamos assistir nosso video
-            explicativo para entender o basico.
+            O CDS (Chlorine Dioxide Solution) é uma solução aquosa de dióxido de cloro utilizada em
+            Terapias Bio-oxidativas. Se você está começando agora, recomendamos assistir nosso vídeo
+            explicativo para entender o básico.
           </p>
           <Link href="/o-que-e-cds" className="btn btn-gold btn-sm">
-            Ver Explicacao Completa
+            Ver Explicação Completa
           </Link>
         </div>
 
@@ -44,9 +44,9 @@ export default function IniciantesPage() {
             lineHeight: 2,
             paddingLeft: '20px',
           }}>
-            <li>Assista o video explicativo sobre o que e CDS</li>
-            <li>Baixe o Guia Gratuito do Protocolo K na secao de PDFs Gratis</li>
-            <li>Participe do Grupo Telegram gratuito para tirar duvidas</li>
+            <li>Assista o vídeo explicativo sobre o que é CDS</li>
+            <li>Baixe o Guia Gratuito do Protocolo K na seção de PDFs Grátis</li>
+            <li>Participe do Grupo Telegram gratuito para tirar dúvidas</li>
             <li>Quando estiver pronto, escolha um curso ou livro para aprofundar</li>
           </ol>
         </div>
@@ -62,16 +62,16 @@ export default function IniciantesPage() {
 
           {[
             {
-              q: 'O CDS e seguro?',
+              q: 'O CDS é seguro?',
               a: 'Quando utilizado corretamente seguindo os protocolos adequados, o CDS tem sido utilizado por milhares de pessoas. Nossos cursos ensinam o uso correto e seguro.',
             },
             {
-              q: 'Preciso de conhecimento previo?',
-              a: 'Nao! Nossos materiais sao feitos para iniciantes. Comece pelo video explicativo e pelo guia gratuito.',
+              q: 'Preciso de conhecimento prévio?',
+              a: 'Não! Nossos materiais são feitos para iniciantes. Comece pelo vídeo explicativo e pelo guia gratuito.',
             },
             {
               q: 'Posso usar em animais?',
-              a: 'Sim, existem protocolos especificos para animais. Temos um curso e um livro dedicados ao tema.',
+              a: 'Sim, existem protocolos específicos para animais. Temos um curso e um livro dedicados ao tema.',
             },
           ].map((faq, i) => (
             <div key={i} style={{

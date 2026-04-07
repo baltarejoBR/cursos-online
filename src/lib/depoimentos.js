@@ -3,8 +3,8 @@ export const CATEGORIAS_DEPOIMENTOS = {
   geral: { name: 'Geral', icon: '💬' },
   cancer: { name: 'Câncer', icon: '🎗️' },
   pele: { name: 'Pele', icon: '🩹' },
-  circulacao: { name: 'Circulacao', icon: '❤' },
-  recuperacao: { name: 'Recuperacao', icon: '💪' },
+  circulacao: { name: 'Circulação', icon: '❤' },
+  recuperacao: { name: 'Recuperação', icon: '💪' },
   animais: { name: 'Animais', icon: '🐾' },
 };
 

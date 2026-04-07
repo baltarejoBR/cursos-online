@@ -152,7 +152,7 @@ function PlanosContent() {
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
                       {product.type === 'subscription' ? 'Assinatura' :
                        product.type === 'download' ? 'Grátis' :
-                       product.type === 'external' ? 'Acesso' : 'Unico'}
+                       product.type === 'external' ? 'Acesso' : 'Único'}
                     </span>
                   </div>
                 </div>
@@ -170,7 +170,7 @@ function PlanosContent() {
 
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
         </div>
       </footer>
     </>

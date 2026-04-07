@@ -77,7 +77,7 @@ export default function MinhaAreaPage() {
 
   return (
     <div className="dashboard">
-      <h1>Ola, {profile?.full_name || 'Aluno'}!</h1>
+      <h1>Olá, {profile?.full_name || 'Aluno'}!</h1>
       <p className="subtitle">Seus produtos e acessos</p>
 
       {/* Telegram */}
@@ -128,7 +128,7 @@ export default function MinhaAreaPage() {
         ) : (
           <>
             <span style={{ color: profile?.telegram_username ? 'var(--text)' : 'var(--text-muted)' }}>
-              {profile?.telegram_username ? `@${profile.telegram_username}` : 'Nao informado'}
+              {profile?.telegram_username ? `@${profile.telegram_username}` : 'Não informado'}
             </span>
             <button
               onClick={() => setEditingTelegram(true)}
@@ -179,7 +179,7 @@ export default function MinhaAreaPage() {
           textAlign: 'center',
         }}>
           <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '1.1rem' }}>
-            Voce ainda nao tem acesso a nenhum produto.
+            Você ainda não tem acesso a nenhum produto.
           </p>
           <Link href="/planos" className="btn btn-gold">
             Ver Produtos
@@ -190,7 +190,7 @@ export default function MinhaAreaPage() {
           {[
             { items: cursos, label: 'Meus Cursos' },
             { items: livros, label: 'Meus Livros' },
-            { items: servicos, label: 'Servicos' },
+            { items: servicos, label: 'Serviços' },
           ].map(({ items, label }) => items.length > 0 && (
             <div key={label}>
               <h2 style={{ marginBottom: '20px' }}>{CATEGORIES[items[0].product.category]?.icon} {label}</h2>
@@ -244,9 +244,9 @@ export default function MinhaAreaPage() {
         textAlign: 'center',
         marginTop: '48px',
       }}>
-        <h2 style={{ marginBottom: '12px' }}>Quer mais conteudo?</h2>
+        <h2 style={{ marginBottom: '12px' }}>Quer mais conteúdo?</h2>
         <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
-          Confira todos os nossos cursos, livros e servicos disponiveis.
+          Confira todos os nossos cursos, livros e serviços disponíveis.
         </p>
         <Link href="/planos" className="btn btn-gold">Ver Todos os Produtos</Link>
       </div>

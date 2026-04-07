@@ -116,7 +116,7 @@ export const PRODUCTS = [
     contentSlug: 'guia-animais-clo2',
     downloadId: 'livro-animais',
     features: [
-      'Versao HTML interativa online',
+      'Versão HTML interativa online',
       'PDF para download',
       'Protocolos por espécie animal',
       'Tabelas de dosagem por peso',

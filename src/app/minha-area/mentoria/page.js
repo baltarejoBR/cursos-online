@@ -60,7 +60,7 @@ export default function MentoriaPage() {
           <span style={{ fontSize: '3rem', display: 'block', marginBottom: '16px' }}>🔒</span>
           <h2 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>Acesso Exclusivo</h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
-            A mentoria esta disponivel para quem adquiriu o pacote de atendimento personalizado.
+            A mentoria está disponível para quem adquiriu o pacote de atendimento personalizado.
           </p>
           <Link href="/planos" className="btn btn-gold">Ver Planos</Link>
         </div>
@@ -98,7 +98,7 @@ export default function MentoriaPage() {
           }}>
             {mentoria?.priceDisplay || 'R$ 497,00'}
             <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-muted)' }}>
-              {mentoria?.priceNote || '/sessao'}
+              {mentoria?.priceNote || '/sessão'}
             </span>
           </p>
         </div>
@@ -140,7 +140,7 @@ export default function MentoriaPage() {
           <div style={{ flex: 1, minWidth: '250px' }}>
             <h2 style={{ fontSize: '1.4rem', marginBottom: '12px' }}>{mentoria?.title || 'Mentoria com Baltarejo'}</h2>
             <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '24px' }}>
-              {mentoria?.description || 'Mentoria individual para tirar todas as suas duvidas sobre Terapias Bio-oxidativas.'}
+              {mentoria?.description || 'Mentoria individual para tirar todas as suas dúvidas sobre Terapias Bio-oxidativas.'}
             </p>
 
             {mentoria?.features && (
@@ -187,9 +187,9 @@ export default function MentoriaPage() {
           gap: '16px',
         }}>
           {[
-            { step: '1', title: 'Agendamento', desc: 'Entre em contato pelo WhatsApp e escolha o melhor horario.' },
-            { step: '2', title: 'Sessao', desc: 'Sessao individual por videochamada com protocolo personalizado.' },
-            { step: '3', title: 'Acompanhamento', desc: 'Acompanhamento por 7 dias apos a sessao para tirar duvidas.' },
+            { step: '1', title: 'Agendamento', desc: 'Entre em contato pelo WhatsApp e escolha o melhor horário.' },
+            { step: '2', title: 'Sessão', desc: 'Sessão individual por videochamada com protocolo personalizado.' },
+            { step: '3', title: 'Acompanhamento', desc: 'Acompanhamento por 7 dias após a sessão para tirar dúvidas.' },
           ].map((item) => (
             <div key={item.step} style={{
               background: 'var(--bg-card)',

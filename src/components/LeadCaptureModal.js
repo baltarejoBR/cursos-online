@@ -49,7 +49,7 @@ export default function LeadCaptureModal() {
         setError(data.error || 'Erro ao gerar cupom');
       }
     } catch {
-      setError('Erro de conexao. Tente novamente.');
+      setError('Erro de conexão. Tente novamente.');
     }
     setLoading(false);
   }
@@ -193,17 +193,17 @@ export default function LeadCaptureModal() {
             </form>
 
             <p style={{ textAlign: 'center', color: '#999', fontSize: '0.8rem', marginTop: '12px' }}>
-              Nao enviamos spam. Voce pode cancelar a qualquer momento.
+              Não enviamos spam. Você pode cancelar a qualquer momento.
             </p>
           </>
         ) : (
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🎉</div>
             <h2 style={{ fontSize: '1.5rem', color: '#0d2137', marginBottom: '8px' }}>
-              Seu cupom esta pronto!
+              Seu cupom está pronto!
             </h2>
             <p style={{ color: '#4a6a8a', marginBottom: '20px' }}>
-              Use o codigo abaixo na loja para ganhar 10% de desconto:
+              Use o código abaixo na loja para ganhar 10% de desconto:
             </p>
 
             <div

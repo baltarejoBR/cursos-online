@@ -52,18 +52,18 @@ export default async function Home() {
         }} className="hero-grid">
           <div>
             <div className="badge-ornamental" style={{ marginBottom: '20px' }}>
-              +300 alunos transformando sua saude
+              +300 alunos transformando sua saúde
             </div>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: '3.2rem',
-              fontWeight: '400',
+              fontWeight: '800',
               lineHeight: '1.15',
               marginBottom: '20px',
             }}>
               Transforme sua{' '}
-              <span style={{ color: '#c9a84c' }}>Saude</span>{' '}
-              com o Metodo Corpo Limpo
+              <span style={{ color: '#c9a84c' }}>Saúde</span>{' '}
+              com o Método Corpo Limpo
             </h1>
             <p style={{
               fontSize: '1.2rem',
@@ -79,7 +79,7 @@ export default async function Home() {
                 fontSize: '1.05rem',
                 padding: '16px 36px',
               }}>
-                Guia Gratis para Iniciantes
+                Guia Grátis para Iniciantes
               </a>
               <Link href="/loja" className="btn-dark-gold" style={{
                 fontSize: '1.05rem',
@@ -124,7 +124,7 @@ export default async function Home() {
       }}>
         <div className="container" style={{ maxWidth: '900px', textAlign: 'center' }}>
           <h2 style={{ fontSize: '1.6rem', marginBottom: '8px', color: 'var(--text)' }}>
-            Dioxi = CDS = SDC — e tudo a mesma coisa!
+            Dioxi = CDS = SDC — é tudo a mesma coisa!
           </h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px', fontSize: '0.95rem' }}>
             Entenda os nomes diferentes para o mesmo produto
@@ -147,7 +147,7 @@ export default async function Home() {
               </div>
               <div style={{ fontWeight: '800', color: '#2e8b57', fontSize: '1.3rem' }}>Dioxi</div>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5 }}>
-                Nosso nome de marca para Dioxido de Cloro
+                Nosso nome de marca para Dióxido de Cloro
               </div>
             </div>
             <div style={{ fontSize: '2rem', color: 'var(--border)', alignSelf: 'center', marginTop: '20px' }}>=</div>
@@ -177,7 +177,7 @@ export default async function Home() {
               </div>
               <div style={{ fontWeight: '800', color: '#6b8fad', fontSize: '1.3rem' }}>SDC</div>
               <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5 }}>
-                Solucao de Dioxido de Cloro (nome em portugues)
+                Solução de Dióxido de Cloro (nome em português)
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default async function Home() {
             fontWeight: '600',
             fontSize: '0.95rem',
           }}>
-            Saiba mais sobre o que e Dioxi/CDS →
+            Saiba mais sobre o que é Dioxi/CDS →
           </Link>
         </div>
       </section>
@@ -251,7 +251,7 @@ export default async function Home() {
             margin: '24px auto 0',
             lineHeight: '1.6',
           }}>
-            O que muitos chamam de &quot;efeito colateral&quot; sao, na verdade, reacoes de detoxificacao — um sinal de que o corpo esta eliminando toxinas.
+            O que muitos chamam de &quot;efeito colateral&quot; são, na verdade, reações de detoxificação — um sinal de que o corpo está eliminando toxinas.
           </p>
         </div>
       </section>
@@ -386,7 +386,7 @@ export default async function Home() {
           </div>
           <div>
             <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--gold)' }}>4.9/5</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Avaliacao dos alunos</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Avaliação dos alunos</div>
           </div>
           <div>
             <a href="https://www.instagram.com/gabrielbaltarejo" target="_blank" rel="noopener noreferrer" style={{
@@ -409,7 +409,7 @@ export default async function Home() {
           </div>
           <div>
             <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--gold)' }}>50+</div>
-            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Paises</div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Países</div>
           </div>
         </div>
 
@@ -497,8 +497,8 @@ export default async function Home() {
             Novo por aqui? Comece pelo Guia Gratuito!
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '24px' }}>
-            Baixe o Guia Basico para Iniciantes e aprenda os fundamentos das Terapias Bio-oxidativas.
-            Material completo e gratuito para voce dar o primeiro passo.
+            Baixe o Guia Básico para Iniciantes e aprenda os fundamentos das Terapias Bio-oxidativas.
+            Material completo e gratuito para você dar o primeiro passo.
           </p>
           <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn" style={{
             fontSize: '1.1rem',
@@ -510,14 +510,14 @@ export default async function Home() {
             textDecoration: 'none',
             display: 'inline-block',
           }}>
-            Baixar Guia Gratis (PDF)
+            Baixar Guia Grátis (PDF)
           </a>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '12px' }}>
-            Tem duvidas? Acesse o{' '}
+            Tem dúvidas? Acesse o{' '}
             <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'underline' }}>
-              Forum CDS
+              Fórum CDS
             </a>
-            {' '}e tire todas as suas duvidas com a comunidade.
+            {' '}e tire todas as suas dúvidas com a comunidade.
           </p>
         </div>
       </section>
@@ -545,7 +545,7 @@ export default async function Home() {
               maxWidth: '600px',
               margin: '0 auto',
             }}>
-              Vamos ser honestos: existe muita desinformacao na internet. Aqui estao os fatos.
+              Vamos ser honestos: existe muita desinformação na internet. Aqui estão os fatos.
             </p>
           </div>
           <div style={{
@@ -555,20 +555,20 @@ export default async function Home() {
           }}>
             {[
               {
-                mito: 'CDS e perigoso e causa efeitos colaterais',
-                verdade: 'O que muitos chamam de "efeito colateral" sao, na verdade, reacoes de detoxificacao — um sinal de que o corpo esta eliminando toxinas. Com o protocolo correto, essas reacoes sao controlaveis e temporarias.',
+                mito: 'CDS é perigoso e causa efeitos colaterais',
+                verdade: 'O que muitos chamam de "efeito colateral" são, na verdade, reações de detoxificação — um sinal de que o corpo está eliminando toxinas. Com o protocolo correto, essas reações são controláveis e temporárias.',
               },
               {
-                mito: 'Nao existe evidencia de que funciona',
-                verdade: 'O Dioxido de Cloro e utilizado ha mais de 30 anos por milhares de pessoas em dezenas de paises. Existem estudos, livros publicados e uma comunidade global ativa compartilhando resultados.',
+                mito: 'Não existe evidência de que funciona',
+                verdade: 'O Dióxido de Cloro é utilizado há mais de 30 anos por milhares de pessoas em dezenas de países. Existem estudos, livros publicados e uma comunidade global ativa compartilhando resultados.',
               },
               {
-                mito: 'E arriscado comprar e usar por conta propria',
-                verdade: 'Gabriel distribui Dioxi ha 6 anos, com centenas de clientes satisfeitos e zero problemas. Nossos cursos ensinam exatamente como usar de forma segura e consciente.',
+                mito: 'É arriscado comprar e usar por conta própria',
+                verdade: 'Gabriel distribui Dioxi há 6 anos, com centenas de clientes satisfeitos e zero problemas. Nossos cursos ensinam exatamente como usar de forma segura e consciente.',
               },
               {
-                mito: 'Se fosse bom, os medicos recomendariam',
-                verdade: 'Muitas terapias alternativas eficazes nao fazem parte da medicina convencional. O importante e se informar, estudar e tomar decisoes conscientes sobre sua propria saude.',
+                mito: 'Se fosse bom, os médicos recomendariam',
+                verdade: 'Muitas terapias alternativas eficazes não fazem parte da medicina convencional. O importante é se informar, estudar e tomar decisões conscientes sobre sua própria saúde.',
               },
             ].map(item => (
               <div key={item.mito} style={{
@@ -613,10 +613,10 @@ export default async function Home() {
             marginBottom: '16px',
             color: 'var(--text)',
           }}>
-            Qual produto ideal pra voce?
+            Qual produto ideal pra você?
           </h2>
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '48px', maxWidth: '600px', margin: '0 auto 48px' }}>
-            Muita gente tem duvida sobre por onde comecar. Veja qual opcao se encaixa melhor no seu momento:
+            Muita gente tem dúvida sobre por onde começar. Veja qual opção se encaixa melhor no seu momento:
           </p>
           <div style={{
             display: 'grid',
@@ -648,14 +648,14 @@ export default async function Home() {
               <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>🌱</div>
               <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Nunca ouvi falar de CDS&quot;</h3>
               <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
-                Comece pelo guia gratuito para entender o basico. Depois, o livro traz tudo de forma detalhada.
+                Comece pelo guia gratuito para entender o básico. Depois, o livro traz tudo de forma detalhada.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <a href="/downloads/guia-basico-iniciantes.pdf" download style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   color: '#2e8b57', fontWeight: '600', textDecoration: 'none',
                 }}>
-                  ✓ 1. Baixe o Guia Gratis (PDF)
+                  ✓ 1. Baixe o Guia Grátis (PDF)
                 </a>
                 <Link href="/produto/livro-completo" style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
@@ -667,7 +667,7 @@ export default async function Home() {
                   display: 'flex', alignItems: 'center', gap: '8px',
                   color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.9rem',
                 }}>
-                  💬 Tire duvidas no Forum CDS
+                  💬 Tire dúvidas no Fórum CDS
                 </a>
               </div>
             </div>
@@ -696,7 +696,7 @@ export default async function Home() {
               <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>🎓</div>
               <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Quero aprender de verdade&quot;</h3>
               <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
-                O curso completo e a melhor opcao. Inclui acesso a comunidade exclusiva com grupos especializados.
+                O curso completo é a melhor opção. Inclui acesso à comunidade exclusiva com grupos especializados.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <Link href="/produto/curso-cds-completo" style={{
@@ -738,7 +738,7 @@ export default async function Home() {
                 fontWeight: '700',
               }}>Personalizado</span>
               <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>💡</div>
-              <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Preciso de ajuda especifica&quot;</h3>
+              <h3 style={{ fontSize: '1.3rem', marginBottom: '12px' }}>&quot;Preciso de ajuda específica&quot;</h3>
               <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '20px' }}>
                 Consultoria individual por Zoom com Gabriel Baltarejo. Analiso seu caso e monto protocolos personalizados.
               </p>
@@ -750,7 +750,7 @@ export default async function Home() {
                   ✓ Consultoria Individual - R$ 620
                 </Link>
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem', paddingLeft: '24px' }}>
-                  Zoom ate 1h30 + acompanhamento WhatsApp por 30 dias
+                  Zoom até 1h30 + acompanhamento WhatsApp por 30 dias
                 </span>
               </div>
             </div>
@@ -785,7 +785,7 @@ export default async function Home() {
               fontStyle: 'italic',
               marginBottom: '12px',
             }}>
-              &quot;Eu uso CDS pessoalmente ha 10 anos. Distribuo ha 6 anos para centenas de pessoas. Se nao fosse seguro, eu nao usaria na minha propria familia. Minha missao e levar informacao de qualidade para que voce possa tomar decisoes conscientes sobre sua saude.&quot;
+              &quot;Eu uso CDS pessoalmente há 10 anos. Distribuo há 6 anos para centenas de pessoas. Se não fosse seguro, eu não usaria na minha própria família. Minha missão é levar informação de qualidade para que você possa tomar decisões conscientes sobre sua saúde.&quot;
             </p>
             <p style={{
               fontWeight: '600',
@@ -793,7 +793,7 @@ export default async function Home() {
               color: 'var(--text)',
               marginBottom: '16px',
             }}>
-              — Gabriel Baltarejo, criador do Metodo Corpo Limpo
+              — Gabriel Baltarejo, criador do Método Corpo Limpo
             </p>
             <div style={{
               display: 'flex',
@@ -801,7 +801,7 @@ export default async function Home() {
               gap: '12px',
               flexWrap: 'wrap',
             }}>
-              {['Uso pessoal: 10 anos', 'Distribuicao: 6 anos', 'Zero problemas'].map(badge => (
+              {['Uso pessoal: 10 anos', 'Distribuição: 6 anos', 'Zero problemas'].map(badge => (
                 <span key={badge} style={{
                   background: 'rgba(201, 168, 76, 0.1)',
                   color: 'var(--cds-dark)',
@@ -931,7 +931,7 @@ export default async function Home() {
                 Universidade Dioxi
               </h2>
               <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-                Artigos, estudos cientificos e conteudo educativo sobre Terapias Bio-oxidativas.
+                Artigos, estudos científicos e conteúdo educativo sobre Terapias Bio-oxidativas.
               </p>
             </div>
             <div style={{
@@ -990,11 +990,11 @@ export default async function Home() {
       }}>
         <div className="container" style={{ maxWidth: '900px', textAlign: 'center' }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>
-            Ao comprar o curso, voce entra na Comunidade
+            Ao comprar o curso, você entra na Comunidade
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.1rem', marginBottom: '40px', maxWidth: '650px', margin: '0 auto 40px' }}>
-            Alem do conteudo completo, quem compra o curso tem acesso exclusivo a grupos especializados
-            onde voce troca experiencias e tira duvidas com outros alunos:
+            Além do conteúdo completo, quem compra o curso tem acesso exclusivo a grupos especializados
+            onde você troca experiências e tira dúvidas com outros alunos:
           </p>
           <div style={{
             display: 'grid',
@@ -1003,10 +1003,10 @@ export default async function Home() {
             marginBottom: '40px',
           }}>
             {[
-              { name: 'Enema CDS', icon: '💊', desc: 'Protocolos de enema e aplicacoes' },
-              { name: 'CDS Hotmart', icon: '🎓', desc: 'Conteudo exclusivo de alunos' },
-              { name: 'CDS Mama', icon: '👩', desc: 'Grupo de mulheres e maes' },
-              { name: 'Comunidade Geral', icon: '👥', desc: 'Troca de experiencias e suporte' },
+              { name: 'Enema CDS', icon: '💊', desc: 'Protocolos de enema e aplicações' },
+              { name: 'CDS Hotmart', icon: '🎓', desc: 'Conteúdo exclusivo de alunos' },
+              { name: 'CDS Mama', icon: '👩', desc: 'Grupo de mulheres e mães' },
+              { name: 'Comunidade Geral', icon: '👥', desc: 'Troca de experiências e suporte' },
             ].map(g => (
               <div key={g.name} style={{
                 background: 'rgba(255,255,255,0.1)',
@@ -1046,11 +1046,11 @@ export default async function Home() {
         <div className="container" style={{ maxWidth: '700px' }}>
           <div style={{ fontSize: '2.5rem', marginBottom: '16px' }}>💬</div>
           <h2 style={{ fontSize: '1.6rem', marginBottom: '12px' }}>
-            Tem duvidas? Acesse o Forum CDS
+            Tem dúvidas? Acesse o Fórum CDS
           </h2>
           <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', marginBottom: '24px' }}>
-            O Forum CDS e uma comunidade aberta onde voce pode tirar duvidas, ler artigos,
-            compartilhar experiencias e aprender com outras pessoas que ja praticam Terapias Bio-oxidativas.
+            O Fórum CDS é uma comunidade aberta onde você pode tirar dúvidas, ler artigos,
+            compartilhar experiências e aprender com outras pessoas que já praticam Terapias Bio-oxidativas.
             Acesso gratuito para todos.
           </p>
           <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" className="btn btn-cds" style={{
@@ -1058,7 +1058,7 @@ export default async function Home() {
             padding: '12px 28px',
             background: '#675614',
           }}>
-            Acessar o Forum CDS
+            Acessar o Fórum CDS
           </a>
         </div>
       </section>
@@ -1088,23 +1088,23 @@ export default async function Home() {
           </div>
           <div>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>
-              Quem e <span style={{ color: '#c9a84c' }}>Gabriel Baltarejo</span>?
+              Quem é <span style={{ color: '#c9a84c' }}>Gabriel Baltarejo</span>?
             </h2>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
               Pesquisador e educador sobre Terapias Bio-oxidativas, Gabriel Baltarejo
-              e o criador do Metodo Corpo Limpo e autor do livro &quot;Transforme sua Saude -
+              é o criador do Método Corpo Limpo e autor do livro &quot;Transforme sua Saúde -
               Protocolos Biooxidativos de A a Z&quot;.
             </p>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
-              Ha mais de 10 anos, Gabriel utiliza o CDS pessoalmente e ha 6 anos distribui
+              Há mais de 10 anos, Gabriel utiliza o CDS pessoalmente e há 6 anos distribui
               o produto para centenas de pessoas em todo o Brasil — sem nenhum problema ou
-              efeito adverso. Seu compromisso e com a transparencia: ele aborda as controversias
-              de frente e ensina protocolos seguros baseados em anos de experiencia pratica.
+              efeito adverso. Seu compromisso é com a transparência: ele aborda as controvérsias
+              de frente e ensina protocolos seguros baseados em anos de experiência prática.
             </p>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '24px' }}>
-              Com milhares de alunos em mais de 50 paises, Gabriel compartilha conhecimento
-              pratico e acessivel sobre protocolos biooxidativos, ajudando pessoas a transformar
-              sua saude de forma natural e consciente.
+              Com milhares de alunos em mais de 50 países, Gabriel compartilha conhecimento
+              prático e acessível sobre protocolos biooxidativos, ajudando pessoas a transformar
+              sua saúde de forma natural e consciente.
             </p>
             <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginBottom: '24px' }}>
               {['Autor best-seller', '+300 alunos', 'Uso pessoal: 10 anos', '6 anos distribuindo CDS', 'Entrevistou Andreas Kalcker'].map(item => (
@@ -1162,11 +1162,11 @@ export default async function Home() {
             Comece sua Jornada Hoje
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 32px', fontSize: '1.1rem' }}>
-            Nao sabe por onde comecar? Baixe o guia gratuito. Ja conhece o Dioxi? Va direto para a loja ou o curso completo.
+            Não sabe por onde começar? Baixe o guia gratuito. Já conhece o Dioxi? Vá direto para a loja ou o curso completo.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-              Guia Gratis
+              Guia Grátis
             </a>
             <Link href="/loja" className="btn btn-gold" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               Comprar Dioxi (SDC)
@@ -1191,7 +1191,7 @@ export default async function Home() {
               Telegram
             </a>
             <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-              Forum CDS
+              Fórum CDS
             </a>
             <Link href="/loja" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
               Loja Dioxi
@@ -1202,7 +1202,7 @@ export default async function Home() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px' }}>
             <Image src={getImageUrl('logos/logo-metodo-corpo-limpo.png')} alt="Logo" width={30} height={30} />
-            <p>&copy; 2026 Metodo Corpo Limpo. Todos os direitos reservados.</p>
+            <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getStripe } from '@/lib/stripe';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 import { PRODUCTS } from '@/lib/products';
-import { sendPurchaseConfirmationEmail, sendAccessGrantedEmail } from '@/lib/brevo';
+import { sendPurchaseConfirmationEmail, sendAccessGrantedEmail, createOrUpdateBrevoContact } from '@/lib/brevo';
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_GROUP_ID = process.env.TELEGRAM_GROUP_ID;
@@ -242,6 +242,18 @@ export async function POST(request) {
           await sendAccessGrantedEmail(buyerEmail, buyerName, product.title);
         }
 
+        // Update Brevo contact with purchase info
+        if (buyerEmail) {
+          createOrUpdateBrevoContact({
+            email: buyerEmail,
+            attributes: {
+              COMPROU: 'true',
+              PRODUTO_COMPRADO: productId || '',
+              PLANO: session.mode === 'subscription' ? 'premium' : undefined,
+            },
+          }).catch(err => console.error('Brevo purchase update error:', err.message));
+        }
+
         break;
       }
 
@@ -395,6 +407,15 @@ export async function POST(request) {
 
           if (canceledProfile?.telegram_username) {
             await removeMemberFromTelegramGroup(canceledProfile.telegram_username, canceledProfile.full_name);
+          }
+
+          // Update Brevo contact to reflect downgrade
+          const customer = await stripe.customers.retrieve(customerId);
+          if (customer?.email) {
+            createOrUpdateBrevoContact({
+              email: customer.email,
+              attributes: { PLANO: 'free' },
+            }).catch(err => console.error('Brevo downgrade error:', err.message));
           }
         }
         break;
