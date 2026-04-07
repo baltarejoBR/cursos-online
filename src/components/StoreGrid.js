@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function StoreGrid({ products }) {
   const [filter, setFilter] = useState('Todos');
@@ -87,6 +88,23 @@ export default function StoreGrid({ products }) {
                 ? 'linear-gradient(90deg, #1a6baa, #2e8b57)'
                 : 'linear-gradient(90deg, #2e8b57, #4db87a)',
             }} />
+
+            {product.image_url && (
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                height: '200px',
+                background: '#f5f8fb',
+              }}>
+                <Image
+                  src={product.image_url}
+                  alt={product.name}
+                  fill
+                  style={{ objectFit: 'contain', padding: '12px' }}
+                  sizes="(max-width: 768px) 100vw, 280px"
+                />
+              </div>
+            )}
 
             <div style={{ padding: '24px' }}>
               {/* Category badge */}

@@ -86,7 +86,7 @@ export default async function Home() {
               }}>
                 Guia Gratis para Iniciantes
               </a>
-              <Link href="/loja" className="btn btn-primary" style={{
+              <Link href="/loja" className="btn btn-cds" style={{
                 fontSize: '1.05rem',
                 padding: '16px 36px',
               }}>
@@ -224,6 +224,25 @@ export default async function Home() {
                   border: '1px solid rgba(255,255,255,0.15)',
                   textAlign: 'left',
                 }}>
+                  {product.image_url && (
+                    <div style={{
+                      position: 'relative',
+                      width: '100%',
+                      height: '180px',
+                      background: 'rgba(255,255,255,0.06)',
+                      borderRadius: '12px',
+                      marginBottom: '16px',
+                      overflow: 'hidden',
+                    }}>
+                      <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        fill
+                        style={{ objectFit: 'contain', padding: '12px' }}
+                        sizes="(max-width: 768px) 100vw, 280px"
+                      />
+                    </div>
+                  )}
                   <span style={{
                     display: 'inline-block',
                     padding: '4px 12px',
@@ -644,7 +663,7 @@ export default async function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href={`/produto/${destaqueCurso.slug}`} className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px' }}>
+                <Link href={`/produto/${destaqueCurso.slug}`} className="btn btn-cds" style={{ fontSize: '1rem', padding: '12px 28px' }}>
                   Quero o Curso - {destaqueCurso.priceDisplay}
                 </Link>
               </div>
@@ -682,7 +701,7 @@ export default async function Home() {
                     </li>
                   ))}
                 </ul>
-                <Link href={`/produto/${destaqueLivro.slug}`} className="btn btn-primary" style={{ fontSize: '1rem', padding: '12px 28px', background: 'var(--warning)' }}>
+                <Link href={`/produto/${destaqueLivro.slug}`} className="btn btn-cds" style={{ fontSize: '1rem', padding: '12px 28px', background: 'var(--warning)' }}>
                   Quero o Livro - {destaqueLivro.priceDisplay}
                 </Link>
               </div>
@@ -838,7 +857,7 @@ export default async function Home() {
             compartilhar experiencias e aprender com outras pessoas que ja praticam Terapias Bio-oxidativas.
             Acesso gratuito para todos.
           </p>
-          <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{
+          <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" className="btn btn-cds" style={{
             fontSize: '1rem',
             padding: '12px 28px',
             background: '#675614',
@@ -947,10 +966,10 @@ export default async function Home() {
             <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
               Guia Gratis
             </a>
-            <Link href="/loja" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#2e8b57' }}>
+            <Link href="/loja" className="btn btn-cds" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#2e8b57' }}>
               Comprar Dioxi (SDC)
             </Link>
-            <Link href="/produto/curso-cds-completo" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#1a6baa' }}>
+            <Link href="/produto/curso-cds-completo" className="btn btn-cds" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#1a6baa' }}>
               Quero o Curso Completo
             </Link>
             <Link href="/produto/mentoria" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>

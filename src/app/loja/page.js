@@ -2,6 +2,8 @@ import Header from '@/components/Header';
 import StoreGrid from '@/components/StoreGrid';
 import { getAllStoreProducts } from '@/lib/store-products';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Loja Dioxi - Comprar SDC/CDS - Metodo Corpo Limpo',
   description: 'Compre SDC (Solucao de Dioxido de Cloro), DMSO, kits e acessorios na loja oficial. Produtos de alta qualidade com entrega para todo o Brasil.',
@@ -24,20 +26,25 @@ export default async function LojaPage() {
         <div className="container">
           <div style={{
             display: 'inline-block',
-            background: 'rgba(90, 138, 60, 0.3)',
-            border: '1px solid rgba(90, 138, 60, 0.5)',
+            background: 'rgba(200, 214, 22, 0.2)',
+            border: '1px solid rgba(200, 214, 22, 0.4)',
             borderRadius: '20px',
             padding: '6px 16px',
             fontSize: '0.85rem',
+            fontFamily: "'Work Sans', sans-serif",
+            fontWeight: 600,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
             marginBottom: '20px',
-            color: '#a8d88a',
+            color: 'var(--cds-bright)',
           }}>
             Loja Oficial Dioxi
           </div>
           <h1 style={{
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '16px',
-            fontWeight: '800',
+            fontFamily: "'Italiana', serif",
+            fontWeight: 400,
           }}>
             Comprar SDC / Dioxi
           </h1>
@@ -70,17 +77,17 @@ export default async function LojaPage() {
           textAlign: 'center',
         }}>
           <div>
-            <div style={{ fontWeight: '800', color: '#2e8b57', fontSize: '1.1rem' }}>Dioxi</div>
+            <div style={{ fontWeight: '800', color: 'var(--cds-dark)', fontSize: '1.1rem' }}>Dioxi</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Marca</div>
           </div>
           <div style={{ color: 'var(--border)', fontSize: '1.5rem', alignSelf: 'center' }}>=</div>
           <div>
-            <div style={{ fontWeight: '800', color: '#1a6baa', fontSize: '1.1rem' }}>CDS</div>
+            <div style={{ fontWeight: '800', color: 'var(--blue-deep)', fontSize: '1.1rem' }}>CDS</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Chlorine Dioxide Solution</div>
           </div>
           <div style={{ color: 'var(--border)', fontSize: '1.5rem', alignSelf: 'center' }}>=</div>
           <div>
-            <div style={{ fontWeight: '800', color: '#6b8fad', fontSize: '1.1rem' }}>SDC</div>
+            <div style={{ fontWeight: '800', color: 'var(--success)', fontSize: '1.1rem' }}>SDC</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>Solucao de Dioxido de Cloro</div>
           </div>
         </div>
