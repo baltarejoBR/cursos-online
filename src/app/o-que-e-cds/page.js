@@ -2,8 +2,8 @@ import Header from '@/components/Header';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'O que e CDS? - Metodo Corpo Limpo',
-  description: 'Entenda o que e o CDS (Dioxido de Cloro), como funciona e como pode ajudar na sua saude. Informacoes basicas para iniciantes.',
+  title: 'O que e Dioxi (CDS/SDC)? - Metodo Corpo Limpo',
+  description: 'Entenda o que e Dioxi, CDS e SDC (Dioxido de Cloro), como funciona e como pode ajudar na sua saude. Informacoes basicas para iniciantes.',
 };
 
 export default function OQueECDSPage() {
@@ -26,7 +26,7 @@ export default function OQueECDSPage() {
             WebkitTextFillColor: 'transparent',
             fontWeight: 300,
           }}>
-            O que e CDS?
+            O que e Dioxi (CDS/SDC)?
           </h1>
           <p style={{
             fontSize: '1.2rem',
@@ -36,6 +36,56 @@ export default function OQueECDSPage() {
           }}>
             Entenda o basico sobre Dioxido de Cloro e Terapias Bio-oxidativas de forma simples e acessivel.
           </p>
+        </div>
+      </section>
+
+      {/* Dioxi = CDS = SDC */}
+      <section style={{
+        background: 'var(--bg-card)',
+        borderBottom: '1px solid var(--border)',
+        padding: '40px 20px',
+      }}>
+        <div className="container" style={{ maxWidth: '800px' }}>
+          <div style={{
+            background: 'var(--bg)',
+            borderRadius: '16px',
+            padding: '32px',
+            border: '1px solid var(--border-light)',
+          }}>
+            <h3 style={{ textAlign: 'center', marginBottom: '20px', color: 'var(--text)' }}>
+              Os 3 nomes para o mesmo produto
+            </h3>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '24px',
+              flexWrap: 'wrap',
+              textAlign: 'center',
+            }}>
+              <div style={{ flex: '1', minWidth: '150px' }}>
+                <div style={{ fontWeight: '800', color: '#2e8b57', fontSize: '1.4rem' }}>Dioxi</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Nosso nome de marca</div>
+              </div>
+              <div style={{ alignSelf: 'center', color: 'var(--border)', fontSize: '1.5rem' }}>=</div>
+              <div style={{ flex: '1', minWidth: '150px' }}>
+                <div style={{ fontWeight: '800', color: '#1a6baa', fontSize: '1.4rem' }}>CDS</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Chlorine Dioxide Solution</div>
+              </div>
+              <div style={{ alignSelf: 'center', color: 'var(--border)', fontSize: '1.5rem' }}>=</div>
+              <div style={{ flex: '1', minWidth: '150px' }}>
+                <div style={{ fontWeight: '800', color: '#6b8fad', fontSize: '1.4rem' }}>SDC</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Solucao de Dioxido de Cloro</div>
+              </div>
+            </div>
+            <p style={{
+              textAlign: 'center',
+              marginTop: '16px',
+              color: 'var(--text-muted)',
+              fontSize: '0.9rem',
+            }}>
+              Dioxi, CDS e SDC se referem a mesma solucao aquosa de Dioxido de Cloro. O nome varia conforme o idioma e a regiao.
+            </p>
+          </div>
         </div>
       </section>
 

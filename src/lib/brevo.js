@@ -120,6 +120,33 @@ export async function sendPurchaseConfirmationEmail(email, name, productTitle, p
   });
 }
 
+export async function sendLeadCouponEmail(email, name, couponCode) {
+  return sendEmail({
+    to: email,
+    toName: name,
+    subject: 'Seu cupom de desconto Dioxi!',
+    html: emailLayout(`
+      <h2 style="color:#0d2137;margin:0 0 16px;">Seu cupom chegou!</h2>
+      <p style="color:#4a6a8a;line-height:1.7;margin:0 0 24px;">
+        Ola ${name || 'amigo(a)'}, voce ganhou um cupom de 10% de desconto
+        para sua primeira compra na loja Dioxi!
+      </p>
+      <div style="background:linear-gradient(135deg,#2e8b57,#1a6baa);color:white;padding:24px;border-radius:12px;text-align:center;margin:0 0 24px;">
+        <p style="font-size:2rem;font-weight:800;margin:0;letter-spacing:0.1em;">${couponCode}</p>
+        <p style="margin:8px 0 0;opacity:0.85;font-size:0.9rem;">10% de desconto na sua primeira compra</p>
+      </div>
+      <div style="text-align:center;">
+        <a href="${SITE_URL}/loja" style="background:#1a6baa;color:white;padding:14px 32px;border-radius:50px;text-decoration:none;font-weight:600;display:inline-block;">
+          Ir para a Loja
+        </a>
+      </div>
+      <p style="color:#4a6a8a;line-height:1.7;margin:24px 0 0;font-size:0.9rem;">
+        Aproveite e conheca nossos produtos: SDC (Dioxi), DMSO, kits completos e muito mais.
+      </p>
+    `),
+  });
+}
+
 export async function sendAccessGrantedEmail(email, name, productTitle) {
   return sendEmail({
     to: email,

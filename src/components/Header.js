@@ -46,15 +46,15 @@ export default function Header() {
         </button>
         <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
           <Link href="/" onClick={() => setMenuOpen(false)}>Inicio</Link>
-          <Link href="/o-que-e-cds" onClick={() => setMenuOpen(false)}>O que e CDS?</Link>
-          <Link href="/depoimentos" onClick={() => setMenuOpen(false)}>Depoimentos</Link>
-          <Link href="/planos?cat=cursos" onClick={() => setMenuOpen(false)}>🎓 Cursos</Link>
-          <Link href="/planos?cat=livros" onClick={() => setMenuOpen(false)}>📚 Livros</Link>
+          <Link href="/o-que-e-cds" onClick={() => setMenuOpen(false)}>O que e Dioxi?</Link>
+          <Link href="/loja" onClick={() => setMenuOpen(false)}>🛒 Comprar SDC</Link>
+          <Link href="/universidade" onClick={() => setMenuOpen(false)}>🎓 Universidade</Link>
+          <Link href="/planos?cat=cursos" onClick={() => setMenuOpen(false)}>📚 Cursos</Link>
           <Link href="/produto/mentoria" onClick={() => setMenuOpen(false)}>📞 Consultoria</Link>
-          <Link href="/planos?cat=loja" onClick={() => setMenuOpen(false)}>🛒 Loja</Link>
+          <Link href="/depoimentos" onClick={() => setMenuOpen(false)}>Depoimentos</Link>
           {user ? (
             <>
-              <Link href="/minha-area" onClick={() => setMenuOpen(false)}>Minha Área</Link>
+              <Link href="/minha-area" onClick={() => setMenuOpen(false)}>Minha Area</Link>
               {ADMIN_EMAILS.includes(user.email) && (
                 <Link href="/admin" onClick={() => setMenuOpen(false)}>Admin</Link>
               )}
@@ -65,7 +65,7 @@ export default function Header() {
           ) : (
             <>
               <Link href="/login" onClick={() => setMenuOpen(false)}>Entrar</Link>
-              <Link href="/cadastro" onClick={() => setMenuOpen(false)} className="btn btn-primary btn-sm">
+              <Link href="/cadastro" onClick={() => setMenuOpen(false)} className="btn btn-cds btn-sm">
                 Cadastrar
               </Link>
             </>

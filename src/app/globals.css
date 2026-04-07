@@ -5,29 +5,52 @@
 }
 
 :root {
+  /* CDS — protagonista */
+  --cds: #c8d616;
+  --cds-bright: #d6e234;
+  --cds-intense: #a8b814;
+  --cds-dark: #7a8a0e;
+  --cds-pale: #f2f5d4;
+
+  /* Suporte */
   --primary: #1a6baa;
   --primary-dark: #0d3b66;
   --primary-light: #3a9ad9;
   --secondary: #2e8b57;
   --secondary-light: #4db87a;
-  --accent: #d4a017;
-  --bg: #f0f6fa;
+  --accent: #c8d616;
+
+  /* Superfícies */
+  --bg: #f9faf5;
   --bg-card: #ffffff;
-  --bg-input: #e8f0f6;
-  --bg-overlay: rgba(240, 246, 250, 0.95);
-  --text: #0d2137;
-  --text-muted: #4a6a8a;
-  --text-light: #6b8fad;
+  --bg-input: #f5f3ee;
+  --bg-overlay: rgba(249, 250, 245, 0.95);
+
+  /* Texto */
+  --text: #1a1c18;
+  --text-muted: #4a4d42;
+  --text-light: #7a7d70;
+
+  /* Estado */
   --success: #2e8b57;
   --warning: #d4a017;
-  --border: #c5d8e8;
-  --border-light: #dde9f2;
-  --shadow: rgba(13, 59, 102, 0.08);
-  --shadow-hover: rgba(13, 59, 102, 0.15);
+  --error: #b93c3c;
+
+  /* Bordas & Sombras */
+  --border: #d8dace;
+  --border-light: #eae7e0;
+  --shadow: rgba(26, 28, 24, 0.06);
+  --shadow-hover: rgba(26, 28, 24, 0.12);
+
+  /* Tipografia */
+  --font-display: 'Italiana', serif;
+  --font-body: 'Lora', Georgia, serif;
+  --font-ui: 'Work Sans', -apple-system, sans-serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-ui);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -35,16 +58,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Typography improvements */
+/* Typography — Verdant Stillness */
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 400;
   letter-spacing: -0.01em;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
+h1 { font-size: 2.8rem; }
+h2 { font-size: 2.2rem; }
+h3 { font-size: 1.6rem; }
+
+p, li, td, th, label, span {
+  font-family: var(--font-ui);
+}
+
+.text-body {
+  font-family: var(--font-body);
+}
+
+.text-mono {
+  font-family: var(--font-mono);
+}
 
 /* Section titles */
 .section-title {
@@ -64,7 +100,7 @@ h3 { font-size: 1.5rem; }
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: linear-gradient(90deg, var(--cds), var(--secondary));
   border-radius: 2px;
 }
 
@@ -118,11 +154,12 @@ a:hover {
   padding: 0 20px;
 }
 
-/* Header */
+/* Header — Verdant Stillness */
 .header {
   background: var(--bg-card);
   border-bottom: 1px solid var(--border);
-  padding: 16px 0;
+  border-top: 3px solid var(--cds);
+  padding: 14px 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -138,9 +175,10 @@ a:hover {
 }
 
 .logo {
+  font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary);
+  font-weight: 400;
+  color: var(--primary-dark);
 }
 
 .nav {
@@ -151,12 +189,14 @@ a:hover {
 
 .nav a {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 500;
   transition: color 0.2s;
 }
 
 .nav a:hover {
-  color: var(--text);
+  color: var(--cds-dark);
   text-decoration: none;
 }
 
@@ -172,15 +212,17 @@ a:hover {
   line-height: 1;
 }
 
-/* Buttons */
+/* Buttons — Verdant Stillness */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border-radius: 50px;
+  font-family: var(--font-ui);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   border: 2px solid transparent;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -204,10 +246,29 @@ a:hover {
   left: 100%;
 }
 
+/* CDS CTA — o botão principal, impactante */
+.btn-cds {
+  background: var(--cds);
+  color: var(--primary-dark);
+  box-shadow: 0 4px 20px rgba(200, 214, 22, 0.35);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+}
+
+.btn-cds:hover {
+  background: var(--cds-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(200, 214, 22, 0.5);
+  text-decoration: none;
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
   box-shadow: 0 4px 15px rgba(26, 107, 170, 0.3);
+  font-weight: 700;
 }
 
 .btn-primary:hover {
@@ -217,19 +278,50 @@ a:hover {
   text-decoration: none;
 }
 
+.btn-success {
+  background: var(--secondary);
+  color: white;
+  box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+  font-weight: 700;
+}
+
+.btn-success:hover {
+  background: var(--secondary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46, 139, 87, 0.4);
+  text-decoration: none;
+}
+
 .btn-outline {
   background: rgba(255, 255, 255, 0.8);
   color: var(--text);
   border-color: var(--border);
   backdrop-filter: blur(10px);
+  font-weight: 600;
 }
 
 .btn-outline:hover {
   background: var(--bg-card);
-  border-color: var(--primary);
-  color: var(--primary);
+  border-color: var(--cds);
+  color: var(--cds-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px var(--shadow);
+  text-decoration: none;
+}
+
+/* CDS outline variant */
+.btn-outline-cds {
+  background: transparent;
+  color: var(--cds-dark);
+  border-color: var(--cds);
+  font-weight: 700;
+}
+
+.btn-outline-cds:hover {
+  background: var(--cds-pale);
+  border-color: var(--cds-intense);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(200, 214, 22, 0.2);
   text-decoration: none;
 }
 
@@ -277,14 +369,17 @@ a:hover {
 }
 
 .hero h1 {
+  font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #0d3b66, #1a6baa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 300;
+  color: var(--primary-dark);
+  font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.1;
+}
+
+.hero h1 .highlight {
+  color: var(--cds-dark);
 }
 
 .hero p {
@@ -351,7 +446,7 @@ a:hover {
 .course-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 35px var(--shadow-hover);
-  border-color: var(--primary-light);
+  border-color: var(--cds);
 }
 
 .course-card:hover::before {
@@ -430,8 +525,9 @@ a:hover {
 }
 
 .badge-premium {
-  background: rgba(212, 160, 23, 0.15);
-  color: var(--warning);
+  background: rgba(200, 214, 22, 0.15);
+  color: var(--cds-dark);
+  font-weight: 700;
 }
 
 /* Forms */
@@ -487,7 +583,8 @@ a:hover {
 }
 
 .form-group input:focus {
-  border-color: var(--primary);
+  border-color: var(--cds);
+  box-shadow: 0 0 0 3px rgba(200, 214, 22, 0.15);
 }
 
 .form-footer {
@@ -720,13 +817,14 @@ a:hover {
 }
 
 .sidebar-item-active {
-  background: rgba(26, 107, 170, 0.1);
-  color: var(--primary);
+  background: rgba(200, 214, 22, 0.12);
+  color: var(--cds-dark);
+  border-left: 3px solid var(--cds);
 }
 
 .sidebar-item-active:hover {
-  background: rgba(26, 107, 170, 0.15);
-  color: var(--primary);
+  background: rgba(200, 214, 22, 0.18);
+  color: var(--cds-dark);
 }
 
 .sidebar-item-locked {

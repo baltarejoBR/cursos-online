@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Método Corpo Limpo',
   description: 'Plataforma de cursos e produtos do Método Corpo Limpo.',
   manifest: '/manifest.json',
-  themeColor: '#1a6baa',
+  themeColor: '#c8d616',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -24,6 +24,9 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Lora:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
       <body>
         {children}
