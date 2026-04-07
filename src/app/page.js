@@ -374,6 +374,31 @@ export default async function Home() {
         </section>
       )}
 
+      {/* BANNER PESSOAS SAUDAVEIS */}
+      <section style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        height: '200px',
+        overflow: 'hidden',
+      }} className="lifestyle-banner">
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <Image src="/images/familia-saudavel.jpg" alt="Família saudável e feliz" fill style={{ objectFit: 'cover' }} sizes="25vw" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4))' }} />
+        </div>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <Image src="/images/pessoas-exercicio.jpg" alt="Pessoas praticando exercício" fill style={{ objectFit: 'cover' }} sizes="25vw" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4))' }} />
+        </div>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <Image src="/images/pessoa-bebendo-agua.jpg" alt="Pessoa bebendo água saudável" fill style={{ objectFit: 'cover' }} sizes="25vw" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4))' }} />
+        </div>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
+          <Image src="/images/idosos-ativos.jpg" alt="Idosos ativos e saudáveis" fill style={{ objectFit: 'cover' }} sizes="25vw" />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4))' }} />
+        </div>
+      </section>
+
       {/* PROVA SOCIAL */}
       <section style={{
         background: 'var(--bg-card)',
@@ -1022,8 +1047,14 @@ export default async function Home() {
         background: 'linear-gradient(135deg, #0d3b66 0%, #1a6baa 100%)',
         padding: '80px 20px',
         color: 'white',
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        <div className="container" style={{ maxWidth: '900px', textAlign: 'center' }}>
+        {/* Background lifestyle photo */}
+        <div style={{ position: 'absolute', top: 0, right: 0, width: '40%', height: '100%', opacity: 0.08 }}>
+          <Image src="/images/familia-saudavel.jpg" alt="" fill style={{ objectFit: 'cover' }} sizes="40vw" />
+        </div>
+        <div className="container" style={{ maxWidth: '900px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>
             Ao comprar o curso, você entra na Comunidade
           </h2>
@@ -1095,6 +1126,51 @@ export default async function Home() {
           }}>
             Acessar o Fórum CDS
           </a>
+        </div>
+      </section>
+
+      {/* SAUDE E BEM-ESTAR BANNER */}
+      <section style={{
+        background: 'var(--bg)',
+        padding: '60px 20px',
+        borderTop: '1px solid var(--border)',
+      }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontFamily: "'Playfair Display', Georgia, serif",
+            fontSize: '1.8rem',
+            fontWeight: '400',
+            marginBottom: '12px',
+            color: 'var(--text)',
+          }}>
+            Saúde é o nosso maior <span style={{ color: '#c9a84c' }}>patrimônio</span>
+          </h2>
+          <p style={{ color: 'var(--text-muted)', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px' }}>
+            Milhares de pessoas ao redor do mundo já descobriram os benefícios das Terapias Bio-oxidativas para uma vida mais saudável e ativa.
+          </p>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '16px',
+            maxWidth: '900px',
+            margin: '0 auto',
+          }} className="saude-grid">
+            <div style={{ position: 'relative', height: '220px', borderRadius: '16px', overflow: 'hidden' }}>
+              <Image src="/images/pessoas-exercicio.jpg" alt="Pessoas praticando exercício" fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, 300px" />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)' }} />
+              <span style={{ position: 'absolute', bottom: '12px', left: '16px', color: 'white', fontWeight: '600', fontSize: '0.9rem' }}>Vida Ativa</span>
+            </div>
+            <div style={{ position: 'relative', height: '220px', borderRadius: '16px', overflow: 'hidden' }}>
+              <Image src="/images/pessoa-bebendo-agua.jpg" alt="Hidratação e saúde" fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, 300px" />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)' }} />
+              <span style={{ position: 'absolute', bottom: '12px', left: '16px', color: 'white', fontWeight: '600', fontSize: '0.9rem' }}>Hidratação</span>
+            </div>
+            <div style={{ position: 'relative', height: '220px', borderRadius: '16px', overflow: 'hidden' }}>
+              <Image src="/images/idosos-ativos.jpg" alt="Idosos ativos" fill style={{ objectFit: 'cover' }} sizes="(max-width: 768px) 100vw, 300px" />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)' }} />
+              <span style={{ position: 'absolute', bottom: '12px', left: '16px', color: 'white', fontWeight: '600', fontSize: '0.9rem' }}>Longevidade</span>
+            </div>
+          </div>
         </div>
       </section>
 
