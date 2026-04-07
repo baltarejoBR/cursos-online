@@ -68,7 +68,7 @@ export default function ComunidadePage() {
             cursor: 'pointer',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.borderColor = 'var(--primary)';
+            e.currentTarget.style.borderColor = 'var(--gold)';
             e.currentTarget.style.transform = 'translateY(-2px)';
             e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
           }}
@@ -100,7 +100,7 @@ export default function ComunidadePage() {
                 Comunidade aberta no Telegram. Troque experiencias, tire duvidas e fique por dentro das novidades.
               </p>
             </div>
-            <div style={{ color: 'var(--primary)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
+            <div style={{ color: 'var(--gold)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
           </div>
         </a>
 
@@ -185,8 +185,8 @@ export default function ComunidadePage() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px', flexWrap: 'wrap' }}>
               <h3 style={{ fontSize: '1.15rem' }}>Bot Tira-Duvidas CDS</h3>
               <span className="badge" style={{
-                background: 'rgba(26, 107, 170, 0.12)',
-                color: 'var(--primary)',
+                background: 'rgba(201, 168, 76, 0.12)',
+                color: 'var(--gold)',
               }}>Em breve</span>
             </div>
             <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '12px' }}>
@@ -196,7 +196,7 @@ export default function ComunidadePage() {
               <span style={{
                 fontSize: '1.2rem',
                 fontWeight: 700,
-                color: 'var(--primary-dark)',
+                color: 'var(--gold)',
               }}>
                 R$ 39,00
                 <span style={{ fontSize: '0.85rem', fontWeight: 400, color: 'var(--text-muted)' }}>/mes</span>
@@ -231,7 +231,7 @@ export default function ComunidadePage() {
             cursor: 'pointer',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.borderColor = 'var(--primary)';
+            e.currentTarget.style.borderColor = 'var(--gold)';
             e.currentTarget.style.transform = 'translateY(-2px)';
             e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
           }}
@@ -263,7 +263,7 @@ export default function ComunidadePage() {
                 Forum online sobre CDS e Saude Integrativa. Artigos, discussoes e conteudo da comunidade.
               </p>
             </div>
-            <div style={{ color: 'var(--primary)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
+            <div style={{ color: 'var(--gold)', fontSize: '1.3rem', flexShrink: 0 }}>↗</div>
           </div>
         </a>
 

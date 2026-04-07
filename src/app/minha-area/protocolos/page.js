@@ -48,6 +48,7 @@ export default function ProtocolosPage() {
         <div style={{
           background: 'var(--bg-card)',
           border: '1px solid var(--border)',
+          borderTop: '3px solid #c9a84c',
           borderRadius: '16px',
           padding: '60px 32px',
           textAlign: 'center',
@@ -89,9 +90,9 @@ export default function ProtocolosPage() {
               <h3 style={{ fontSize: '1.1rem' }}>🧪 {protocolo.name}</h3>
               <span className="badge" style={{
                 background: protocolo.level === 'Iniciante' ? 'rgba(46,139,87,0.12)' :
-                  protocolo.level === 'Avancado' ? 'rgba(212,160,23,0.15)' : 'rgba(26,107,170,0.12)',
+                  protocolo.level === 'Avancado' ? 'rgba(212,160,23,0.15)' : 'rgba(201,168,76,0.12)',
                 color: protocolo.level === 'Iniciante' ? 'var(--success)' :
-                  protocolo.level === 'Avancado' ? 'var(--warning)' : 'var(--primary)',
+                  protocolo.level === 'Avancado' ? 'var(--warning)' : 'var(--gold)',
               }}>
                 {protocolo.level}
               </span>

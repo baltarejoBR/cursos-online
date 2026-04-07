@@ -138,7 +138,7 @@ export default function MinhaAreaPage() {
                 background: 'var(--bg)',
                 border: '1px solid var(--border)',
                 borderRadius: '6px',
-                color: 'var(--primary)',
+                color: 'var(--gold)',
                 cursor: 'pointer',
               }}
             >

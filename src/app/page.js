@@ -45,7 +45,7 @@ export default async function Home() {
           maxWidth: '1200px',
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: '1fr 1.15fr',
+          gridTemplateColumns: '1fr 1.4fr',
           gap: '60px',
           alignItems: 'center',
           width: '100%',
@@ -96,14 +96,14 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '550px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '620px', margin: '0 auto' }}>
             <div className="gold-frame" style={{ display: 'inline-block', overflow: 'hidden', animation: 'gentle-glow 4s ease-in-out infinite' }}>
               <Image
                 src={getImageUrl('gabriel/hero-gabriel.jpeg')}
                 alt="Gabriel Baltarejo"
-                width={550}
-                height={670}
-                sizes="(max-width: 768px) 100vw, 550px"
+                width={650}
+                height={800}
+                sizes="(max-width: 768px) 100vw, 620px"
                 style={{
                   width: '100%',
                   height: 'auto',

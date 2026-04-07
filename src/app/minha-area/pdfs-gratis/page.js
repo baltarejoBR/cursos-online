@@ -35,7 +35,7 @@ export default function PDFsGratisPage() {
               cursor: 'pointer',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--primary)';
+              e.currentTarget.style.borderColor = 'var(--gold)';
               e.currentTarget.style.transform = 'translateY(-2px)';
               e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
             }}
@@ -63,7 +63,7 @@ export default function PDFsGratisPage() {
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{pdf.description}</p>
               </div>
               <div style={{
-                color: 'var(--primary)',
+                color: 'var(--gold)',
                 fontSize: '1.2rem',
                 flexShrink: 0,
               }}>

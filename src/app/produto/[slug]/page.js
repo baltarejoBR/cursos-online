@@ -162,8 +162,8 @@ export default function ProductPage() {
               </span>
               {product.badge && (
                 <span style={{
-                  background: product.badgeColor || 'var(--primary)',
-                  color: 'white',
+                  background: product.badgeColor || 'linear-gradient(135deg, #c9a84c, #e6c873)',
+                  color: '#1a1a1a',
                   padding: '3px 10px',
                   borderRadius: '20px',
                   fontSize: '0.75rem',
@@ -385,8 +385,8 @@ export default function ProductPage() {
           flexDirection: 'column',
         }}>
           <div style={{
-            background: 'var(--primary)',
-            color: 'white',
+            background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+            color: '#1a1a1a',
             padding: '12px 20px',
             display: 'flex',
             justifyContent: 'space-between',
@@ -396,9 +396,9 @@ export default function ProductPage() {
             <button
               onClick={() => setShowContent(false)}
               style={{
-                background: 'rgba(255,255,255,0.2)',
+                background: 'rgba(0,0,0,0.15)',
                 border: 'none',
-                color: 'white',
+                color: '#1a1a1a',
                 padding: '8px 20px',
                 borderRadius: '8px',
                 cursor: 'pointer',

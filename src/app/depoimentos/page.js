@@ -31,10 +31,12 @@ function ImageGrid({ images, onImageClick }) {
           onMouseEnter={e => {
             e.currentTarget.style.transform = 'translateY(-4px)';
             e.currentTarget.style.boxShadow = '0 8px 25px var(--shadow-hover)';
+            e.currentTarget.style.borderColor = '#c9a84c';
           }}
           onMouseLeave={e => {
             e.currentTarget.style.transform = 'translateY(0)';
             e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.borderColor = 'var(--border)';
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -114,8 +116,9 @@ export default function DepoimentosPage() {
 
       {/* Hero */}
       <section style={{
-        background: 'linear-gradient(135deg, var(--bg) 0%, var(--cds-pale) 50%, #e8f0e0 100%)',
-        padding: '60px 20px 40px',
+        background: 'var(--hero-gradient)',
+        color: 'white',
+        padding: '80px 20px 40px',
         textAlign: 'center',
       }}>
         <div className="container">
@@ -123,12 +126,12 @@ export default function DepoimentosPage() {
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '12px',
             fontFamily: "'Italiana', serif",
-            color: 'var(--marine)',
+            color: 'white',
             fontWeight: 400,
           }}>
             Depoimentos
           </h1>
-          <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
+          <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.75)', maxWidth: '600px', margin: '0 auto' }}>
             +300 pessoas ja transformaram sua saude com o Metodo Corpo Limpo.
             Veja os resultados reais dos nossos alunos.
           </p>
@@ -137,8 +140,8 @@ export default function DepoimentosPage() {
 
       {/* Filtros */}
       <section style={{
-        background: 'var(--bg-card)',
-        borderBottom: '1px solid var(--border)',
+        background: 'var(--hero-gradient)',
+        borderBottom: '1px solid rgba(255,255,255,0.1)',
         padding: '16px 20px',
         position: 'sticky',
         top: '73px',
@@ -156,6 +159,7 @@ export default function DepoimentosPage() {
             const count = key === 'todos'
               ? Object.values(getDepoimentosByCategory('todos')).length
               : getDepoimentosByCategory(key).length;
+            const isActive = activeFilter === key;
             return (
               <button
                 key={key}
@@ -163,10 +167,10 @@ export default function DepoimentosPage() {
                 style={{
                   padding: '8px 20px',
                   borderRadius: '50px',
-                  border: activeFilter === key ? '2px solid var(--cds)' : '1px solid var(--border)',
-                  background: activeFilter === key ? 'rgba(201, 168, 76, 0.15)' : 'var(--bg)',
-                  color: activeFilter === key ? 'var(--cds-dark)' : 'var(--text-muted)',
-                  fontWeight: activeFilter === key ? 600 : 400,
+                  border: isActive ? 'none' : '1px solid rgba(255,255,255,0.2)',
+                  background: isActive ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'rgba(255,255,255,0.1)',
+                  color: isActive ? '#1a1a1a' : 'rgba(255,255,255,0.7)',
+                  fontWeight: isActive ? 600 : 400,
                   fontSize: '0.85rem',
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
@@ -258,6 +262,7 @@ export default function DepoimentosPage() {
               maxHeight: '90vh',
               objectFit: 'contain',
               borderRadius: '8px',
+              border: '3px solid #c9a84c',
               cursor: 'default',
             }}
           />

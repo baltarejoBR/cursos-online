@@ -86,8 +86,8 @@ export default function IniciantesPage() {
 
         {/* CTA */}
         <div style={{
-          background: 'linear-gradient(135deg, #d4e8c2 0%, var(--bg-card) 100%)',
-          border: '1px solid var(--primary)',
+          background: 'linear-gradient(135deg, rgba(201,168,76,0.1) 0%, var(--bg-card) 100%)',
+          border: '1px solid var(--gold)',
           borderRadius: '16px',
           padding: '32px',
           textAlign: 'center',

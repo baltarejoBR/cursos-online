@@ -85,6 +85,7 @@ export default function LeadCaptureModal() {
         style={{
           background: 'white',
           borderRadius: '20px',
+          borderTop: '3px solid #c9a84c',
           padding: '40px 32px',
           maxWidth: '440px',
           width: '100%',
@@ -177,8 +178,8 @@ export default function LeadCaptureModal() {
                 style={{
                   width: '100%',
                   padding: '14px',
-                  background: 'linear-gradient(135deg, #2e8b57, #1a6baa)',
-                  color: 'white',
+                  background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+                  color: '#1a1a1a',
                   border: 'none',
                   borderRadius: '50px',
                   fontSize: '1.05rem',
@@ -208,8 +209,8 @@ export default function LeadCaptureModal() {
             <div
               onClick={handleCopy}
               style={{
-                background: 'linear-gradient(135deg, #2e8b57, #1a6baa)',
-                color: 'white',
+                background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+                color: '#1a1a1a',
                 padding: '20px',
                 borderRadius: '12px',
                 marginBottom: '20px',
@@ -229,8 +230,8 @@ export default function LeadCaptureModal() {
               style={{
                 display: 'inline-block',
                 padding: '12px 28px',
-                background: '#1a6baa',
-                color: 'white',
+                background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+                color: '#1a1a1a',
                 borderRadius: '50px',
                 textDecoration: 'none',
                 fontWeight: '600',

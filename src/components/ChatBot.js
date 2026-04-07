@@ -77,11 +77,11 @@ export default function ChatBot() {
           width: '60px',
           height: '60px',
           borderRadius: '50%',
-          background: 'var(--primary, #6366f1)',
+          background: '#c9a84c',
           color: 'white',
           border: 'none',
           cursor: 'pointer',
-          boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+          boxShadow: '0 4px 20px rgba(201, 168, 76, 0.4)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -116,8 +116,8 @@ export default function ChatBot() {
           {/* Header */}
           <div style={{
             padding: '16px 20px',
-            background: 'var(--primary, #6366f1)',
-            color: 'white',
+            background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+            color: '#1a1a1a',
             display: 'flex',
             alignItems: 'center',
             gap: '10px',
@@ -156,7 +156,7 @@ export default function ChatBot() {
                   padding: '10px 14px',
                   borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
                   background: msg.role === 'user'
-                    ? 'var(--primary, #6366f1)'
+                    ? '#c9a84c'
                     : 'var(--bg, #0f0f23)',
                   color: msg.role === 'user' ? 'white' : 'var(--text, #e0e0e0)',
                   marginLeft: msg.role === 'user' ? 'auto' : '0',
@@ -217,7 +217,7 @@ export default function ChatBot() {
               style={{
                 padding: '10px 16px',
                 borderRadius: '10px',
-                background: 'var(--primary, #6366f1)',
+                background: '#c9a84c',
                 color: 'white',
                 border: 'none',
                 cursor: loading || !input.trim() ? 'not-allowed' : 'pointer',

@@ -38,8 +38,8 @@ function PlanosContent() {
 
       <section className="hero" style={{ paddingBottom: '40px' }}>
         <div className="container">
-          <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Nossos Produtos</h1>
-          <p>
+          <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400, color: 'white' }}>Nossos Produtos</h1>
+          <p style={{ color: 'rgba(255,255,255,0.75)' }}>
             Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
             Cursos, livros, mentoria e comunidade.
           </p>
@@ -51,17 +51,30 @@ function PlanosContent() {
         <div style={{ display: 'flex', gap: '8px', marginBottom: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <button
             onClick={() => setActiveFilter('todos')}
-            className={`btn ${activeFilter === 'todos' ? 'btn-gold' : 'btn-outline-gold'} btn-sm`}
+            className="btn btn-sm"
+            style={{
+              background: activeFilter === 'todos' ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'rgba(255,255,255,0.1)',
+              color: activeFilter === 'todos' ? '#1a1a1a' : 'white',
+              border: activeFilter === 'todos' ? 'none' : '1px solid rgba(255,255,255,0.2)',
+              fontWeight: activeFilter === 'todos' ? 600 : 400,
+            }}
           >
             Todos
           </button>
           {categoryOrder.map(catKey => {
             const cat = CATEGORIES[catKey];
+            const isActive = activeFilter === catKey;
             return (
               <button
                 key={catKey}
                 onClick={() => setActiveFilter(catKey)}
-                className={`btn ${activeFilter === catKey ? 'btn-gold' : 'btn-outline-gold'} btn-sm`}
+                className="btn btn-sm"
+                style={{
+                  background: isActive ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'rgba(255,255,255,0.1)',
+                  color: isActive ? '#1a1a1a' : 'white',
+                  border: isActive ? 'none' : '1px solid rgba(255,255,255,0.2)',
+                  fontWeight: isActive ? 600 : 400,
+                }}
               >
                 {cat.icon} {cat.name}
               </button>
@@ -88,8 +101,8 @@ function PlanosContent() {
                       position: 'absolute',
                       top: '12px',
                       right: '12px',
-                      background: product.badgeColor || 'var(--primary)',
-                      color: 'white',
+                      background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+                      color: '#1a1a1a',
                       padding: '4px 12px',
                       borderRadius: '20px',
                       fontSize: '0.75rem',

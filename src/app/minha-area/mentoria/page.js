@@ -51,6 +51,7 @@ export default function MentoriaPage() {
         <div style={{
           background: 'var(--bg-card)',
           border: '1px solid var(--border)',
+          borderTop: '3px solid #c9a84c',
           borderRadius: '16px',
           padding: '48px 32px',
           textAlign: 'center',
@@ -93,7 +94,7 @@ export default function MentoriaPage() {
             marginTop: '20px',
             fontSize: '1.3rem',
             fontWeight: 700,
-            color: 'var(--primary-dark)',
+            color: 'var(--gold)',
           }}>
             {mentoria?.priceDisplay || 'R$ 497,00'}
             <span style={{ fontSize: '0.9rem', fontWeight: 400, color: 'var(--text-muted)' }}>
@@ -201,7 +202,7 @@ export default function MentoriaPage() {
                 width: '40px',
                 height: '40px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, var(--primary), var(--primary-dark))',
+                background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
                 color: 'white',
                 display: 'flex',
                 alignItems: 'center',
