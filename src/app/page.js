@@ -55,7 +55,7 @@ export default async function Home() {
               +300 alunos transformando sua saude
             </div>
             <h1 style={{
-              fontFamily: "'Italiana', serif",
+              fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: '3.2rem',
               fontWeight: '400',
               lineHeight: '1.15',
@@ -202,7 +202,7 @@ export default async function Home() {
       }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{
-            fontFamily: "'Italiana', serif",
+            fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: '1.6rem',
             fontWeight: '400',
             marginBottom: '32px',
@@ -234,7 +234,7 @@ export default async function Home() {
                   fontSize: '1.6rem',
                   fontWeight: '700',
                   color: 'var(--text)',
-                  fontFamily: "'Italiana', serif",
+                  fontFamily: "'Playfair Display', Georgia, serif",
                 }}>{item.numero}</span>
                 <span style={{
                   fontSize: '0.85rem',
@@ -493,7 +493,7 @@ export default async function Home() {
       }}>
         <div className="container" style={{ maxWidth: '700px' }}>
           <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📖</div>
-          <h2 style={{ fontFamily: "'Italiana', serif", fontSize: '1.8rem', marginBottom: '12px' }}>
+          <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.8rem', marginBottom: '12px' }}>
             Novo por aqui? Comece pelo Guia Gratuito!
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '24px' }}>
@@ -531,7 +531,7 @@ export default async function Home() {
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
             <h2 style={{
-              fontFamily: "'Italiana', serif",
+              fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: '2rem',
               fontWeight: '400',
               marginBottom: '12px',
@@ -608,7 +608,7 @@ export default async function Home() {
         <div className="container">
           <h2 style={{
             textAlign: 'center',
-            fontFamily: "'Italiana', serif",
+            fontFamily: "'Playfair Display', Georgia, serif",
             fontSize: '2.2rem',
             marginBottom: '16px',
             color: 'var(--text)',

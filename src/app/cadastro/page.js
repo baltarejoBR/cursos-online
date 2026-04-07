@@ -69,7 +69,7 @@ export default function CadastroPage() {
       <Header />
       <div className="form-page">
         <div className="form-card" style={{ textAlign: 'center' }}>
-          <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Cadastro realizado!</h1>
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400 }}>Cadastro realizado!</h1>
           <p className="subtitle">
             Enviamos um link de confirmação para <strong>{email}</strong>.
             Verifique sua caixa de entrada (e spam) para ativar sua conta.
@@ -88,7 +88,7 @@ export default function CadastroPage() {
     <Header />
     <div className="form-page">
       <div className="form-card">
-        <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Criar Conta</h1>
+        <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400 }}>Criar Conta</h1>
         <p className="subtitle">Cadastre-se grátis e comece a aprender agora.</p>
 
         {error && <div className="error-msg">{error}</div>}

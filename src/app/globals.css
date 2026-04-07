@@ -70,7 +70,7 @@
   --shadow-premium: 0 20px 60px rgba(0, 0, 0, 0.15);
 
   /* Tipografia */
-  --font-display: 'Italiana', serif;
+  --font-display: 'Playfair Display', Georgia, serif;
   --font-body: 'Lora', Georgia, serif;
   --font-ui: 'Work Sans', -apple-system, sans-serif;
   --font-mono: 'DM Mono', 'Courier New', monospace;

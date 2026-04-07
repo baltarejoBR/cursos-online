@@ -35,7 +35,7 @@ export default async function UniversidadePage({ searchParams }) {
           <h1 style={{
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '16px',
-            fontFamily: "'Italiana', serif",
+            fontFamily: "'Playfair Display', Georgia, serif",
             fontWeight: 400,
           }}>
             Universidade Dioxi

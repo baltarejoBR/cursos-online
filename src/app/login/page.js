@@ -44,7 +44,7 @@ export default function LoginPage() {
     <Header />
     <div className="form-page">
       <div className="form-card">
-        <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Entrar</h1>
+        <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400 }}>Entrar</h1>
         <p className="subtitle">Acesse sua conta para continuar aprendendo.</p>
 
         {error && <div className="error-msg">{error}</div>}

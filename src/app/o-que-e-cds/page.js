@@ -24,7 +24,7 @@ export default function OQueECDSPage() {
           <h1 style={{
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '16px',
-            fontFamily: "'Italiana', serif",
+            fontFamily: "'Playfair Display', Georgia, serif",
             color: 'var(--marble-dark)',
             fontWeight: 400,
           }}>
@@ -157,7 +157,7 @@ export default function OQueECDSPage() {
 
           {/* Conteudo explicativo */}
           <div style={{ lineHeight: 1.8, fontSize: '1.05rem', fontFamily: "'Lora', serif" }}>
-            <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Italiana', serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
+            <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
               O que e o Dioxido de Cloro (CDS)?
             </h2>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
@@ -166,7 +166,7 @@ export default function OQueECDSPage() {
               como complemento para o bem-estar e qualidade de vida.
             </p>
 
-            <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Italiana', serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
+            <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
               Como funciona?
             </h2>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
@@ -175,7 +175,7 @@ export default function OQueECDSPage() {
               protocolos de uso que variam de acordo com a finalidade.
             </p>
 
-            <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Italiana', serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
+            <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
               Por onde comecar?
             </h2>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>

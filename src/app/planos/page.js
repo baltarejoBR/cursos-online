@@ -38,7 +38,7 @@ function PlanosContent() {
 
       <section className="hero" style={{ paddingBottom: '40px' }}>
         <div className="container">
-          <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400, color: 'white' }}>Nossos Produtos</h1>
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, color: 'white' }}>Nossos Produtos</h1>
           <p style={{ color: 'rgba(255,255,255,0.75)' }}>
             Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
             Cursos, livros, mentoria e comunidade.
