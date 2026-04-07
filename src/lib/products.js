@@ -37,26 +37,6 @@ export const PRODUCTS = [
     gradient: 'linear-gradient(135deg, #1a6baa 0%, #3a9ad9 100%)',
   },
   {
-    id: 'curso-cds-humanos',
-    slug: 'curso-cds-humanos',
-    category: 'cursos',
-    title: 'Curso CDS Humanos',
-    subtitle: 'CDS focado em saúde humana',
-    description: 'Curso focado em protocolos e aplicações do CDS para saúde humana. Ideal para quem quer começar com foco em cuidados pessoais e familiares.',
-    image: getImageUrl('produtos/capa-curso-detox.png'),
-    price: 19700, // R$ 197,00
-    priceDisplay: 'R$ 197,00',
-    type: 'one_time',
-    features: [
-      'Acesso vitalício ao conteúdo',
-      'Protocolos para humanos',
-      'Guia de preparação passo a passo',
-      'Suporte por email',
-      'Atualizações gratuitas',
-    ],
-    gradient: 'linear-gradient(135deg, #6b9e4a 0%, #8bb96e 100%)',
-  },
-  {
     id: 'curso-cds-animais',
     slug: 'curso-cds-animais',
     category: 'cursos',
