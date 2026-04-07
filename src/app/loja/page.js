@@ -18,7 +18,7 @@ export default async function LojaPage() {
 
       {/* Hero */}
       <section style={{
-        background: 'linear-gradient(135deg, #1a2915 0%, #2d3a25 50%, #1a1a1a 100%)',
+        background: 'var(--hero-gradient)',
         padding: '80px 20px 60px',
         textAlign: 'center',
         color: 'white',
@@ -26,8 +26,8 @@ export default async function LojaPage() {
         <div className="container">
           <div style={{
             display: 'inline-block',
-            background: 'rgba(200, 214, 22, 0.2)',
-            border: '1px solid rgba(200, 214, 22, 0.4)',
+            background: 'rgba(201, 168, 76, 0.2)',
+            border: '1px solid rgba(201, 168, 76, 0.4)',
             borderRadius: '20px',
             padding: '6px 16px',
             fontSize: '0.85rem',

@@ -152,7 +152,7 @@ export default function ComunidadePage() {
                 <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                   🔒 Disponivel para alunos dos cursos
                 </span>
-                <Link href="/planos" className="btn btn-primary btn-sm">Ver Cursos</Link>
+                <Link href="/planos" className="btn btn-gold btn-sm">Ver Cursos</Link>
               </div>
             )}
           </div>

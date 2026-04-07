@@ -26,7 +26,7 @@ export default function IniciantesPage() {
             Terapias Bio-oxidativas. Se voce esta comecando agora, recomendamos assistir nosso video
             explicativo para entender o basico.
           </p>
-          <Link href="/o-que-e-cds" className="btn btn-primary btn-sm">
+          <Link href="/o-que-e-cds" className="btn btn-gold btn-sm">
             Ver Explicacao Completa
           </Link>
         </div>
@@ -96,7 +96,7 @@ export default function IniciantesPage() {
           <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
             Confira nossos cursos e livros para dominar as Terapias Bio-oxidativas.
           </p>
-          <Link href="/planos" className="btn btn-primary">Ver Cursos e Livros</Link>
+          <Link href="/planos" className="btn btn-gold">Ver Cursos e Livros</Link>
         </div>
       </div>
     </div>

@@ -63,13 +63,13 @@ function CategorySection({ catKey, cat, images, onImageClick }) {
         gap: '12px',
         marginBottom: '20px',
         paddingBottom: '12px',
-        borderBottom: '2px solid var(--border-light)',
+        borderBottom: '2px solid var(--cds-pale)',
       }}>
         <span style={{ fontSize: '1.5rem' }}>{cat.icon}</span>
         <h2 style={{ fontSize: '1.4rem', fontWeight: 600 }}>{cat.name}</h2>
         <span style={{
-          background: 'rgba(26, 107, 170, 0.1)',
-          color: 'var(--primary)',
+          background: 'rgba(201, 168, 76, 0.15)',
+          color: 'var(--cds-dark)',
           padding: '2px 12px',
           borderRadius: '20px',
           fontSize: '0.8rem',
@@ -114,7 +114,7 @@ export default function DepoimentosPage() {
 
       {/* Hero */}
       <section style={{
-        background: 'linear-gradient(135deg, #f0f6fa 0%, #d6e8f4 30%, #c2dde8 70%, #daf0e0 100%)',
+        background: 'linear-gradient(135deg, var(--bg) 0%, var(--cds-pale) 50%, #e8f0e0 100%)',
         padding: '60px 20px 40px',
         textAlign: 'center',
       }}>
@@ -122,10 +122,9 @@ export default function DepoimentosPage() {
           <h1 style={{
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '12px',
-            background: 'linear-gradient(135deg, #0d3b66, #1a6baa)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            fontWeight: 300,
+            fontFamily: "'Italiana', serif",
+            color: 'var(--marine)',
+            fontWeight: 400,
           }}>
             Depoimentos
           </h1>
@@ -164,9 +163,9 @@ export default function DepoimentosPage() {
                 style={{
                   padding: '8px 20px',
                   borderRadius: '50px',
-                  border: activeFilter === key ? '2px solid var(--primary)' : '1px solid var(--border)',
-                  background: activeFilter === key ? 'rgba(26, 107, 170, 0.1)' : 'var(--bg)',
-                  color: activeFilter === key ? 'var(--primary)' : 'var(--text-muted)',
+                  border: activeFilter === key ? '2px solid var(--cds)' : '1px solid var(--border)',
+                  background: activeFilter === key ? 'rgba(201, 168, 76, 0.15)' : 'var(--bg)',
+                  color: activeFilter === key ? 'var(--cds-dark)' : 'var(--text-muted)',
                   fontWeight: activeFilter === key ? 600 : 400,
                   fontSize: '0.85rem',
                   cursor: 'pointer',

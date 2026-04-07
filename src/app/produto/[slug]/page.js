@@ -92,7 +92,7 @@ export default function ProductPage() {
         <Header />
         <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
           <h1>Produto nao encontrado</h1>
-          <Link href="/" className="btn btn-primary" style={{ marginTop: '20px' }}>
+          <Link href="/" className="btn btn-gold" style={{ marginTop: '20px' }}>
             Voltar para Home
           </Link>
         </div>
@@ -110,7 +110,7 @@ export default function ProductPage() {
         <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
           <h1>{product.title}</h1>
           <p style={{ color: 'var(--text-muted)', marginTop: '12px' }}>Seu download vai comecar automaticamente...</p>
-          <a href={product.downloadPath} download className="btn btn-primary" style={{ marginTop: '20px', textDecoration: 'none' }}>
+          <a href={product.downloadPath} download className="btn btn-gold" style={{ marginTop: '20px', textDecoration: 'none' }}>
             📥 Baixar novamente
           </a>
           <br />
@@ -241,7 +241,7 @@ export default function ProductPage() {
                   {product.contentSlug && (
                     <button
                       onClick={handleOpenContent}
-                      className="btn btn-primary btn-full"
+                      className="btn btn-gold btn-full"
                       style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '12px' }}
                     >
                       {showContent ? '📖 Conteudo aberto abaixo' : '📖 Ler Versao Online (HTML)'}
@@ -300,7 +300,7 @@ export default function ProductPage() {
                         href={product.whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-primary btn-full"
+                        className="btn btn-gold btn-full"
                         style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px', textDecoration: 'none', background: '#25D366', textAlign: 'center', display: 'block' }}
                       >
                         📲 Agendar pelo WhatsApp
@@ -313,7 +313,7 @@ export default function ProductPage() {
                     <>
                       <button
                         onClick={handleCheckout}
-                        className="btn btn-primary btn-full"
+                        className="btn btn-gold btn-full"
                         disabled={loading}
                         style={{ fontSize: '1.05rem', padding: '14px 24px', marginBottom: '16px' }}
                       >

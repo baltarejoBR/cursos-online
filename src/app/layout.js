@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Método Corpo Limpo',
   description: 'Plataforma de cursos e produtos do Método Corpo Limpo.',
   manifest: '/manifest.json',
-  themeColor: '#c8d616',
+  themeColor: '#c9a84c',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

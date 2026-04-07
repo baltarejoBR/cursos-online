@@ -57,7 +57,7 @@ export default function ProtocolosPage() {
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
             Os protocolos estao disponiveis para quem adquiriu um curso ou livro.
           </p>
-          <Link href="/planos" className="btn btn-primary">Ver Cursos e Livros</Link>
+          <Link href="/planos" className="btn btn-gold">Ver Cursos e Livros</Link>
         </div>
       </div>
     );

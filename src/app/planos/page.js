@@ -38,7 +38,7 @@ function PlanosContent() {
 
       <section className="hero" style={{ paddingBottom: '40px' }}>
         <div className="container">
-          <h1>Nossos Produtos</h1>
+          <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Nossos Produtos</h1>
           <p>
             Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
             Cursos, livros, mentoria e comunidade.
@@ -51,7 +51,7 @@ function PlanosContent() {
         <div style={{ display: 'flex', gap: '8px', marginBottom: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <button
             onClick={() => setActiveFilter('todos')}
-            className={`btn ${activeFilter === 'todos' ? 'btn-primary' : 'btn-outline'} btn-sm`}
+            className={`btn ${activeFilter === 'todos' ? 'btn-gold' : 'btn-outline-gold'} btn-sm`}
           >
             Todos
           </button>
@@ -61,7 +61,7 @@ function PlanosContent() {
               <button
                 key={catKey}
                 onClick={() => setActiveFilter(catKey)}
-                className={`btn ${activeFilter === catKey ? 'btn-primary' : 'btn-outline'} btn-sm`}
+                className={`btn ${activeFilter === catKey ? 'btn-gold' : 'btn-outline-gold'} btn-sm`}
               >
                 {cat.icon} {cat.name}
               </button>

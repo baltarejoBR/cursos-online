@@ -5,31 +5,56 @@
 }
 
 :root {
-  /* CDS — protagonista */
-  --cds: #c8d616;
-  --cds-bright: #d6e234;
-  --cds-intense: #a8b814;
-  --cds-dark: #7a8a0e;
-  --cds-pale: #f2f5d4;
+  /* Gold — protagonista (premium metallic) */
+  --gold: #c9a84c;
+  --gold-bright: #dfc06a;
+  --gold-intense: #b8952e;
+  --gold-dark: #8a6d1b;
+  --gold-pale: #f5ecd4;
+  --gold-gradient: linear-gradient(135deg, #c9a84c, #e6c873, #b8952e);
+  --gold-metallic: linear-gradient(135deg, #b8952e 0%, #e6c873 25%, #c9a84c 50%, #f0dda0 75%, #b8952e 100%);
+  --gold-shimmer: linear-gradient(90deg, transparent, rgba(230,200,115,0.4), transparent);
+
+  /* Aliases para retrocompatibilidade */
+  --cds: var(--gold);
+  --cds-bright: var(--gold-bright);
+  --cds-intense: var(--gold-intense);
+  --cds-dark: var(--gold-dark);
+  --cds-pale: var(--gold-pale);
+  --accent: var(--gold);
 
   /* Suporte */
   --primary: #1a6baa;
   --primary-dark: #0d3b66;
   --primary-light: #3a9ad9;
+  --blue-deep: #1a6baa;
+  --marine: #0d3b66;
   --secondary: #2e8b57;
   --secondary-light: #4db87a;
-  --accent: #c8d616;
+
+  /* Marble & Aqua (backgrounds temáticos) */
+  --marble-dark: #1a2a2e;
+  --marble-mid: #243538;
+  --marble-teal: #2d4a4f;
+  --marble-accent: #1e3a3f;
+  --hero-gradient: linear-gradient(135deg, #0f1f22 0%, #1a2a2e 30%, #2d4a4f 60%, #1e3a3f 100%);
+  --aqua-light: #e8f6f8;
+  --aqua-mid: #b8e3ea;
+  --aqua-deep: #5bbcc9;
+  --aqua-gradient: linear-gradient(180deg, #e8f6f8 0%, #c5e8ee 50%, #9dd8e2 100%);
 
   /* Superfícies */
-  --bg: #f9faf5;
+  --bg: #faf8f3;
   --bg-card: #ffffff;
-  --bg-input: #f5f3ee;
-  --bg-overlay: rgba(249, 250, 245, 0.95);
+  --bg-card-glass: rgba(255, 255, 255, 0.08);
+  --bg-input: #f5f2eb;
+  --bg-overlay: rgba(250, 248, 243, 0.95);
 
   /* Texto */
-  --text: #1a1c18;
-  --text-muted: #4a4d42;
-  --text-light: #7a7d70;
+  --text: #1a1a1a;
+  --text-muted: #5a5a52;
+  --text-light: #8a8a7a;
+  --text-gold: #c9a84c;
 
   /* Estado */
   --success: #2e8b57;
@@ -41,6 +66,8 @@
   --border-light: #eae7e0;
   --shadow: rgba(26, 28, 24, 0.06);
   --shadow-hover: rgba(26, 28, 24, 0.12);
+  --shadow-gold: rgba(201, 168, 76, 0.3);
+  --shadow-premium: 0 20px 60px rgba(0, 0, 0, 0.15);
 
   /* Tipografia */
   --font-display: 'Italiana', serif;
@@ -100,7 +127,7 @@ p, li, td, th, label, span {
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, var(--cds), var(--secondary));
+  background: linear-gradient(90deg, var(--gold), var(--gold-bright));
   border-radius: 2px;
 }
 
@@ -154,15 +181,18 @@ a:hover {
   padding: 0 20px;
 }
 
-/* Header — Verdant Stillness */
+/* Header — Premium Glass */
 .header {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  border-top: 3px solid var(--cds);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  border-top: 2px solid var(--gold);
   padding: 14px 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background 0.3s ease;
 }
 
 .header-inner {
@@ -178,7 +208,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: 1.5rem;
   font-weight: 400;
-  color: var(--primary-dark);
+  color: var(--gold-dark);
 }
 
 .nav {
@@ -196,7 +226,7 @@ a:hover {
 }
 
 .nav a:hover {
-  color: var(--cds-dark);
+  color: var(--gold-dark);
   text-decoration: none;
 }
 
@@ -246,21 +276,25 @@ a:hover {
   left: 100%;
 }
 
-/* CDS CTA — o botão principal, impactante */
-.btn-cds {
-  background: var(--cds);
-  color: var(--primary-dark);
-  box-shadow: 0 4px 20px rgba(200, 214, 22, 0.35);
+/* Gold CTA — botão principal premium metálico */
+.btn-cds,
+.btn-gold {
+  background: var(--gold-metallic);
+  background-size: 200% 100%;
+  color: #1a1a1a;
+  box-shadow: 0 4px 20px var(--shadow-gold);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-size: 0.95rem;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
 }
 
-.btn-cds:hover {
-  background: var(--cds-bright);
+.btn-cds:hover,
+.btn-gold:hover {
+  background-position: 100% 0;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(200, 214, 22, 0.5);
+  box-shadow: 0 8px 30px rgba(201, 168, 76, 0.5);
   text-decoration: none;
 }
 
@@ -302,26 +336,28 @@ a:hover {
 
 .btn-outline:hover {
   background: var(--bg-card);
-  border-color: var(--cds);
-  color: var(--cds-dark);
+  border-color: var(--gold);
+  color: var(--gold-dark);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px var(--shadow);
   text-decoration: none;
 }
 
-/* CDS outline variant */
-.btn-outline-cds {
+/* Gold outline variant */
+.btn-outline-cds,
+.btn-outline-gold {
   background: transparent;
-  color: var(--cds-dark);
-  border-color: var(--cds);
+  color: var(--gold-dark);
+  border-color: var(--gold);
   font-weight: 700;
 }
 
-.btn-outline-cds:hover {
-  background: var(--cds-pale);
-  border-color: var(--cds-intense);
+.btn-outline-cds:hover,
+.btn-outline-gold:hover {
+  background: var(--gold-pale);
+  border-color: var(--gold-intense);
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(200, 214, 22, 0.2);
+  box-shadow: 0 8px 25px var(--shadow-gold);
   text-decoration: none;
 }
 
@@ -372,14 +408,14 @@ a:hover {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
   margin-bottom: 24px;
-  color: var(--primary-dark);
+  color: var(--marine);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
 .hero h1 .highlight {
-  color: var(--cds-dark);
+  color: var(--gold-dark);
 }
 
 .hero p {
@@ -438,7 +474,7 @@ a:hover {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  background: var(--gold-gradient);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -446,7 +482,7 @@ a:hover {
 .course-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 15px 35px var(--shadow-hover);
-  border-color: var(--cds);
+  border-color: var(--gold);
 }
 
 .course-card:hover::before {
@@ -525,8 +561,8 @@ a:hover {
 }
 
 .badge-premium {
-  background: rgba(200, 214, 22, 0.15);
-  color: var(--cds-dark);
+  background: rgba(201, 168, 76, 0.15);
+  color: var(--gold-dark);
   font-weight: 700;
 }
 
@@ -551,6 +587,9 @@ a:hover {
 .form-card h1 {
   font-size: 1.75rem;
   margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--marine);
 }
 
 .form-card .subtitle {
@@ -583,8 +622,8 @@ a:hover {
 }
 
 .form-group input:focus {
-  border-color: var(--cds);
-  box-shadow: 0 0 0 3px rgba(200, 214, 22, 0.15);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.15);
 }
 
 .form-footer {
@@ -817,14 +856,14 @@ a:hover {
 }
 
 .sidebar-item-active {
-  background: rgba(200, 214, 22, 0.12);
-  color: var(--cds-dark);
-  border-left: 3px solid var(--cds);
+  background: rgba(201, 168, 76, 0.12);
+  color: var(--gold-dark);
+  border-left: 3px solid var(--gold);
 }
 
 .sidebar-item-active:hover {
-  background: rgba(200, 214, 22, 0.18);
-  color: var(--cds-dark);
+  background: rgba(201, 168, 76, 0.18);
+  color: var(--gold-dark);
 }
 
 .sidebar-item-locked {
@@ -927,6 +966,9 @@ a:hover {
 .dashboard h1 {
   font-size: 2rem;
   margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--marine);
 }
 
 .dashboard .subtitle {
@@ -963,11 +1005,204 @@ a:hover {
 /* Footer */
 .footer {
   background: var(--bg-card);
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--gold);
   padding: 32px 0;
   text-align: center;
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+/* ========== PREMIUM DESIGN CLASSES ========== */
+
+/* Glass Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+/* Gold ornamental border for hero photo */
+.gold-frame {
+  position: relative;
+  border: 3px solid var(--gold);
+  border-radius: 20px;
+  box-shadow:
+    0 0 0 8px rgba(201, 168, 76, 0.12),
+    0 0 0 12px rgba(201, 168, 76, 0.06),
+    0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.gold-frame::before,
+.gold-frame::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--gold-bright);
+  pointer-events: none;
+}
+
+.gold-frame::before {
+  top: -8px;
+  left: -8px;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 8px 0 0 0;
+}
+
+.gold-frame::after {
+  bottom: -8px;
+  right: -8px;
+  border-left: none;
+  border-top: none;
+  border-radius: 0 0 8px 0;
+}
+
+/* Gold gradient text */
+.gold-text {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium badge with ornamental border */
+.badge-ornamental {
+  display: inline-block;
+  background: rgba(201, 168, 76, 0.15);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+  position: relative;
+}
+
+.badge-ornamental::before,
+.badge-ornamental::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 0.6rem;
+}
+
+.badge-ornamental::before { left: 8px; }
+.badge-ornamental::after { right: 8px; }
+
+/* Marble background section — CSS-only premium texture */
+.marble-bg {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(45, 74, 79, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(30, 58, 63, 0.5) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(26, 42, 46, 0.7) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 30%, rgba(45, 80, 85, 0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 90% 60%, rgba(20, 50, 55, 0.4) 0%, transparent 45%),
+    var(--hero-gradient);
+  background-image: url('/images/textures/dark-marble.jpg'),
+    radial-gradient(ellipse at 20% 50%, rgba(45, 74, 79, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(30, 58, 63, 0.5) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(26, 42, 46, 0.7) 0%, transparent 50%),
+    var(--hero-gradient);
+  background-size: cover, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  background-blend-mode: overlay, normal, normal, normal, normal;
+  background-position: center;
+}
+
+/* Aqua background section — CSS-only water effect */
+.aqua-bg {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(184, 227, 234, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(91, 188, 201, 0.2) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 90%, rgba(157, 216, 226, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 70%, rgba(197, 232, 238, 0.3) 0%, transparent 45%),
+    var(--aqua-gradient);
+  background-image: url('/images/textures/water-texture.webp'),
+    radial-gradient(ellipse at 30% 20%, rgba(184, 227, 234, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(91, 188, 201, 0.2) 0%, transparent 40%),
+    var(--aqua-gradient);
+  background-size: cover, 100% 100%, 100% 100%, 100% 100%;
+  background-blend-mode: soft-light, normal, normal, normal;
+  background-position: center;
+}
+
+/* Hero dark button (with gold border) */
+.btn-dark-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  background: rgba(26, 42, 46, 0.8);
+  color: var(--gold-bright);
+  border: 2px solid var(--gold);
+  backdrop-filter: blur(10px);
+}
+
+.btn-dark-gold:hover {
+  background: rgba(26, 42, 46, 1);
+  border-color: var(--gold-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201, 168, 76, 0.3);
+  text-decoration: none;
+}
+
+/* ========== PREMIUM ANIMATIONS ========== */
+
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes sparkle-float {
+  0%, 100% {
+    opacity: 0.3;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.2);
+  }
+}
+
+@keyframes bubble-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(100%) scale(0.5);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(1);
+  }
+}
+
+@keyframes gentle-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(201, 168, 76, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(201, 168, 76, 0.3);
+  }
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
 }
 
 /* Google Auth Button */

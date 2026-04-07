@@ -25,7 +25,7 @@ export default async function UniversidadePage({ searchParams }) {
 
       {/* Hero */}
       <section style={{
-        background: 'linear-gradient(135deg, #0d3b66 0%, #1a6baa 50%, #2e8b57 100%)',
+        background: 'linear-gradient(135deg, #0d3b66 0%, var(--cds-intense) 60%, var(--cds) 100%)',
         padding: '80px 20px 60px',
         textAlign: 'center',
         color: 'white',
@@ -35,7 +35,8 @@ export default async function UniversidadePage({ searchParams }) {
           <h1 style={{
             fontSize: 'clamp(2rem, 4vw, 3rem)',
             marginBottom: '16px',
-            fontWeight: '800',
+            fontFamily: "'Italiana', serif",
+            fontWeight: 400,
           }}>
             Universidade Dioxi
           </h1>
@@ -76,9 +77,9 @@ export default async function UniversidadePage({ searchParams }) {
                 style={{
                   padding: '8px 20px',
                   borderRadius: '50px',
-                  border: isActive ? '2px solid #1a6baa' : '2px solid #c5d8e8',
-                  background: isActive ? '#1a6baa' : 'white',
-                  color: isActive ? 'white' : '#4a6a8a',
+                  border: isActive ? '2px solid var(--cds)' : '2px solid var(--border)',
+                  background: isActive ? 'var(--cds)' : 'white',
+                  color: isActive ? 'var(--cds-dark)' : 'var(--text-muted)',
                   fontSize: '0.9rem',
                   fontWeight: '600',
                   textDecoration: 'none',
@@ -109,7 +110,7 @@ export default async function UniversidadePage({ searchParams }) {
                 Estamos preparando artigos e estudos cientificos sobre Dioxido de Cloro e Terapias Bio-oxidativas.
                 Volte em breve para conferir!
               </p>
-              <Link href="/" className="btn btn-primary" style={{ marginTop: '24px', display: 'inline-block' }}>
+              <Link href="/" className="btn btn-gold" style={{ marginTop: '24px', display: 'inline-block' }}>
                 Voltar para o Inicio
               </Link>
             </div>
@@ -130,10 +131,10 @@ export default async function UniversidadePage({ searchParams }) {
                   <article style={{
                     background: 'white',
                     borderRadius: '20px',
-                    border: '1px solid #dde9f2',
+                    border: '1px solid var(--border)',
                     overflow: 'hidden',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 2px 10px rgba(13,59,102,0.08)',
+                    boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
@@ -141,7 +142,7 @@ export default async function UniversidadePage({ searchParams }) {
                     {/* Color header */}
                     <div style={{
                       height: '6px',
-                      background: 'linear-gradient(90deg, #1a6baa, #2e8b57)',
+                      background: 'linear-gradient(90deg, var(--cds), var(--success))',
                     }} />
 
                     <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -153,8 +154,8 @@ export default async function UniversidadePage({ searchParams }) {
                         fontSize: '0.75rem',
                         fontWeight: '600',
                         marginBottom: '12px',
-                        background: 'rgba(26,107,170,0.1)',
-                        color: '#1a6baa',
+                        background: 'rgba(201, 168, 76, 0.15)',
+                        color: 'var(--cds-dark)',
                         alignSelf: 'flex-start',
                       }}>
                         {post.category}
@@ -164,7 +165,7 @@ export default async function UniversidadePage({ searchParams }) {
                         fontSize: '1.15rem',
                         fontWeight: '700',
                         marginBottom: '8px',
-                        color: '#0d2137',
+                        color: 'var(--marine)',
                         lineHeight: 1.3,
                       }}>
                         {post.title}
@@ -172,7 +173,7 @@ export default async function UniversidadePage({ searchParams }) {
 
                       {post.excerpt && (
                         <p style={{
-                          color: '#4a6a8a',
+                          color: 'var(--text-muted)',
                           fontSize: '0.9rem',
                           lineHeight: 1.6,
                           marginBottom: '16px',

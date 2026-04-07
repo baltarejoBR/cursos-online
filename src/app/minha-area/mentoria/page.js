@@ -61,7 +61,7 @@ export default function MentoriaPage() {
           <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '400px', margin: '0 auto 24px' }}>
             A mentoria esta disponivel para quem adquiriu o pacote de atendimento personalizado.
           </p>
-          <Link href="/planos" className="btn btn-primary">Ver Planos</Link>
+          <Link href="/planos" className="btn btn-gold">Ver Planos</Link>
         </div>
 
         {/* Mostrar o que inclui */}
@@ -168,7 +168,7 @@ export default function MentoriaPage() {
               href={mentoria?.externalUrl || 'https://wa.me/75998546139'}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary"
+              className="btn btn-gold"
               style={{ textDecoration: 'none' }}
             >
               Agendar via WhatsApp

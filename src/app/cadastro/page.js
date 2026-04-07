@@ -69,12 +69,12 @@ export default function CadastroPage() {
       <Header />
       <div className="form-page">
         <div className="form-card" style={{ textAlign: 'center' }}>
-          <h1>Cadastro realizado!</h1>
+          <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Cadastro realizado!</h1>
           <p className="subtitle">
             Enviamos um link de confirmação para <strong>{email}</strong>.
             Verifique sua caixa de entrada (e spam) para ativar sua conta.
           </p>
-          <Link href="/login" className="btn btn-primary">
+          <Link href="/login" className="btn btn-gold">
             Ir para Login
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default function CadastroPage() {
     <Header />
     <div className="form-page">
       <div className="form-card">
-        <h1>Criar Conta</h1>
+        <h1 style={{ fontFamily: "'Italiana', serif", fontWeight: 400 }}>Criar Conta</h1>
         <p className="subtitle">Cadastre-se grátis e comece a aprender agora.</p>
 
         {error && <div className="error-msg">{error}</div>}
@@ -149,7 +149,7 @@ export default function CadastroPage() {
             </small>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
+          <button type="submit" className="btn btn-gold btn-full" disabled={loading}>
             {loading ? 'Cadastrando...' : 'Criar Conta Grátis'}
           </button>
         </form>

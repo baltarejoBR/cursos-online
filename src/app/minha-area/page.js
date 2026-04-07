@@ -113,7 +113,7 @@ export default function MinhaAreaPage() {
             <button
               onClick={saveTelegram}
               disabled={savingTelegram}
-              className="btn btn-primary"
+              className="btn btn-gold"
               style={{ padding: '6px 16px', fontSize: '0.85rem' }}
             >
               {savingTelegram ? 'Salvando...' : 'Salvar'}
@@ -181,7 +181,7 @@ export default function MinhaAreaPage() {
           <p style={{ color: 'var(--text-muted)', marginBottom: '20px', fontSize: '1.1rem' }}>
             Voce ainda nao tem acesso a nenhum produto.
           </p>
-          <Link href="/planos" className="btn btn-primary">
+          <Link href="/planos" className="btn btn-gold">
             Ver Produtos
           </Link>
         </div>
@@ -237,8 +237,8 @@ export default function MinhaAreaPage() {
 
       {/* CTA para ver mais produtos */}
       <div style={{
-        background: 'linear-gradient(135deg, #d4e8c2 0%, var(--bg-card) 100%)',
-        border: '1px solid var(--primary)',
+        background: 'linear-gradient(135deg, var(--cds-pale) 0%, var(--bg-card) 100%)',
+        border: '1px solid var(--cds)',
         borderRadius: '16px',
         padding: '40px',
         textAlign: 'center',
@@ -248,7 +248,7 @@ export default function MinhaAreaPage() {
         <p style={{ color: 'var(--text-muted)', marginBottom: '24px', maxWidth: '500px', margin: '0 auto 24px' }}>
           Confira todos os nossos cursos, livros e servicos disponiveis.
         </p>
-        <Link href="/planos" className="btn btn-primary">Ver Todos os Produtos</Link>
+        <Link href="/planos" className="btn btn-gold">Ver Todos os Produtos</Link>
       </div>
     </div>
   );

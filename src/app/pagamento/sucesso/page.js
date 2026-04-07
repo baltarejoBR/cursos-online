@@ -65,7 +65,7 @@ function SucessoContent() {
             href="https://calendly.com/baltarejo/consultoria"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary"
+            className="btn btn-gold"
             style={{
               textDecoration: 'none',
               fontSize: '1rem',
@@ -77,7 +77,7 @@ function SucessoContent() {
         </div>
       ) : null}
 
-      <Link href="/minha-area" className="btn btn-primary btn-full">
+      <Link href="/minha-area" className="btn btn-gold btn-full">
         Ir para Minha Area
       </Link>
 

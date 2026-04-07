@@ -55,7 +55,7 @@ export default function SetupPage() {
             <p style={{ color: 'var(--success)', fontWeight: '600', fontSize: '1.1rem' }}>
               Tudo configurado! O sistema está pronto para uso.
             </p>
-            <Link href="/" className="btn btn-primary" style={{ marginTop: '16px' }}>
+            <Link href="/" className="btn btn-gold" style={{ marginTop: '16px' }}>
               Ir para o Site
             </Link>
           </div>
@@ -144,7 +144,7 @@ export default function SetupPage() {
           <button onClick={checkSetup} className="btn btn-outline" style={{ marginRight: '12px' }}>
             Verificar Novamente
           </button>
-          <Link href="/" className="btn btn-primary">
+          <Link href="/" className="btn btn-gold">
             Ir para o Site
           </Link>
         </div>

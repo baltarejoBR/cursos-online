@@ -25,38 +25,33 @@ export default async function Home() {
     <>
       <Header />
 
-      {/* HERO */}
-      <section style={{
+      {/* HERO — Premium Marble */}
+      <section className="marble-bg" style={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '85vh',
-        background: 'linear-gradient(135deg, #1a1a1a 0%, #2d3a25 50%, #1a2915 100%)',
         color: 'white',
         padding: '60px 20px',
         position: 'relative',
         overflow: 'hidden',
       }}>
+        {/* Sparkle decorations */}
+        <div style={{ position: 'absolute', top: '10%', left: '5%', color: '#c9a84c', opacity: 0.4, fontSize: '1.2rem', animation: 'sparkle-twinkle 3s ease-in-out infinite' }}>✦</div>
+        <div style={{ position: 'absolute', top: '20%', right: '8%', color: '#c9a84c', opacity: 0.3, fontSize: '0.8rem', animation: 'sparkle-twinkle 4s ease-in-out infinite 1s' }}>✦</div>
+        <div style={{ position: 'absolute', bottom: '15%', left: '10%', color: '#c9a84c', opacity: 0.25, fontSize: '1rem', animation: 'sparkle-twinkle 5s ease-in-out infinite 2s' }}>✦</div>
+        <div style={{ position: 'absolute', bottom: '25%', right: '12%', color: '#c9a84c', opacity: 0.35, fontSize: '0.6rem', animation: 'sparkle-twinkle 3.5s ease-in-out infinite 0.5s' }}>✦</div>
         <div style={{
           maxWidth: '1200px',
           margin: '0 auto',
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: '1fr 1.15fr',
           gap: '60px',
           alignItems: 'center',
           width: '100%',
         }} className="hero-grid">
           <div>
-            <div style={{
-              display: 'inline-block',
-              background: 'rgba(200, 214, 22, 0.2)',
-              border: '1px solid rgba(200, 214, 22, 0.4)',
-              borderRadius: '20px',
-              padding: '6px 16px',
-              fontSize: '0.85rem',
-              marginBottom: '20px',
-              color: '#d6e234',
-            }}>
+            <div className="badge-ornamental" style={{ marginBottom: '20px' }}>
               +300 alunos transformando sua saude
             </div>
             <h1 style={{
@@ -67,7 +62,7 @@ export default async function Home() {
               marginBottom: '20px',
             }}>
               Transforme sua{' '}
-              <span style={{ color: '#c8d616' }}>Saude</span>{' '}
+              <span style={{ color: '#c9a84c' }}>Saude</span>{' '}
               com o Metodo Corpo Limpo
             </h1>
             <p style={{
@@ -80,42 +75,43 @@ export default async function Home() {
               Aprenda tudo sobre Terapias Bio-oxidativas com cursos, livros e mentoria personalizada com Gabriel Baltarejo.
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-cds" style={{
+              <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-gold" style={{
                 fontSize: '1.05rem',
                 padding: '16px 36px',
               }}>
                 Guia Gratis para Iniciantes
               </a>
-              <Link href="/loja" className="btn btn-cds" style={{
+              <Link href="/loja" className="btn-dark-gold" style={{
                 fontSize: '1.05rem',
                 padding: '16px 36px',
               }}>
                 Comprar Dioxi (SDC)
               </Link>
-              <Link href="#qual-produto" className="btn btn-outline" style={{
+              <Link href="#qual-produto" className="btn-dark-gold" style={{
                 fontSize: '1.05rem',
                 padding: '16px 36px',
-                color: 'white',
-                borderColor: 'rgba(255,255,255,0.3)',
+                borderColor: 'rgba(201, 168, 76, 0.4)',
               }}>
                 Qual produto escolher?
               </Link>
             </div>
           </div>
-          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '450px', margin: '0 auto' }}>
-            <Image
-              src={getImageUrl('gabriel/hero-gabriel.jpeg')}
-              alt="Gabriel Baltarejo"
-              width={450}
-              height={550}
-              style={{
-                width: '100%',
-                height: 'auto',
-                borderRadius: '20px',
-                boxShadow: '0 20px 60px rgba(0,0,0,0.4)',
-              }}
-              priority
-            />
+          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '550px', margin: '0 auto' }}>
+            <div className="gold-frame" style={{ display: 'inline-block', overflow: 'hidden', animation: 'gentle-glow 4s ease-in-out infinite' }}>
+              <Image
+                src={getImageUrl('gabriel/hero-gabriel.jpeg')}
+                alt="Gabriel Baltarejo"
+                width={550}
+                height={670}
+                sizes="(max-width: 768px) 100vw, 550px"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block',
+                }}
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -197,10 +193,73 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* POR QUE CONFIAR NO CDS? */}
+      <section style={{
+        background: 'var(--bg)',
+        padding: '48px 20px',
+        borderTop: '1px solid var(--border)',
+        borderBottom: '1px solid var(--border)',
+      }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{
+            fontFamily: "'Italiana', serif",
+            fontSize: '1.6rem',
+            fontWeight: '400',
+            marginBottom: '32px',
+            color: 'var(--text)',
+          }}>
+            Por que confiar no <span style={{ color: '#c9a84c' }}>CDS</span>?
+          </h2>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '40px',
+            flexWrap: 'wrap',
+          }}>
+            {[
+              { icon: '🛡️', numero: '30+ anos', label: 'Utilizado no mundo inteiro' },
+              { icon: '👤', numero: '10 anos', label: 'Gabriel usa pessoalmente' },
+              { icon: '📦', numero: '6 anos', label: 'Distribuindo sem problemas' },
+              { icon: '✅', numero: 'Zero', label: 'Efeitos colaterais relatados' },
+            ].map(item => (
+              <div key={item.numero} style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '4px',
+                minWidth: '140px',
+              }}>
+                <span style={{ fontSize: '1.8rem' }}>{item.icon}</span>
+                <span style={{
+                  fontSize: '1.6rem',
+                  fontWeight: '700',
+                  color: 'var(--text)',
+                  fontFamily: "'Italiana', serif",
+                }}>{item.numero}</span>
+                <span style={{
+                  fontSize: '0.85rem',
+                  color: 'var(--text-muted)',
+                }}>{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <p style={{
+            marginTop: '24px',
+            fontSize: '0.9rem',
+            color: 'var(--text-light)',
+            maxWidth: '600px',
+            margin: '24px auto 0',
+            lineHeight: '1.6',
+          }}>
+            O que muitos chamam de &quot;efeito colateral&quot; sao, na verdade, reacoes de detoxificacao — um sinal de que o corpo esta eliminando toxinas.
+          </p>
+        </div>
+      </section>
+
       {/* PRODUTOS DESTAQUE DA LOJA */}
       {featuredProducts.length > 0 && (
         <section style={{
-          background: 'linear-gradient(135deg, #1a2915 0%, #2d3a25 100%)',
+          background: 'var(--hero-gradient)',
           padding: '60px 20px',
           color: 'white',
         }}>
@@ -250,8 +309,8 @@ export default async function Home() {
                     fontSize: '0.75rem',
                     fontWeight: '700',
                     marginBottom: '12px',
-                    background: 'rgba(122,179,86,0.3)',
-                    color: '#d6e234',
+                    background: 'rgba(201, 168, 76, 0.25)',
+                    color: '#dfc06a',
                   }}>
                     {product.category === 'Combo' ? 'Kit Completo' : 'SDC Puro'}
                   </span>
@@ -262,7 +321,7 @@ export default async function Home() {
                     {product.items_description}
                   </p>
                   <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#c8d616' }}>
+                    <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#c9a84c' }}>
                       {product.price_display}
                     </div>
                     {product.installments && (
@@ -322,11 +381,11 @@ export default async function Home() {
           textAlign: 'center',
         }}>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>+300</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--gold)' }}>+300</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Alunos</div>
           </div>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>4.9/5</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--gold)' }}>4.9/5</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Avaliacao dos alunos</div>
           </div>
           <div>
@@ -349,7 +408,7 @@ export default async function Home() {
             </a>
           </div>
           <div>
-            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--primary)' }}>50+</div>
+            <div style={{ fontSize: '2rem', fontWeight: '800', color: 'var(--gold)' }}>50+</div>
             <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Paises</div>
           </div>
         </div>
@@ -379,7 +438,7 @@ export default async function Home() {
                 padding: '20px',
                 position: 'relative',
               }}>
-                <div style={{ fontSize: '1.5rem', color: 'var(--primary)', marginBottom: '8px', opacity: 0.3 }}>&ldquo;</div>
+                <div style={{ fontSize: '1.5rem', color: 'var(--gold)', marginBottom: '8px', opacity: 0.5 }}>&ldquo;</div>
                 <p style={{
                   color: 'var(--text)',
                   fontSize: '0.9rem',
@@ -427,7 +486,7 @@ export default async function Home() {
 
       {/* GUIA GRATIS */}
       <section style={{
-        background: 'linear-gradient(135deg, #a8b814 0%, #2e8b57 100%)',
+        background: 'linear-gradient(135deg, #8a6d1b 0%, #c9a84c 100%)',
         padding: '60px 20px',
         color: 'white',
         textAlign: 'center',
@@ -463,6 +522,84 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* MITOS E VERDADES SOBRE O CDS */}
+      <section style={{
+        background: 'var(--hero-gradient)',
+        padding: '80px 20px',
+        color: 'white',
+      }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <h2 style={{
+              fontFamily: "'Italiana', serif",
+              fontSize: '2rem',
+              fontWeight: '400',
+              marginBottom: '12px',
+            }}>
+              Mitos e Verdades sobre o <span style={{ color: '#c9a84c' }}>CDS</span>
+            </h2>
+            <p style={{
+              color: 'rgba(255,255,255,0.6)',
+              fontSize: '1.05rem',
+              lineHeight: '1.7',
+              maxWidth: '600px',
+              margin: '0 auto',
+            }}>
+              Vamos ser honestos: existe muita desinformacao na internet. Aqui estao os fatos.
+            </p>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '20px',
+          }}>
+            {[
+              {
+                mito: 'CDS e perigoso e causa efeitos colaterais',
+                verdade: 'O que muitos chamam de "efeito colateral" sao, na verdade, reacoes de detoxificacao — um sinal de que o corpo esta eliminando toxinas. Com o protocolo correto, essas reacoes sao controlaveis e temporarias.',
+              },
+              {
+                mito: 'Nao existe evidencia de que funciona',
+                verdade: 'O Dioxido de Cloro e utilizado ha mais de 30 anos por milhares de pessoas em dezenas de paises. Existem estudos, livros publicados e uma comunidade global ativa compartilhando resultados.',
+              },
+              {
+                mito: 'E arriscado comprar e usar por conta propria',
+                verdade: 'Gabriel distribui Dioxi ha 6 anos, com centenas de clientes satisfeitos e zero problemas. Nossos cursos ensinam exatamente como usar de forma segura e consciente.',
+              },
+              {
+                mito: 'Se fosse bom, os medicos recomendariam',
+                verdade: 'Muitas terapias alternativas eficazes nao fazem parte da medicina convencional. O importante e se informar, estudar e tomar decisoes conscientes sobre sua propria saude.',
+              },
+            ].map(item => (
+              <div key={item.mito} style={{
+                background: 'rgba(255,255,255,0.06)',
+                borderRadius: '16px',
+                border: '1px solid rgba(255,255,255,0.1)',
+                padding: '28px',
+              }}>
+                <p style={{
+                  color: '#b93c3c',
+                  textDecoration: 'line-through',
+                  fontSize: '0.95rem',
+                  marginBottom: '12px',
+                  fontWeight: '600',
+                }}>
+                  ❌ &quot;{item.mito}&quot;
+                </p>
+                <p style={{
+                  color: 'rgba(255,255,255,0.85)',
+                  lineHeight: '1.7',
+                  fontSize: '0.95rem',
+                }}>
+                  <span style={{ color: '#c9a84c', fontWeight: '700' }}>✓</span>{' '}
+                  {item.verdade}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* QUAL PRODUTO IDEAL PRA VOCE? */}
       <section id="qual-produto" style={{
         background: 'linear-gradient(135deg, #ffffff 0%, #f9faf5 100%)',
@@ -493,16 +630,16 @@ export default async function Home() {
               background: 'var(--bg-card)',
               borderRadius: '20px',
               padding: '32px 24px',
-              border: '2px solid #c8d616',
+              border: '2px solid var(--gold)',
               position: 'relative',
-              boxShadow: '0 4px 20px rgba(200, 214, 22, 0.15)',
+              boxShadow: '0 4px 20px var(--shadow-gold)',
             }}>
               <span style={{
                 position: 'absolute',
                 top: '-12px',
                 left: '24px',
-                background: '#c8d616',
-                color: '#1a1c18',
+                background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+                color: '#1a1a1a',
                 padding: '4px 16px',
                 borderRadius: '20px',
                 fontSize: '0.8rem',
@@ -616,6 +753,65 @@ export default async function Home() {
                   Zoom ate 1h30 + acompanhamento WhatsApp por 30 dias
                 </span>
               </div>
+            </div>
+          </div>
+
+          {/* GARANTIA PESSOAL */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(26,107,170,0.06), rgba(46,139,87,0.06))',
+            border: '2px solid rgba(26,107,170,0.15)',
+            borderRadius: '20px',
+            padding: '32px',
+            maxWidth: '700px',
+            margin: '48px auto 0',
+            textAlign: 'center',
+          }}>
+            <Image
+              src={getImageUrl('gabriel/avatar-baltarejo.jpeg')}
+              alt="Gabriel Baltarejo"
+              width={60}
+              height={60}
+              style={{
+                borderRadius: '50%',
+                marginBottom: '16px',
+                border: '3px solid rgba(201, 168, 76, 0.5)',
+              }}
+            />
+            <p style={{
+              fontFamily: "'Lora', Georgia, serif",
+              fontSize: '1.1rem',
+              lineHeight: '1.8',
+              color: 'var(--text-muted)',
+              fontStyle: 'italic',
+              marginBottom: '12px',
+            }}>
+              &quot;Eu uso CDS pessoalmente ha 10 anos. Distribuo ha 6 anos para centenas de pessoas. Se nao fosse seguro, eu nao usaria na minha propria familia. Minha missao e levar informacao de qualidade para que voce possa tomar decisoes conscientes sobre sua saude.&quot;
+            </p>
+            <p style={{
+              fontWeight: '600',
+              fontSize: '0.9rem',
+              color: 'var(--text)',
+              marginBottom: '16px',
+            }}>
+              — Gabriel Baltarejo, criador do Metodo Corpo Limpo
+            </p>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '12px',
+              flexWrap: 'wrap',
+            }}>
+              {['Uso pessoal: 10 anos', 'Distribuicao: 6 anos', 'Zero problemas'].map(badge => (
+                <span key={badge} style={{
+                  background: 'rgba(201, 168, 76, 0.1)',
+                  color: 'var(--cds-dark)',
+                  padding: '4px 14px',
+                  borderRadius: '20px',
+                  fontSize: '0.8rem',
+                  fontWeight: '600',
+                  border: '1px solid rgba(201, 168, 76, 0.3)',
+                }}>{badge}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -869,7 +1065,7 @@ export default async function Home() {
 
       {/* SOBRE / AUTORIDADE */}
       <section id="sobre" style={{
-        background: '#1a1a1a',
+        background: 'var(--hero-gradient)',
         color: 'white',
         padding: '80px 20px',
       }}>
@@ -881,23 +1077,29 @@ export default async function Home() {
           gap: '60px',
           alignItems: 'center',
         }} className="sobre-grid">
-          <div style={{ position: 'relative', width: '100%', height: '420px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
+          <div style={{ position: 'relative', width: '100%', height: '500px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 12px 40px rgba(0,0,0,0.3)' }}>
             <Image
               src={getImageUrl('gabriel/gabriel-profissional.jpeg')}
               alt="Gabriel Baltarejo"
               fill
-              style={{ objectFit: 'cover' }}
+              style={{ objectFit: 'cover', objectPosition: 'top' }}
               sizes="350px"
             />
           </div>
           <div>
             <h2 style={{ fontSize: '2.2rem', marginBottom: '20px' }}>
-              Quem e <span style={{ color: '#c8d616' }}>Gabriel Baltarejo</span>?
+              Quem e <span style={{ color: '#c9a84c' }}>Gabriel Baltarejo</span>?
             </h2>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
               Pesquisador e educador sobre Terapias Bio-oxidativas, Gabriel Baltarejo
               e o criador do Metodo Corpo Limpo e autor do livro &quot;Transforme sua Saude -
               Protocolos Biooxidativos de A a Z&quot;.
+            </p>
+            <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '16px' }}>
+              Ha mais de 10 anos, Gabriel utiliza o CDS pessoalmente e ha 6 anos distribui
+              o produto para centenas de pessoas em todo o Brasil — sem nenhum problema ou
+              efeito adverso. Seu compromisso e com a transparencia: ele aborda as controversias
+              de frente e ensina protocolos seguros baseados em anos de experiencia pratica.
             </p>
             <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255,255,255,0.8)', marginBottom: '24px' }}>
               Com milhares de alunos em mais de 50 paises, Gabriel compartilha conhecimento
@@ -905,9 +1107,9 @@ export default async function Home() {
               sua saude de forma natural e consciente.
             </p>
             <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginBottom: '24px' }}>
-              {['Autor best-seller', '+300 alunos', 'Entrevistou Andreas Kalcker'].map(item => (
+              {['Autor best-seller', '+300 alunos', 'Uso pessoal: 10 anos', '6 anos distribuindo CDS', 'Entrevistou Andreas Kalcker'].map(item => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <span style={{ color: '#c8d616', fontSize: '1.2rem' }}>✓</span>
+                  <span style={{ color: '#c9a84c', fontSize: '1.2rem' }}>✓</span>
                   <span style={{ color: 'rgba(255,255,255,0.7)' }}>{item}</span>
                 </div>
               ))}
@@ -941,13 +1143,13 @@ export default async function Home() {
 
       {/* CTA FINAL */}
       <section style={{
-        background: 'linear-gradient(135deg, #2d3a25 0%, #1a2915 100%)',
+        background: 'var(--hero-gradient)',
         padding: '80px 20px',
         textAlign: 'center',
         color: 'white',
       }}>
         <div className="container">
-          <div style={{ position: 'relative', width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', border: '4px solid rgba(122, 179, 86, 0.5)', margin: '0 auto 24px' }}>
+          <div style={{ position: 'relative', width: '120px', height: '120px', borderRadius: '50%', overflow: 'hidden', border: '4px solid rgba(201, 168, 76, 0.5)', margin: '0 auto 24px' }}>
             <Image
               src={getImageUrl('gabriel/avatar-baltarejo.jpeg')}
               alt="Gabriel Baltarejo"
@@ -966,10 +1168,10 @@ export default async function Home() {
             <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
               Guia Gratis
             </a>
-            <Link href="/loja" className="btn btn-cds" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#2e8b57' }}>
+            <Link href="/loja" className="btn btn-gold" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               Comprar Dioxi (SDC)
             </Link>
-            <Link href="/produto/curso-cds-completo" className="btn btn-cds" style={{ fontSize: '1.1rem', padding: '14px 32px', background: '#1a6baa' }}>
+            <Link href="/produto/curso-cds-completo" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               Quero o Curso Completo
             </Link>
             <Link href="/produto/mentoria" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>

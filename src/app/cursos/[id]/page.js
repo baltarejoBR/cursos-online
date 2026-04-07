@@ -140,7 +140,7 @@ export default function CourseDetailPage() {
         <Header />
         <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
           <h1>Curso não encontrado</h1>
-          <Link href="/" className="btn btn-primary" style={{ marginTop: '20px' }}>
+          <Link href="/" className="btn btn-gold" style={{ marginTop: '20px' }}>
             Voltar para Home
           </Link>
         </div>
@@ -172,12 +172,12 @@ export default function CourseDetailPage() {
                     <p style={{ marginBottom: '12px' }}>
                       Este é um curso <strong>premium</strong>. Faça upgrade para acessar todo o conteúdo.
                     </p>
-                    <Link href="/planos" className="btn btn-primary">Fazer Upgrade para Premium</Link>
+                    <Link href="/planos" className="btn btn-gold">Fazer Upgrade para Premium</Link>
                   </div>
                 )
               ) : (
                 <div style={{ display: 'flex', gap: '12px' }}>
-                  <Link href="/login" className="btn btn-primary">Entrar para Acessar</Link>
+                  <Link href="/login" className="btn btn-gold">Entrar para Acessar</Link>
                   <Link href="/cadastro" className="btn btn-outline">Cadastrar</Link>
                 </div>
               )}
@@ -187,7 +187,7 @@ export default function CourseDetailPage() {
           {course.is_free && user && !enrolled && (
             <button
               onClick={handleEnroll}
-              className="btn btn-primary"
+              className="btn btn-gold"
               disabled={enrolling}
               style={{ marginTop: '24px' }}
             >
@@ -205,14 +205,14 @@ export default function CourseDetailPage() {
               {canAccessHtmlCourse() ? (
                 <button
                   onClick={handleOpenHtmlContent}
-                  className="btn btn-primary"
+                  className="btn btn-gold"
                   style={{ fontSize: '1.1rem', padding: '14px 32px' }}
                 >
                   {showHtmlContent ? '📖 Conteudo aberto abaixo' : '📖 Acessar Conteudo Completo'}
                 </button>
               ) : !user ? (
                 <div style={{ display: 'flex', gap: '12px' }}>
-                  <Link href="/login" className="btn btn-primary">Entrar para Acessar</Link>
+                  <Link href="/login" className="btn btn-gold">Entrar para Acessar</Link>
                   <Link href="/cadastro" className="btn btn-outline">Cadastrar</Link>
                 </div>
               ) : (
@@ -220,7 +220,7 @@ export default function CourseDetailPage() {
                   <p style={{ marginBottom: '12px' }}>
                     Este conteudo e exclusivo para assinantes <strong>Premium</strong>.
                   </p>
-                  <button className="btn btn-primary">Fazer Upgrade para Premium</button>
+                  <button className="btn btn-gold">Fazer Upgrade para Premium</button>
                 </div>
               )}
               {htmlError && (

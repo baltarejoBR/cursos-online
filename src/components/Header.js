@@ -65,7 +65,7 @@ export default function Header() {
           ) : (
             <>
               <Link href="/login" onClick={() => setMenuOpen(false)}>Entrar</Link>
-              <Link href="/cadastro" onClick={() => setMenuOpen(false)} className="btn btn-cds btn-sm">
+              <Link href="/cadastro" onClick={() => setMenuOpen(false)} className="btn btn-gold btn-sm">
                 Cadastrar
               </Link>
             </>
