@@ -1,8 +1,6 @@
 // Gera embeddings para todas as entries aprovadas da base de conhecimento
 // Executar: node scripts/generate-embeddings.js
 
-const { createClient } = require('@supabase/supabase-js');
-const OpenAI = require('openai');
 const { readFileSync } = require('fs');
 const { resolve } = require('path');
 
@@ -15,27 +13,40 @@ for (const line of envContent.split('\n')) {
   if (match) env[match[1].trim()] = match[2].trim();
 }
 
-const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
-const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
+const SUPABASE_URL = env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_KEY = env.SUPABASE_SERVICE_ROLE_KEY;
+const OPENAI_API_KEY = env.OPENAI_API_KEY;
+
+const supaHeaders = {
+  'apikey': SUPABASE_KEY,
+  'Authorization': `Bearer ${SUPABASE_KEY}`,
+  'Content-Type': 'application/json',
+};
 
 async function generateEmbedding(text) {
-  const response = await openai.embeddings.create({
-    model: 'text-embedding-3-small',
-    input: text,
+  const res = await fetch('https://api.openai.com/v1/embeddings', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${OPENAI_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ model: 'text-embedding-3-small', input: text }),
   });
-  return response.data[0].embedding;
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error?.message || 'OpenAI error');
+  return data.data[0].embedding;
 }
 
 async function main() {
   // Buscar entries sem embedding
-  const { data: entries, error } = await supabase
-    .from('knowledge_base')
-    .select('id, question, answer, category')
-    .eq('status', 'approved')
-    .is('embedding', null);
+  const res = await fetch(
+    `${SUPABASE_URL}/rest/v1/knowledge_base?status=eq.approved&embedding=is.null&select=id,question,answer,category`,
+    { headers: supaHeaders }
+  );
+  const entries = await res.json();
 
-  if (error) {
-    console.error('Erro ao buscar entries:', error.message);
+  if (!res.ok) {
+    console.error('Erro ao buscar entries:', JSON.stringify(entries));
     return;
   }
 
@@ -43,19 +54,23 @@ async function main() {
 
   let count = 0;
   for (const entry of entries) {
-    // Combinar pergunta + resposta para embedding mais rico
     const textForEmbedding = `${entry.question}\n${entry.answer}`;
 
     try {
       const embedding = await generateEmbedding(textForEmbedding);
 
-      const { error: updateError } = await supabase
-        .from('knowledge_base')
-        .update({ embedding: JSON.stringify(embedding) })
-        .eq('id', entry.id);
+      const updateRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/knowledge_base?id=eq.${entry.id}`,
+        {
+          method: 'PATCH',
+          headers: { ...supaHeaders, 'Prefer': 'return=minimal' },
+          body: JSON.stringify({ embedding: JSON.stringify(embedding) }),
+        }
+      );
 
-      if (updateError) {
-        console.error(`  [ERRO] ${entry.question.slice(0, 50)}: ${updateError.message}`);
+      if (!updateRes.ok) {
+        const errText = await updateRes.text();
+        console.error(`  [ERRO] ${entry.question.slice(0, 50)}: ${errText}`);
       } else {
         count++;
         console.log(`  [OK] ${entry.question.slice(0, 60)}`);
