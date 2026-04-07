@@ -47,7 +47,24 @@ export async function POST(request) {
     const bestScore = contextEntries.length > 0 ? (contextEntries[0].similarity || 0) : 0;
     const hasRelevantContext = bestScore >= 0.5;
 
-    // 3. Fallback: busca por texto se semantica nao retornar nada
+    // 3. Busca complementar por texto (ILIKE) para pegar entries sem embedding
+    const { data: textMatches } = await supabaseAdmin
+      .from('knowledge_base')
+      .select('question, answer, category')
+      .eq('status', 'approved')
+      .ilike('question', `%${message.slice(0, 40)}%`)
+      .limit(5);
+
+    if (textMatches && textMatches.length > 0) {
+      const existingQuestions = new Set(contextEntries.map(e => e.question));
+      for (const match of textMatches) {
+        if (!existingQuestions.has(match.question)) {
+          contextEntries.push(match);
+        }
+      }
+    }
+
+    // 4. Fallback: busca fuzzy por texto se semantica nao retornar nada
     if (contextEntries.length === 0) {
       const { data: textResults } = await supabaseAdmin.rpc('search_knowledge_base', {
         search_query: message,
@@ -58,14 +75,21 @@ export async function POST(request) {
       contextEntries = textResults || [];
     }
 
-    // 4. Ultimo fallback: todas as entries aprovadas
-    if (contextEntries.length === 0) {
+    // 5. Ultimo fallback: todas as entries aprovadas (inclui entries sem embedding)
+    if (contextEntries.length === 0 || !hasRelevantContext) {
       const { data: allEntries } = await supabaseAdmin
         .from('knowledge_base')
         .select('question, answer, category')
         .eq('status', 'approved')
         .limit(30);
-      contextEntries = allEntries || [];
+      if (allEntries && allEntries.length > 0) {
+        const existingQuestions = new Set(contextEntries.map(e => e.question));
+        for (const entry of allEntries) {
+          if (!existingQuestions.has(entry.question)) {
+            contextEntries.push(entry);
+          }
+        }
+      }
     }
 
     // Montar contexto da base de conhecimento

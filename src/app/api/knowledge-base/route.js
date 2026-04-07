@@ -198,7 +198,9 @@ export async function POST(request) {
         const textForEmbedding = `${question || ''}\n${answer || ''}`;
         const embedding = await generateEmbedding(textForEmbedding);
         updateData.embedding = JSON.stringify(embedding);
-      } catch {}
+      } catch (err) {
+        console.error('Embedding generation failed for entry', id, ':', err.message);
+      }
     }
 
     const { data, error } = await supabaseAdmin
@@ -225,7 +227,9 @@ export async function POST(request) {
   if (answer) {
     try {
       embedding = JSON.stringify(await generateEmbedding(`${question}\n${answer}`));
-    } catch {}
+    } catch (err) {
+      console.error('Embedding generation failed for new entry:', err.message);
+    }
   }
 
   const { data, error } = await supabaseAdmin
