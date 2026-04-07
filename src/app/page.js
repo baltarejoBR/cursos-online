@@ -200,59 +200,70 @@ export default async function Home() {
         borderTop: '1px solid var(--border)',
         borderBottom: '1px solid var(--border)',
       }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: '1.6rem',
-            fontWeight: '400',
-            marginBottom: '32px',
-            color: 'var(--text)',
-          }}>
-            Por que confiar no <span style={{ color: '#c9a84c' }}>CDS</span>?
-          </h2>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '40px',
-            flexWrap: 'wrap',
-          }}>
-            {[
-              { icon: '🛡️', numero: '30+ anos', label: 'Utilizado no mundo inteiro' },
-              { icon: '👤', numero: '10 anos', label: 'Gabriel usa pessoalmente' },
-              { icon: '📦', numero: '6 anos', label: 'Distribuindo sem problemas' },
-              { icon: '✅', numero: 'Zero', label: 'Efeitos colaterais relatados' },
-            ].map(item => (
-              <div key={item.numero} style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '4px',
-                minWidth: '140px',
-              }}>
-                <span style={{ fontSize: '1.8rem' }}>{item.icon}</span>
-                <span style={{
-                  fontSize: '1.6rem',
-                  fontWeight: '700',
-                  color: 'var(--text)',
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                }}>{item.numero}</span>
-                <span style={{
-                  fontSize: '0.85rem',
-                  color: 'var(--text-muted)',
-                }}>{item.label}</span>
-              </div>
-            ))}
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: '200px 1fr', gap: '40px', alignItems: 'center' }} className="confianca-grid">
+          <div style={{ position: 'relative', width: '100%', height: '260px', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 8px 30px rgba(0,0,0,0.1)' }}>
+            <Image
+              src="/images/garrafa-cds.jpg"
+              alt="CDS - Solução de Dióxido de Cloro"
+              fill
+              style={{ objectFit: 'cover' }}
+              sizes="200px"
+            />
           </div>
-          <p style={{
-            marginTop: '24px',
-            fontSize: '0.9rem',
-            color: 'var(--text-light)',
-            maxWidth: '600px',
-            margin: '24px auto 0',
-            lineHeight: '1.6',
-          }}>
-            O que muitos chamam de &quot;efeito colateral&quot; são, na verdade, reações de detoxificação — um sinal de que o corpo está eliminando toxinas.
-          </p>
+          <div style={{ textAlign: 'center' }}>
+            <h2 style={{
+              fontFamily: "'Playfair Display', Georgia, serif",
+              fontSize: '1.6rem',
+              fontWeight: '400',
+              marginBottom: '32px',
+              color: 'var(--text)',
+            }}>
+              Por que confiar no <span style={{ color: '#c9a84c' }}>CDS</span>?
+            </h2>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: '40px',
+              flexWrap: 'wrap',
+            }}>
+              {[
+                { icon: '🛡️', numero: '30+ anos', label: 'Desde Jim Humble nos anos 90' },
+                { icon: '🔬', numero: 'Desde 2006', label: 'Estudado por Andreas Kalcker' },
+                { icon: '👤', numero: '10 anos', label: 'Gabriel usa pessoalmente' },
+                { icon: '📦', numero: '6 anos', label: 'Distribuindo sem problemas' },
+              ].map(item => (
+                <div key={item.numero} style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '4px',
+                  minWidth: '140px',
+                }}>
+                  <span style={{ fontSize: '1.8rem' }}>{item.icon}</span>
+                  <span style={{
+                    fontSize: '1.6rem',
+                    fontWeight: '700',
+                    color: 'var(--text)',
+                    fontFamily: "'Playfair Display', Georgia, serif",
+                  }}>{item.numero}</span>
+                  <span style={{
+                    fontSize: '0.85rem',
+                    color: 'var(--text-muted)',
+                  }}>{item.label}</span>
+                </div>
+              ))}
+            </div>
+            <p style={{
+              marginTop: '24px',
+              fontSize: '0.9rem',
+              color: 'var(--text-light)',
+              maxWidth: '600px',
+              margin: '24px auto 0',
+              lineHeight: '1.6',
+            }}>
+              Descoberto por Jim Humble, estudado pelo biofísico Andreas Kalcker desde 2006 e legalizado na Bolívia pela Dra. Patricia Callisperis junto à COMUSAV — o CDS tem décadas de uso seguro documentado.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -491,8 +502,19 @@ export default async function Home() {
         color: 'white',
         textAlign: 'center',
       }}>
-        <div className="container" style={{ maxWidth: '700px' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📖</div>
+        <div className="container" style={{ maxWidth: '800px' }}>
+          <Image
+            src="/images/gabriel-com-cds.jpeg"
+            alt="Gabriel Baltarejo com CDS"
+            width={120}
+            height={80}
+            style={{
+              borderRadius: '12px',
+              marginBottom: '16px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+              objectFit: 'cover',
+            }}
+          />
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.8rem', marginBottom: '12px' }}>
             Novo por aqui? Comece pelo Guia Gratuito!
           </h2>
@@ -530,6 +552,18 @@ export default async function Home() {
       }}>
         <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <Image
+              src="/images/gabriel-cds-rustico.jpeg"
+              alt="Gabriel Baltarejo segurando CDS"
+              width={100}
+              height={100}
+              style={{
+                borderRadius: '50%',
+                marginBottom: '16px',
+                border: '3px solid rgba(201, 168, 76, 0.4)',
+                objectFit: 'cover',
+              }}
+            />
             <h2 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
               fontSize: '2rem',
@@ -560,7 +594,7 @@ export default async function Home() {
               },
               {
                 mito: 'Não existe evidência de que funciona',
-                verdade: 'O Dióxido de Cloro é utilizado há mais de 30 anos por milhares de pessoas em dezenas de países. Existem estudos, livros publicados e uma comunidade global ativa compartilhando resultados.',
+                verdade: 'Jim Humble descobriu o CDS nos anos 90. Desde 2006, o biofísico Andreas Kalcker estuda e documenta seus efeitos. Médicos como Patricia Callisperis foram responsáveis pela legalização do CDS na Bolívia junto à COMUSAV. São décadas de uso, estudos e uma comunidade global ativa.',
               },
               {
                 mito: 'É arriscado comprar e usar por conta própria',
@@ -568,7 +602,7 @@ export default async function Home() {
               },
               {
                 mito: 'Se fosse bom, os médicos recomendariam',
-                verdade: 'Muitas terapias alternativas eficazes não fazem parte da medicina convencional. O importante é se informar, estudar e tomar decisões conscientes sobre sua própria saúde.',
+                verdade: 'Muitos médicos já recomendam e utilizam o CDS. A Dra. Patricia Callisperis liderou a legalização na Bolívia, e a COMUSAV reúne milhares de profissionais de saúde em todo o mundo que utilizam o Dióxido de Cloro em seus protocolos.',
               },
             ].map(item => (
               <div key={item.mito} style={{
@@ -767,14 +801,15 @@ export default async function Home() {
             textAlign: 'center',
           }}>
             <Image
-              src={getImageUrl('gabriel/avatar-baltarejo.jpeg')}
-              alt="Gabriel Baltarejo"
-              width={60}
-              height={60}
+              src="/images/gabriel-real-cds.png"
+              alt="Gabriel Baltarejo com CDS"
+              width={90}
+              height={90}
               style={{
                 borderRadius: '50%',
                 marginBottom: '16px',
                 border: '3px solid rgba(201, 168, 76, 0.5)',
+                objectFit: 'cover',
               }}
             />
             <p style={{
@@ -1107,7 +1142,7 @@ export default async function Home() {
               sua saúde de forma natural e consciente.
             </p>
             <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', marginBottom: '24px' }}>
-              {['Autor best-seller', '+300 alunos', 'Uso pessoal: 10 anos', '6 anos distribuindo CDS', 'Entrevistou Andreas Kalcker'].map(item => (
+              {['Autor best-seller', '+300 alunos', 'Uso pessoal: 10 anos', '6 anos distribuindo CDS', 'Entrevistou Andreas Kalcker (biofísico)'].map(item => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <span style={{ color: '#c9a84c', fontSize: '1.2rem' }}>✓</span>
                   <span style={{ color: 'rgba(255,255,255,0.7)' }}>{item}</span>

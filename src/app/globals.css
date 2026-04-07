@@ -1314,6 +1314,8 @@ a:hover {
   .hero-grid > div:first-child { display: flex; flex-direction: column; align-items: center; }
   .sobre-grid { grid-template-columns: 1fr !important; gap: 30px !important; text-align: center; }
   .sobre-grid img { max-width: 280px; margin: 0 auto; }
+  .confianca-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .confianca-grid > div:first-child { max-width: 160px; height: 200px !important; margin: 0 auto; }
   .destaque-grid { grid-template-columns: 1fr !important; gap: 30px !important; text-align: center; }
   .destaque-grid ul { text-align: left; }
 }
