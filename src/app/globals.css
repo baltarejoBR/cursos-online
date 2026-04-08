@@ -873,9 +873,9 @@ a:hover {
   .nav a,
   .nav .nav-link,
   .nav button {
-    padding: 14px 0;
+    padding: 16px 0;
     border-bottom: 1px solid var(--border-light);
-    font-size: 1rem;
+    font-size: 1.25rem;
     width: 100%;
     text-align: left;
     color: var(--text);
@@ -888,12 +888,12 @@ a:hover {
   }
 
   .nav-dropdown-trigger {
-    padding: 14px 0;
+    padding: 16px 0;
     border: none;
     border-bottom: 1px solid var(--border-light);
     border-radius: 0;
     background: none;
-    font-size: 1rem;
+    font-size: 1.25rem;
     width: 100%;
     text-align: left;
     justify-content: space-between;
@@ -949,10 +949,11 @@ a:hover {
   }
 
   .nav-dropdown-item {
-    padding: 12px 8px !important;
+    padding: 14px 12px !important;
     border-radius: 8px;
     margin: 4px 0;
     color: var(--text);
+    font-size: 1.15rem;
   }
 
   .nav-dropdown-icon {
