@@ -42,6 +42,14 @@ export default function TEAmorPage() {
             TEAmor
           </h1>
           <p style={{
+            fontSize: '0.95rem',
+            color: 'rgba(255,255,255,0.5)',
+            margin: '0 auto 20px',
+            fontStyle: 'italic',
+          }}>
+            TEA + Amor — para famílias de crianças no espectro autista e crianças atípicas
+          </p>
+          <p style={{
             fontSize: '1.25rem',
             color: 'rgba(255,255,255,0.85)',
             lineHeight: 1.7,

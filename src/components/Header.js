@@ -27,6 +27,7 @@ const NAV_ITEMS = [
     children: [
       { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'Conteúdo gratuito para iniciantes' },
       { label: 'Cursos', href: '/planos', icon: '📚', desc: 'Cursos completos e especializados' },
+      { label: 'TEAmor', href: '/teamor', icon: '💙', desc: 'Curso para famílias de crianças atípicas' },
       { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada' },
     ],
   },
