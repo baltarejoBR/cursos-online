@@ -69,7 +69,7 @@ export const PRODUCTS = [
     priceNote: '/mês',
     type: 'subscription',
     interval: 'month',
-    hidden: false,
+    hidden: true,
     features: [
       'Aulas completas em áudio no Telegram',
       'Conteúdo rico e detalhado sobre saúde infantil',

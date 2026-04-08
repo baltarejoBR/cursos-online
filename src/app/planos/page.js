@@ -146,7 +146,7 @@ function PlanosContent() {
                       </span>
                     ) : (
                       <span style={{ fontWeight: '600', color: 'var(--primary)' }}>
-                        {product.type === 'download' ? '📥 Download Grátis' : 'Ver Loja'}
+                        {product.type === 'download' ? '📥 Acessar' : '🔗 Acessar'}
                       </span>
                     )}
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
