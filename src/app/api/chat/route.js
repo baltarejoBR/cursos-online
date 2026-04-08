@@ -216,9 +216,8 @@ export async function POST(request) {
 
   } catch (error) {
     console.error('Chat API error:', error);
-    const keyPrefix = process.env.OPENAI_API_KEY ? process.env.OPENAI_API_KEY.slice(0, 7) + '...' : 'MISSING';
     return NextResponse.json(
-      { error: 'Erro ao processar mensagem', debug: error?.message || String(error), keyPrefix, cause: error?.cause?.message },
+      { error: 'Erro ao processar mensagem' },
       { status: 500 }
     );
   }
