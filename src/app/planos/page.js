@@ -54,10 +54,10 @@ function PlanosContent() {
             onClick={() => setActiveFilter('todos')}
             className="btn btn-sm"
             style={{
-              background: activeFilter === 'todos' ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'rgba(255,255,255,0.1)',
-              color: activeFilter === 'todos' ? '#1a1a1a' : 'white',
-              border: activeFilter === 'todos' ? 'none' : '1px solid rgba(255,255,255,0.2)',
-              fontWeight: activeFilter === 'todos' ? 600 : 400,
+              background: activeFilter === 'todos' ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'var(--bg-card)',
+              color: activeFilter === 'todos' ? '#1a1a1a' : 'var(--text-muted)',
+              border: activeFilter === 'todos' ? '2px solid var(--gold)' : '2px solid var(--border)',
+              fontWeight: activeFilter === 'todos' ? 600 : 500,
             }}
           >
             Todos
@@ -71,10 +71,10 @@ function PlanosContent() {
                 onClick={() => setActiveFilter(catKey)}
                 className="btn btn-sm"
                 style={{
-                  background: isActive ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'rgba(255,255,255,0.1)',
-                  color: isActive ? '#1a1a1a' : 'white',
-                  border: isActive ? 'none' : '1px solid rgba(255,255,255,0.2)',
-                  fontWeight: isActive ? 600 : 400,
+                  background: isActive ? 'linear-gradient(135deg, #c9a84c, #e6c873)' : 'var(--bg-card)',
+                  color: isActive ? '#1a1a1a' : 'var(--text-muted)',
+                  border: isActive ? '2px solid var(--gold)' : '2px solid var(--border)',
+                  fontWeight: isActive ? 600 : 500,
                 }}
               >
                 {cat.icon} {cat.name}
