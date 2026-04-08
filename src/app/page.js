@@ -1311,7 +1311,7 @@ export default async function Home() {
             Não sabe por onde começar? Entenda o que é o CDS. Já conhece o Dioxi? Vá direto para a loja ou o curso completo.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/o-que-e-cds" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+            <Link href="/o-que-e-cds" className="btn-dark-gold" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               O que é CDS?
             </Link>
             <Link href="/loja" className="btn btn-gold" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
@@ -1320,7 +1320,7 @@ export default async function Home() {
             <Link href="/produto/curso-cds-completo" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               Quero o Curso Completo
             </Link>
-            <Link href="/produto/mentoria" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+            <Link href="/produto/mentoria" className="btn-dark-gold" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               Agendar Mentoria
             </Link>
           </div>
