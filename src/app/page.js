@@ -105,14 +105,14 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '620px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '420px', margin: '0 auto' }}>
             <div className="gold-frame" style={{ display: 'inline-block', overflow: 'hidden', animation: 'gentle-glow 4s ease-in-out infinite' }}>
               <Image
                 src="/images/gabriel-cds-estudio.jpeg"
                 alt="Gabriel Baltarejo segurando CDS"
-                width={600}
-                height={1050}
-                sizes="(max-width: 768px) 100vw, 620px"
+                width={420}
+                height={735}
+                sizes="(max-width: 768px) 100vw, 420px"
                 style={{
                   width: '100%',
                   height: 'auto',
@@ -553,7 +553,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* GUIA GRATIS */}
+      {/* NOVO POR AQUI */}
       <section style={{
         background: 'linear-gradient(135deg, #8a6d1b 0%, #c9a84c 100%)',
         padding: '60px 20px',
@@ -561,38 +561,40 @@ export default async function Home() {
         textAlign: 'center',
       }}>
         <div className="container" style={{ maxWidth: '800px' }}>
-          <Image
-            src="/images/gabriel-com-cds.jpeg"
-            alt="Gabriel Baltarejo com CDS"
-            width={120}
-            height={80}
-            style={{
-              borderRadius: '12px',
-              marginBottom: '16px',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-              objectFit: 'cover',
-            }}
-          />
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.8rem', marginBottom: '12px' }}>
-            Novo por aqui? Comece pelo Guia Gratuito!
+            Novo por aqui? Entenda como funciona.
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '24px' }}>
-            Baixe o Guia Básico para Iniciantes e aprenda os fundamentos das Terapias Bio-oxidativas.
-            Material completo e gratuito para você dar o primeiro passo.
+            Descubra o que é o Dióxido de Cloro, como ele é usado há mais de 30 anos e por que milhares de pessoas confiam nele.
           </p>
-          <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn" style={{
-            fontSize: '1.1rem',
-            padding: '14px 32px',
-            background: 'white',
-            color: '#1a6baa',
-            fontWeight: '700',
-            borderRadius: '8px',
-            textDecoration: 'none',
-            display: 'inline-block',
-          }}>
-            Baixar Guia Grátis (PDF)
-          </a>
-          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '12px' }}>
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/o-que-e-cds" className="btn" style={{
+              fontSize: '1.1rem',
+              padding: '14px 32px',
+              background: 'white',
+              color: '#8a6d1b',
+              fontWeight: '700',
+              borderRadius: '50px',
+              textDecoration: 'none',
+              display: 'inline-block',
+            }}>
+              O que é o CDS?
+            </Link>
+            <Link href="/loja/nossos-produtos" className="btn" style={{
+              fontSize: '1.1rem',
+              padding: '14px 32px',
+              background: 'transparent',
+              color: 'white',
+              fontWeight: '700',
+              borderRadius: '50px',
+              textDecoration: 'none',
+              display: 'inline-block',
+              border: '2px solid rgba(255,255,255,0.4)',
+            }}>
+              Conheça nossos produtos
+            </Link>
+          </div>
+          <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginTop: '16px' }}>
             Tem dúvidas? Acesse o{' '}
             <a href="https://www.forumcds.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'underline' }}>
               Fórum CDS
@@ -743,12 +745,12 @@ export default async function Home() {
                 Comece pelo guia gratuito para entender o básico. Depois, o livro traz tudo de forma detalhada.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <a href="/downloads/guia-basico-iniciantes.pdf" download style={{
+                <Link href="/o-que-e-cds" style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   color: '#2e8b57', fontWeight: '600', textDecoration: 'none',
                 }}>
-                  ✓ 1. Baixe o Guia Grátis (PDF)
-                </a>
+                  ✓ 1. Entenda o que é o CDS
+                </Link>
                 <Link href="/produto/livro-completo" style={{
                   display: 'flex', alignItems: 'center', gap: '8px',
                   color: '#2e8b57', fontWeight: '600', textDecoration: 'none',
@@ -1306,12 +1308,12 @@ export default async function Home() {
             Comece sua Jornada Hoje
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto 32px', fontSize: '1.1rem' }}>
-            Não sabe por onde começar? Baixe o guia gratuito. Já conhece o Dioxi? Vá direto para a loja ou o curso completo.
+            Não sabe por onde começar? Entenda o que é o CDS. Já conhece o Dioxi? Vá direto para a loja ou o curso completo.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
-              Guia Grátis
-            </a>
+            <Link href="/o-que-e-cds" className="btn btn-outline" style={{ fontSize: '1.1rem', padding: '14px 32px', color: 'white', borderColor: 'rgba(255,255,255,0.3)' }}>
+              O que é CDS?
+            </Link>
             <Link href="/loja" className="btn btn-gold" style={{ fontSize: '1.1rem', padding: '14px 32px' }}>
               Comprar Dioxi (SDC)
             </Link>
