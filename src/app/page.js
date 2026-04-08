@@ -99,10 +99,10 @@ export default async function Home() {
           <div style={{ textAlign: 'center', position: 'relative', width: '100%', maxWidth: '620px', margin: '0 auto' }}>
             <div className="gold-frame" style={{ display: 'inline-block', overflow: 'hidden', animation: 'gentle-glow 4s ease-in-out infinite' }}>
               <Image
-                src={getImageUrl('gabriel/hero-gabriel.jpeg')}
-                alt="Gabriel Baltarejo"
-                width={650}
-                height={800}
+                src="/images/gabriel-cds-estudio.jpeg"
+                alt="Gabriel Baltarejo segurando CDS"
+                width={600}
+                height={1050}
                 sizes="(max-width: 768px) 100vw, 620px"
                 style={{
                   width: '100%',
