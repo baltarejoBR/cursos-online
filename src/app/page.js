@@ -274,7 +274,7 @@ export default async function Home() {
           padding: '60px 20px',
           color: 'white',
         }}>
-          <div className="container" style={{ maxWidth: '900px', textAlign: 'center' }}>
+          <div className="container" style={{ maxWidth: '1000px', textAlign: 'center' }}>
             <h2 style={{ fontSize: '1.8rem', marginBottom: '8px' }}>
               Comprar Dioxi (SDC)
             </h2>
@@ -283,25 +283,41 @@ export default async function Home() {
             </p>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: '20px',
             }}>
               {featuredProducts.map(product => (
                 <div key={product.id} style={{
                   background: 'rgba(255,255,255,0.08)',
                   borderRadius: '20px',
-                  padding: '32px 24px',
+                  padding: '28px 22px',
                   border: '1px solid rgba(255,255,255,0.15)',
                   textAlign: 'left',
+                  position: 'relative',
                 }}>
+                  {product.discount_percent && Number(product.discount_percent) > 0 && (
+                    <span style={{
+                      position: 'absolute',
+                      top: '16px',
+                      right: '16px',
+                      background: '#2e8b57',
+                      color: 'white',
+                      padding: '4px 10px',
+                      borderRadius: '20px',
+                      fontSize: '0.75rem',
+                      fontWeight: '800',
+                    }}>
+                      -{Math.round(Number(product.discount_percent))}%
+                    </span>
+                  )}
                   {product.image_url && (
                     <div style={{
                       position: 'relative',
                       width: '100%',
-                      height: '180px',
+                      height: '160px',
                       background: 'rgba(255,255,255,0.06)',
                       borderRadius: '12px',
-                      marginBottom: '16px',
+                      marginBottom: '14px',
                       overflow: 'hidden',
                     }}>
                       <Image
@@ -313,30 +329,31 @@ export default async function Home() {
                       />
                     </div>
                   )}
-                  <span style={{
-                    display: 'inline-block',
-                    padding: '4px 12px',
-                    borderRadius: '20px',
-                    fontSize: '0.75rem',
-                    fontWeight: '700',
-                    marginBottom: '12px',
-                    background: 'rgba(201, 168, 76, 0.25)',
-                    color: '#dfc06a',
-                  }}>
-                    {product.category === 'Combo' ? 'Kit Completo' : 'SDC Puro'}
-                  </span>
-                  <h3 style={{ fontSize: '1.2rem', fontWeight: '700', marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: '12px', flexWrap: 'wrap' }}>
+                    <span style={{
+                      display: 'inline-block',
+                      padding: '4px 12px',
+                      borderRadius: '20px',
+                      fontSize: '0.72rem',
+                      fontWeight: '700',
+                      background: 'rgba(201, 168, 76, 0.25)',
+                      color: '#dfc06a',
+                    }}>
+                      {product.category === 'Combo' ? 'Kit Completo' : 'SDC Puro'}
+                    </span>
+                  </div>
+                  <h3 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '8px' }}>
                     {product.name}
                   </h3>
-                  <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', marginBottom: '16px', lineHeight: 1.5 }}>
+                  <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.85rem', marginBottom: '14px', lineHeight: 1.5 }}>
                     {product.items_description}
                   </p>
-                  <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#c9a84c' }}>
+                  <div style={{ marginBottom: '14px' }}>
+                    <div style={{ fontSize: '1.5rem', fontWeight: '800', color: '#c9a84c' }}>
                       {product.price_display}
                     </div>
                     {product.installments && (
-                      <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>
+                      <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.82rem' }}>
                         ou {product.installments}
                       </div>
                     )}
@@ -354,7 +371,7 @@ export default async function Home() {
                       borderRadius: '50px',
                       textDecoration: 'none',
                       fontWeight: '700',
-                      fontSize: '1rem',
+                      fontSize: '0.95rem',
                     }}
                   >
                     Comprar Agora
@@ -362,14 +379,21 @@ export default async function Home() {
                 </div>
               ))}
             </div>
-            <Link href="/loja" style={{
-              display: 'inline-block',
-              marginTop: '24px',
-              color: 'rgba(255,255,255,0.7)',
-              fontSize: '0.95rem',
-            }}>
-              Ver todos os 37 produtos da loja →
-            </Link>
+            <div style={{ marginTop: '24px', display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link href="/loja" style={{
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: '0.95rem',
+              }}>
+                Ver todos os 37 produtos →
+              </Link>
+              <Link href="/loja/nossos-produtos" style={{
+                color: '#dfc06a',
+                fontSize: '0.95rem',
+                fontWeight: '600',
+              }}>
+                Entenda nossos produtos →
+              </Link>
+            </div>
           </div>
         </section>
       )}

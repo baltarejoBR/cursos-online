@@ -19,7 +19,14 @@ const NAV_ITEMS = [
       { label: 'Depoimentos', href: '/depoimentos', icon: '💬', desc: 'Veja o que nossos alunos dizem' },
     ],
   },
-  { label: 'Loja', href: '/loja' },
+  {
+    label: 'Loja',
+    key: 'loja',
+    children: [
+      { label: 'Comprar Produtos', href: '/loja', icon: '🛒', desc: 'SDC, Ormus, DMSO e kits completos' },
+      { label: 'Nossos Produtos', href: '/loja/nossos-produtos', icon: '📋', desc: 'Entenda a diferença entre CDS, Ormus e DMSO' },
+    ],
+  },
   {
     label: 'Aprender',
     key: 'aprender',
