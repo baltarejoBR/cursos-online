@@ -191,6 +191,115 @@ export default function NossosProdutosPage() {
             ))}
           </div>
 
+          {/* CDS por Reação Química vs Eletrolítico */}
+          <div style={{
+            marginTop: '40px',
+            background: 'white',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            border: '1px solid var(--border-light)',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+          }}>
+            <div style={{
+              background: 'linear-gradient(135deg, #2e8b5715, #2e8b5708)',
+              borderBottom: '2px solid #2e8b5725',
+              padding: '28px 32px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+            }}>
+              <span style={{
+                fontSize: '2.2rem',
+                width: '56px',
+                height: '56px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#2e8b5718',
+                borderRadius: '14px',
+              }}>
+                ⚡
+              </span>
+              <div>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--text)', margin: 0 }}>
+                  CDS por Reação Química vs Eletrolítico
+                </h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>
+                  Entenda os dois métodos de produção do Dióxido de Cloro
+                </p>
+              </div>
+            </div>
+            <div style={{ padding: '28px 32px' }}>
+              <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, fontSize: '0.95rem', marginBottom: '24px' }}>
+                O Dióxido de Cloro (ClO₂) pode ser produzido de duas formas diferentes. Ambas geram a mesma molécula, mas o processo e a pureza variam.
+              </p>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '20px',
+                marginBottom: '24px',
+              }}>
+                {/* Reação Química */}
+                <div style={{
+                  padding: '24px',
+                  background: 'var(--bg)',
+                  borderRadius: '14px',
+                  border: '1px solid var(--border-light)',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                    <span style={{ fontSize: '1.4rem' }}>🧪</span>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text)', margin: 0 }}>
+                      Por Reação Química
+                    </h3>
+                  </div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '16px' }}>
+                    Produzido pela ativação do Clorito de Sódio (NaClO₂) com um ácido (geralmente ácido clorídrico). O gás ClO₂ é capturado em água destilada, gerando a solução SDC/CDS a 3000 ppm.
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ Método tradicional (mais usado mundialmente)</span>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ Custo mais acessível</span>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ Disponível em PET e Vidro</span>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ A partir de R$ 67,00 (500 mL)</span>
+                  </div>
+                </div>
+
+                {/* Eletrolítico */}
+                <div style={{
+                  padding: '24px',
+                  background: 'var(--bg)',
+                  borderRadius: '14px',
+                  border: '1px solid var(--border-light)',
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
+                    <span style={{ fontSize: '1.4rem' }}>⚡</span>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: '700', color: 'var(--text)', margin: 0 }}>
+                      Eletrolítico
+                    </h3>
+                  </div>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '16px' }}>
+                    Produzido por eletrólise de uma solução salina (NaCl). O processo elétrico gera o ClO₂ de forma mais pura, sem subprodutos ácidos. Considerado o método mais limpo de produção.
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ Maior pureza (sem resíduos ácidos)</span>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ Sabor mais neutro e suave</span>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ Processo de produção mais sofisticado</span>
+                    <span style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>✓ A partir de R$ 139,00 (500 mL)</span>
+                  </div>
+                </div>
+              </div>
+              <div style={{
+                padding: '16px 20px',
+                background: '#2e8b5710',
+                borderRadius: '10px',
+                border: '1px solid #2e8b5720',
+              }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
+                  <strong style={{ color: 'var(--text)' }}>Qual escolher?</strong> Ambos são eficazes e geram a mesma molécula (ClO₂) a 3000 ppm. O eletrolítico é ideal para quem busca máxima pureza e sabor mais suave. O por reação química é mais econômico e igualmente funcional para todos os protocolos.
+                </p>
+              </div>
+            </div>
+          </div>
+
           {/* CTA */}
           <div style={{
             textAlign: 'center',
