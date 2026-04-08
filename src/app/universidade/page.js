@@ -2,57 +2,20 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import { getPublishedPosts } from '@/lib/blog';
 import { createServerSupabase } from '@/lib/supabase-server';
+import {
+  CATEGORIES,
+  CATEGORY_LABELS,
+  CATEGORY_COLORS,
+  SUB_LABELS,
+  ESTUDOS_SUBCATEGORIES,
+  PROTOCOLO_ITEMS,
+} from '@/lib/blog-constants';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Universidade Dioxi - Estudos e Artigos - Método Corpo Limpo',
   description: 'Acesse estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro (CDS/SDC/Dioxi) e Terapias Bio-oxidativas.',
-};
-
-const CATEGORIES = [
-  { value: null, label: 'Todos', icon: '📚' },
-  { value: 'iniciantes', label: 'Para Iniciantes', icon: '🌱' },
-  { value: 'protocolos', label: 'Protocolos', icon: '📋' },
-  { value: 'ciencia', label: 'Ciência', icon: '🔬' },
-  { value: 'estudos', label: 'Estudos Científicos', icon: '📊', hasDropdown: true },
-  { value: 'seguranca', label: 'Segurança', icon: '🛡️' },
-];
-
-const SUBCATEGORIES = {
-  tipo: [
-    { value: 'ensaios-clinicos', label: 'Ensaios Clínicos', icon: '🧪' },
-    { value: 'toxicidade', label: 'Toxicidade', icon: '⚗️' },
-    { value: 'peer-reviews', label: 'Peer Reviews', icon: '📝' },
-    { value: 'revisoes', label: 'Revisões', icon: '📖' },
-  ],
-  tema: [
-    { value: 'covid-19', label: 'COVID-19', icon: '🦠' },
-    { value: 'cancer', label: 'Câncer', icon: '🎗️' },
-    { value: 'sangue', label: 'Sangue & Oxigênio', icon: '🩸' },
-    { value: 'pele', label: 'Pele & Queimaduras', icon: '🩹' },
-    { value: 'infeccoes', label: 'Infecções', icon: '🦠' },
-  ],
-};
-
-const CATEGORY_LABELS = {
-  iniciantes: 'Para Iniciantes',
-  protocolos: 'Protocolos',
-  ciencia: 'Ciência',
-  estudos: 'Estudos Científicos',
-  seguranca: 'Segurança',
-};
-
-const SUB_LABELS = {
-  'ensaios-clinicos': 'Ensaios Clínicos',
-  'toxicidade': 'Toxicidade',
-  'peer-reviews': 'Peer Reviews',
-  'revisoes': 'Revisões',
-  'covid-19': 'COVID-19',
-  'cancer': 'Câncer',
-  'sangue': 'Sangue & Oxigênio',
-  'pele': 'Pele & Queimaduras',
-  'infeccoes': 'Infecções',
 };
 
 export default async function UniversidadePage({ searchParams }) {
@@ -73,7 +36,11 @@ export default async function UniversidadePage({ searchParams }) {
   }
 
   const isPremium = userPlan === 'premium';
-  const posts = await getPublishedPosts({ category: cat, subcategory: sub });
+  const posts = await getPublishedPosts({
+    category: cat,
+    subcategory: sub,
+    sortBy: cat === 'protocolos' ? 'alpha' : 'date',
+  });
 
   return (
     <>
@@ -129,8 +96,9 @@ export default async function UniversidadePage({ searchParams }) {
           {CATEGORIES.map(c => {
             const isActive = cat === c.value || (!cat && !c.value);
             const href = c.value ? `/universidade?cat=${c.value}` : '/universidade';
+            const activeColor = c.value && CATEGORY_COLORS[c.value];
 
-            if (c.hasDropdown) {
+            if (c.hasDropdown && c.value === 'estudos') {
               return (
                 <div key={c.label} className="uni-nav-dropdown-wrapper" style={{ position: 'relative' }}>
                   <Link
@@ -138,9 +106,15 @@ export default async function UniversidadePage({ searchParams }) {
                     style={{
                       padding: '8px 18px',
                       borderRadius: '50px',
-                      border: isActive ? '2px solid var(--cds)' : '2px solid var(--border)',
-                      background: isActive ? 'var(--cds)' : 'white',
-                      color: isActive ? 'var(--cds-dark)' : 'var(--text-muted)',
+                      border: isActive
+                        ? `2px solid ${activeColor?.hex || 'var(--cds)'}`
+                        : '2px solid var(--border)',
+                      background: isActive
+                        ? (activeColor?.bg || 'var(--cds)')
+                        : 'white',
+                      color: isActive
+                        ? (activeColor?.color || 'var(--cds-dark)')
+                        : 'var(--text-muted)',
                       fontSize: '0.85rem',
                       fontWeight: '600',
                       textDecoration: 'none',
@@ -154,7 +128,7 @@ export default async function UniversidadePage({ searchParams }) {
                     <span>{c.icon}</span> {c.label} <span style={{ fontSize: '0.6rem' }}>▼</span>
                   </Link>
 
-                  {/* Dropdown */}
+                  {/* Estudos Dropdown */}
                   <div className="uni-nav-dropdown">
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                       {/* Por Tipo */}
@@ -171,7 +145,7 @@ export default async function UniversidadePage({ searchParams }) {
                         }}>
                           Por Tipo
                         </div>
-                        {SUBCATEGORIES.tipo.map(s => (
+                        {ESTUDOS_SUBCATEGORIES.tipo.map(s => (
                           <Link
                             key={s.value}
                             href={`/universidade?cat=estudos&sub=${s.value}`}
@@ -204,7 +178,7 @@ export default async function UniversidadePage({ searchParams }) {
                         }}>
                           Por Tema
                         </div>
-                        {SUBCATEGORIES.tema.map(s => (
+                        {ESTUDOS_SUBCATEGORIES.tema.map(s => (
                           <Link
                             key={s.value}
                             href={`/universidade?cat=estudos&sub=${s.value}`}
@@ -228,6 +202,110 @@ export default async function UniversidadePage({ searchParams }) {
               );
             }
 
+            if (c.hasDropdown && c.value === 'protocolos') {
+              return (
+                <div key={c.label} className="uni-nav-dropdown-wrapper" style={{ position: 'relative' }}>
+                  <Link
+                    href={href}
+                    style={{
+                      padding: '8px 18px',
+                      borderRadius: '50px',
+                      border: isActive
+                        ? `2px solid ${activeColor?.hex || 'var(--cds)'}`
+                        : '2px solid var(--border)',
+                      background: isActive
+                        ? (activeColor?.bg || 'var(--cds)')
+                        : 'white',
+                      color: isActive
+                        ? (activeColor?.color || 'var(--cds-dark)')
+                        : 'var(--text-muted)',
+                      fontSize: '0.85rem',
+                      fontWeight: '600',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                    }}
+                    tabIndex={0}
+                  >
+                    <span>{c.icon}</span> {c.label} <span style={{ fontSize: '0.6rem' }}>▼</span>
+                  </Link>
+
+                  {/* Protocolos Dropdown */}
+                  <div className="uni-nav-dropdown">
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      {/* Protocolos Gratuitos */}
+                      <div>
+                        <div style={{
+                          fontSize: '0.7rem',
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                          color: 'var(--gold)',
+                          marginBottom: '10px',
+                          paddingBottom: '6px',
+                          borderBottom: '1px solid rgba(201,168,76,0.2)',
+                        }}>
+                          Protocolos Gratuitos
+                        </div>
+                        {PROTOCOLO_ITEMS.gratuitos.map(item => (
+                          <Link
+                            key={item.slug}
+                            href={`/universidade/${item.slug}`}
+                            className="uni-nav-dropdown-item"
+                            style={{
+                              display: 'flex', alignItems: 'center', gap: '8px',
+                              padding: '8px 10px', borderRadius: '8px',
+                              textDecoration: 'none', color: 'var(--text)',
+                              fontSize: '0.85rem', fontWeight: '500',
+                              background: 'transparent',
+                              transition: 'background 0.15s',
+                            }}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Protocolos Premium */}
+                      <div>
+                        <div style={{
+                          fontSize: '0.7rem',
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                          color: 'var(--gold)',
+                          marginBottom: '10px',
+                          paddingBottom: '6px',
+                          borderBottom: '1px solid rgba(201,168,76,0.2)',
+                        }}>
+                          Protocolos Premium
+                        </div>
+                        {PROTOCOLO_ITEMS.premium.map(item => (
+                          <Link
+                            key={item.slug}
+                            href={`/universidade/${item.slug}`}
+                            className="uni-nav-dropdown-item"
+                            style={{
+                              display: 'flex', alignItems: 'center', gap: '8px',
+                              padding: '8px 10px', borderRadius: '8px',
+                              textDecoration: 'none', color: 'var(--text)',
+                              fontSize: '0.85rem', fontWeight: '500',
+                              background: 'transparent',
+                              transition: 'background 0.15s',
+                            }}
+                          >
+                            🔒 {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={c.label}
@@ -235,9 +313,15 @@ export default async function UniversidadePage({ searchParams }) {
                 style={{
                   padding: '8px 18px',
                   borderRadius: '50px',
-                  border: isActive ? '2px solid var(--cds)' : '2px solid var(--border)',
-                  background: isActive ? 'var(--cds)' : 'white',
-                  color: isActive ? 'var(--cds-dark)' : 'var(--text-muted)',
+                  border: isActive
+                    ? `2px solid ${activeColor?.hex || 'var(--cds)'}`
+                    : '2px solid var(--border)',
+                  background: isActive
+                    ? (activeColor?.bg || 'var(--cds)')
+                    : 'white',
+                  color: isActive
+                    ? (activeColor?.color || 'var(--cds-dark)')
+                    : 'var(--text-muted)',
                   fontSize: '0.85rem',
                   fontWeight: '600',
                   textDecoration: 'none',
@@ -268,8 +352,8 @@ export default async function UniversidadePage({ searchParams }) {
             <span>Filtrando:</span>
             {cat && (
               <span style={{
-                background: 'rgba(201,168,76,0.15)',
-                color: 'var(--cds-dark)',
+                background: CATEGORY_COLORS[cat]?.bg || 'rgba(201,168,76,0.15)',
+                color: CATEGORY_COLORS[cat]?.color || 'var(--cds-dark)',
                 padding: '2px 10px',
                 borderRadius: '20px',
                 fontWeight: '600',
@@ -281,11 +365,12 @@ export default async function UniversidadePage({ searchParams }) {
               <>
                 <span>{'>'}</span>
                 <span style={{
-                  background: 'rgba(201,168,76,0.25)',
-                  color: 'var(--cds-dark)',
+                  background: CATEGORY_COLORS[cat]?.bg || 'rgba(201,168,76,0.25)',
+                  color: CATEGORY_COLORS[cat]?.color || 'var(--cds-dark)',
                   padding: '2px 10px',
                   borderRadius: '20px',
                   fontWeight: '600',
+                  opacity: 0.85,
                 }}>
                   {SUB_LABELS[sub] || sub}
                 </span>
@@ -344,6 +429,7 @@ export default async function UniversidadePage({ searchParams }) {
             }}>
               {posts.map(post => {
                 const isLocked = post.is_premium && !isPremium;
+                const catColor = CATEGORY_COLORS[post.category];
 
                 return (
                   <Link
@@ -369,7 +455,7 @@ export default async function UniversidadePage({ searchParams }) {
                         height: '6px',
                         background: isLocked
                           ? 'linear-gradient(90deg, #555, #888)'
-                          : 'linear-gradient(90deg, var(--cds), var(--success))',
+                          : (catColor?.hex || 'linear-gradient(90deg, var(--cds), var(--success))'),
                       }} />
 
                       {/* Lock badge */}
@@ -402,8 +488,8 @@ export default async function UniversidadePage({ searchParams }) {
                             borderRadius: '20px',
                             fontSize: '0.7rem',
                             fontWeight: '600',
-                            background: 'rgba(201, 168, 76, 0.15)',
-                            color: 'var(--cds-dark)',
+                            background: catColor?.bg || 'rgba(201, 168, 76, 0.15)',
+                            color: catColor?.color || 'var(--cds-dark)',
                           }}>
                             {CATEGORY_LABELS[post.category] || post.category}
                           </span>

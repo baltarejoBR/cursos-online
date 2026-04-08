@@ -5,7 +5,8 @@ import LeadCaptureModal from '@/components/LeadCaptureModal';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
 import { getImageUrl } from '@/lib/storage';
 import { getFeaturedStoreProducts } from '@/lib/store-products';
-import { getPublishedPosts } from '@/lib/blog';
+import { getFeaturedPosts } from '@/lib/blog';
+import { CATEGORY_LABELS, CATEGORY_COLORS } from '@/lib/blog-constants';
 import { DEPOIMENTOS_TEXTO } from '@/lib/depoimentos';
 
 export default async function Home() {
@@ -18,7 +19,7 @@ export default async function Home() {
     featuredProducts = await getFeaturedStoreProducts();
   } catch (e) { /* table may not exist yet */ }
   try {
-    latestPosts = await getPublishedPosts(3);
+    latestPosts = await getFeaturedPosts();
   } catch (e) { /* table may not exist yet */ }
 
   return (
@@ -1031,8 +1032,8 @@ export default async function Home() {
             </div>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-              gap: '24px',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '20px',
             }}>
               {latestPosts.map(post => (
                 <Link key={post.id} href={`/universidade/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -1043,6 +1044,7 @@ export default async function Home() {
                     border: '1px solid var(--border-light)',
                     height: '100%',
                     transition: 'transform 0.2s, box-shadow 0.2s',
+                    borderTop: `3px solid ${CATEGORY_COLORS[post.category]?.hex || '#c9a84c'}`,
                   }}>
                     <span style={{
                       display: 'inline-block',
@@ -1051,17 +1053,17 @@ export default async function Home() {
                       fontSize: '0.75rem',
                       fontWeight: '600',
                       marginBottom: '12px',
-                      background: 'rgba(26,107,170,0.1)',
-                      color: '#1a6baa',
+                      background: CATEGORY_COLORS[post.category]?.bg || 'rgba(26,107,170,0.1)',
+                      color: CATEGORY_COLORS[post.category]?.color || '#1a6baa',
                     }}>
-                      {post.category}
+                      {CATEGORY_LABELS[post.category] || post.category}
                     </span>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: '700', marginBottom: '8px', color: 'var(--text)', lineHeight: 1.3 }}>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: '700', marginBottom: '8px', color: 'var(--text)', lineHeight: 1.3 }}>
                       {post.title}
                     </h3>
                     {post.excerpt && (
-                      <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6 }}>
-                        {post.excerpt}
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.6 }}>
+                        {post.excerpt.length > 100 ? post.excerpt.substring(0, 100) + '...' : post.excerpt}
                       </p>
                     )}
                   </div>

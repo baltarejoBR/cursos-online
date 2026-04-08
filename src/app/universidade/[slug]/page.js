@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
+import CommentSection from '@/components/CommentSection';
 import { getPostForUser, getRelatedPosts } from '@/lib/blog';
 import { createServerSupabase } from '@/lib/supabase-server';
+import { CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_COLORS_HERO } from '@/lib/blog-constants';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -66,11 +68,11 @@ export default async function ArtigoPage({ params }) {
               borderRadius: '20px',
               fontSize: '0.8rem',
               fontWeight: '600',
-              background: 'rgba(201, 168, 76, 0.2)',
-              color: 'var(--gold-bright)',
-              border: '1px solid rgba(201, 168, 76, 0.3)',
+              background: CATEGORY_COLORS_HERO[post.category]?.bg || 'rgba(201, 168, 76, 0.2)',
+              color: CATEGORY_COLORS_HERO[post.category]?.color || 'var(--gold-bright)',
+              border: `1px solid ${(CATEGORY_COLORS_HERO[post.category]?.color || 'rgba(201, 168, 76, 0.3)').replace(')', ', 0.3)').replace('rgb', 'rgba').replace('rgbaa', 'rgba')}`,
             }}>
-              {post.category}
+              {CATEGORY_LABELS[post.category] || post.category}
             </span>
             {post.isLocked && (
               <span style={{
@@ -292,6 +294,16 @@ export default async function ArtigoPage({ params }) {
             </>
           )}
 
+          {/* Seção de Comentários (apenas para posts desbloqueados) */}
+          {!post.isLocked && (
+            <CommentSection
+              postId={post.id}
+              user={user ? { id: user.id, email: user.email, name: user.user_metadata?.full_name || user.email?.split('@')[0] } : null}
+              isAdmin={user?.email === 'baltarejo@gmail.com'}
+              articleTitle={post.title}
+            />
+          )}
+
           {/* Artigos Relacionados */}
           {related.length > 0 && (
             <div style={{ marginTop: '48px' }}>
@@ -332,13 +344,13 @@ export default async function ArtigoPage({ params }) {
                         )}
                         <span style={{
                           fontSize: '0.75rem',
-                          color: 'var(--gold-dark)',
+                          color: CATEGORY_COLORS[r.category]?.color || 'var(--gold-dark)',
                           fontWeight: '600',
-                          background: 'rgba(201, 168, 76, 0.1)',
+                          background: CATEGORY_COLORS[r.category]?.bg || 'rgba(201, 168, 76, 0.1)',
                           padding: '3px 10px',
                           borderRadius: '20px',
                         }}>
-                          {r.category}
+                          {CATEGORY_LABELS[r.category] || r.category}
                         </span>
                         <h4 style={{
                           fontSize: '1rem',

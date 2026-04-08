@@ -61,6 +61,18 @@
   --warning: #d4a017;
   --error: #b93c3c;
 
+  /* Cores por categoria */
+  --cat-iniciantes: #2e8b57;
+  --cat-iniciantes-bg: rgba(46, 139, 87, 0.12);
+  --cat-protocolos: #0d3b66;
+  --cat-protocolos-bg: rgba(13, 59, 102, 0.12);
+  --cat-ciencia: #7c3aed;
+  --cat-ciencia-bg: rgba(124, 58, 237, 0.12);
+  --cat-estudos: #1a6baa;
+  --cat-estudos-bg: rgba(26, 107, 170, 0.12);
+  --cat-seguranca: #c9a84c;
+  --cat-seguranca-bg: rgba(201, 168, 76, 0.15);
+
   /* Bordas & Sombras */
   --border: #d8dace;
   --border-light: #eae7e0;
@@ -1794,5 +1806,91 @@ a:hover {
   .uni-nav-dropdown-wrapper:hover .uni-nav-dropdown,
   .uni-nav-dropdown-wrapper:focus-within .uni-nav-dropdown {
     transform: none;
+  }
+}
+
+/* ============================================================
+   COMMENTS / Q&A Section
+   ============================================================ */
+.comment-section {
+  margin-top: 40px;
+  background: var(--bg-card);
+  border-radius: 20px;
+  padding: 32px 40px;
+  border: 1px solid var(--border-light);
+}
+
+.comment-section h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--marble-dark);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  resize: vertical;
+  background: var(--bg-input);
+  transition: border-color 0.2s;
+}
+
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--cat-estudos);
+}
+
+.comment-card {
+  padding: 16px 20px;
+  background: var(--bg);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border-left: 3px solid var(--cat-estudos);
+}
+
+.comment-card.is-question {
+  border-left-color: var(--cat-ciencia);
+}
+
+.comment-reply {
+  margin-left: 32px;
+  border-left-color: var(--gold);
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #25d366;
+  color: white;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.whatsapp-btn:hover {
+  background: #1da851;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .comment-section {
+    padding: 24px 20px;
+  }
+  .comment-reply {
+    margin-left: 16px;
   }
 }

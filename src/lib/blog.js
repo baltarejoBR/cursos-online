@@ -1,12 +1,12 @@
 import { createAdminSupabase } from './supabase-admin';
 
-export async function getPublishedPosts({ limit = 50, category = null, subcategory = null } = {}) {
+export async function getPublishedPosts({ limit = 50, category = null, subcategory = null, sortBy = 'date' } = {}) {
   const supabase = createAdminSupabase();
   let query = supabase
     .from('blog_posts')
-    .select('id, slug, title, excerpt, category, subcategory, is_premium, cover_image, published_at, reading_time_minutes')
-    .eq('published', true)
-    .order('published_at', { ascending: false });
+    .select('id, slug, title, excerpt, category, subcategory, is_premium, cover_image, published_at, reading_time_minutes');
+
+  query = query.eq('published', true);
 
   if (category) {
     query = query.eq('category', category);
@@ -14,12 +14,39 @@ export async function getPublishedPosts({ limit = 50, category = null, subcatego
   if (subcategory) {
     query = query.eq('subcategory', subcategory);
   }
+
+  if (sortBy === 'alpha') {
+    query = query.order('title', { ascending: true });
+  } else {
+    query = query.order('published_at', { ascending: false });
+  }
+
   if (limit) {
     query = query.limit(limit);
   }
 
   const { data } = await query;
   return data || [];
+}
+
+export async function getFeaturedPosts() {
+  const supabase = createAdminSupabase();
+  const categories = ['protocolos', 'ciencia', 'iniciantes'];
+  const results = [];
+
+  for (const cat of categories) {
+    const { data } = await supabase
+      .from('blog_posts')
+      .select('id, slug, title, excerpt, category, is_premium, cover_image, published_at, reading_time_minutes')
+      .eq('published', true)
+      .eq('category', cat)
+      .eq('is_premium', false)
+      .order('published_at', { ascending: false })
+      .limit(2);
+    if (data) results.push(...data);
+  }
+
+  return results;
 }
 
 export async function getPostBySlug(slug) {
