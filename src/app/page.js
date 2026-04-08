@@ -52,7 +52,7 @@ export default async function Home() {
         }} className="hero-grid">
           <div>
             <div className="badge-ornamental" style={{ marginBottom: '20px' }}>
-              +300 alunos transformando sua saúde
+              +300 pessoas já recuperaram sua saúde
             </div>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
@@ -61,31 +61,40 @@ export default async function Home() {
               lineHeight: '1.15',
               marginBottom: '20px',
             }}>
-              Transforme sua{' '}
-              <span style={{ color: '#c9a84c' }}>Saúde</span>{' '}
-              com o Método Corpo Limpo
+              Você já tentou de{' '}
+              <span style={{ color: '#c9a84c' }}>tudo</span>{' '}
+              e nada resolveu?
             </h1>
             <p style={{
-              fontSize: '1.2rem',
-              color: 'rgba(255,255,255,0.75)',
+              fontSize: '1.15rem',
+              color: 'rgba(255,255,255,0.85)',
               lineHeight: '1.7',
-              marginBottom: '32px',
-              maxWidth: '500px',
+              marginBottom: '16px',
+              maxWidth: '520px',
             }}>
-              Aprenda tudo sobre Terapias Bio-oxidativas com cursos, livros e mentoria personalizada com Gabriel Baltarejo.
+              O Dióxido de Cloro (CDS) é usado há mais de 30 anos por milhares de pessoas no mundo todo para resolver problemas que a medicina convencional não conseguiu.
+            </p>
+            <p style={{
+              fontSize: '1rem',
+              color: 'rgba(255,255,255,0.6)',
+              lineHeight: '1.6',
+              marginBottom: '32px',
+              maxWidth: '520px',
+            }}>
+              Descubra como funciona, aprenda os protocolos corretos e compre com segurança — tudo em um só lugar, com orientação de quem usa há mais de 10 anos.
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-              <a href="/downloads/guia-basico-iniciantes.pdf" download className="btn btn-gold" style={{
+              <Link href="/o-que-e-cds" className="btn btn-gold" style={{
                 fontSize: '1.05rem',
                 padding: '16px 36px',
               }}>
-                Guia Grátis para Iniciantes
-              </a>
+                O que é o CDS?
+              </Link>
               <Link href="/loja" className="btn-dark-gold" style={{
                 fontSize: '1.05rem',
                 padding: '16px 36px',
               }}>
-                Comprar Dioxi (SDC)
+                Comprar Agora
               </Link>
               <Link href="#qual-produto" className="btn-dark-gold" style={{
                 fontSize: '1.05rem',
