@@ -8,16 +8,14 @@ const MENU_ITEMS = [
   // Sempre visíveis
   { id: 'inicio', label: 'Início', icon: '🏠', href: '/minha-area', free: true },
   { id: 'iniciantes', label: 'Para Iniciantes', icon: '📖', href: '/minha-area/iniciantes', free: true },
-  { id: 'pdfs', label: 'PDFs Grátis', icon: '📄', href: '/minha-area/pdfs-gratis', free: true },
   // Separador
   { id: 'separator', type: 'separator' },
   // Condicionais
-  { id: 'protocolos', label: 'Protocolos', icon: '🧪', href: '/minha-area/protocolos', requiresCategory: ['cursos', 'livros'] },
   { id: 'cursos', label: 'Meus Cursos', icon: '🎓', href: '/minha-area#cursos', requiresCategory: ['cursos'] },
   { id: 'livros', label: 'Meus Livros', icon: '📚', href: '/minha-area#livros', requiresCategory: ['livros'] },
-  { id: 'comunidade', label: 'Comunidade', icon: '👥', href: '/minha-area/comunidade', free: true },
-  { id: 'consultorias', label: 'Minhas Consultorias', icon: '📋', href: '/minha-area/minhas-consultorias', requiresCategory: ['servicos'] },
-  { id: 'mentoria', label: 'Mentoria', icon: '💼', href: '/minha-area/mentoria', requiresCategory: ['servicos'] },
+  { id: 'consultoria', label: 'Consultoria & Mentoria', icon: '📋', href: '/minha-area/minhas-consultorias', requiresCategory: ['servicos'] },
+  // Sempre visível - por último
+  { id: 'comunidade', label: 'Comunidades', icon: '👥', href: '/minha-area/comunidade', free: true },
 ];
 
 export default function Sidebar({ userCategories = [] }) {
