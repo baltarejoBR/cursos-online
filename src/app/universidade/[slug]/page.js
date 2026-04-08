@@ -1,9 +1,13 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
-import { getPostBySlug, getRelatedPosts } from '@/lib/blog';
+import { getPostForUser, getRelatedPosts } from '@/lib/blog';
+import { createServerSupabase } from '@/lib/supabase-server';
 import { notFound } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }) {
+  const { getPostBySlug } = await import('@/lib/blog');
   const post = await getPostBySlug(params.slug);
   if (!post) return { title: 'Artigo não encontrado' };
   return {
@@ -13,7 +17,20 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ArtigoPage({ params }) {
-  const post = await getPostBySlug(params.slug);
+  // Optional auth
+  const supabase = createServerSupabase();
+  const { data: { user } } = await supabase.auth.getUser();
+  let userPlan = 'free';
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('plan')
+      .eq('id', user.id)
+      .single();
+    userPlan = profile?.plan || 'free';
+  }
+
+  const post = await getPostForUser(params.slug, userPlan);
 
   if (!post) {
     notFound();
@@ -42,19 +59,34 @@ export default async function ArtigoPage({ params }) {
             <span style={{ color: 'rgba(255,255,255,0.8)' }}>{post.title}</span>
           </nav>
 
-          <span style={{
-            display: 'inline-block',
-            padding: '4px 14px',
-            borderRadius: '20px',
-            fontSize: '0.8rem',
-            fontWeight: '600',
-            marginBottom: '16px',
-            background: 'rgba(201, 168, 76, 0.2)',
-            color: 'var(--gold-bright)',
-            border: '1px solid rgba(201, 168, 76, 0.3)',
-          }}>
-            {post.category}
-          </span>
+          <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
+            <span style={{
+              display: 'inline-block',
+              padding: '4px 14px',
+              borderRadius: '20px',
+              fontSize: '0.8rem',
+              fontWeight: '600',
+              background: 'rgba(201, 168, 76, 0.2)',
+              color: 'var(--gold-bright)',
+              border: '1px solid rgba(201, 168, 76, 0.3)',
+            }}>
+              {post.category}
+            </span>
+            {post.isLocked && (
+              <span style={{
+                display: 'inline-block',
+                padding: '4px 14px',
+                borderRadius: '20px',
+                fontSize: '0.8rem',
+                fontWeight: '700',
+                background: 'rgba(255,255,255,0.15)',
+                color: 'white',
+                border: '1px solid rgba(255,255,255,0.3)',
+              }}>
+                🔒 Premium
+              </span>
+            )}
+          </div>
 
           <h1 style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
@@ -95,67 +127,169 @@ export default async function ArtigoPage({ params }) {
       <section style={{ padding: '48px 20px 60px', background: 'var(--bg)' }}>
         <div className="container" style={{ maxWidth: '800px' }}>
 
-          {/* Artigo principal */}
-          <article
-            className="article-content"
-            style={{
-              background: 'var(--bg-card)',
-              borderRadius: '20px',
-              padding: '48px 40px',
-              border: '1px solid var(--border-light)',
-              borderTop: '3px solid var(--gold)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
-            }}
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
-
-          {/* Referências Científicas */}
-          {references.length > 0 && (
-            <div style={{
-              background: 'var(--bg-card)',
-              borderRadius: '20px',
-              padding: '32px 40px',
-              border: '1px solid var(--border-light)',
-              marginTop: '32px',
-            }}>
-              <h3 style={{
-                marginBottom: '20px',
-                color: 'var(--marble-dark)',
-                fontSize: '1.3rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
+          {post.isLocked ? (
+            <>
+              {/* Preview com fade */}
+              <div style={{
+                position: 'relative',
+                maxHeight: '400px',
+                overflow: 'hidden',
               }}>
-                <span style={{ color: 'var(--gold)' }}>📑</span>
-                Referências Científicas
-              </h3>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {references.map((ref, i) => (
-                  <li key={i} style={{
-                    padding: '16px 20px',
-                    background: 'var(--bg)',
-                    borderRadius: '12px',
-                    borderLeft: '3px solid var(--gold)',
-                    fontSize: '0.9rem',
+                <article
+                  className="article-content"
+                  style={{
+                    background: 'var(--bg-card)',
+                    borderRadius: '20px',
+                    padding: '48px 40px',
+                    border: '1px solid var(--border-light)',
+                    borderTop: '3px solid var(--gold)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+                  }}
+                  dangerouslySetInnerHTML={{ __html: post.content }}
+                />
+                {/* Gradient fade overlay */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: '250px',
+                  background: 'linear-gradient(transparent 0%, var(--bg) 85%)',
+                  pointerEvents: 'none',
+                }} />
+              </div>
+
+              {/* Paywall CTA */}
+              <div style={{
+                marginTop: '-20px',
+                position: 'relative',
+                zIndex: 2,
+                background: 'linear-gradient(135deg, #0d3b66 0%, #1a4a7a 50%, #0d3b66 100%)',
+                borderRadius: '20px',
+                padding: '48px 40px',
+                textAlign: 'center',
+                color: 'white',
+                border: '2px solid rgba(201,168,76,0.3)',
+                boxShadow: '0 8px 40px rgba(0,0,0,0.2)',
+              }}>
+                <div style={{
+                  width: '64px',
+                  height: '64px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '1.8rem',
+                  margin: '0 auto 20px',
+                  boxShadow: '0 4px 20px rgba(201,168,76,0.4)',
+                }}>
+                  🔒
+                </div>
+                <h3 style={{
+                  fontSize: '1.5rem',
+                  marginBottom: '12px',
+                  fontFamily: "'Playfair Display', Georgia, serif",
+                }}>
+                  Conteúdo Exclusivo para Assinantes
+                </h3>
+                <p style={{
+                  color: 'rgba(255,255,255,0.75)',
+                  lineHeight: 1.7,
+                  maxWidth: '450px',
+                  margin: '0 auto 28px',
+                }}>
+                  Desbloqueie este e mais de 50 artigos premium, incluindo todos os protocolos
+                  e estudos científicos completos.
+                </p>
+                <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <Link href="/planos" className="btn-dark-gold" style={{
+                    padding: '14px 32px',
+                    fontSize: '1rem',
                   }}>
-                    <div style={{ fontWeight: '600', color: 'var(--text)', marginBottom: '4px' }}>
-                      {ref.title}
-                    </div>
-                    {ref.journal && (
-                      <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontStyle: 'italic' }}>
-                        {ref.journal} {ref.year && `(${ref.year})`}
-                      </div>
-                    )}
-                    {ref.url && (
-                      <a href={ref.url} target="_blank" rel="noopener noreferrer"
-                        style={{ color: 'var(--gold-dark)', fontSize: '0.85rem', fontWeight: '600', marginTop: '4px', display: 'inline-block' }}>
-                        Ver estudo completo →
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
+                    {user ? 'Fazer Upgrade' : 'Assinar Agora'}
+                  </Link>
+                  {!user && (
+                    <Link href="/login" style={{
+                      padding: '14px 32px',
+                      color: 'white',
+                      textDecoration: 'none',
+                      border: '1px solid rgba(255,255,255,0.3)',
+                      borderRadius: '50px',
+                      fontSize: '0.95rem',
+                      transition: 'all 0.2s',
+                    }}>
+                      Já sou assinante
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Artigo completo */}
+              <article
+                className="article-content"
+                style={{
+                  background: 'var(--bg-card)',
+                  borderRadius: '20px',
+                  padding: '48px 40px',
+                  border: '1px solid var(--border-light)',
+                  borderTop: '3px solid var(--gold)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.04)',
+                }}
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+
+              {/* Referências Científicas */}
+              {references.length > 0 && (
+                <div style={{
+                  background: 'var(--bg-card)',
+                  borderRadius: '20px',
+                  padding: '32px 40px',
+                  border: '1px solid var(--border-light)',
+                  marginTop: '32px',
+                }}>
+                  <h3 style={{
+                    marginBottom: '20px',
+                    color: 'var(--marble-dark)',
+                    fontSize: '1.3rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '10px',
+                  }}>
+                    <span style={{ color: 'var(--gold)' }}>📑</span>
+                    Referências Científicas
+                  </h3>
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {references.map((ref, i) => (
+                      <li key={i} style={{
+                        padding: '16px 20px',
+                        background: 'var(--bg)',
+                        borderRadius: '12px',
+                        borderLeft: '3px solid var(--gold)',
+                        fontSize: '0.9rem',
+                      }}>
+                        <div style={{ fontWeight: '600', color: 'var(--text)', marginBottom: '4px' }}>
+                          {ref.title}
+                        </div>
+                        {ref.journal && (
+                          <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', fontStyle: 'italic' }}>
+                            {ref.journal} {ref.year && `(${ref.year})`}
+                          </div>
+                        )}
+                        {ref.url && (
+                          <a href={ref.url} target="_blank" rel="noopener noreferrer"
+                            style={{ color: 'var(--gold-dark)', fontSize: '0.85rem', fontWeight: '600', marginTop: '4px', display: 'inline-block' }}>
+                            Ver estudo completo →
+                          </a>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
           )}
 
           {/* Artigos Relacionados */}
@@ -174,45 +308,56 @@ export default async function ArtigoPage({ params }) {
                 gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
                 gap: '16px',
               }}>
-                {related.map(r => (
-                  <Link key={r.slug} href={`/universidade/${r.slug}`} style={{ textDecoration: 'none' }}>
-                    <div style={{
-                      background: 'var(--bg-card)',
-                      borderRadius: '16px',
-                      padding: '24px',
-                      border: '1px solid var(--border-light)',
-                      transition: 'transform 0.2s, box-shadow 0.2s, border-color 0.2s',
-                      height: '100%',
-                    }}
-                    onMouseEnter={undefined}
-                    >
-                      <span style={{
-                        fontSize: '0.75rem',
-                        color: 'var(--gold-dark)',
-                        fontWeight: '600',
-                        background: 'rgba(201, 168, 76, 0.1)',
-                        padding: '3px 10px',
-                        borderRadius: '20px',
+                {related.map(r => {
+                  const rLocked = r.is_premium && userPlan !== 'premium';
+                  return (
+                    <Link key={r.slug} href={`/universidade/${r.slug}`} style={{ textDecoration: 'none' }}>
+                      <div style={{
+                        background: 'var(--bg-card)',
+                        borderRadius: '16px',
+                        padding: '24px',
+                        border: '1px solid var(--border-light)',
+                        transition: 'transform 0.2s, box-shadow 0.2s',
+                        height: '100%',
+                        position: 'relative',
+                        opacity: rLocked ? 0.7 : 1,
                       }}>
-                        {r.category}
-                      </span>
-                      <h4 style={{
-                        fontSize: '1rem',
-                        color: 'var(--text)',
-                        marginTop: '12px',
-                        lineHeight: 1.3,
-                        fontWeight: '600',
-                      }}>
-                        {r.title}
-                      </h4>
-                      {r.reading_time_minutes && (
-                        <span style={{ color: 'var(--text-light)', fontSize: '0.8rem', marginTop: '8px', display: 'block' }}>
-                          {r.reading_time_minutes} min de leitura
+                        {rLocked && (
+                          <span style={{
+                            position: 'absolute',
+                            top: '12px',
+                            right: '12px',
+                            fontSize: '1rem',
+                          }}>🔒</span>
+                        )}
+                        <span style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--gold-dark)',
+                          fontWeight: '600',
+                          background: 'rgba(201, 168, 76, 0.1)',
+                          padding: '3px 10px',
+                          borderRadius: '20px',
+                        }}>
+                          {r.category}
                         </span>
-                      )}
-                    </div>
-                  </Link>
-                ))}
+                        <h4 style={{
+                          fontSize: '1rem',
+                          color: rLocked ? '#555' : 'var(--text)',
+                          marginTop: '12px',
+                          lineHeight: 1.3,
+                          fontWeight: '600',
+                        }}>
+                          {r.title}
+                        </h4>
+                        {r.reading_time_minutes && (
+                          <span style={{ color: 'var(--text-light)', fontSize: '0.8rem', marginTop: '8px', display: 'block' }}>
+                            {r.reading_time_minutes} min de leitura
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -233,14 +378,10 @@ export default async function ArtigoPage({ params }) {
               Explore a Universidade Dioxi ou conheça nossos cursos completos.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link href="/universidade" className="btn-dark-gold" style={{
-                padding: '12px 28px',
-              }}>
+              <Link href="/universidade" className="btn-dark-gold" style={{ padding: '12px 28px' }}>
                 Ver todos os artigos
               </Link>
-              <Link href="/produto/curso-cds-completo" className="btn btn-gold" style={{
-                padding: '12px 28px',
-              }}>
+              <Link href="/produto/curso-cds-completo" className="btn btn-gold" style={{ padding: '12px 28px' }}>
                 Curso Completo
               </Link>
             </div>

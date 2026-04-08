@@ -1,6 +1,9 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import { getPublishedPosts } from '@/lib/blog';
+import { createServerSupabase } from '@/lib/supabase-server';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Universidade Dioxi - Estudos e Artigos - Método Corpo Limpo',
@@ -8,17 +11,69 @@ export const metadata = {
 };
 
 const CATEGORIES = [
-  { value: null, label: 'Todos' },
-  { value: 'iniciantes', label: 'Para Iniciantes' },
-  { value: 'protocolos', label: 'Protocolos' },
-  { value: 'ciencia', label: 'Ciência' },
-  { value: 'estudos', label: 'Estudos Científicos' },
-  { value: 'seguranca', label: 'Segurança' },
+  { value: null, label: 'Todos', icon: '📚' },
+  { value: 'iniciantes', label: 'Para Iniciantes', icon: '🌱' },
+  { value: 'protocolos', label: 'Protocolos', icon: '📋' },
+  { value: 'ciencia', label: 'Ciência', icon: '🔬' },
+  { value: 'estudos', label: 'Estudos Científicos', icon: '📊', hasDropdown: true },
+  { value: 'seguranca', label: 'Segurança', icon: '🛡️' },
 ];
+
+const SUBCATEGORIES = {
+  tipo: [
+    { value: 'ensaios-clinicos', label: 'Ensaios Clínicos', icon: '🧪' },
+    { value: 'toxicidade', label: 'Toxicidade', icon: '⚗️' },
+    { value: 'peer-reviews', label: 'Peer Reviews', icon: '📝' },
+    { value: 'revisoes', label: 'Revisões', icon: '📖' },
+  ],
+  tema: [
+    { value: 'covid-19', label: 'COVID-19', icon: '🦠' },
+    { value: 'cancer', label: 'Câncer', icon: '🎗️' },
+    { value: 'sangue', label: 'Sangue & Oxigênio', icon: '🩸' },
+    { value: 'pele', label: 'Pele & Queimaduras', icon: '🩹' },
+    { value: 'infeccoes', label: 'Infecções', icon: '🦠' },
+  ],
+};
+
+const CATEGORY_LABELS = {
+  iniciantes: 'Para Iniciantes',
+  protocolos: 'Protocolos',
+  ciencia: 'Ciência',
+  estudos: 'Estudos Científicos',
+  seguranca: 'Segurança',
+};
+
+const SUB_LABELS = {
+  'ensaios-clinicos': 'Ensaios Clínicos',
+  'toxicidade': 'Toxicidade',
+  'peer-reviews': 'Peer Reviews',
+  'revisoes': 'Revisões',
+  'covid-19': 'COVID-19',
+  'cancer': 'Câncer',
+  'sangue': 'Sangue & Oxigênio',
+  'pele': 'Pele & Queimaduras',
+  'infeccoes': 'Infecções',
+};
 
 export default async function UniversidadePage({ searchParams }) {
   const cat = searchParams?.cat || null;
-  const posts = await getPublishedPosts(50, cat);
+  const sub = searchParams?.sub || null;
+
+  // Optional auth - no redirect
+  const supabase = createServerSupabase();
+  const { data: { user } } = await supabase.auth.getUser();
+  let userPlan = 'free';
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('plan')
+      .eq('id', user.id)
+      .single();
+    userPlan = profile?.plan || 'free';
+  }
+
+  const isPremium = userPlan === 'premium';
+  const posts = await getPublishedPosts({ category: cat, subcategory: sub });
 
   return (
     <>
@@ -54,49 +109,214 @@ export default async function UniversidadePage({ searchParams }) {
         </div>
       </section>
 
-      {/* Category Filters */}
+      {/* Category Navigation */}
       <section style={{
         background: 'var(--bg-card)',
         borderBottom: '1px solid var(--border)',
         padding: '16px 20px',
+        position: 'sticky',
+        top: '60px',
+        zIndex: 40,
       }}>
         <div style={{
-          maxWidth: '800px',
+          maxWidth: '900px',
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'center',
-          gap: '8px',
+          gap: '6px',
           flexWrap: 'wrap',
         }}>
           {CATEGORIES.map(c => {
             const isActive = cat === c.value || (!cat && !c.value);
             const href = c.value ? `/universidade?cat=${c.value}` : '/universidade';
+
+            if (c.hasDropdown) {
+              return (
+                <div key={c.label} className="uni-nav-dropdown-wrapper" style={{ position: 'relative' }}>
+                  <Link
+                    href={href}
+                    style={{
+                      padding: '8px 18px',
+                      borderRadius: '50px',
+                      border: isActive ? '2px solid var(--cds)' : '2px solid var(--border)',
+                      background: isActive ? 'var(--cds)' : 'white',
+                      color: isActive ? 'var(--cds-dark)' : 'var(--text-muted)',
+                      fontSize: '0.85rem',
+                      fontWeight: '600',
+                      textDecoration: 'none',
+                      transition: 'all 0.2s',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                    }}
+                    tabIndex={0}
+                  >
+                    <span>{c.icon}</span> {c.label} <span style={{ fontSize: '0.6rem' }}>▼</span>
+                  </Link>
+
+                  {/* Dropdown */}
+                  <div className="uni-nav-dropdown">
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      {/* Por Tipo */}
+                      <div>
+                        <div style={{
+                          fontSize: '0.7rem',
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                          color: 'var(--gold)',
+                          marginBottom: '10px',
+                          paddingBottom: '6px',
+                          borderBottom: '1px solid rgba(201,168,76,0.2)',
+                        }}>
+                          Por Tipo
+                        </div>
+                        {SUBCATEGORIES.tipo.map(s => (
+                          <Link
+                            key={s.value}
+                            href={`/universidade?cat=estudos&sub=${s.value}`}
+                            className="uni-nav-dropdown-item"
+                            style={{
+                              display: 'flex', alignItems: 'center', gap: '8px',
+                              padding: '8px 10px', borderRadius: '8px',
+                              textDecoration: 'none', color: 'var(--text)',
+                              fontSize: '0.85rem', fontWeight: sub === s.value ? '700' : '500',
+                              background: sub === s.value ? 'rgba(201,168,76,0.15)' : 'transparent',
+                              transition: 'background 0.15s',
+                            }}
+                          >
+                            <span>{s.icon}</span> {s.label}
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Por Tema */}
+                      <div>
+                        <div style={{
+                          fontSize: '0.7rem',
+                          fontWeight: '700',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.08em',
+                          color: 'var(--gold)',
+                          marginBottom: '10px',
+                          paddingBottom: '6px',
+                          borderBottom: '1px solid rgba(201,168,76,0.2)',
+                        }}>
+                          Por Tema
+                        </div>
+                        {SUBCATEGORIES.tema.map(s => (
+                          <Link
+                            key={s.value}
+                            href={`/universidade?cat=estudos&sub=${s.value}`}
+                            className="uni-nav-dropdown-item"
+                            style={{
+                              display: 'flex', alignItems: 'center', gap: '8px',
+                              padding: '8px 10px', borderRadius: '8px',
+                              textDecoration: 'none', color: 'var(--text)',
+                              fontSize: '0.85rem', fontWeight: sub === s.value ? '700' : '500',
+                              background: sub === s.value ? 'rgba(201,168,76,0.15)' : 'transparent',
+                              transition: 'background 0.15s',
+                            }}
+                          >
+                            <span>{s.icon}</span> {s.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+
             return (
               <Link
                 key={c.label}
                 href={href}
                 style={{
-                  padding: '8px 20px',
+                  padding: '8px 18px',
                   borderRadius: '50px',
                   border: isActive ? '2px solid var(--cds)' : '2px solid var(--border)',
                   background: isActive ? 'var(--cds)' : 'white',
                   color: isActive ? 'var(--cds-dark)' : 'var(--text-muted)',
-                  fontSize: '0.9rem',
+                  fontSize: '0.85rem',
                   fontWeight: '600',
                   textDecoration: 'none',
                   transition: 'all 0.2s',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}
               >
-                {c.label}
+                <span>{c.icon}</span> {c.label}
               </Link>
             );
           })}
         </div>
+
+        {/* Active filter breadcrumb */}
+        {(cat || sub) && (
+          <div style={{
+            maxWidth: '900px',
+            margin: '10px auto 0',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '8px',
+            fontSize: '0.8rem',
+            color: 'var(--text-muted)',
+          }}>
+            <span>Filtrando:</span>
+            {cat && (
+              <span style={{
+                background: 'rgba(201,168,76,0.15)',
+                color: 'var(--cds-dark)',
+                padding: '2px 10px',
+                borderRadius: '20px',
+                fontWeight: '600',
+              }}>
+                {CATEGORY_LABELS[cat] || cat}
+              </span>
+            )}
+            {sub && (
+              <>
+                <span>{'>'}</span>
+                <span style={{
+                  background: 'rgba(201,168,76,0.25)',
+                  color: 'var(--cds-dark)',
+                  padding: '2px 10px',
+                  borderRadius: '20px',
+                  fontWeight: '600',
+                }}>
+                  {SUB_LABELS[sub] || sub}
+                </span>
+              </>
+            )}
+            <Link href="/universidade" style={{
+              color: 'var(--error)',
+              fontWeight: '600',
+              textDecoration: 'none',
+              marginLeft: '4px',
+            }}>
+              ✕ Limpar
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* Posts Grid */}
-      <section style={{ padding: '60px 20px', background: 'var(--bg)' }}>
+      <section style={{ padding: '48px 20px 60px', background: 'var(--bg)' }}>
         <div className="container">
+
+          {/* Count badge */}
+          <div style={{
+            textAlign: 'center',
+            marginBottom: '32px',
+            color: 'var(--text-muted)',
+            fontSize: '0.9rem',
+          }}>
+            {posts.length} {posts.length === 1 ? 'artigo' : 'artigos'} encontrados
+          </div>
+
           {posts.length === 0 ? (
             <div style={{
               textAlign: 'center',
@@ -105,109 +325,220 @@ export default async function UniversidadePage({ searchParams }) {
             }}>
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📚</div>
               <h2 style={{ fontSize: '1.5rem', marginBottom: '12px', color: 'var(--text)' }}>
-                Em breve!
+                Nenhum artigo nesta categoria ainda
               </h2>
               <p style={{ maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
-                Estamos preparando artigos e estudos científicos sobre Dióxido de Cloro e Terapias Bio-oxidativas.
-                Volte em breve para conferir!
+                Estamos preparando conteúdo para esta seção. Volte em breve!
               </p>
-              <Link href="/" className="btn btn-gold" style={{ marginTop: '24px', display: 'inline-block' }}>
-                Voltar para o Início
+              <Link href="/universidade" className="btn btn-gold" style={{ marginTop: '24px', display: 'inline-block' }}>
+                Ver todos os artigos
               </Link>
             </div>
           ) : (
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
               gap: '24px',
               maxWidth: '1200px',
               margin: '0 auto',
             }}>
-              {posts.map(post => (
-                <Link
-                  key={post.id}
-                  href={`/universidade/${post.slug}`}
-                  style={{ textDecoration: 'none', color: 'inherit' }}
-                >
-                  <article style={{
-                    background: 'white',
-                    borderRadius: '20px',
-                    border: '1px solid var(--border)',
-                    overflow: 'hidden',
-                    transition: 'all 0.3s ease',
-                    boxShadow: '0 2px 10px rgba(0,0,0,0.06)',
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}>
-                    {/* Color header */}
-                    <div style={{
-                      height: '6px',
-                      background: 'linear-gradient(90deg, var(--cds), var(--success))',
-                    }} />
+              {posts.map(post => {
+                const isLocked = post.is_premium && !isPremium;
 
-                    <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      {/* Category badge */}
-                      <span style={{
-                        display: 'inline-block',
-                        padding: '3px 10px',
-                        borderRadius: '20px',
-                        fontSize: '0.75rem',
-                        fontWeight: '600',
-                        marginBottom: '12px',
-                        background: 'rgba(201, 168, 76, 0.15)',
-                        color: 'var(--cds-dark)',
-                        alignSelf: 'flex-start',
-                      }}>
-                        {post.category}
-                      </span>
+                return (
+                  <Link
+                    key={post.id}
+                    href={`/universidade/${post.slug}`}
+                    style={{ textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <article style={{
+                      background: 'white',
+                      borderRadius: '20px',
+                      border: isLocked ? '1px solid rgba(0,0,0,0.1)' : '1px solid var(--border)',
+                      overflow: 'hidden',
+                      transition: 'all 0.3s ease',
+                      boxShadow: isLocked ? '0 2px 10px rgba(0,0,0,0.12)' : '0 2px 10px rgba(0,0,0,0.06)',
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      position: 'relative',
+                      opacity: isLocked ? 0.75 : 1,
+                    }}>
+                      {/* Color header */}
+                      <div style={{
+                        height: '6px',
+                        background: isLocked
+                          ? 'linear-gradient(90deg, #555, #888)'
+                          : 'linear-gradient(90deg, var(--cds), var(--success))',
+                      }} />
 
-                      <h3 style={{
-                        fontSize: '1.15rem',
-                        fontWeight: '700',
-                        marginBottom: '8px',
-                        color: 'var(--marine)',
-                        lineHeight: 1.3,
-                      }}>
-                        {post.title}
-                      </h3>
-
-                      {post.excerpt && (
-                        <p style={{
-                          color: 'var(--text-muted)',
-                          fontSize: '0.9rem',
-                          lineHeight: 1.6,
-                          marginBottom: '16px',
-                          flex: 1,
+                      {/* Lock badge */}
+                      {isLocked && (
+                        <div style={{
+                          position: 'absolute',
+                          top: '16px',
+                          right: '16px',
+                          width: '36px',
+                          height: '36px',
+                          borderRadius: '50%',
+                          background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '1rem',
+                          boxShadow: '0 2px 8px rgba(201,168,76,0.4)',
+                          zIndex: 2,
                         }}>
-                          {post.excerpt}
-                        </p>
+                          🔒
+                        </div>
                       )}
 
-                      {/* Meta */}
-                      <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        color: '#999',
-                        fontSize: '0.8rem',
-                        marginTop: 'auto',
-                      }}>
-                        {post.reading_time_minutes && (
-                          <span>{post.reading_time_minutes} min de leitura</span>
+                      <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        {/* Badges row */}
+                        <div style={{ display: 'flex', gap: '6px', marginBottom: '12px', flexWrap: 'wrap' }}>
+                          <span style={{
+                            display: 'inline-block',
+                            padding: '3px 10px',
+                            borderRadius: '20px',
+                            fontSize: '0.7rem',
+                            fontWeight: '600',
+                            background: 'rgba(201, 168, 76, 0.15)',
+                            color: 'var(--cds-dark)',
+                          }}>
+                            {CATEGORY_LABELS[post.category] || post.category}
+                          </span>
+                          {post.subcategory && (
+                            <span style={{
+                              display: 'inline-block',
+                              padding: '3px 10px',
+                              borderRadius: '20px',
+                              fontSize: '0.7rem',
+                              fontWeight: '600',
+                              background: 'rgba(13, 59, 102, 0.1)',
+                              color: 'var(--marine)',
+                            }}>
+                              {SUB_LABELS[post.subcategory] || post.subcategory}
+                            </span>
+                          )}
+                          {isLocked && (
+                            <span style={{
+                              display: 'inline-block',
+                              padding: '3px 10px',
+                              borderRadius: '20px',
+                              fontSize: '0.7rem',
+                              fontWeight: '700',
+                              background: 'rgba(0,0,0,0.08)',
+                              color: '#666',
+                            }}>
+                              Premium
+                            </span>
+                          )}
+                        </div>
+
+                        <h3 style={{
+                          fontSize: '1.1rem',
+                          fontWeight: '700',
+                          marginBottom: '8px',
+                          color: isLocked ? '#555' : 'var(--marine)',
+                          lineHeight: 1.3,
+                        }}>
+                          {post.title}
+                        </h3>
+
+                        {post.excerpt && (
+                          <p style={{
+                            color: isLocked ? '#888' : 'var(--text-muted)',
+                            fontSize: '0.85rem',
+                            lineHeight: 1.6,
+                            marginBottom: '16px',
+                            flex: 1,
+                          }}>
+                            {post.excerpt.length > 120 ? post.excerpt.substring(0, 120) + '...' : post.excerpt}
+                          </p>
                         )}
-                        {post.published_at && (
-                          <span>{new Date(post.published_at).toLocaleDateString('pt-BR')}</span>
-                        )}
+
+                        {/* Meta */}
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          color: '#999',
+                          fontSize: '0.78rem',
+                          marginTop: 'auto',
+                          paddingTop: '12px',
+                          borderTop: '1px solid var(--border)',
+                        }}>
+                          {post.reading_time_minutes && (
+                            <span>{post.reading_time_minutes} min de leitura</span>
+                          )}
+                          {isLocked ? (
+                            <span style={{
+                              color: 'var(--gold-dark)',
+                              fontWeight: '600',
+                            }}>
+                              Desbloquear →
+                            </span>
+                          ) : (
+                            post.published_at && (
+                              <span>{new Date(post.published_at).toLocaleDateString('pt-BR')}</span>
+                            )
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </article>
-                </Link>
-              ))}
+                    </article>
+                  </Link>
+                );
+              })}
             </div>
           )}
         </div>
       </section>
+
+      {/* CTA para nao-assinantes */}
+      {!isPremium && (
+        <section style={{
+          padding: '48px 20px',
+          background: 'var(--hero-gradient)',
+          textAlign: 'center',
+          color: 'white',
+        }}>
+          <div className="container" style={{ maxWidth: '600px' }}>
+            <div style={{ fontSize: '2.5rem', marginBottom: '12px' }}>🔓</div>
+            <h2 style={{
+              fontSize: '1.6rem',
+              marginBottom: '12px',
+              fontFamily: "'Playfair Display', Georgia, serif",
+            }}>
+              Desbloqueie Todo o Conteúdo
+            </h2>
+            <p style={{
+              color: 'rgba(255,255,255,0.8)',
+              lineHeight: 1.7,
+              marginBottom: '24px',
+            }}>
+              Assine o Método Corpo Limpo e tenha acesso a todos os 26 protocolos,
+              estudos científicos completos e conteúdo exclusivo.
+            </p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link href="/planos" className="btn-dark-gold" style={{ padding: '14px 32px', fontSize: '1rem' }}>
+                Ver Planos
+              </Link>
+              {!user && (
+                <Link href="/login" style={{
+                  padding: '14px 32px',
+                  color: 'white',
+                  textDecoration: 'none',
+                  border: '1px solid rgba(255,255,255,0.3)',
+                  borderRadius: '50px',
+                  fontSize: '0.95rem',
+                }}>
+                  Já sou assinante
+                </Link>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       <footer className="footer">
         <div className="container" style={{ textAlign: 'center' }}>
