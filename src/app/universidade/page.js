@@ -9,10 +9,11 @@ export const metadata = {
 
 const CATEGORIES = [
   { value: null, label: 'Todos' },
-  { value: 'estudos', label: 'Estudos Científicos' },
-  { value: 'protocolos', label: 'Protocolos' },
   { value: 'iniciantes', label: 'Para Iniciantes' },
+  { value: 'protocolos', label: 'Protocolos' },
   { value: 'ciencia', label: 'Ciência' },
+  { value: 'estudos', label: 'Estudos Científicos' },
+  { value: 'seguranca', label: 'Segurança' },
 ];
 
 export default async function UniversidadePage({ searchParams }) {
