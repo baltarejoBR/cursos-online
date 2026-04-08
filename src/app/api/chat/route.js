@@ -217,7 +217,7 @@ export async function POST(request) {
   } catch (error) {
     console.error('Chat API error:', error);
     return NextResponse.json(
-      { error: 'Erro ao processar mensagem' },
+      { error: 'Erro ao processar mensagem', debug: error?.message || String(error) },
       { status: 500 }
     );
   }
