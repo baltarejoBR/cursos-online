@@ -11,9 +11,16 @@ export default function CadastroPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [telegramUsername, setTelegramUsername] = useState('');
+  const [whatsapp, setWhatsapp] = useState('');
+  const [howKnew, setHowKnew] = useState('');
+  const [interests, setInterests] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const toggleInterest = (value) => {
+    setInterests(prev => prev.includes(value) ? prev.filter(v => v !== value) : [...prev, value]);
+  };
   const supabase = createClient();
 
   const handleSignUp = async (e) => {
@@ -43,20 +50,28 @@ export default function CadastroPage() {
       return;
     }
 
-    // Salvar telegram_username no perfil se informado
-    if (telegramUsername.trim() && data.user) {
-      const cleanUsername = telegramUsername.trim().replace(/^@/, '');
-      await supabase
-        .from('profiles')
-        .update({ telegram_username: cleanUsername })
-        .eq('id', data.user.id);
+    // Salvar campos extras no perfil
+    if (data.user) {
+      const updates = {};
+      if (telegramUsername.trim()) updates.telegram_username = telegramUsername.trim().replace(/^@/, '');
+      if (whatsapp.trim()) updates.whatsapp_number = whatsapp.trim();
+      if (Object.keys(updates).length > 0) {
+        await supabase.from('profiles').update(updates).eq('id', data.user.id);
+      }
     }
 
-    // Enviar email de boas-vindas
+    // Enviar email de boas-vindas + criar contato no CRM e Brevo
     fetch('/api/welcome-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, name: fullName }),
+      body: JSON.stringify({
+        email,
+        name: fullName,
+        whatsapp: whatsapp.trim() || null,
+        howKnew: howKnew || null,
+        interests: interests.length > 0 ? interests : null,
+        userId: data.user?.id || null,
+      }),
     }).catch(() => {});
 
     setSuccess(true);
@@ -136,7 +151,21 @@ export default function CadastroPage() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="telegram">Usuário do Telegram (opcional)</label>
+            <label htmlFor="whatsapp">WhatsApp (opcional)</label>
+            <input
+              id="whatsapp"
+              type="tel"
+              placeholder="(11) 99999-9999"
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+            />
+            <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+              Para receber novidades e suporte direto.
+            </small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="telegram">Telegram (opcional)</label>
             <input
               id="telegram"
               type="text"
@@ -145,12 +174,62 @@ export default function CadastroPage() {
               onChange={(e) => setTelegramUsername(e.target.value)}
             />
             <small style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-              Informe seu Telegram para participar do grupo da comunidade.
+              Para participar do grupo da comunidade.
             </small>
           </div>
 
+          <div className="form-group">
+            <label htmlFor="howKnew">Como conheceu o CDS?</label>
+            <select
+              id="howKnew"
+              value={howKnew}
+              onChange={(e) => setHowKnew(e.target.value)}
+              style={{ width: '100%', padding: '12px', borderRadius: '8px', border: '1px solid var(--border)', background: 'var(--bg-card)', color: 'var(--text)', fontSize: '0.95rem' }}
+            >
+              <option value="">Selecione...</option>
+              <option value="instagram">Instagram</option>
+              <option value="youtube">YouTube</option>
+              <option value="amigos">Amigos / Familia</option>
+              <option value="google">Google / Pesquisa</option>
+              <option value="forum">Forum CDS</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label>O que voce busca? (opcional)</label>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '4px' }}>
+              {[
+                { value: 'aprender', label: 'Aprender sobre CDS' },
+                { value: 'comprar', label: 'Comprar produtos' },
+                { value: 'consultoria', label: 'Consultoria individual' },
+                { value: 'animais', label: 'Protocolos para animais' },
+                { value: 'pesquisa', label: 'Pesquisa cientifica' },
+              ].map(opt => (
+                <button
+                  key={opt.value}
+                  type="button"
+                  onClick={() => toggleInterest(opt.value)}
+                  style={{
+                    padding: '8px 14px',
+                    borderRadius: '20px',
+                    border: interests.includes(opt.value) ? '2px solid var(--gold)' : '1px solid var(--border)',
+                    background: interests.includes(opt.value) ? 'rgba(201, 168, 76, 0.1)' : 'var(--bg-card)',
+                    color: interests.includes(opt.value) ? 'var(--gold)' : 'var(--text-muted)',
+                    cursor: 'pointer',
+                    fontSize: '0.85rem',
+                    fontWeight: interests.includes(opt.value) ? 600 : 400,
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           <button type="submit" className="btn btn-gold btn-full" disabled={loading}>
-            {loading ? 'Cadastrando...' : 'Criar Conta Grátis'}
+            {loading ? 'Cadastrando...' : 'Criar Conta Gratis'}
           </button>
         </form>
 

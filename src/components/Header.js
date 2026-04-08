@@ -9,9 +9,32 @@ import { createClient } from '@/lib/supabase-browser';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
+const NAV_ITEMS = [
+  { label: 'Início', href: '/' },
+  {
+    label: 'Sobre o Dioxi',
+    key: 'sobre',
+    children: [
+      { label: 'O que é Dioxi?', href: '/o-que-e-cds', icon: '🧪', desc: 'Entenda o que é e como funciona' },
+      { label: 'Depoimentos', href: '/depoimentos', icon: '💬', desc: 'Veja o que nossos alunos dizem' },
+    ],
+  },
+  { label: 'Loja', href: '/loja' },
+  {
+    label: 'Aprender',
+    key: 'aprender',
+    children: [
+      { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'Conteúdo gratuito para iniciantes' },
+      { label: 'Cursos', href: '/planos', icon: '📚', desc: 'Cursos completos e especializados' },
+      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada' },
+    ],
+  },
+];
+
 export default function Header() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState(null);
   const pathname = usePathname();
   const supabase = createClient();
 
@@ -37,7 +60,25 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
+  const isDropdownActive = (children) => children.some(child => isActive(child.href));
+
   const navLinkClass = (href) => `nav-link${isActive(href) ? ' nav-link-active' : ''}`;
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setOpenSubmenu(null);
+  };
+
+  const toggleSubmenu = (key) => {
+    setOpenSubmenu(prev => prev === key ? null : key);
+  };
+
+  const handleDropdownKeyDown = (e, key) => {
+    if (e.key === 'Escape') {
+      setOpenSubmenu(null);
+      e.currentTarget.querySelector('.nav-dropdown-trigger')?.focus();
+    }
+  };
 
   return (
     <header className="header">
@@ -54,27 +95,70 @@ export default function Header() {
           {menuOpen ? '✕' : '☰'}
         </button>
         <nav className={`nav ${menuOpen ? 'nav-open' : ''}`}>
-          <Link href="/" className={navLinkClass('/')} onClick={() => setMenuOpen(false)}>Início</Link>
-          <Link href="/o-que-e-cds" className={navLinkClass('/o-que-e-cds')} onClick={() => setMenuOpen(false)}>O que é Dioxi?</Link>
-          <Link href="/loja" className={navLinkClass('/loja')} onClick={() => setMenuOpen(false)}>Comprar SDC</Link>
-          <Link href="/universidade" className={navLinkClass('/universidade')} onClick={() => setMenuOpen(false)}>Universidade</Link>
-          <Link href="/planos" className={navLinkClass('/planos')} onClick={() => setMenuOpen(false)}>Cursos</Link>
-          <Link href="/produto/mentoria" className={navLinkClass('/produto/mentoria')} onClick={() => setMenuOpen(false)}>Consultoria</Link>
-          <Link href="/depoimentos" className={navLinkClass('/depoimentos')} onClick={() => setMenuOpen(false)}>Depoimentos</Link>
+          {NAV_ITEMS.map((item) =>
+            item.children ? (
+              <div
+                key={item.key}
+                className="nav-dropdown"
+                onKeyDown={(e) => handleDropdownKeyDown(e, item.key)}
+              >
+                <button
+                  className={`nav-dropdown-trigger${isDropdownActive(item.children) ? ' nav-dropdown-trigger-active' : ''}`}
+                  onClick={() => toggleSubmenu(item.key)}
+                  aria-expanded={openSubmenu === item.key}
+                  aria-haspopup="true"
+                >
+                  {item.label}
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+                <div
+                  className={`nav-dropdown-menu${openSubmenu === item.key ? ' nav-dropdown-menu-open' : ''}`}
+                  role="menu"
+                >
+                  {item.children.map((child) => (
+                    <Link
+                      key={child.href}
+                      href={child.href}
+                      className={`nav-dropdown-item${isActive(child.href) ? ' nav-dropdown-item-active' : ''}`}
+                      onClick={closeMenu}
+                      role="menuitem"
+                    >
+                      <span className="nav-dropdown-icon">{child.icon}</span>
+                      <span className="nav-dropdown-text">
+                        <span className="nav-dropdown-label">{child.label}</span>
+                        <span className="nav-dropdown-desc">{child.desc}</span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={navLinkClass(item.href)}
+                onClick={closeMenu}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
           {user ? (
             <>
-              <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={() => setMenuOpen(false)}>Minha Área</Link>
+              <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={closeMenu}>Minha Área</Link>
               {ADMIN_EMAILS.includes(user.email) && (
-                <Link href="/admin" className={navLinkClass('/admin')} onClick={() => setMenuOpen(false)}>Admin</Link>
+                <Link href="/admin" className={navLinkClass('/admin')} onClick={closeMenu}>Admin</Link>
               )}
-              <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="nav-logout">
+              <button onClick={() => { closeMenu(); handleLogout(); }} className="nav-logout">
                 Sair
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className={navLinkClass('/login')} onClick={() => setMenuOpen(false)}>Entrar</Link>
-              <Link href="/cadastro" onClick={() => setMenuOpen(false)} className="btn btn-gold btn-sm">
+              <Link href="/login" className={navLinkClass('/login')} onClick={closeMenu}>Entrar</Link>
+              <Link href="/cadastro" onClick={closeMenu} className="btn btn-gold btn-sm">
                 Cadastrar
               </Link>
             </>
