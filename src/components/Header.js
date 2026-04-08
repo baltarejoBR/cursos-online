@@ -26,7 +26,7 @@ const NAV_ITEMS = [
     triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
     children: [
       { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'Conteúdo gratuito para iniciantes' },
-      { label: 'Cursos', href: '/planos', icon: '📚', desc: 'Cursos completos e especializados' },
+      { label: 'Cursos e Livros', href: '/planos', icon: '📚', desc: 'Cursos, livros e consultoria' },
       { label: 'TEAmor', href: '/teamor', icon: '💙', desc: 'Curso para famílias de crianças atípicas' },
       { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada' },
     ],

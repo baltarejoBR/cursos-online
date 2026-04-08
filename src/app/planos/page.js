@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Header from '@/components/Header';
 import { PRODUCTS, CATEGORIES } from '@/lib/products';
 
-const categoryOrder = ['cursos', 'livros', 'servicos', 'comunidade', 'loja', 'gratuitos'];
+const VISIBLE_CATEGORIES = ['cursos', 'livros', 'servicos'];
 
 export default function PlanosPage() {
   return (
@@ -23,13 +23,13 @@ function PlanosContent() {
   const [activeFilter, setActiveFilter] = useState('todos');
 
   useEffect(() => {
-    if (catParam && (catParam === 'todos' || CATEGORIES[catParam])) {
+    if (catParam && (catParam === 'todos' || VISIBLE_CATEGORIES.includes(catParam))) {
       setActiveFilter(catParam);
     }
   }, [catParam]);
 
   const filtered = activeFilter === 'todos'
-    ? PRODUCTS.filter(p => !p.hidden)
+    ? PRODUCTS.filter(p => !p.hidden && VISIBLE_CATEGORIES.includes(p.category))
     : PRODUCTS.filter(p => p.category === activeFilter && !p.hidden);
 
   return (
@@ -37,11 +37,12 @@ function PlanosContent() {
       <Header />
 
       <section className="hero" style={{ paddingBottom: '40px' }}>
-        <div className="container">
-          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, color: 'white' }}>Nossos Produtos</h1>
-          <p style={{ color: 'rgba(255,255,255,0.75)' }}>
-            Tudo sobre como desintoxicar seu corpo com Terapias Bio-oxidativas.
-            Cursos, livros, mentoria e comunidade.
+        <div className="container" style={{ textAlign: 'center' }}>
+          <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, color: 'white' }}>
+            Cursos, Livros e Serviços
+          </h1>
+          <p style={{ color: 'rgba(255,255,255,0.75)', maxWidth: '550px', margin: '0 auto' }}>
+            Aprenda sobre Terapias Bio-oxidativas com cursos completos, livros digitais e consultoria personalizada.
           </p>
         </div>
       </section>
@@ -61,7 +62,7 @@ function PlanosContent() {
           >
             Todos
           </button>
-          {categoryOrder.map(catKey => {
+          {VISIBLE_CATEGORIES.map(catKey => {
             const cat = CATEGORIES[catKey];
             const isActive = activeFilter === catKey;
             return (
@@ -88,11 +89,10 @@ function PlanosContent() {
             <Link
               key={product.id}
               href={product.type === 'external' ? (product.externalUrl || '#') :
-                    product.type === 'download' ? (product.downloadPath || '#') :
+                    product.type === 'whatsapp' ? (product.whatsappUrl || '#') :
                     `/produto/${product.slug}`}
               style={{ textDecoration: 'none', color: 'inherit' }}
-              {...(product.type === 'external' ? { target: '_blank', rel: 'noopener' } : {})}
-              {...(product.type === 'download' ? { download: true } : {})}
+              {...(product.type === 'external' || product.type === 'whatsapp' ? { target: '_blank', rel: 'noopener' } : {})}
             >
               <div className="course-card">
                 <div className="course-thumb" style={{ background: product.gradient, position: 'relative', overflow: 'hidden' }}>
@@ -133,7 +133,9 @@ function PlanosContent() {
                     </span>
                   </div>
                   <h3>{product.title}</h3>
-                  <p>{product.description}</p>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                    {product.subtitle}
+                  </p>
                   <div className="course-meta" style={{ marginTop: '12px' }}>
                     {product.priceDisplay ? (
                       <span style={{ fontWeight: '700', color: 'var(--success)', fontSize: '1.1rem' }}>
@@ -146,13 +148,12 @@ function PlanosContent() {
                       </span>
                     ) : (
                       <span style={{ fontWeight: '600', color: 'var(--primary)' }}>
-                        {product.type === 'download' ? '📥 Acessar' : '🔗 Acessar'}
+                        🔗 Acessar
                       </span>
                     )}
                     <span className={`badge ${product.type === 'subscription' ? 'badge-premium' : 'badge-free'}`}>
                       {product.type === 'subscription' ? 'Assinatura' :
-                       product.type === 'download' ? 'Grátis' :
-                       product.type === 'external' ? 'Acesso' : 'Único'}
+                       product.type === 'whatsapp' ? 'Agendar' : 'Pagamento único'}
                     </span>
                   </div>
                 </div>
@@ -167,12 +168,6 @@ function PlanosContent() {
           </p>
         )}
       </main>
-
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; 2026 Método Corpo Limpo. Todos os direitos reservados.</p>
-        </div>
-      </footer>
     </>
   );
 }
