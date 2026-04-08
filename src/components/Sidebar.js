@@ -16,6 +16,7 @@ const MENU_ITEMS = [
   { id: 'cursos', label: 'Meus Cursos', icon: '🎓', href: '/minha-area#cursos', requiresCategory: ['cursos'] },
   { id: 'livros', label: 'Meus Livros', icon: '📚', href: '/minha-area#livros', requiresCategory: ['livros'] },
   { id: 'comunidade', label: 'Comunidade', icon: '👥', href: '/minha-area/comunidade', free: true },
+  { id: 'consultorias', label: 'Minhas Consultorias', icon: '📋', href: '/minha-area/minhas-consultorias', requiresCategory: ['servicos'] },
   { id: 'mentoria', label: 'Mentoria', icon: '💼', href: '/minha-area/mentoria', requiresCategory: ['servicos'] },
 ];
 
