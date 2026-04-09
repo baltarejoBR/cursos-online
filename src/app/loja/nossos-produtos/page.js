@@ -12,7 +12,7 @@ const PRODUTOS = [
     subtitulo: 'Solução de Dióxido de Cloro',
     emoji: '🧪',
     cor: '#2e8b57',
-    descricao: 'O CDS age como um faxineiro do corpo — é uma molécula oxidante (ClO₂) usada há décadas para purificação de água. Na forma de solução (SDC/CDS), é preparado a 3000 ppm e diluído conforme os protocolos estabelecidos por pesquisadores como Andreas Kalcker.',
+    descricao: 'O CDS é uma molécula oxidante seletiva (ClO₂) usada há décadas para purificação de água. Na forma de solução (SDC/CDS), é preparado a 3000 ppm e diluído conforme os protocolos estabelecidos por pesquisadores como Andreas Kalcker.',
     beneficios: [
       'Purificação e tratamento de água',
       'Ampla documentação científica desde os anos 90',
@@ -79,7 +79,7 @@ export default function NossosProdutosPage() {
             Nossos Produtos
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.6 }}>
-            A gente trabalha com três produtos principais: <strong style={{ color: '#dfc06a' }}>CDS</strong>, <strong style={{ color: '#dfc06a' }}>Ormus</strong> e <strong style={{ color: '#dfc06a' }}>DMSO</strong>. Vou te explicar cada um para você escolher o ideal.
+            Trabalhamos com três produtos principais: <strong style={{ color: '#dfc06a' }}>CDS</strong>, <strong style={{ color: '#dfc06a' }}>Ormus</strong> e <strong style={{ color: '#dfc06a' }}>DMSO</strong>. Conheça cada um para escolher o ideal para o seu momento.
           </p>
         </div>
       </section>
@@ -294,7 +294,7 @@ export default function NossosProdutosPage() {
                 border: '1px solid #2e8b5720',
               }}>
                 <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, margin: 0 }}>
-                  <strong style={{ color: 'var(--text)' }}>Qual escolher?</strong> Pode ter certeza: ambos são eficazes e geram a mesma molécula (ClO₂) a 3000 ppm. O eletrolítico é ideal para quem busca máxima pureza e sabor mais suave. O por reação química é mais econômico e igualmente funcional para todos os protocolos.
+                  <strong style={{ color: 'var(--text)' }}>Qual escolher?</strong> Ambos são eficazes e geram a mesma molécula (ClO₂) a 3000 ppm. O eletrolítico é ideal para quem busca máxima pureza e sabor mais suave. O por reação química é mais econômico e igualmente funcional para todos os protocolos.
                 </p>
               </div>
             </div>
@@ -310,10 +310,10 @@ export default function NossosProdutosPage() {
             border: '1px solid var(--border-light)',
           }}>
             <h2 style={{ fontSize: '1.4rem', fontWeight: '700', marginBottom: '8px' }}>
-              Bora escolher?
+              Pronto para escolher?
             </h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
-              A gente tem mais de 37 produtos e kits com desconto na loja. Vamos lá?
+              A loja tem mais de 37 produtos e kits com desconto disponíveis.
             </p>
             <Link href="/loja" style={{
               display: 'inline-block',

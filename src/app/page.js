@@ -53,7 +53,7 @@ export default async function Home() {
         }} className="hero-grid">
           <div>
             <div className="badge-ornamental" style={{ marginBottom: '20px' }}>
-              +300 pessoas já limparam o corpo e transformaram sua saúde
+              +300 pessoas já transformaram sua saúde com o Método
             </div>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
@@ -73,7 +73,7 @@ export default async function Home() {
               marginBottom: '16px',
               maxWidth: '520px',
             }}>
-              O Dióxido de Cloro (CDS) é usado há mais de 30 anos por milhares de pessoas no mundo todo. É como ganhar um pulmão extra bebendo água — e a gente está aqui pra te mostrar como.
+              O Dióxido de Cloro (CDS) é usado há mais de 30 anos por milhares de pessoas no mundo todo. É como ganhar um pulmão extra bebendo água.
             </p>
             <p style={{
               fontSize: '1rem',
@@ -228,7 +228,7 @@ export default async function Home() {
               marginBottom: '32px',
               color: 'var(--text)',
             }}>
-              Por que a gente confia no <span style={{ color: '#c9a84c' }}>CDS</span>?
+              Por que confiar no <span style={{ color: '#c9a84c' }}>CDS</span>?
             </h2>
             <div style={{
               display: 'flex',
@@ -239,8 +239,8 @@ export default async function Home() {
               {[
                 { icon: '🛡️', numero: '30+ anos', label: 'Desde Jim Humble nos anos 90' },
                 { icon: '🔬', numero: 'Desde 2006', label: 'Estudado por Andreas Kalcker' },
-                { icon: '👤', numero: '10 anos', label: 'Gabriel usa pessoalmente — pode ter certeza' },
-                { icon: '📦', numero: '6 anos', label: 'Distribuindo com zero problemas' },
+                { icon: '👤', numero: '10 anos', label: 'Gabriel usa pessoalmente' },
+                { icon: '📦', numero: '6 anos', label: 'Distribuindo sem problemas' },
               ].map(item => (
                 <div key={item.numero} style={{
                   display: 'flex',
@@ -494,7 +494,7 @@ export default async function Home() {
             marginBottom: '24px',
             color: 'var(--text)',
             fontWeight: '600',
-          }}>Quem já começou, não para mais</h3>
+          }}>O que nossos alunos dizem</h3>
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -563,10 +563,10 @@ export default async function Home() {
       }}>
         <div className="container" style={{ maxWidth: '800px' }}>
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.8rem', marginBottom: '12px' }}>
-            Novo por aqui? Vamos lá, é simples.
+            Novo por aqui? Comece pelo começo.
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '24px' }}>
-            O CDS é o produto de limpeza do seu corpo. Parece complicado, mas é simples — e a gente te mostra o caminho.
+            Entenda o que é o Dióxido de Cloro, como ele funciona e por que milhares de pessoas confiam nele há mais de 30 anos.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/o-que-e-cds" className="btn" style={{
@@ -640,7 +640,7 @@ export default async function Home() {
               maxWidth: '600px',
               margin: '0 auto',
             }}>
-              Eu costumo dizer: o que pode libertar as pessoas é só uma coisa — informação. Então vamos aos fatos.
+              Existe muita desinformação na internet. Aqui estão os fatos.
             </p>
           </div>
           <div style={{
@@ -651,7 +651,7 @@ export default async function Home() {
             {[
               {
                 mito: 'CDS é perigoso e causa efeitos colaterais',
-                verdade: 'O CDS é um oxidante mais fraco que o oxigênio — mais fraco que o ar que a gente respira. O que chamam de "efeito colateral" é a faxina do corpo funcionando. Com o protocolo correto, é totalmente controlável.',
+                verdade: 'O CDS é um oxidante mais fraco que o próprio oxigênio do ar que respiramos. O que muitos chamam de "efeito colateral" são, na verdade, reações de detoxificação — sinal de que o corpo está eliminando toxinas. Com o protocolo correto, essas reações são controláveis e temporárias.',
               },
               {
                 mito: 'Não existe evidência de que funciona',
@@ -659,7 +659,7 @@ export default async function Home() {
               },
               {
                 mito: 'É arriscado comprar e usar por conta própria',
-                verdade: 'A gente distribui Dioxi há 6 anos, com centenas de clientes satisfeitos e zero problemas. Se o CDS tivesse 1% de risco, eu nunca teria entrado nisso. O curso ensina exatamente como usar com segurança.',
+                verdade: 'Gabriel distribui Dioxi há 6 anos, com centenas de clientes satisfeitos e zero problemas. Nossos cursos ensinam exatamente como usar de forma segura e consciente.',
               },
               {
                 mito: 'Se fosse bom, os médicos recomendariam',
@@ -711,7 +711,7 @@ export default async function Home() {
             Qual produto ideal pra você?
           </h2>
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '48px', maxWidth: '600px', margin: '0 auto 48px' }}>
-            A gente recebe essa pergunta o tempo todo. Veja qual caminho faz mais sentido pra você:
+            Muita gente tem dúvida sobre por onde começar. Veja qual opção se encaixa melhor no seu momento:
           </p>
           <div style={{
             display: 'grid',
@@ -881,7 +881,7 @@ export default async function Home() {
               fontStyle: 'italic',
               marginBottom: '12px',
             }}>
-              &quot;Eu uso CDS pessoalmente há 10 anos. Distribuo há 6 anos para centenas de pessoas. Se o CDS tivesse 1% de risco, eu nunca teria entrado nisso. Minha missão é fazer com que quem precisar encontrar, encontre. Corpo limpo é corpo saudável.&quot;
+              &quot;Eu uso CDS pessoalmente há 10 anos. Distribuo há 6 anos para centenas de pessoas. Se não fosse seguro, eu não usaria na minha própria família. Minha missão é levar informação de qualidade para que você possa tomar decisões conscientes sobre sua saúde.&quot;
             </p>
             <p style={{
               fontWeight: '600',
@@ -1027,7 +1027,7 @@ export default async function Home() {
                 Universidade Dioxi
               </h2>
               <p style={{ color: 'var(--text-muted)', maxWidth: '600px', margin: '0 auto' }}>
-                Conteúdo gratuito pra você entender o básico. O primeiro CDS é grátis — o conhecimento também.
+                Artigos, estudos científicos e conteúdo educativo sobre Terapias Bio-oxidativas.
               </p>
             </div>
             <div style={{
@@ -1093,10 +1093,10 @@ export default async function Home() {
         </div>
         <div className="container" style={{ maxWidth: '900px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>
-            Quem compra o curso, entra na família
+            Ao comprar o curso, você entra na Comunidade
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.1rem', marginBottom: '40px', maxWidth: '650px', margin: '0 auto 40px' }}>
-            A gente tem o privilégio de atrair pessoas que já estão no caminho da cura. Junto com o curso, você entra em grupos exclusivos onde todo mundo se ajuda:
+            Além do conteúdo completo, quem compra o curso tem acesso exclusivo a grupos especializados onde troca experiências e tira dúvidas com outros alunos:
           </p>
           <div style={{
             display: 'grid',
@@ -1182,7 +1182,7 @@ export default async function Home() {
             Corpo limpo é corpo <span style={{ color: '#c9a84c' }}>saudável</span>
           </h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px' }}>
-            As pessoas limpam as casas, mas não limpam os corpos. A gente está aqui pra mudar isso — com informação, segurança e comunidade.
+            Milhares de pessoas ao redor do mundo já descobriram os benefícios das Terapias Bio-oxidativas para uma vida mais saudável e ativa.
           </p>
           <div style={{
             display: 'grid',

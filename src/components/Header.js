@@ -17,7 +17,7 @@ const NAV_ITEMS = [
     key: 'sobre',
     triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><path d="M9 3h6v8l3 4H6l3-4V3z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 3h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><path d="M5 21h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><path d="M8 21l1-4h6l1 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
     children: [
-      { label: 'O que é Dioxi?', href: '/o-que-e-cds', icon: '🧪', desc: 'Entenda o que é e por que é seguro' },
+      { label: 'O que é Dioxi?', href: '/o-que-e-cds', icon: '🧪', desc: 'Entenda o que é e como funciona' },
       { label: 'Depoimentos', href: '/depoimentos', icon: '💬', desc: 'Veja o que nossos alunos dizem' },
     ],
   },
@@ -26,10 +26,10 @@ const NAV_ITEMS = [
     key: 'aprender',
     triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
     children: [
-      { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'O primeiro CDS é grátis — o conhecimento também' },
+      { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'Conteúdo gratuito para iniciantes' },
       { label: 'Cursos e Livros', href: '/planos', icon: '📚', desc: 'Cursos, livros e consultoria' },
       { label: 'TEAmor', href: '/teamor', icon: '💙', desc: 'Curso para famílias de crianças atípicas' },
-      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Conversa direta com o Gabriel' },
+      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada com o Gabriel' },
     ],
   },
   {

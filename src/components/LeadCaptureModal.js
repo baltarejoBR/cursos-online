@@ -117,10 +117,10 @@ export default function LeadCaptureModal() {
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🎁</div>
               <h2 style={{ fontSize: '1.5rem', color: '#0d2137', marginBottom: '8px' }}>
-                A gente quer te dar 5% de Desconto!
+                Ganhe 5% de Desconto!
               </h2>
               <p style={{ color: '#4a6a8a', fontSize: '0.95rem', lineHeight: 1.6 }}>
-                Coloca seu email aqui e a gente te manda um cupom exclusivo pra sua primeira compra na loja.
+                Cadastre seu email e receba um cupom exclusivo para sua primeira compra na loja.
               </p>
             </div>
 
@@ -188,19 +188,19 @@ export default function LeadCaptureModal() {
                   opacity: loading ? 0.7 : 1,
                 }}
               >
-                {loading ? 'Gerando cupom...' : 'Quero meu cupom! 🎁'}
+                {loading ? 'Gerando cupom...' : 'Quero meu Cupom!'}
               </button>
             </form>
 
             <p style={{ textAlign: 'center', color: '#999', fontSize: '0.8rem', marginTop: '12px' }}>
-              Fique tranquilo — a gente não envia spam. Pode cancelar quando quiser.
+              Não enviamos spam. Você pode cancelar a qualquer momento.
             </p>
           </>
         ) : (
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '3rem', marginBottom: '12px' }}>🎉</div>
             <h2 style={{ fontSize: '1.5rem', color: '#0d2137', marginBottom: '8px' }}>
-              Beleza, seu cupom está pronto!
+              Seu cupom está pronto!
             </h2>
             <p style={{ color: '#4a6a8a', marginBottom: '20px' }}>
               Use o código abaixo na loja para ganhar 5% de desconto:
