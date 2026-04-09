@@ -70,7 +70,8 @@ export default async function UniversidadePage({ searchParams }) {
             margin: '0 auto',
             lineHeight: 1.7,
           }}>
-            Estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro e Terapias Bio-oxidativas, reunidos em um só lugar.
+            Estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro
+            e Terapias Bio-oxidativas. Conhecimento acessível para todos.
           </p>
         </div>
       </section>
@@ -409,10 +410,10 @@ export default async function UniversidadePage({ searchParams }) {
             }}>
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📚</div>
               <h2 style={{ fontSize: '1.5rem', marginBottom: '12px', color: 'var(--text)' }}>
-                Conteúdo em preparação
+                Nenhum artigo nesta categoria ainda
               </h2>
               <p style={{ maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
-                Novos artigos e estudos em breve. Volte em alguns dias para conferir.
+                Estamos preparando conteúdo para esta seção. Volte em breve!
               </p>
               <Link href="/universidade" className="btn btn-gold" style={{ marginTop: '24px', display: 'inline-block' }}>
                 Ver todos os artigos
@@ -601,7 +602,8 @@ export default async function UniversidadePage({ searchParams }) {
               lineHeight: 1.7,
               marginBottom: '24px',
             }}>
-              Assine o Método Corpo Limpo e tenha acesso a todos os 26 protocolos, estudos científicos completos e conteúdo exclusivo.
+              Assine o Método Corpo Limpo e tenha acesso a todos os 26 protocolos,
+              estudos científicos completos e conteúdo exclusivo.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link href="/planos" className="btn-dark-gold" style={{ padding: '14px 32px', fontSize: '1rem' }}>

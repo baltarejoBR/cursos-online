@@ -12,7 +12,7 @@ const PRODUTOS = [
     subtitulo: 'Solução de Dióxido de Cloro',
     emoji: '🧪',
     cor: '#2e8b57',
-    descricao: 'O CDS é uma molécula oxidante seletiva (ClO₂) usada há décadas para purificação de água. Na forma de solução (SDC/CDS), é preparado a 3000 ppm e diluído conforme os protocolos estabelecidos por pesquisadores como Andreas Kalcker.',
+    descricao: 'O Dióxido de Cloro (ClO₂) é uma molécula oxidante usada há décadas para purificação de água. Na forma de solução (SDC/CDS), é preparado a 3000 ppm e diluído conforme os protocolos estabelecidos por pesquisadores como Andreas Kalcker.',
     beneficios: [
       'Purificação e tratamento de água',
       'Ampla documentação científica desde os anos 90',
@@ -79,7 +79,7 @@ export default function NossosProdutosPage() {
             Nossos Produtos
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.1rem', lineHeight: 1.6 }}>
-            Trabalhamos com três produtos principais: <strong style={{ color: '#dfc06a' }}>CDS</strong>, <strong style={{ color: '#dfc06a' }}>Ormus</strong> e <strong style={{ color: '#dfc06a' }}>DMSO</strong>. Conheça cada um para escolher o ideal para o seu momento.
+            Entenda a diferença entre <strong style={{ color: '#dfc06a' }}>CDS</strong>, <strong style={{ color: '#dfc06a' }}>Ormus</strong> e <strong style={{ color: '#dfc06a' }}>DMSO</strong> para escolher o produto ideal para você.
           </p>
         </div>
       </section>
@@ -313,7 +313,7 @@ export default function NossosProdutosPage() {
               Pronto para escolher?
             </h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '24px' }}>
-              A loja tem mais de 37 produtos e kits com desconto disponíveis.
+              Veja todos os 37 produtos e kits com desconto na loja.
             </p>
             <Link href="/loja" style={{
               display: 'inline-block',
@@ -325,7 +325,7 @@ export default function NossosProdutosPage() {
               fontSize: '1rem',
               textDecoration: 'none',
             }}>
-              Ver todos os produtos
+              Ver todos os produtos →
             </Link>
           </div>
         </div>

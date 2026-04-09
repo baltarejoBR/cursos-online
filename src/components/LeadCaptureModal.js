@@ -120,7 +120,7 @@ export default function LeadCaptureModal() {
                 Ganhe 5% de Desconto!
               </h2>
               <p style={{ color: '#4a6a8a', fontSize: '0.95rem', lineHeight: 1.6 }}>
-                Cadastre seu email e receba um cupom exclusivo para sua primeira compra na loja.
+                Cadastre seu email e receba um cupom exclusivo para sua primeira compra na loja Dioxi.
               </p>
             </div>
 

@@ -53,7 +53,7 @@ export default async function Home() {
         }} className="hero-grid">
           <div>
             <div className="badge-ornamental" style={{ marginBottom: '20px' }}>
-              +300 pessoas já transformaram sua saúde com o Método
+              +300 pessoas já recuperaram sua saúde
             </div>
             <h1 style={{
               fontFamily: "'Playfair Display', Georgia, serif",
@@ -73,7 +73,7 @@ export default async function Home() {
               marginBottom: '16px',
               maxWidth: '520px',
             }}>
-              O Dióxido de Cloro (CDS) é usado há mais de 30 anos por milhares de pessoas no mundo todo. É como ganhar um pulmão extra bebendo água.
+              O Dióxido de Cloro (CDS) é usado há mais de 30 anos por milhares de pessoas no mundo todo para resolver problemas que a medicina convencional não conseguiu.
             </p>
             <p style={{
               fontSize: '1rem',
@@ -82,7 +82,7 @@ export default async function Home() {
               marginBottom: '32px',
               maxWidth: '520px',
             }}>
-              Entenda por que funciona, aprenda os protocolos corretos e compre com segurança — tudo em um só lugar. A saúde é consequência de um corpo limpo.
+              Descubra como funciona, aprenda os protocolos corretos e compre com segurança — tudo em um só lugar, com orientação de quem usa há mais de 10 anos.
             </p>
             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <Link href="/o-que-e-cds" className="btn btn-gold" style={{
@@ -563,10 +563,10 @@ export default async function Home() {
       }}>
         <div className="container" style={{ maxWidth: '800px' }}>
           <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: '1.8rem', marginBottom: '12px' }}>
-            Novo por aqui? Comece pelo começo.
+            Novo por aqui? Entenda como funciona.
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', lineHeight: '1.7', marginBottom: '24px' }}>
-            Entenda o que é o Dióxido de Cloro, como ele funciona e por que milhares de pessoas confiam nele há mais de 30 anos.
+            Descubra o que é o Dióxido de Cloro, como ele é usado há mais de 30 anos e por que milhares de pessoas confiam nele.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/o-que-e-cds" className="btn" style={{
@@ -640,7 +640,7 @@ export default async function Home() {
               maxWidth: '600px',
               margin: '0 auto',
             }}>
-              Existe muita desinformação na internet. Aqui estão os fatos.
+              Vamos ser honestos: existe muita desinformação na internet. Aqui estão os fatos.
             </p>
           </div>
           <div style={{
@@ -651,7 +651,7 @@ export default async function Home() {
             {[
               {
                 mito: 'CDS é perigoso e causa efeitos colaterais',
-                verdade: 'O CDS é um oxidante mais fraco que o próprio oxigênio do ar que respiramos. O que muitos chamam de "efeito colateral" são, na verdade, reações de detoxificação — sinal de que o corpo está eliminando toxinas. Com o protocolo correto, essas reações são controláveis e temporárias.',
+                verdade: 'O que muitos chamam de "efeito colateral" são, na verdade, reações de detoxificação — um sinal de que o corpo está eliminando toxinas. Com o protocolo correto, essas reações são controláveis e temporárias.',
               },
               {
                 mito: 'Não existe evidência de que funciona',
@@ -1096,7 +1096,8 @@ export default async function Home() {
             Ao comprar o curso, você entra na Comunidade
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '1.1rem', marginBottom: '40px', maxWidth: '650px', margin: '0 auto 40px' }}>
-            Além do conteúdo completo, quem compra o curso tem acesso exclusivo a grupos especializados onde troca experiências e tira dúvidas com outros alunos:
+            Além do conteúdo completo, quem compra o curso tem acesso exclusivo a grupos especializados
+            onde você troca experiências e tira dúvidas com outros alunos:
           </p>
           <div style={{
             display: 'grid',
@@ -1179,7 +1180,7 @@ export default async function Home() {
             marginBottom: '12px',
             color: 'var(--text)',
           }}>
-            Corpo limpo é corpo <span style={{ color: '#c9a84c' }}>saudável</span>
+            Saúde é o nosso maior <span style={{ color: '#c9a84c' }}>patrimônio</span>
           </h2>
           <p style={{ color: 'var(--text-muted)', marginBottom: '32px', maxWidth: '600px', margin: '0 auto 32px' }}>
             Milhares de pessoas ao redor do mundo já descobriram os benefícios das Terapias Bio-oxidativas para uma vida mais saudável e ativa.

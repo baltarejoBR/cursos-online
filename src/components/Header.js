@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getImageUrl } from '@/lib/storage';
 import { createClient } from '@/lib/supabase-browser';
-import SearchModal from './SearchModal';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
@@ -29,15 +28,7 @@ const NAV_ITEMS = [
       { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'Conteúdo gratuito para iniciantes' },
       { label: 'Cursos e Livros', href: '/planos', icon: '📚', desc: 'Cursos, livros e consultoria' },
       { label: 'TEAmor', href: '/teamor', icon: '💙', desc: 'Curso para famílias de crianças atípicas' },
-      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada com o Gabriel' },
-    ],
-  },
-  {
-    label: 'Grupos de Detox',
-    key: 'detox',
-    triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/><path d="M12 2a10 10 0 010 20" stroke="currentColor" strokeWidth="1.8" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8"/></svg>,
-    children: [
-      { label: 'Desparasitação Lunar', href: '/desparasitacao', icon: '🌑', desc: 'Protocolo P sincronizado com ciclos da lua' },
+      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada' },
     ],
   },
   {
@@ -55,21 +46,8 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
-  const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
   const supabase = createClient();
-
-  // Cmd+K / Ctrl+K shortcut
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setSearchOpen(true);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -179,17 +157,6 @@ export default function Header() {
               </Link>
             )
           )}
-          <button
-            className="nav-search-btn"
-            onClick={() => { closeMenu(); setSearchOpen(true); }}
-            aria-label="Buscar"
-            title="Buscar (Ctrl+K)"
-          >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 18, height: 18 }}>
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-          </button>
           {user ? (
             <>
               <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={closeMenu}>Minha Área</Link>
@@ -210,7 +177,6 @@ export default function Header() {
           )}
         </nav>
       </div>
-      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

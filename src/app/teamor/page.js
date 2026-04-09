@@ -56,7 +56,7 @@ export default function TEAmorPage() {
             maxWidth: '600px',
             margin: '0 auto 16px',
           }}>
-            Um curso para famílias que não querem ficar paradas esperando — querem agir com direção e com amor.
+            Um curso para famílias que não querem apenas assistir ao tempo passar, mas agir com direção.
           </p>
           <p style={{
             fontSize: '1rem',
@@ -65,7 +65,7 @@ export default function TEAmorPage() {
             maxWidth: '550px',
             margin: '0 auto',
           }}>
-            Se você sente que seu filho precisa de mais do que explicações teóricas e quer entender o que pode estar por trás de tantos sintomas, o TEAmor foi criado pensando em você.
+            Se você sente que seu filho precisa de mais do que explicações teóricas... se você quer entender o que pode estar por trás de tantos sintomas... o TEAmor foi criado para você.
           </p>
         </div>
       </section>
@@ -77,7 +77,7 @@ export default function TEAmorPage() {
             Para quem é o TEAmor?
           </h2>
           <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, textAlign: 'center', marginBottom: '32px', maxWidth: '650px', margin: '0 auto 32px' }}>
-            Voltado para famílias com filhos com TEA e também para famílias que percebem atrasos, dificuldades de linguagem, comportamento, sensorial, intestino inflamado, seletividade, agitação ou outros sinais de desequilíbrio. Você não precisa enfrentar isso sozinho(a).
+            Voltado para famílias com filhos com TEA e também para famílias que percebem atrasos, dificuldades de linguagem, comportamento, sensorial, intestino inflamado, seletividade, agitação ou outros sinais de desequilíbrio.
           </p>
           <div style={{
             display: 'grid',
@@ -128,7 +128,7 @@ export default function TEAmorPage() {
               <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#1a7ab5', marginBottom: '4px' }}>Grupo 1</div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: '700', marginBottom: '12px' }}>Curso em Áudio</h3>
               <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem', marginBottom: '16px' }}>
-                Aulas em formato podcast, organizadas por tópicos no Telegram. Podem ser ouvidas enquanto você realiza outras atividades — aprendizado leve e possível mesmo para quem tem a vida corrida.
+                Aulas em formato podcast, organizadas por tópicos no Telegram. Ouça enquanto faz outras atividades — aprendizado leve e possível mesmo para quem tem vida corrida.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>✓ Aulas em áudio curtas e práticas</span>
@@ -152,7 +152,7 @@ export default function TEAmorPage() {
               <div style={{ fontSize: '1.1rem', fontWeight: '800', color: '#2eaa8a', marginBottom: '4px' }}>Grupo 2</div>
               <h3 style={{ fontSize: '1.3rem', fontWeight: '700', marginBottom: '12px' }}>Acompanhamento</h3>
               <p style={{ color: 'var(--text-muted)', lineHeight: 1.6, fontSize: '0.95rem', marginBottom: '16px' }}>
-                Grupo separado para tirar dúvidas, compartilhar experiências e receber apoio de outras famílias que estão no mesmo caminho.
+                Grupo separado para tirar dúvidas, compartilhar experiências e receber apoio. Você não caminha sozinho(a) — a comunidade está junto.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>✓ Tire dúvidas sobre as aulas</span>
@@ -188,11 +188,11 @@ export default function TEAmorPage() {
             margin: '0 auto',
           }}>
             {[
-              'Famílias cansadas de procurar respostas e que merecem direção',
-              'Famílias com pouco tempo, muitas dúvidas e muito amor',
-              'Famílias simples ou mais estudadas — aqui todo mundo é bem-vindo',
-              'Famílias que precisam de algo profundo, mas possível de aplicar',
-              'Famílias que querem agir, não apenas assistir ao tempo passar',
+              'Famílias cansadas de procurar respostas',
+              'Famílias com pouco tempo e muitas dúvidas',
+              'Famílias simples ou mais estudadas',
+              'Famílias que precisam de algo profundo, mas possível',
+              'Famílias que querem agir, não apenas assistir',
             ].map(item => (
               <div key={item} style={{
                 display: 'flex',
@@ -225,7 +225,7 @@ export default function TEAmorPage() {
             Comece sua jornada com o TEAmor
           </h2>
           <p style={{ color: 'rgba(255,255,255,0.75)', marginBottom: '32px', fontSize: '1.05rem', lineHeight: 1.6 }}>
-            Pagamento mensal, sem peso e sem amarras. Você decide a cada mês se quer continuar — sem se endividar, sem ficar preso. Permaneça porque faz sentido para a sua família, não por obrigação.
+            Pagamento mensal, sem peso e sem amarras. Você decide a cada mês se deseja continuar. Sem se endividar, sem ficar preso.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link href="/produto/curso-teamor-aulas" style={{
@@ -255,7 +255,7 @@ export default function TEAmorPage() {
             </Link>
           </div>
           <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginTop: '16px' }}>
-            Dúvidas? Fale conosco pelo WhatsApp.
+            Dúvidas? Entre em contato pelo WhatsApp.
           </p>
         </div>
       </section>
