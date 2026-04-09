@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: 'Loja Dioxi - Comprar SDC/CDS - Método Corpo Limpo',
-  description: 'Compre SDC (Solução de Dióxido de Cloro), DMSO, kits e acessórios na loja oficial. Produtos de alta qualidade com entrega para todo o Brasil.',
+  description: 'SDC (Solução de Dióxido de Cloro), DMSO, kits e acessórios na loja oficial Dioxi. Produtos de alta qualidade com entrega para todo o Brasil. É barato e acessível.',
 };
 
 export default async function LojaPage() {
@@ -55,7 +55,7 @@ export default async function LojaPage() {
             margin: '0 auto',
             lineHeight: 1.7,
           }}>
-            Produtos de alta qualidade para Terapias Bio-oxidativas.
+            Produtos de alta qualidade para Terapias Bio-oxidativas. Corpo limpo é corpo saudável — e o melhor: é acessível para todo mundo.
             SDC = CDS = Dioxi — é tudo a mesma coisa!
           </p>
         </div>

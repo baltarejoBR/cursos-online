@@ -70,8 +70,7 @@ export default async function UniversidadePage({ searchParams }) {
             margin: '0 auto',
             lineHeight: 1.7,
           }}>
-            Estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro
-            e Terapias Bio-oxidativas. Conhecimento acessível para todos.
+            O primeiro CDS é grátis — e o conhecimento também. Aqui a gente reuniu estudos científicos, protocolos e artigos educativos sobre Dióxido de Cloro e Terapias Bio-oxidativas.
           </p>
         </div>
       </section>
@@ -410,10 +409,10 @@ export default async function UniversidadePage({ searchParams }) {
             }}>
               <div style={{ fontSize: '3rem', marginBottom: '16px' }}>📚</div>
               <h2 style={{ fontSize: '1.5rem', marginBottom: '12px', color: 'var(--text)' }}>
-                Nenhum artigo nesta categoria ainda
+                A gente ainda tá preparando conteúdo aqui
               </h2>
               <p style={{ maxWidth: '500px', margin: '0 auto', lineHeight: 1.7 }}>
-                Estamos preparando conteúdo para esta seção. Volte em breve!
+                Tá vindo coisa boa por aqui. Volta em breve que a gente tá trabalhando nisso!
               </p>
               <Link href="/universidade" className="btn btn-gold" style={{ marginTop: '24px', display: 'inline-block' }}>
                 Ver todos os artigos
@@ -595,19 +594,18 @@ export default async function UniversidadePage({ searchParams }) {
               marginBottom: '12px',
               fontFamily: "'Playfair Display', Georgia, serif",
             }}>
-              Desbloqueie Todo o Conteúdo
+              Libere Todo o Conteúdo
             </h2>
             <p style={{
               color: 'rgba(255,255,255,0.8)',
               lineHeight: 1.7,
               marginBottom: '24px',
             }}>
-              Assine o Método Corpo Limpo e tenha acesso a todos os 26 protocolos,
-              estudos científicos completos e conteúdo exclusivo.
+              A saúde é consequência de um corpo limpo. Assine o Método Corpo Limpo e tenha acesso a todos os 26 protocolos, estudos científicos completos e conteúdo exclusivo.
             </p>
             <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link href="/planos" className="btn-dark-gold" style={{ padding: '14px 32px', fontSize: '1rem' }}>
-                Ver Planos
+                Vamos lá?
               </Link>
               {!user && (
                 <Link href="/login" style={{

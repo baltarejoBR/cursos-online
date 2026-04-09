@@ -42,7 +42,7 @@ function PlanosContent() {
             Cursos, Livros e Serviços
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.75)', maxWidth: '550px', margin: '0 auto' }}>
-            Aprenda sobre Terapias Bio-oxidativas com cursos completos, livros digitais e consultoria personalizada.
+            Eu fiz cada curso com muito carinho, tá super completo. Aqui a gente juntou tudo: cursos, livros e consultoria personalizada sobre Terapias Bio-oxidativas.
           </p>
         </div>
       </section>
@@ -164,7 +164,7 @@ function PlanosContent() {
 
         {filtered.length === 0 && (
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '60px 0' }}>
-            Nenhum produto nesta categoria.
+            Ainda não tem produto nesta categoria. Mas a gente tá sempre adicionando novidades!
           </p>
         )}
       </main>

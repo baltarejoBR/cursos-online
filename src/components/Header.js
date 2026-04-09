@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getImageUrl } from '@/lib/storage';
 import { createClient } from '@/lib/supabase-browser';
+import SearchModal from './SearchModal';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
@@ -16,7 +17,7 @@ const NAV_ITEMS = [
     key: 'sobre',
     triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><path d="M9 3h6v8l3 4H6l3-4V3z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M9 3h6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><path d="M5 21h14" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/><path d="M8 21l1-4h6l1 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
     children: [
-      { label: 'O que é Dioxi?', href: '/o-que-e-cds', icon: '🧪', desc: 'Entenda o que é e como funciona' },
+      { label: 'O que é Dioxi?', href: '/o-que-e-cds', icon: '🧪', desc: 'Entenda o que é e por que é seguro' },
       { label: 'Depoimentos', href: '/depoimentos', icon: '💬', desc: 'Veja o que nossos alunos dizem' },
     ],
   },
@@ -25,10 +26,18 @@ const NAV_ITEMS = [
     key: 'aprender',
     triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>,
     children: [
-      { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'Conteúdo gratuito para iniciantes' },
+      { label: 'Universidade', href: '/universidade', icon: '🎓', desc: 'O primeiro CDS é grátis — o conhecimento também' },
       { label: 'Cursos e Livros', href: '/planos', icon: '📚', desc: 'Cursos, livros e consultoria' },
       { label: 'TEAmor', href: '/teamor', icon: '💙', desc: 'Curso para famílias de crianças atípicas' },
-      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Mentoria personalizada' },
+      { label: 'Consultoria', href: '/produto/mentoria', icon: '👨‍⚕️', desc: 'Conversa direta com o Gabriel' },
+    ],
+  },
+  {
+    label: 'Grupos de Detox',
+    key: 'detox',
+    triggerIcon: <svg viewBox="0 0 24 24" fill="none" style={{ width: 15, height: 15 }}><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.8"/><path d="M12 2a10 10 0 010 20" stroke="currentColor" strokeWidth="1.8" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8"/></svg>,
+    children: [
+      { label: 'Desparasitação Lunar', href: '/desparasitacao', icon: '🌑', desc: 'Protocolo P sincronizado com ciclos da lua' },
     ],
   },
   {
@@ -46,8 +55,21 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
   const supabase = createClient();
+
+  // Cmd+K / Ctrl+K shortcut
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -157,6 +179,17 @@ export default function Header() {
               </Link>
             )
           )}
+          <button
+            className="nav-search-btn"
+            onClick={() => { closeMenu(); setSearchOpen(true); }}
+            aria-label="Buscar"
+            title="Buscar (Ctrl+K)"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 18, height: 18 }}>
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
           {user ? (
             <>
               <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={closeMenu}>Minha Área</Link>
@@ -177,6 +210,7 @@ export default function Header() {
           )}
         </nav>
       </div>
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

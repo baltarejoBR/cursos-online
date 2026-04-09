@@ -4,7 +4,7 @@ import DecorativeElements from '@/components/DecorativeElements';
 
 export const metadata = {
   title: 'O que é Dioxi (CDS/SDC)? - Método Corpo Limpo',
-  description: 'Entenda o que é Dioxi, CDS e SDC (Dióxido de Cloro), como funciona e como pode ajudar na sua saúde. Informações básicas para iniciantes.',
+  description: 'Entenda o que é Dioxi, CDS e SDC (Dióxido de Cloro), como funciona e como pode ajudar na sua saúde. A saúde é consequência de um corpo limpo.',
 };
 
 export default function OQueECDSPage() {
@@ -36,7 +36,7 @@ export default function OQueECDSPage() {
             maxWidth: '700px',
             margin: '0 auto',
           }}>
-            Entenda o básico sobre Dióxido de Cloro e Terapias Bio-oxidativas de forma simples e acessível.
+            A saúde é consequência de um corpo limpo. Entenda aqui o básico sobre o Dióxido de Cloro — sem complicação, do jeito que a gente gosta.
           </p>
         </div>
       </section>
@@ -53,7 +53,7 @@ export default function OQueECDSPage() {
             textAlign: 'center',
           }}>
             <h3 style={{ marginBottom: '28px', color: 'var(--text)', fontSize: '1.3rem' }}>
-              Os 3 nomes para o mesmo produto
+              Três nomes, um só produto
             </h3>
             <div style={{
               display: 'flex',
@@ -75,7 +75,7 @@ export default function OQueECDSPage() {
                   </svg>
                 </div>
                 <div style={{ fontWeight: '800', color: '#2e8b57', fontSize: '1.4rem' }}>Dioxi</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Nosso nome de marca</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>O nome de marca da gente</div>
               </div>
               <div style={{ alignSelf: 'center', color: 'var(--gold)', fontSize: '1.2rem', fontWeight: '300' }}>|</div>
               <div style={{ flex: '1', minWidth: '150px' }}>
@@ -126,7 +126,7 @@ export default function OQueECDSPage() {
               borderTop: '1px solid var(--border-light)',
               paddingTop: '16px',
             }}>
-              Dioxi, CDS e SDC se referem à mesma solução aquosa de Dióxido de Cloro. O nome varia conforme o idioma e a região.
+              Dioxi, CDS e SDC se referem à mesma solução aquosa de Dióxido de Cloro. Muda o nome conforme o idioma e a região, mas o produto é o mesmo.
             </p>
           </div>
         </div>
@@ -161,10 +161,10 @@ export default function OQueECDSPage() {
               O que é o Dióxido de Cloro (CDS)?
             </h2>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              O <strong>CDS</strong> (Chlorine Dioxide Solution) é uma solução aquosa contendo gás dióxido de cloro (ClO2) dissolvido em água pura. É um gás amarelo-esverdeado, altamente solúvel em água, com sabor quase imperceptível e pH neutro.
+              O <strong>CDS</strong> (Chlorine Dioxide Solution) é uma solução aquosa contendo gás dióxido de cloro (ClO2) dissolvido em água pura. É um gás amarelo-esverdeado, altamente solúvel em água, com sabor quase imperceptível e pH neutro. Na prática, parece água — só que trabalha a favor do seu corpo.
             </p>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              O CDS funciona como um <strong>oxidante seletivo</strong> — ele busca e age sobre vírus, bactérias, fungos e metais pesados no corpo, sem agredir as células saudáveis. Depois de agir, se decompõe apenas em cloreto e oxigênio — substâncias que já existem naturalmente no corpo.
+              O CDS age como um <strong>faxineiro do corpo</strong> — um oxidante seletivo que busca e age sobre vírus, bactérias, fungos e metais pesados, sem agredir as células saudáveis. Depois de agir, se decompõe apenas em cloreto e oxigênio — substâncias que já existem naturalmente no organismo. Corpo limpo é corpo saudável.
             </p>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)', fontStyle: 'italic', borderLeft: '3px solid var(--gold)', paddingLeft: '16px' }}>
               "É como ganhar um pulmão extra bebendo água." — Gabriel Baltarejo
@@ -172,10 +172,10 @@ export default function OQueECDSPage() {
 
             {/* Tabela de Oxidação */}
             <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
-              Por que o CDS é seguro?
+              Por que o CDS é seguro? Mais fraco que o ar que a gente respira.
             </h2>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              O potencial de oxidação do CDS (0,95V) é <strong>menor que o do oxigênio que respiramos</strong> (1,23V). Isso significa que ele não destrói indiscriminadamente tecidos saudáveis.
+              O potencial de oxidação do CDS é de 0,95V — <strong>menor que o do oxigênio que a gente respira</strong> (1,23V). Ou seja, é literalmente mais fraco que o ar. Se o CDS tivesse 1% de risco, eu nunca teria entrado nisso. Eu tomo CDS todo dia há mais de 6 anos.
             </p>
             <div style={{ overflowX: 'auto', marginBottom: '24px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
@@ -216,7 +216,7 @@ export default function OQueECDSPage() {
               </table>
             </div>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-              O CDS é o <strong>único oxidante</strong> que não gera radicais livres tóxicos e não gera trihalometanos (substâncias cancerígenas). Possui 5 elétrons livres para doar e permanece até 1 hora no organismo.
+              O CDS é o <strong>único oxidante</strong> que não gera radicais livres tóxicos e não gera trihalometanos (substâncias cancerígenas). Possui 5 elétrons livres para doar e permanece até 1 hora no organismo. Respaldado por 3 ensaios clínicos com 3.000+ pacientes e 4 patentes internacionais de Andreas Kalcker.
             </p>
 
             {/* CDS vs Agua Sanitaria */}
@@ -224,12 +224,12 @@ export default function OQueECDSPage() {
               CDS NÃO é Água Sanitária
             </h2>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              Esta é a confusão mais comum — e ela é <strong>intencional</strong>. CDS e água sanitária são substâncias completamente diferentes:
+              Esta é a confusão mais comum — e ela é <strong>intencional</strong>. Confundir CDS com água sanitária é como confundir O2 com CO. Ambos têm oxigênio na fórmula, mas são substâncias completamente diferentes:
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '24px' }}>
               <div style={{ background: 'rgba(46,139,87,0.08)', borderRadius: '12px', padding: '20px', border: '1px solid rgba(46,139,87,0.2)' }}>
                 <div style={{ fontWeight: '700', color: '#2e8b57', marginBottom: '8px', fontSize: '1.1rem' }}>CDS = Dióxido de Cloro (ClO2)</div>
-                <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Seguro, potencial de oxidação 0,95V. Usado para purificar água potável.</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Seguro, potencial de oxidação 0,95V — menor que o oxigênio. Usado para purificar água potável no mundo inteiro.</div>
               </div>
               <div style={{ background: 'rgba(192,57,43,0.08)', borderRadius: '12px', padding: '20px', border: '1px solid rgba(192,57,43,0.2)' }}>
                 <div style={{ fontWeight: '700', color: '#c0392b', marginBottom: '8px', fontSize: '1.1rem' }}>Água Sanitária = Hipoclorito (NaClO)</div>
@@ -237,7 +237,7 @@ export default function OQueECDSPage() {
               </div>
             </div>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-              É como comparar oxigênio (O2) com monóxido de carbono (CO) — ambos têm oxigênio na fórmula, mas são substâncias completamente distintas.
+              Quem faz essa confusão — de propósito ou por ignorância — está comparando duas coisas que não têm nada a ver uma com a outra. Ponto.
             </p>
 
             {/* MMS vs CDS */}
@@ -245,10 +245,10 @@ export default function OQueECDSPage() {
               MMS vs CDS: A Evolução
             </h2>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              O <strong>MMS</strong> foi a primeira versão, criada por <a href="https://jimhumble.co/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>Jim Humble</a> em 1994 — a mistura direta de clorito de sódio com ácido, que tinha gosto forte e podia causar desconforto.
+              O <strong>MMS</strong> foi a primeira versão, criada por <a href="https://jimhumble.co/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>Jim Humble</a> em 1994 — a mistura direta de clorito de sódio com ácido. Funcionava, mas tinha gosto forte e podia causar desconforto. Era o "protótipo".
             </p>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              O <strong>CDS</strong> é a evolução, desenvolvida pelo biofísico <a href="https://andreaskalcker.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>Andreas Kalcker</a> em 2006: o gás dióxido de cloro é separado e dissolvido em água pura. Resultado: sabor quase imperceptível, pH neutro, sem subprodutos tóxicos e muito mais seguro.
+              O <strong>CDS</strong> é a evolução, desenvolvida pelo biofísico <a href="https://andreaskalcker.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--gold)', textDecoration: 'underline' }}>Andreas Kalcker</a> em 2006: o gás dióxido de cloro é separado e dissolvido em água pura. Resultado: sabor quase imperceptível, pH neutro, sem subprodutos tóxicos e muito mais seguro. É o que a gente usa e recomenda hoje.
             </p>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)', fontStyle: 'italic', borderLeft: '3px solid var(--gold)', paddingLeft: '16px' }}>
               "O MMS é ativado no momento. O CDS já é engarrafado." — Gabriel
@@ -256,10 +256,10 @@ export default function OQueECDSPage() {
 
             {/* Oxidação Seletiva */}
             <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
-              Oxidação Seletiva: Como Age no Corpo
+              O Faxineiro do Corpo: Como o CDS Age
             </h2>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-              O CDS age por <strong>oxidação seletiva</strong> — ele reage com compostos ácidos e cargas elétricas específicas encontradas nas membranas de patógenos. Após oxidar, se decompõe em cloreto (Cl⁻) e oxigênio (O2). É essencialmente um <strong>suplemento de oxigênio</strong>: 1 mg de CDS pode liberar 48 mg de oxigênio, chegando em lugares onde o sangue nem consegue chegar.
+              O CDS age por <strong>oxidação seletiva</strong> — ele reage com compostos ácidos e cargas elétricas específicas encontradas nas membranas de patógenos. Após oxidar, se decompõe em cloreto (Cl⁻) e oxigênio (O2). É como ganhar um pulmão extra bebendo água: 1 mg de CDS pode liberar 48 mg de oxigênio, chegando em lugares onde o sangue nem consegue chegar. As pessoas limpam as casas mas não limpam os corpos — o CDS faz essa faxina interna.
             </p>
 
             {/* Biofilmes */}
@@ -267,7 +267,7 @@ export default function OQueECDSPage() {
               Biofilmes: A Barreira Invisível
             </h2>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)' }}>
-              Biofilmes são camadas protetoras criadas por colônias de bactérias, fungos e parasitas no intestino e mucosas. Funcionam como uma "capa protetora" que impede o sistema imunológico e medicamentos de alcançar os patógenos. O CDS é capaz de <strong>romper biofilmes</strong>, expondo os patógenos para eliminação.
+              Biofilmes são camadas protetoras criadas por colônias de bactérias, fungos e parasitas no intestino e mucosas. Pensa numa crosta que protege os "inquilinos indesejados" do seu corpo — o sistema imunológico e os medicamentos não conseguem passar. O CDS é capaz de <strong>romper biofilmes</strong>, expondo os patógenos para eliminação. É a faxina pesada que o corpo precisa.
             </p>
 
             {/* Herxheimer */}
@@ -275,7 +275,7 @@ export default function OQueECDSPage() {
               Reação de Herxheimer: A Fase de Limpeza
             </h2>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)' }}>
-              Ao começar a tomar CDS, é comum passar por uma fase de <strong>desintoxicação</strong>. Quando patógenos morrem, eles liberam toxinas, causando sintomas temporários como urina mais forte, erupções na pele, cansaço e dor de cabeça. <strong>Não são efeitos colaterais do CDS</strong> — é o corpo se limpando.
+              Ao começar a tomar CDS, é comum passar por uma fase de <strong>desintoxicação</strong>. Quando patógenos morrem, eles liberam toxinas, causando sintomas temporários como urina mais forte, erupções na pele, cansaço e dor de cabeça. <strong>Não são efeitos colaterais do CDS</strong> — é o corpo se limpando. Eu sempre falo: a saúde é consequência de um corpo limpo, e esse processo de limpeza às vezes incomoda antes de melhorar.
             </p>
             <p style={{ marginBottom: '24px', color: 'var(--text-muted)', fontStyle: 'italic', borderLeft: '3px solid var(--gold)', paddingLeft: '16px' }}>
               Regra de ouro: "Piorei: DIMINUI a dose. Estou melhorando: MANTÉM. Não estou melhorando: AUMENTA."
@@ -283,16 +283,16 @@ export default function OQueECDSPage() {
 
             {/* Evidências rápidas */}
             <h2 style={{ marginBottom: '16px', color: 'var(--marble-dark)', fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400, fontSize: '1.6rem', borderBottom: '2px solid var(--gold)', paddingBottom: '8px', display: 'inline-block' }}>
-              Evidências de Segurança
+              Os Números Falam por Si
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '24px' }}>
               {[
-                { num: '0,95V', label: 'Potencial de oxidação (menor que O2)', url: null },
-                { num: '3.000+', label: 'Pacientes em ensaios clínicos', url: 'https://andreaskalcker.com/wp-content/uploads/2021/04/CLO2-Ensayo-Clinico-Dosier.pdf' },
-                { num: '0', label: 'Efeitos adversos graves', url: null },
-                { num: '10.000+', label: 'Médicos na COMUSAV', url: 'https://comusav.com/' },
-                { num: '4', label: 'Patentes internacionais (Kalcker)', url: 'https://patents.google.com/?inventor=Andreas+Kalcker' },
-                { num: '6+', label: 'Anos que Gabriel toma CDS diariamente', url: null },
+                { num: '0,95V', label: 'Potencial de oxidação — mais fraco que o ar', url: null },
+                { num: '3.000+', label: 'Pacientes em 3 ensaios clínicos', url: 'https://andreaskalcker.com/wp-content/uploads/2021/04/CLO2-Ensayo-Clinico-Dosier.pdf' },
+                { num: '0', label: 'Efeitos adversos graves reportados', url: null },
+                { num: '10.000+', label: 'Médicos na COMUSAV no mundo', url: 'https://comusav.com/' },
+                { num: '4', label: 'Patentes internacionais de Kalcker', url: 'https://patents.google.com/?inventor=Andreas+Kalcker' },
+                { num: '6+', label: 'Anos que eu tomo CDS todo dia', url: null },
               ].map((item, i) => {
                 const content = (
                   <>
@@ -318,7 +318,7 @@ export default function OQueECDSPage() {
               Referências Científicas e Fontes
             </h2>
             <p style={{ marginBottom: '16px', color: 'var(--text-muted)', fontSize: '0.95rem' }}>
-              Todas as informações desta página são baseadas em estudos publicados, patentes registradas e dados clínicos documentados. Consulte as fontes originais:
+              A gente não pede pra ninguém acreditar de olho fechado. Todas as informações desta página são baseadas em estudos publicados, patentes registradas e dados clínicos documentados. Confira você mesmo:
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
               {[
@@ -405,9 +405,9 @@ export default function OQueECDSPage() {
               marginTop: '40px',
               borderTop: '3px solid var(--gold)',
             }}>
-              <h3 style={{ marginBottom: '12px', textAlign: 'center' }}>Quer se aprofundar?</h3>
+              <h3 style={{ marginBottom: '12px', textAlign: 'center' }}>Quer ir mais fundo? Vamos lá?</h3>
               <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginBottom: '20px', fontSize: '0.95rem' }}>
-                Explore artigos gratuitos na Universidade Dioxi ou aprenda tudo no curso completo.
+                Explore artigos gratuitos na Universidade Dioxi ou aprenda tudo no curso completo. A gente te guia passo a passo.
               </p>
               <div style={{
                 display: 'grid',
@@ -422,7 +422,7 @@ export default function OQueECDSPage() {
                 </Link>
               </div>
               <p style={{ textAlign: 'center', color: 'var(--text-muted)', marginTop: '16px', fontSize: '0.85rem' }}>
-                Casos complexos? <a href="https://wa.me/75998546139" style={{ color: 'var(--gold)' }}>Consultoria Individual com Gabriel — R$620</a>
+                Tem um caso mais complexo? <a href="https://wa.me/75998546139" style={{ color: 'var(--gold)' }}>Fala comigo — Consultoria Individual R$620</a>
               </p>
             </div>
           </div>

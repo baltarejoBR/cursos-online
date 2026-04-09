@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from 'react';
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { role: 'bot', text: 'Olá! Sou o assistente do Método Corpo Limpo. Tire suas dúvidas sobre CDS, protocolos, dosagens e muito mais!' },
+    { role: 'bot', text: 'E aí! Sou o assistente do Método Corpo Limpo. Pode perguntar o que quiser sobre CDS — estou aqui pra te ajudar. 😊' },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
