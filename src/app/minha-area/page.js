@@ -16,6 +16,23 @@ export default function MinhaAreaPage() {
   const [editingTelegram, setEditingTelegram] = useState(false);
   const [telegramInput, setTelegramInput] = useState('');
   const [savingTelegram, setSavingTelegram] = useState(false);
+  const [readingContent, setReadingContent] = useState(null);
+  const [contentError, setContentError] = useState(null);
+
+  async function openContent(product) {
+    setContentError(null);
+    try {
+      const res = await fetch(`/api/conteudo/${product.contentSlug}`);
+      if (res.ok) {
+        setReadingContent(product);
+      } else {
+        const data = await res.json();
+        setContentError(data.error || 'Erro ao acessar conteúdo.');
+      }
+    } catch {
+      setContentError('Erro de conexão. Tente novamente.');
+    }
+  }
 
   useEffect(() => {
     loadDashboard();
@@ -78,7 +95,24 @@ export default function MinhaAreaPage() {
   return (
     <div className="dashboard">
       <h1>Olá, {profile?.full_name || 'Aluno'}!</h1>
-      <p className="subtitle">Seus produtos e acessos</p>
+      <p className="subtitle">
+        Esta é sua Área de Membros — o lugar onde ficam todos os livros, cursos e serviços que você já adquiriu.
+        Use os botões em cada produto para baixar o PDF ou ler a versão online sempre que quiser.
+      </p>
+
+      {contentError && (
+        <div style={{
+          background: 'rgba(239, 68, 68, 0.1)',
+          border: '1px solid #ef4444',
+          borderRadius: '8px',
+          padding: '12px 16px',
+          marginBottom: '20px',
+          color: '#ef4444',
+          fontSize: '0.9rem',
+        }}>
+          {contentError}
+        </div>
+      )}
 
       {/* Telegram */}
       <div style={{
@@ -196,12 +230,11 @@ export default function MinhaAreaPage() {
               <h2 style={{ marginBottom: '20px' }}>{CATEGORIES[items[0].product.category]?.icon} {label}</h2>
               <div className="courses-grid" style={{ marginBottom: '40px' }}>
                 {items.map(item => (
-                  <Link
-                    key={item.id}
-                    href={`/produto/${item.product.slug}`}
-                    style={{ textDecoration: 'none', color: 'inherit' }}
-                  >
-                    <div className="course-card">
+                  <div key={item.id} className="course-card">
+                    <Link
+                      href={`/produto/${item.product.slug}`}
+                      style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
                       <div className="course-thumb" style={{ background: item.product.gradient, position: 'relative', overflow: 'hidden' }}>
                         {item.product.image ? (
                           <Image
@@ -217,17 +250,48 @@ export default function MinhaAreaPage() {
                           </span>
                         )}
                       </div>
-                      <div className="course-body">
-                        <h3>{item.product.title}</h3>
-                        <p>{item.product.subtitle}</p>
-                        <div className="course-meta">
-                          <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
-                            Acesso Ativo
-                          </span>
-                        </div>
+                    </Link>
+                    <div className="course-body">
+                      <h3>{item.product.title}</h3>
+                      <p>{item.product.subtitle}</p>
+                      <div className="course-meta" style={{ marginBottom: '12px' }}>
+                        <span className="badge badge-free" style={{ background: 'rgba(34, 197, 94, 0.15)', color: 'var(--success)' }}>
+                          Acesso Ativo
+                        </span>
                       </div>
+
+                      {/* Botoes de acao rapida */}
+                      {(item.product.contentSlug || item.product.downloadId) && (
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '10px' }}>
+                          {item.product.contentSlug && (
+                            <button
+                              onClick={() => openContent(item.product)}
+                              className="btn btn-gold"
+                              style={{ fontSize: '0.85rem', padding: '9px 14px', width: '100%' }}
+                            >
+                              📖 Ler Online (HTML)
+                            </button>
+                          )}
+                          {item.product.downloadId && (
+                            <a
+                              href={`/api/download/${item.product.downloadId}`}
+                              className="btn btn-outline"
+                              style={{ fontSize: '0.85rem', padding: '9px 14px', width: '100%', textDecoration: 'none', textAlign: 'center', display: 'block' }}
+                            >
+                              📥 Baixar PDF
+                            </a>
+                          )}
+                        </div>
+                      )}
+
+                      <Link
+                        href={`/produto/${item.product.slug}`}
+                        style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textDecoration: 'none', textAlign: 'center', display: 'block' }}
+                      >
+                        Ver detalhes →
+                      </Link>
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -250,6 +314,50 @@ export default function MinhaAreaPage() {
         </p>
         <Link href="/planos" className="btn btn-gold">Ver Todos os Produtos</Link>
       </div>
+
+      {/* Leitor HTML em tela cheia */}
+      {readingContent && readingContent.contentSlug && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 9999,
+          background: 'white',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <div style={{
+            background: 'linear-gradient(135deg, #c9a84c, #e6c873)',
+            color: '#1a1a1a',
+            padding: '12px 20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexShrink: 0,
+          }}>
+            <button
+              onClick={() => setReadingContent(null)}
+              style={{
+                background: 'rgba(0,0,0,0.15)',
+                border: 'none',
+                color: '#1a1a1a',
+                padding: '8px 20px',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '0.95rem',
+                fontWeight: 600,
+              }}
+            >
+              ← Voltar
+            </button>
+            <span style={{ fontWeight: 600 }}>{readingContent.title}</span>
+          </div>
+          <iframe
+            src={`/api/conteudo/${readingContent.contentSlug}`}
+            style={{ flex: 1, width: '100%', border: 'none' }}
+            title={readingContent.title}
+          />
+        </div>
+      )}
     </div>
   );
 }

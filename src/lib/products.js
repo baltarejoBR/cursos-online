@@ -118,6 +118,7 @@ export const PRODUCTS = [
     priceDisplay: 'R$ 97,00',
     type: 'one_time',
     hotmartUrl: 'https://pay.hotmart.com/N101740813Q?checkoutMode=10',
+    downloadId: 'livro-completo',
     features: [
       'E-book em PDF de alta qualidade',
       'Protocolos Biooxidativos de A a Z',

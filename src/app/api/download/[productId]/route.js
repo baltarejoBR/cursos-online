@@ -12,6 +12,10 @@ const DOWNLOAD_MAP = {
     file: 'livro-cds-animais.pdf',
     name: 'Livro CDS para Animais - Metodo Corpo Limpo.pdf',
   },
+  'livro-completo': {
+    file: 'livro-completo-cds.pdf',
+    name: 'Mude Sua Vida com o CDS - Metodo Corpo Limpo.pdf',
+  },
 };
 
 export async function GET(request, { params }) {

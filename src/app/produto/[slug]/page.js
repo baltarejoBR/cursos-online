@@ -272,6 +272,29 @@ export default function ProductPage() {
                       {contentError}
                     </p>
                   )}
+
+                  {/* Aviso sobre Area de Membros */}
+                  <div style={{
+                    marginTop: '20px',
+                    padding: '16px',
+                    background: 'rgba(201, 168, 76, 0.08)',
+                    border: '1px solid rgba(201, 168, 76, 0.3)',
+                    borderRadius: '12px',
+                  }}>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text)', marginBottom: '10px', fontWeight: 600 }}>
+                      ⭐ Sua Área de Membros
+                    </p>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '12px', lineHeight: 1.5 }}>
+                      Todos os seus livros, cursos e acessos ficam reunidos em um só lugar. Lá você pode baixar o PDF, ler a versão online e acompanhar suas compras a qualquer momento.
+                    </p>
+                    <Link
+                      href="/minha-area"
+                      className="btn btn-outline btn-full"
+                      style={{ fontSize: '0.9rem', padding: '10px 20px', textDecoration: 'none', textAlign: 'center', display: 'block' }}
+                    >
+                      Ir para Minha Área →
+                    </Link>
+                  </div>
                 </>
               ) : (
                 <>
