@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getImageUrl } from '@/lib/storage';
 import { createClient } from '@/lib/supabase-browser';
+import SearchModal from './SearchModal';
 
 const ADMIN_EMAILS = ['baltarejo@gmail.com'];
 
@@ -46,8 +47,20 @@ export default function Header() {
   const [user, setUser] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
   const supabase = createClient();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -92,6 +105,7 @@ export default function Header() {
   };
 
   return (
+    <>
     <header className="header">
       <div className="header-inner">
         <Link href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -157,6 +171,18 @@ export default function Header() {
               </Link>
             )
           )}
+          <button
+            className="nav-search-btn"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Buscar"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: 16, height: 16 }}>
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <span style={{ fontSize: '0.8rem' }}>⌘K</span>
+          </button>
+
           {user ? (
             <>
               <Link href="/minha-area" className={navLinkClass('/minha-area')} onClick={closeMenu}>Minha Área</Link>
@@ -178,5 +204,8 @@ export default function Header() {
         </nav>
       </div>
     </header>
+
+    <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+    </>
   );
 }
