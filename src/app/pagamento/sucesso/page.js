@@ -4,12 +4,21 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Header from '@/components/Header';
+import { trackMetaEvent } from '@/components/MetaPixel';
 
 function SucessoContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const isConsultoria = searchParams.get('calendly') === '1';
   const [countdown, setCountdown] = useState(15);
+
+  useEffect(() => {
+    trackMetaEvent('Purchase', {
+      currency: 'BRL',
+      content_type: isConsultoria ? 'consultoria' : 'product',
+      ...(sessionId ? { eventID: sessionId } : {}),
+    });
+  }, [sessionId, isConsultoria]);
 
   useEffect(() => {
     const timer = setInterval(() => {

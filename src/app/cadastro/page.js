@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import GoogleAuthButton from '@/components/GoogleAuthButton';
+import { trackMetaEvent } from '@/components/MetaPixel';
 
 export default function CadastroPage() {
   const [fullName, setFullName] = useState('');
@@ -73,6 +74,11 @@ export default function CadastroPage() {
         userId: data.user?.id || null,
       }),
     }).catch(() => {});
+
+    trackMetaEvent('Lead', {
+      content_name: 'cadastro-site',
+      content_category: howKnew || 'organico',
+    });
 
     setSuccess(true);
     setLoading(false);
