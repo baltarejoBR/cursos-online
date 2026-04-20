@@ -1,5 +1,8 @@
 import './globals.css';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import ChatBot from '@/components/ChatBot';
+import MetaPixel from '@/components/MetaPixel';
 
 export const metadata = {
   title: 'Método Corpo Limpo',
@@ -29,8 +32,11 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
       </head>
       <body>
+        <MetaPixel />
         {children}
         <ChatBot />
+        <Analytics />
+        <SpeedInsights />
         <script
           dangerouslySetInnerHTML={{
             __html: `
