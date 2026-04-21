@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase-browser';
+import { trackMetaEvent } from '@/components/MetaPixel';
 
 export default function LeadCaptureModal() {
   const [show, setShow] = useState(false);
@@ -45,6 +46,13 @@ export default function LeadCaptureModal() {
       if (data.coupon_code) {
         setCoupon(data.coupon_code);
         localStorage.setItem('dioxi_lead_popup_shown', Date.now().toString());
+        if (!data.already_existed && data.leadId) {
+          trackMetaEvent('Lead', {
+            content_name: 'popup-cupom',
+            content_category: 'lead-magnet',
+            eventID: data.leadId,
+          });
+        }
       } else {
         setError(data.error || 'Erro ao gerar cupom');
       }

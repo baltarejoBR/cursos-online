@@ -19,12 +19,16 @@ export const metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
+  verification: {
+    facebook: 'pblc8ss0szxu9y3v6dyky81b1dnc88',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
       <head>
+        <meta name="facebook-domain-verification" content="pblc8ss0szxu9y3v6dyky81b1dnc88" />
         <link rel="apple-touch-icon" href="/icons/icon-152x152.png" />
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

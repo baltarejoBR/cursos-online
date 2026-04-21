@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { sendWelcomeEmail, createOrUpdateBrevoContact, BREVO_LIST_IDS } from '@/lib/brevo';
 import { createAdminSupabase } from '@/lib/supabase-admin';
+import { sendCapiEvent } from '@/lib/meta-capi';
 
 export async function POST(request) {
   try {
@@ -11,6 +12,30 @@ export async function POST(request) {
     }
 
     await sendWelcomeEmail(email, name);
+
+    // Meta CAPI Lead (event_id = auth.user.id pra dedup com browser trackMetaEvent no cadastro)
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;
+    const userAgent = request.headers.get('user-agent') || null;
+    const sourceUrl = request.headers.get('referer') || null;
+    if (userId) {
+      sendCapiEvent({
+        eventName: 'Lead',
+        eventId: userId,
+        user: {
+          email: email.toLowerCase().trim(),
+          phone: whatsapp || null,
+          firstName: (name || '').split(' ')[0] || null,
+          lastName: (name || '').split(' ').slice(1).join(' ') || null,
+          externalId: userId,
+          clientIp,
+          userAgent,
+        },
+        custom: {
+          contentName: 'cadastro-site',
+        },
+        sourceUrl,
+      }).catch(err => console.error('meta CAPI Lead (cadastro) error:', err.message));
+    }
 
     // Map howKnew to Brevo FONTE
     const fonteMap = {

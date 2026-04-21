@@ -78,6 +78,7 @@ export default function CadastroPage() {
     trackMetaEvent('Lead', {
       content_name: 'cadastro-site',
       content_category: howKnew || 'organico',
+      ...(data.user?.id ? { eventID: data.user.id } : {}),
     });
 
     setSuccess(true);

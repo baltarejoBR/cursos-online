@@ -166,6 +166,7 @@ export async function POST(req) {
       coupon_code: CUPOM_FIXO,
       message: existing ? 'Você já tem um cupom! Use ele na loja.' : 'Cupom gerado com sucesso!',
       already_existed: !!existing,
+      leadId: wlData?.id || null,
     });
   } catch (err) {
     console.error('Leads API error:', err.message);
