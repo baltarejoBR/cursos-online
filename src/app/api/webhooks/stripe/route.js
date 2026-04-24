@@ -3,6 +3,7 @@ import { getStripe } from '@/lib/stripe';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 import { PRODUCTS } from '@/lib/products';
 import { sendPurchaseConfirmationEmail, sendAccessGrantedEmail, createOrUpdateBrevoContact } from '@/lib/brevo';
+import { sendCapiEvent } from '@/lib/meta-capi';
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_GROUP_ID = process.env.TELEGRAM_GROUP_ID;
@@ -120,13 +121,17 @@ export async function POST(request) {
         const productType = session.metadata.product_type;
 
         // Registrar pagamento (vale para todos os modos)
-        await supabaseAdmin.from('payments').insert({
-          user_id: userId,
-          stripe_payment_intent_id: session.payment_intent || `checkout_${session.id}`,
-          amount: session.amount_total,
-          currency: session.currency,
-          status: 'succeeded',
-        });
+        try {
+          await supabaseAdmin.from('payments').upsert({
+            user_id: userId,
+            stripe_payment_intent_id: session.payment_intent || `checkout_${session.id}`,
+            amount: session.amount_total,
+            currency: session.currency,
+            status: 'succeeded',
+          }, { onConflict: 'stripe_payment_intent_id' });
+        } catch (paymentErr) {
+          console.error('Payment record error (continuing):', paymentErr.message);
+        }
 
         if (session.mode === 'subscription') {
           const subscription = await stripe.subscriptions.retrieve(session.subscription);
@@ -196,7 +201,8 @@ export async function POST(request) {
             user_id: userId,
             product_id: productId,
             active: true,
-            purchased_at: new Date().toISOString(),
+            granted_by: 'stripe',
+            granted_at: new Date().toISOString(),
           }, {
             onConflict: 'user_id,product_id',
           });
@@ -252,6 +258,57 @@ export async function POST(request) {
               PLANO: session.mode === 'subscription' ? 'premium' : undefined,
             },
           }).catch(err => console.error('Brevo purchase update error:', err.message));
+
+          // Update CRM contact with purchase data
+          const amountBRL = (session.amount_total || 0) / 100;
+          supabaseAdmin.from('contacts')
+            .select('id, total_spent, total_purchases, products_purchased')
+            .eq('email', buyerEmail.toLowerCase())
+            .single()
+            .then(async ({ data: existing }) => {
+              const updates = {
+                email: buyerEmail.toLowerCase(),
+                stripe_customer_id: session.customer,
+                lifecycle_stage: 'customer',
+                access_level: 'aluno',
+                last_purchase_at: new Date().toISOString(),
+                total_spent: (existing?.total_spent || 0) + amountBRL,
+                total_purchases: (existing?.total_purchases || 0) + 1,
+                products_purchased: [...new Set([...(existing?.products_purchased || []), productId].filter(Boolean))],
+              };
+              if (buyerName) updates.full_name = buyerName;
+              if (session.mode === 'subscription') {
+                updates.plan = 'premium';
+                updates.subscription_status = 'active';
+              }
+              await supabaseAdmin.from('contacts').upsert(updates, { onConflict: 'email' });
+            }).catch(err => console.error('CRM purchase sync error:', err.message));
+
+          // Meta CAPI Purchase (event_id = session.id pra dedup com browser fbq em /pagamento/sucesso).
+          const [firstName, ...lastNameParts] = (buyerName || '').trim().split(/\s+/);
+          const address = session.customer_details?.address || {};
+          sendCapiEvent({
+            eventName: 'Purchase',
+            eventId: session.id,
+            user: {
+              email: buyerEmail,
+              phone: session.customer_details?.phone || undefined,
+              firstName: firstName || undefined,
+              lastName: lastNameParts.length ? lastNameParts.join(' ') : undefined,
+              city: address.city || undefined,
+              state: address.state || undefined,
+              country: address.country || undefined,
+              externalId: userId || undefined,
+            },
+            custom: {
+              value: amountBRL,
+              currency: (session.currency || 'brl').toUpperCase(),
+              contentName: product?.title,
+              contentIds: productId ? [productId] : undefined,
+            },
+            sourceUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://metodocorpolimpo.com.br'}/pagamento/sucesso`,
+            actionSource: 'website',
+          }).catch(err => console.error('[stripe webhook] meta capi Purchase error:', err.message));
         }
 
         break;
@@ -289,13 +346,17 @@ export async function POST(request) {
               .eq('id', profile.id);
 
             // Registrar pagamento
-            await supabaseAdmin.from('payments').insert({
-              user_id: profile.id,
-              stripe_payment_intent_id: invoice.payment_intent,
-              amount: invoice.amount_paid,
-              currency: invoice.currency,
-              status: 'succeeded',
-            });
+            try {
+              await supabaseAdmin.from('payments').upsert({
+                user_id: profile.id,
+                stripe_payment_intent_id: invoice.payment_intent || `invoice_${invoice.id}`,
+                amount: invoice.amount_paid,
+                currency: invoice.currency,
+                status: 'succeeded',
+              }, { onConflict: 'stripe_payment_intent_id' });
+            } catch (paymentErr) {
+              console.error('Invoice payment record error (continuing):', paymentErr.message);
+            }
           }
         }
         break;
@@ -416,6 +477,12 @@ export async function POST(request) {
               email: customer.email,
               attributes: { PLANO: 'free' },
             }).catch(err => console.error('Brevo downgrade error:', err.message));
+
+            // Update CRM contact subscription status
+            supabaseAdmin.from('contacts')
+              .update({ subscription_status: 'canceled', plan: 'free' })
+              .eq('email', customer.email.toLowerCase())
+              .then(({ error }) => { if (error) console.error('CRM sub cancel error:', error.message); });
           }
         }
         break;
