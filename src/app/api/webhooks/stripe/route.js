@@ -4,6 +4,7 @@ import { createAdminSupabase } from '@/lib/supabase-admin';
 import { PRODUCTS } from '@/lib/products';
 import { sendPurchaseConfirmationEmail, sendAccessGrantedEmail, createOrUpdateBrevoContact } from '@/lib/brevo';
 import { sendCapiEvent } from '@/lib/meta-capi';
+import { CONSENT_REVOKED } from '@/lib/consent';
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_GROUP_ID = process.env.TELEGRAM_GROUP_ID;
@@ -285,8 +286,10 @@ export async function POST(request) {
             }).catch(err => console.error('CRM purchase sync error:', err.message));
 
           // Meta CAPI Purchase (event_id = session.id pra dedup com browser fbq em /pagamento/sucesso).
+          // LGPD: checkout propaga user_consent no metadata da Stripe session. Se 'revoked', nao dispara.
           const [firstName, ...lastNameParts] = (buyerName || '').trim().split(/\s+/);
           const address = session.customer_details?.address || {};
+          if (session.metadata?.user_consent !== CONSENT_REVOKED) {
           sendCapiEvent({
             eventName: 'Purchase',
             eventId: session.id,
@@ -309,6 +312,7 @@ export async function POST(request) {
             sourceUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://metodocorpolimpo.com.br'}/pagamento/sucesso`,
             actionSource: 'website',
           }).catch(err => console.error('[stripe webhook] meta capi Purchase error:', err.message));
+          }
         }
 
         break;

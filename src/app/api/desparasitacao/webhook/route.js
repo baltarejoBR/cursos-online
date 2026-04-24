@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import Stripe from 'stripe';
 import { sendCapiEvent } from '@/lib/meta-capi';
+import { CONSENT_REVOKED } from '@/lib/consent';
 
 function getSupabase() {
   return createClient(
@@ -48,8 +49,9 @@ export async function POST(request) {
       }
 
       // Meta CAPI Purchase (event_id = session.id pra dedup com browser fbq em /pagamento/sucesso).
+      // LGPD: se checkout marcou user_consent=revoked no metadata, nao dispara.
       const buyerEmail = session.customer_details?.email || session.customer_email;
-      if (buyerEmail) {
+      if (buyerEmail && session.metadata?.user_consent !== CONSENT_REVOKED) {
         const buyerName = session.customer_details?.name || '';
         const [firstName, ...lastNameParts] = buyerName.trim().split(/\s+/);
         const address = session.customer_details?.address || {};

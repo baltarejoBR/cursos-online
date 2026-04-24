@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import ChatBot from '@/components/ChatBot';
 import MetaPixel from '@/components/MetaPixel';
+import ConsentBanner from '@/components/ConsentBanner';
 
 export const metadata = {
   title: 'Método Corpo Limpo',
@@ -39,6 +40,7 @@ export default function RootLayout({ children }) {
         <MetaPixel />
         {children}
         <ChatBot />
+        <ConsentBanner />
         <Analytics />
         <SpeedInsights />
         <script

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { sendWelcomeEmail, createOrUpdateBrevoContact, BREVO_LIST_IDS } from '@/lib/brevo';
 import { createAdminSupabase } from '@/lib/supabase-admin';
 import { sendCapiEvent } from '@/lib/meta-capi';
+import { canSendMetaEvent, readConsentFromRequest } from '@/lib/consent';
 
 export async function POST(request) {
   try {
@@ -13,11 +14,13 @@ export async function POST(request) {
 
     await sendWelcomeEmail(email, name);
 
-    // Meta CAPI Lead (event_id = auth.user.id pra dedup com browser trackMetaEvent no cadastro)
+    // Meta CAPI Lead (event_id = auth.user.id pra dedup com browser trackMetaEvent no cadastro).
+    // LGPD: so dispara se visitante aceitou no banner (cookie cds_consent=granted).
     const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;
     const userAgent = request.headers.get('user-agent') || null;
     const sourceUrl = request.headers.get('referer') || null;
-    if (userId) {
+    const consent = readConsentFromRequest(request);
+    if (userId && canSendMetaEvent(consent)) {
       sendCapiEvent({
         eventName: 'Lead',
         eventId: userId,

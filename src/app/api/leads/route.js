@@ -3,6 +3,7 @@ import { createAdminSupabase } from '@/lib/supabase-admin';
 import { sendLeadCouponEmail, createOrUpdateBrevoContact, BREVO_LIST_IDS } from '@/lib/brevo';
 import { getMarketingLeadsTable } from '@/lib/marketing-leads';
 import { sendCapiEvent } from '@/lib/meta-capi';
+import { canSendMetaEvent, readConsentFromRequest } from '@/lib/consent';
 
 const CUPOM_FIXO = 'SEGUIDOR';
 const MARKETING_LEADS_TABLE = getMarketingLeadsTable();
@@ -96,10 +97,13 @@ export async function POST(req) {
       .single();
     if (wlError) console.error('workspace_leads sync error:', wlError.message);
 
-    // Meta CAPI Lead event (event_id = workspace_leads.id pra dedup com pixel client-side)
+    // Meta CAPI Lead event (event_id = workspace_leads.id pra dedup com pixel client-side).
+    // LGPD: so dispara se o visitante aceitou no banner de consent (cookie cds_consent=granted).
     const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null;
     const userAgent = req.headers.get('user-agent') || null;
     const lpSourceUrl = req.headers.get('referer') || null;
+    const consent = readConsentFromRequest(req);
+    if (canSendMetaEvent(consent)) {
     sendCapiEvent({
       eventName: 'Lead',
       eventId: wlData?.id || undefined,
@@ -125,6 +129,7 @@ export async function POST(req) {
       },
       sourceUrl: lpSourceUrl,
     }).catch(err => console.error('meta CAPI Lead error:', err.message));
+    }
 
     // Brevo contact (non-blocking)
     sendLeadCouponEmail(emailNormalized, name, CUPOM_FIXO).catch(err =>
