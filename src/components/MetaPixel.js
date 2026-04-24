@@ -92,13 +92,20 @@ export default function MetaPixel() {
 }
 
 // Wrapper client-side que respeita consent antes de disparar fbq('track', ...).
+// eventID dentro de `params` eh extraido e passado no 4o arg (options) — requisito
+// do Meta pra dedup com server-side CAPI. Se for dentro de custom_data, nao casa.
 export function trackMetaEvent(eventName, params) {
   if (typeof window === 'undefined') return;
   if (typeof window.fbq !== 'function') return;
   if (readConsentBrowser() !== CONSENT_GRANTED) return;
-  if (params) {
-    window.fbq('track', eventName, params);
-  } else {
+  if (!params) {
     window.fbq('track', eventName);
+    return;
+  }
+  const { eventID, ...rest } = params;
+  if (eventID) {
+    window.fbq('track', eventName, rest, { eventID });
+  } else {
+    window.fbq('track', eventName, rest);
   }
 }
