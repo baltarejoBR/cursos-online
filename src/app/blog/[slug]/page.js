@@ -5,7 +5,7 @@ import MuxVideoPlayer from '@/components/MuxVideoPlayer';
 import { getPostForUser, getRelatedPosts } from '@/lib/blog';
 import { createServerSupabase } from '@/lib/supabase-server';
 import { CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_COLORS_HERO } from '@/lib/blog-constants';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -36,6 +36,10 @@ export default async function BlogPostPage({ params }) {
 
   if (!post) {
     notFound();
+  }
+
+  if (post.requires_auth && !user) {
+    redirect('/cadastro');
   }
 
   const related = await getRelatedPosts(params.slug, post.category, 3);
