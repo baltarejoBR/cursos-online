@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import GoogleAuthButton from '@/components/GoogleAuthButton';
 import { trackMetaEvent } from '@/components/MetaPixel';
 
 export default function CadastroPage() {
+  const searchParams = useSearchParams();
+  const reason = searchParams.get('reason');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -110,6 +113,29 @@ export default function CadastroPage() {
     <Header />
     <div className="form-page">
       <div className="form-card">
+        {reason === 'auth_required' && (
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05))',
+            border: '1px solid rgba(201,168,76,0.4)',
+            borderLeft: '4px solid var(--gold)',
+            borderRadius: '12px',
+            padding: '16px 20px',
+            marginBottom: '24px',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '12px',
+          }}>
+            <span style={{ fontSize: '1.4rem', lineHeight: 1 }}>🔒</span>
+            <div>
+              <div style={{ fontWeight: 700, color: 'var(--text)', marginBottom: '4px' }}>
+                Conteúdo exclusivo para usuários cadastrados
+              </div>
+              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                Crie sua conta grátis para desbloquear o vídeo. Já tem conta? <Link href="/login?reason=auth_required" style={{ color: 'var(--gold-dark)', fontWeight: 600 }}>Fazer login</Link>.
+              </div>
+            </div>
+          </div>
+        )}
         <h1 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontWeight: 400 }}>Criar Conta</h1>
         <p className="subtitle">Cadastre-se grátis e comece a aprender agora.</p>
 

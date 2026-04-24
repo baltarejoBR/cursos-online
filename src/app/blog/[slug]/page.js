@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }) {
   }
 
   if (post.requires_auth && !user) {
-    redirect('/cadastro');
+    redirect('/cadastro?reason=auth_required');
   }
 
   const related = await getRelatedPosts(params.slug, post.category, 3);
