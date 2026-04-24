@@ -1,13 +1,16 @@
 import { createAdminSupabase } from './supabase-admin';
 
-export async function getPublishedPosts({ limit = 50, category = null, subcategory = null, sortBy = 'date' } = {}) {
+export async function getPublishedPosts({ limit = 50, category = null, subcategory = null, sortBy = 'date', postType = null } = {}) {
   const supabase = createAdminSupabase();
   let query = supabase
     .from('blog_posts')
-    .select('id, slug, title, excerpt, category, subcategory, is_premium, cover_image, published_at, reading_time_minutes');
+    .select('id, slug, title, excerpt, category, subcategory, is_premium, cover_image, published_at, reading_time_minutes, post_type');
 
   query = query.eq('published', true);
 
+  if (postType) {
+    query = query.eq('post_type', postType);
+  }
   if (category) {
     query = query.eq('category', category);
   }

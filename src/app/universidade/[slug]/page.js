@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import Header from '@/components/Header';
 import CommentSection from '@/components/CommentSection';
+import MuxVideoPlayer from '@/components/MuxVideoPlayer';
 import { getPostForUser, getRelatedPosts } from '@/lib/blog';
 import { createServerSupabase } from '@/lib/supabase-server';
 import { CATEGORY_LABELS, CATEGORY_COLORS, CATEGORY_COLORS_HERO } from '@/lib/blog-constants';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }) {
 
 export default async function ArtigoPage({ params }) {
   // Optional auth
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data: { user } } = await supabase.auth.getUser();
   let userPlan = 'free';
   if (user) {
@@ -36,6 +37,10 @@ export default async function ArtigoPage({ params }) {
 
   if (!post) {
     notFound();
+  }
+
+  if (post.post_type === 'blog') {
+    redirect(`/blog/${params.slug}`);
   }
 
   const related = await getRelatedPosts(params.slug, post.category, 3);
@@ -229,6 +234,23 @@ export default async function ArtigoPage({ params }) {
             </>
           ) : (
             <>
+              {/* Video do artigo */}
+              {post.video_url && (
+                <div style={{
+                  marginBottom: '32px',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid var(--border-light)',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                }}>
+                  <MuxVideoPlayer
+                    playbackId={post.video_url}
+                    blogPostId={post.id}
+                    title={post.title}
+                  />
+                </div>
+              )}
+
               {/* Artigo completo */}
               <article
                 className="article-content"

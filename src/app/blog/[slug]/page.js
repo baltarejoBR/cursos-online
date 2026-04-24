@@ -38,6 +38,10 @@ export default async function BlogPostPage({ params }) {
     notFound();
   }
 
+  if (post.post_type === 'universidade') {
+    redirect(`/universidade/${params.slug}`);
+  }
+
   if (post.requires_auth && !user) {
     redirect('/cadastro');
   }

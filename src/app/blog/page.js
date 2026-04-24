@@ -32,6 +32,7 @@ export default async function BlogPage({ searchParams }) {
     category: cat,
     subcategory: sub,
     sortBy: 'date',
+    postType: 'blog',
   });
 
   return (

@@ -40,11 +40,13 @@ export async function POST(req) {
     }
 
     const body = await req.json();
-    const { title, content, excerpt, category, tags, cover_image, study_references, published } = body;
+    const { title, content, excerpt, category, tags, cover_image, study_references, published, post_type } = body;
 
     if (!title || !content || !category) {
       return NextResponse.json({ error: 'Titulo, conteudo e categoria sao obrigatorios' }, { status: 400 });
     }
+
+    const resolvedPostType = post_type === 'blog' ? 'blog' : 'universidade';
 
     const slug = title
       .toLowerCase()
@@ -69,6 +71,7 @@ export async function POST(req) {
       reading_time_minutes,
       published: published || false,
       published_at: published ? new Date().toISOString() : null,
+      post_type: resolvedPostType,
     }).select().single();
 
     if (error) {

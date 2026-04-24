@@ -23,7 +23,7 @@ export default async function UniversidadePage({ searchParams }) {
   const sub = searchParams?.sub || null;
 
   // Optional auth - no redirect
-  const supabase = createServerSupabase();
+  const supabase = await createServerSupabase();
   const { data: { user } } = await supabase.auth.getUser();
   let userPlan = 'free';
   if (user) {
@@ -40,6 +40,7 @@ export default async function UniversidadePage({ searchParams }) {
     category: cat,
     subcategory: sub,
     sortBy: cat === 'protocolos' ? 'alpha' : 'date',
+    postType: 'universidade',
   });
 
   return (
