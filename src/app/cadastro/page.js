@@ -1,16 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import GoogleAuthButton from '@/components/GoogleAuthButton';
 import { trackMetaEvent } from '@/components/MetaPixel';
 
 export default function CadastroPage() {
-  const searchParams = useSearchParams();
-  const reason = searchParams.get('reason');
+  const [reason, setReason] = useState(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setReason(new URLSearchParams(window.location.search).get('reason'));
+    }
+  }, []);
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

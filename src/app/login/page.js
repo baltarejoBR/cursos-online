@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import { createClient } from '@/lib/supabase-browser';
 import GoogleAuthButton from '@/components/GoogleAuthButton';
@@ -12,9 +12,13 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [reason, setReason] = useState(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setReason(new URLSearchParams(window.location.search).get('reason'));
+    }
+  }, []);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const reason = searchParams.get('reason');
   const supabase = createClient();
 
   const handleLogin = async (e) => {
