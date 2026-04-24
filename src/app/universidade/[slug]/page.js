@@ -43,6 +43,10 @@ export default async function ArtigoPage({ params }) {
     redirect(`/blog/${params.slug}`);
   }
 
+  if (post.requires_auth && !user) {
+    redirect('/cadastro');
+  }
+
   const related = await getRelatedPosts(params.slug, post.category, 3);
   const rawRefs = post.study_references || [];
   const references = typeof rawRefs === 'string' ? JSON.parse(rawRefs) : (Array.isArray(rawRefs) ? rawRefs : []);
