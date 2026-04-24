@@ -226,19 +226,91 @@ export default async function BlogPostPage({ params }) {
           ) : (
             <>
               {post.video_url && (
-                <div style={{
-                  marginBottom: '32px',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  border: '1px solid var(--border-light)',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-                }}>
-                  <MuxVideoPlayer
-                    playbackId={post.video_url}
-                    blogPostId={post.id}
-                    title={post.title}
-                  />
-                </div>
+                post.requires_auth && !user ? (
+                  <div style={{
+                    marginBottom: '32px',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    border: '2px solid rgba(201,168,76,0.3)',
+                    background: 'linear-gradient(135deg, #0d3b66 0%, #1a4a7a 50%, #0d3b66 100%)',
+                    color: 'white',
+                    aspectRatio: '16/9',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '32px 24px',
+                    textAlign: 'center',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.2)',
+                  }}>
+                    <div style={{
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, var(--gold), var(--gold-dark))',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '1.8rem',
+                      marginBottom: '20px',
+                      boxShadow: '0 4px 20px rgba(201,168,76,0.4)',
+                    }}>
+                      ▶
+                    </div>
+                    <h3 style={{
+                      fontSize: '1.4rem',
+                      marginBottom: '10px',
+                      fontFamily: "'Playfair Display', Georgia, serif",
+                    }}>
+                      Cadastre-se grátis para assistir
+                    </h3>
+                    <p style={{
+                      color: 'rgba(255,255,255,0.75)',
+                      lineHeight: 1.6,
+                      maxWidth: '480px',
+                      marginBottom: '24px',
+                      fontSize: '0.95rem',
+                    }}>
+                      Este vídeo é liberado para quem tem uma conta no Método Corpo Limpo. O cadastro leva menos de 1 minuto e é gratuito.
+                    </p>
+                    <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                      <Link
+                        href="/cadastro"
+                        className="btn-dark-gold"
+                        style={{ padding: '12px 28px', fontSize: '1rem' }}
+                      >
+                        Criar conta grátis
+                      </Link>
+                      <Link
+                        href="/login"
+                        style={{
+                          padding: '12px 28px',
+                          color: 'white',
+                          textDecoration: 'none',
+                          border: '1px solid rgba(255,255,255,0.3)',
+                          borderRadius: '50px',
+                          fontSize: '0.95rem',
+                        }}
+                      >
+                        Já tenho conta
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{
+                    marginBottom: '32px',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
+                    border: '1px solid var(--border-light)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                  }}>
+                    <MuxVideoPlayer
+                      playbackId={post.video_url}
+                      blogPostId={post.id}
+                      title={post.title}
+                    />
+                  </div>
+                )
               )}
 
               <article
